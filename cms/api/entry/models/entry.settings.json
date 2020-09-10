@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "entries",
+  "info": {
+    "name": "entry"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "richtext"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "category": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "in_reply_to": {
+      "type": "string"
+    },
+    "repost_of": {
+      "type": "string"
+    },
+    "syndication": {
+      "type": "string"
+    },
+    "mp_syndicate_to": {
+      "type": "string"
+    },
+    "categories": {
+      "via": "entries",
+      "collection": "category"
+    }
+  }
+}
