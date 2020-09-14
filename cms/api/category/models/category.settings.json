@@ -11,11 +11,6 @@
   "attributes": {
     "tag": {
       "type": "string"
-    },
-    "entries": {
-      "collection": "entry",
-      "via": "categories",
-      "dominant": true
     }
   }
 }
