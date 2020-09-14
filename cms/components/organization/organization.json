@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_organization_organizations",
+  "info": {
+    "name": "organization",
+    "icon": "layer-group"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}
