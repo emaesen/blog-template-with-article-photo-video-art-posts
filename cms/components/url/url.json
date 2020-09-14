@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_url_external_urls",
+  "collectionName": "components_url_urls",
   "info": {
     "name": "url",
     "icon": "link"
@@ -11,6 +11,10 @@
     },
     "link_text": {
       "type": "string"
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
