@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_address_addresses",
+  "info": {
+    "name": "address",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "street_address": {
+      "type": "string"
+    },
+    "extended_address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state_province": {
+      "type": "string"
+    },
+    "postal_code": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  }
+}
