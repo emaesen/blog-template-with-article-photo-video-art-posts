@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_url_urls",
+  "collectionName": "components_elements_links",
   "info": {
-    "name": "url",
+    "name": "link",
     "icon": "link"
   },
   "options": {},

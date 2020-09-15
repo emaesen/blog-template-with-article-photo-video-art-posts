@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_organization_organizations",
+  "collectionName": "components_elements_organizations",
   "info": {
     "name": "organization",
     "icon": "layer-group"
@@ -12,7 +12,7 @@
     "address": {
       "type": "component",
       "repeatable": false,
-      "component": "address.address"
+      "component": "elements.address"
     }
   }
 }
