@@ -9,10 +9,13 @@
     "timestamps": true
   },
   "attributes": {
-    "tag": {
+    "title": {
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
