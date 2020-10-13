@@ -1,7 +1,6 @@
 # A Gridsome Vue.js project
 
-
-
+This is a starter project for a Strapi-cms powered Vue.js website.
 
 ## Initial project setup
 
