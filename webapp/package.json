@@ -2,6 +2,9 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Edward Maesen"
+  },
   "scripts": {
     "build": "gridsome build",
     "dev": "gridsome develop -p 9011",
