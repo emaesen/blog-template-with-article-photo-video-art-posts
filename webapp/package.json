@@ -1,0 +1,14 @@
+{
+  "name": "webapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "dev": "gridsome develop -p 9011",
+    "explore": "gridsome explore",
+    "prod": "gridsome build && serve -s dist -p 9012"
+  },
+  "dependencies": {
+    "gridsome": "^0.7.0"
+  }
+}
