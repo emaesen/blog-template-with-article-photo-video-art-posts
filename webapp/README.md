@@ -37,3 +37,10 @@ npm install --global @gridsome/cli
 
 The production-ready site is deployed to the `dist` folder,
 the contents of which can be copied to your webhost as a static-served website.
+
+## Static versus managed assets
+
+Static assets like the favicon icons are stored in the `static\assets` folder.
+
+Managed assests like images that are referenced in the code through the `<g-image>` tag are stored in the `src\assets` folder.
+
