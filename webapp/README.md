@@ -40,7 +40,9 @@ the contents of which can be copied to your webhost as a static-served website.
 
 ## Static versus managed assets
 
-Static assets like the favicon icons are stored in the `static\assets` folder.
+Static assets like the favicon icons are stored in the `static` folder.
 
-Managed assests like images that are referenced in the code through the `<g-image>` tag are stored in the `src\assets` folder.
+Managed assests like images that are referenced in the code through the `<g-image>` tag should be stored in the `src\assets` folder.
+
+Note: confusingly, Gridsome will copy everything (including subfolder structures) inside the `static` folder directly to the `dist` distribution folder, while everything in `src\assets` is transformed and copied (excluding subfolder structures) into an `assets\static` subfolder of `dist`. Thus the folder named `static` in the distribution folder does not relate to the folder named `static` in the sources folder.
 
