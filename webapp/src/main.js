@@ -15,7 +15,7 @@ export default function (Vue, { router, head, isClient }) {
    * meta icon settings
    ***********************************/
 
-  const ICON_PATH = '/assets/images/icons/';
+  const ICON_PATH = '/images/icons/';
 
   head.link.push({
     key: 'apple-touch-icon',
