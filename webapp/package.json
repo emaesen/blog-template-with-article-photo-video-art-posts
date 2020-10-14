@@ -12,6 +12,7 @@
     "prod": "gridsome build && serve -s dist -p 9012"
   },
   "dependencies": {
+    "fontsource-questrial": "^3.0.10",
     "gridsome": "^0.7.0"
   }
 }
