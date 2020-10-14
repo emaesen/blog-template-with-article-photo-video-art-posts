@@ -22,8 +22,11 @@ query {
 </static-query>
 
 <style>
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Quando",serif;
+}
 body {
-  font-family: "Questrial","Helvetica Neue",Arial,sans-serif;
+  font-family: "Heebo","Helvetica Neue",Arial,sans-serif;
   margin:0;
   padding:0;
   line-height: 1.5;
