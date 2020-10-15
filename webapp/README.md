@@ -46,3 +46,10 @@ Managed assests like images that are referenced in the code through the `<g-imag
 
 Note: confusingly, Gridsome will copy everything (including subfolder structures) inside the `static` folder directly to the `dist` distribution folder, while everything in `src\assets` is transformed and copied (excluding subfolder structures) into an `assets\static` subfolder of `dist`. Thus the folder named `static` in the distribution folder does not relate to the folder named `static` in the sources folder.
 
+## Environment variables
+
+In the project's root folder (`webapp`), create files `.env.development.`and `.env.production` to store environment variables. 
+E.g. for the Strapi CMS URL in development add the line:
+`GRIDSOME_CMS_URL=http://localhost:1337`
+which is accessed in `gridsome.config.js` as `process.env.GRIDSOME_CMS_URL`
+(Variables that should be available in the browser must be prefixed with `GRIDSOME_`. Variables without that prefix are available to the Gridsome server only; for security reasons.)

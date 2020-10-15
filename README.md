@@ -2,6 +2,8 @@
 
 This is a starter project for a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
 
+This project is based upon [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio).
+
 ## Tools used
 
 (This is not an endorsement for the resources listed below. It's simply the set of tools that I happened to use for this project)
