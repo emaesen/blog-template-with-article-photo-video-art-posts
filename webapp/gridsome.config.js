@@ -6,6 +6,7 @@
 
 module.exports = {
   siteName: 'Vue-Gridsome-Strapi-concept',
+  siteDescription: 'A starter webapp using Vue.js, Gridsome and Strapi',
   siteUrl: '',
   titleTemplate: '%s',
   metadata: {
@@ -15,5 +16,14 @@ module.exports = {
     favicon: './src/assets/images/icons/favicon.png',
     touchicon: './src/assets/images/icons/touch-icon.png'
   },
-  plugins: []
+  plugins: [
+    {
+      use: '@gridsome/source-graphql',
+      options: {
+        url: (process.env.GRIDSOME_CMS_URL) + "/graphql",
+        fieldName: 'cms',
+        typeName: 'cmsTypes'
+      }
+    }
+  ]
 }
