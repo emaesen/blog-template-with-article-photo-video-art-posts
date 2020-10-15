@@ -48,8 +48,10 @@ Note: confusingly, Gridsome will copy everything (including subfolder structures
 
 ## Environment variables
 
-In the project's root folder (`webapp`), create files `.env.development.`and `.env.production` to store environment variables. 
-E.g. for the Strapi CMS URL in development add the line:
-`GRIDSOME_CMS_URL=http://localhost:1337`
-which is accessed in `gridsome.config.js` as `process.env.GRIDSOME_CMS_URL`
+In the project's root folder (`webapp`), create files `.env.development.`and `.env.production` to store environment variables.
+
+  E.g. for the Strapi CMS URL in development add the line:
+  `GRIDSOME_CMS_URL=http://localhost:1337`
+  which is accessed in `gridsome.config.js` as `process.env.GRIDSOME_CMS_URL`.
+
 (Variables that should be available in the browser must be prefixed with `GRIDSOME_`. Variables without that prefix are available to the Gridsome server only; for security reasons.)
