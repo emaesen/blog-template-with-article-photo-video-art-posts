@@ -1,33 +1,85 @@
 <template>
   <Layout>
-
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Logo" src="~/assets/images/logo.png" width="135" />
-
-    <h1>Hello, world!</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs/" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <div class="">
+      <h1 class="">{{ $page.cms.home.title }}</h1>
+      <div class="">
+        <RichText :data="{ content: $page.cms.home.bio }" />
+      </div>
+      <h2
+        class=""
+      >
+        My latest articles
+      </h2>
+    </div>
+    <!-- List of article preview cards -->
+    <div class="">
+      <ArticleCard
+        v-for="article in $page.cms.articles"
+        :key="article.id"
+        :article="article"
+      />
+    </div>
   </Layout>
 </template>
 
-<script>
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
+<page-query>
+query {
+  cms {
+    # Get homepage data
+    home {
+      title
+      # Metadata for SEO
+      seo {
+        title
+        description
+        shareImage {
+          id
+          url
+        }
+      }
+    }
+    # List articles
+    articles(sort: "date:desc") {
+      title
+      slug
+      description
+      categories {
+        id
+        title
+      }
+      coverImage {
+        id
+        url
+      }
+    }
   }
+}
+</page-query>
+
+<script>
+import ArticleCard from '~/components/ArticleCard'
+import RichText from '~/components/RichText'
+import { getCmsMedia } from '~/utils/medias'
+import { getSeoMetaTags } from '~/utils/seo'
+
+export default {
+  methods: {
+    getCmsMedia,
+  },
+  components: {
+    ArticleCard,
+    RichText,
+  },
+  metaInfo() {
+    const { title, description, shareImage } = this.$page.cms.home.seo
+    const image = getCmsMedia(shareImage.url)
+    return {
+      title,
+      meta: getSeoMetaTags(title, description, image),
+    }
+  },
 }
 </script>
 
 <style>
-.home-links a {
-  margin-right: 1rem;
-}
 </style>
