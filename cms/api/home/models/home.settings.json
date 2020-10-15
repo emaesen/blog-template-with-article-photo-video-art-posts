@@ -13,12 +13,14 @@
       "type": "string"
     },
     "intro": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "meta.seo"
+      "component": "meta.seo",
+      "required": true
     }
   }
 }

@@ -15,12 +15,14 @@
         "sections.images-slider",
         "sections.large-media",
         "sections.rich-text"
-      ]
+      ],
+      "required": true
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "meta.seo"
+      "component": "meta.seo",
+      "required": true
     },
     "mainTitle": {
       "type": "string"
