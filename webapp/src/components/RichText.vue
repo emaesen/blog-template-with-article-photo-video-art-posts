@@ -1,17 +1,24 @@
 <template>
   <div class="">
     <h2>{{data.sectionTitle}}</h2>
-    <!--Markdown :source="data.content" class="" /--> {{ data.content }}
+    <div v-html="contentAsHtml"/>
   </div>
 </template>
 
 <script>
-//import Markdown from 'vue-markdown'
+import { parseAsHtml } from '~/utils/parser'
+
 
 export default {
   props: ["data"],
   components: {
-    //Markdown,
+  },
+  computed: {
+    contentAsHtml() {
+      console.log({data:this.data})
+      return this.data && this.data.content ? 
+        parseAsHtml(this.data.content) : "";
+    }
   }
 }
 </script>
