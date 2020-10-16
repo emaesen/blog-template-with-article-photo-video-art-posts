@@ -3,7 +3,9 @@ export function parseAsHtml(txt) {
   // external links can be marked as [text](//foo.com/)
   // internal links should be marked as [text](~/foo-page)
   // only html allowed is <u>...</u> and <br>
-  return (txt && txt
+  const paraClassName = "para"
+  return (txt && (txt
+    .trim() + "\n\n")
     /* remove carriage returns (but leave linefeeds) */
     .replace(/\r/, "")
     /* temporarily replace underlined formatting */
@@ -16,10 +18,25 @@ export function parseAsHtml(txt) {
     .replace(/⇿(.*)⇿/g, "<u>$1</u>")
     /* restore br */
     .replace(/↩/g, "<br>")
+    /* group related content in "paragraph" divs. 
+     * has support for custom class attribute:
+     * add a separate first line:
+     * ~~my-special-class-name
+     */
+    .replace(/(?<=\n)\n(?:~~(.+)\n)?([^]+?)\n(?=\n)/gim, function(full,specialClass,para){
+      var classAttr = paraClassName
+      if (para[0] === "#") {
+        return full;
+      }
+      if (specialClass) {
+        classAttr += " " + specialClass
+      }
+			return '\n<div class="' + classAttr + '">\n'+para+'\n</div>\n';
+    })
     /* horizontal rule */
     .replace(/----+\n/g, "<hr>")
     /* code block */
-    .replace(/```\n([^`]+)\n```\n/g, "<pre>$1</pre>")
+    .replace(/```\n([^`]+)\n```\n/g, "<pre>$1</pre>\n")
     /* inline code fragment */
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     /* headers h1 to h6 */
@@ -44,9 +61,9 @@ export function parseAsHtml(txt) {
     .replace(/<\/ul><ul>/g,"")
     /* unordered list */
     .replace(/\n- (.*)/g, function(_full, item){
-      return '<ul><li>'+item.trim()+'</li></ul>'
+      return '\n<ul><li>'+item.trim()+'</li></ul>'
     })
-    .replace(/<\/ul><ul>/g,"")
+    .replace(/<\/ul>\n<ul>/g,"")
     /* nested ordered list (indented with 4 spaces) */
     .replace(/\n    [0-9]+\. (.*)/g, function(_full, item){
       return '<ol><li>'+item.trim()+'</li></ol>'
@@ -54,16 +71,17 @@ export function parseAsHtml(txt) {
     .replace(/<\/ol><ol>/g,"")
     /* ordered list */
     .replace(/\n[0-9]+\. (.*)/g, function(_full, item){
-      return '<ol><li>'+item.trim()+'</li></ol>'
+      return '\n<ol><li>'+item.trim()+'</li></ol>'
     })
-    .replace(/<\/ol><ol>/g,"")
+    .replace(/<\/ol>\n<ol>/g,"")
     /* image */
     .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, '<img src="/img/event/$2" alt="$1" style="max-width:100%;"/>' )
     /* internal link */
     .replace(/\[([^\]]+)\]\(~([^)]+)\)/g, '<a href="$2">$1</a>' )
     /* external link */
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a><i class="icon-Outbound deemph"></i>' ))
-    .replace(/\n\n/g, "<br>")
+    /* add line breaks */
+    //.replace(/\n\n/g, "<br>")
     .trim() || "";
 }
 
