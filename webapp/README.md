@@ -38,6 +38,13 @@ npm install --global @gridsome/cli
 The production-ready site is deployed to the `dist` folder,
 the contents of which can be copied to your webhost as a static-served website.
 
+## Features
+
+- Custom lightweight bare-bones markdown parser which allows for project-specific extensions.
+- Favicon definitions.
+
+Changes in the code, during development, cause an automatic (hot) reload of the webapp. Changes made in content in the Strapi CMS require a manual reload of the corresponding webpage (but a server restart is not required).
+
 ## Static versus managed assets
 
 Static assets like the favicon icons are stored in the `static` folder.
