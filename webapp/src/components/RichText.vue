@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { getCmsMedia } from '~/utils/medias'
 import { parseAsHtml } from '~/utils/parser'
 
 
@@ -16,7 +17,12 @@ export default {
   computed: {
     contentAsHtml() {
       return this.data && this.data.content ? 
-        parseAsHtml(this.data.content) : "";
+        parseAsHtml(this.data.content, {
+          paraClassName: "rtpara", 
+          imgClassName:"rtimg", 
+          extLinkClassName:"ext",
+          extLinkIconClassName:"icon-Outbound deemph"
+        }, getCmsMedia) : "";
     }
   }
 }
