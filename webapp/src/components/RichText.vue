@@ -15,7 +15,6 @@ export default {
   },
   computed: {
     contentAsHtml() {
-      console.log({data:this.data})
       return this.data && this.data.content ? 
         parseAsHtml(this.data.content) : "";
     }
