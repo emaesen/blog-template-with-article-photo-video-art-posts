@@ -1,9 +1,23 @@
-export function parseAsHtml(txt) {
+export function parseAsHtml(txt, classNames, getMediaUrl) {
   // simplified markdown parser
-  // external links can be marked as [text](//foo.com/)
-  // internal links should be marked as [text](~/foo-page)
+  //
+  // external links can be marked as 
+  //   [text](//foo.com/) or [text](https://foo.com)
+  // internal links should be marked as 
+  //   [text](/foo-page/)
   // only html allowed is <u>...</u> and <br>
-  const paraClassName = "para"
+  // 
+  // txt: string to be parsed
+  // classNames: object with properties
+  //    paraClassName
+  //    imgClassName
+  //    extLinkClassName
+  //    extLinkIconClassName
+  // getMediaUrl: function that returns a media url
+  const paraClassName = classNames && classNames.paraClassName ? classNames.paraClassName : ""
+  const imgClassName = classNames && classNames.imgClassName ? classNames.imgClassName : ""
+  const extLinkClassName = classNames && classNames.extLinkClassName ? classNames.extLinkClassName : ""
+  const extLinkIconClassName = classNames && classNames.extLinkIconClassName ? classNames.extLinkIconClassName : ""
   return (txt && (txt
     .trim() + "\n\n")
     /* remove carriage returns (but leave linefeeds) */
@@ -75,11 +89,16 @@ export function parseAsHtml(txt) {
     })
     .replace(/<\/ol>\n<ol>/g,"")
     /* image */
-    .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;"/>' )
+    .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, function(_full, alt, src){
+      if (typeof getMediaUrl === "function") {
+        src = getMediaUrl(src)
+      }
+      return '<img src="'+src+'" alt="'+alt+'" class="'+imgClassName+'"/>'
+    })
     /* internal link */
-    .replace(/\[([^\]]+)\]\(~([^)]+)\)/g, '<a href="$2">$1</a>' )
+    .replace(/\[([^\]]+)\]\((\/[^\/].+\/)\)/g, '<a href="$2">$1</a>' )
     /* external link */
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a><i class="icon-Outbound deemph"></i>' ))
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="' + extLinkClassName + '">$1</a>' + (extLinkIconClassName?'<i class="' + extLinkIconClassName + '"></i>':'') ))
     /* add line breaks */
     //.replace(/\n\n/g, "<br>")
     .trim() || "";
