@@ -75,7 +75,7 @@ export function parseAsHtml(txt) {
     })
     .replace(/<\/ol>\n<ol>/g,"")
     /* image */
-    .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, '<img src="/img/event/$2" alt="$1" style="max-width:100%;"/>' )
+    .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;"/>' )
     /* internal link */
     .replace(/\[([^\]]+)\]\(~([^)]+)\)/g, '<a href="$2">$1</a>' )
     /* external link */
