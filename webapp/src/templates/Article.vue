@@ -8,7 +8,7 @@
         <p class="">{{ $page.cms.articles[0].description }}</p>
 
         <g-image
-          alt="$page.cms.articles[0].title"
+          :alt="$page.cms.articles[0].title"
           :src="imgUrl"
         />
       </div>
