@@ -6,8 +6,7 @@
           {{ $page.cms.articles[0].title }}
         </h1>
         <p class="">{{ $page.cms.articles[0].description }}</p>
-        coverImage.url = {{ $page.cms.articles[0].coverImage.url }}<br>
-        imgUrl = {{ imgUrl }}<br>
+
         <g-image
           alt="$page.cms.articles[0].title"
           :src="imgUrl"
