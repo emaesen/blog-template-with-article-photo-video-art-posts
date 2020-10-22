@@ -6,10 +6,12 @@
     "name": "Edward Maesen"
   },
   "scripts": {
-    "build": "gridsome build",
-    "dev": "gridsome develop -p 9011",
+    "mkmediadir": "mkdir -p src\\assets\\cmsmedia\\uploads",
+    "cpmedia": "cp -u -v -r ..\\cms\\public\\uploads\\. src\\assets\\cmsmedia\\uploads",
+    "build": "npm run cpmedia && gridsome build",
+    "dev": "npm run cpmedia && gridsome develop -p 9011",
     "explore": "gridsome explore",
-    "prod": "gridsome build && serve -s dist -p 9012"
+    "prod": "npm run build && serve -s dist -p 9012"
   },
   "dependencies": {
     "@gridsome/source-graphql": "^0.1.0",
