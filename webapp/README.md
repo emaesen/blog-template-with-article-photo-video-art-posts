@@ -64,3 +64,7 @@ In the project's root folder (`webapp`), create files `.env.development.`and `.e
   `GRIDSOME_CMS_MEDIA_PATH=/assets/cmsmedia`
 
 (Variables that should be available in the browser must be prefixed with `GRIDSOME_`. Variables without that prefix are available to the Gridsome server only; for security reasons.)
+
+## Dynamic images
+
+The implemented solution for loading dynamic images is based on [How to load dynamic images in Vue and Nuxt with ease](https://blog.lichter.io/posts/dynamic-images-vue-nuxt/), however this does not allow for Gridsome image optimizations. Currently (Gridsome 0.7.0) there does not seem to be a solution to support dynamic image filenames in `<g-image>`.
