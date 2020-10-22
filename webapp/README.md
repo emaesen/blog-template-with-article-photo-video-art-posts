@@ -43,7 +43,7 @@ the contents of which can be copied to your webhost as a static-served website.
 - Custom lightweight bare-bones markdown parser which allows for project-specific extensions.
 - Favicon definitions.
 
-Changes in the code, during development, cause an automatic (hot) reload of the webapp. Changes made in content in the Strapi CMS require a manual reload of the corresponding webpage (but a server restart is not required).
+Changes in the code, during development, cause an automatic (hot) reload of the webapp. Changes made in content in the Strapi CMS require a manual reload of the corresponding webpage. A webapp server restart is required when new assets are added in the CMS.
 
 ## Static versus managed assets
 
@@ -60,5 +60,7 @@ In the project's root folder (`webapp`), create files `.env.development.`and `.e
   E.g. for the Strapi CMS URL in development add the line:
   `GRIDSOME_CMS_URL=http://localhost:1337`
   which is accessed in `gridsome.config.js` as `process.env.GRIDSOME_CMS_URL`.
+  Also required is:
+  `GRIDSOME_CMS_MEDIA_PATH=/assets/cmsmedia`
 
 (Variables that should be available in the browser must be prefixed with `GRIDSOME_`. Variables without that prefix are available to the Gridsome server only; for security reasons.)
