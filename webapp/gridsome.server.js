@@ -3,16 +3,22 @@
 // Learn more: https://gridsome.org/docs/server-api/
 
 // Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+// To restart press CTRL + C in terminal and run `npm run dev`
 
-module.exports = function (api) {
+module.exports = function (api, options) {
   api.loadSource(({ addCollection }) => {
-    // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
+    // Data Store API docs: https://gridsome.org/docs/data-store-api/
   })
 
-  // Fetch all cms projects
   api.createPages(async ({ createPage, graphql }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
+    // Pages API docs: https://gridsome.org/docs/pages-api/
+
+    /* == Create pages for the cms articles == */
+
+    // The cms graphql data is loaded with the source-graphql
+    // plugin, defined in gridsome.config.js.
+
+    // find all article slugs
     const { data } = await graphql(`{
       cms {
         articles {
@@ -32,4 +38,5 @@ module.exports = function (api) {
       })
     })
   })
+
 }
