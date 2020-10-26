@@ -7,34 +7,44 @@
 
 const axios = require('axios')
 
-async function populateCmsImagesCollection(cmsImagesCollection) {
-  const imagesResponse = await axios.get(process.env.GRIDSOME_CMS_IMAGES_URL);
-  if (imagesResponse && imagesResponse.status === 200) {
-    const imagesJson = imagesResponse.data
-    console.log(`INFO: Received metadata for ${imagesJson.length} CMS images`)
-    for(let img of imagesJson) {
-      // TODO: decide if to add criteria to exclude some of the images
-      //       from being processed
-      // (I haven't found a conclusive way to determine if an image is
-      //  actually referenced anywhere in the CMS content - particularly
-      //  images embedded inside Rich Text)
-      if(img.url) {
-        cmsImagesCollection.addNode(img)
-        console.log(`INFO: added image ${img.name} to cmsImagesCollection`)
-      } else {
-        console.log(`INFO: excluded image ${img.name} from cmsImagesCollection`)
-      }
-    }
+async function populateCmsMediaCollections(addCollection) {
+  const mediaResponse = await axios.get(process.env.GRIDSOME_CMS_IMAGES_URL);
+  let count = 0
+  if (mediaResponse && mediaResponse.status === 200) {
+    const mediaJson = mediaResponse.data
+    console.info(`INFO: Received metadata for ${mediaJson.length} CMS media assets`)
+    count = await populateCmsMediaCollection(mediaJson, "image", addCollection('CmsImages'), count)
+    count = await populateCmsMediaCollection(mediaJson, "video", addCollection('CmsVideos'), count)
+    count = await populateCmsMediaCollection(mediaJson, "audio", addCollection('CmsAudios'), count)
   } else {
-    console.error("ERROR: Unable to fetch CMS images")
+    console.error("ERROR: Unable to fetch CMS media assets metadata")
   }
+}
+
+async function populateCmsMediaCollection(mediaJson, type, cmsCollection, count) {
+  const filteredMediaJson = mediaJson.filter(media =>media.mime.startsWith(type))
+  for(let media of filteredMediaJson) {
+    count += 1
+    // TODO: decide if to add criteria to exclude some of the media assets
+    //       from being processed
+    // (I haven't found a conclusive way to determine if media asset is
+    //  actually referenced anywhere in the CMS content - particularly
+    //  media assets embedded inside Rich Text)
+    if(media.mime.startsWith(type)) {
+      cmsCollection.addNode(media)
+      console.info(`INFO: ${count} CMS ${type} Collection: added ${media.name}`)
+    } else {
+      console.info(`INFO: ${count} CMS ${type} Collection: excluded ${media.name}`)
+    }
+  }
+  return count;
 }
 
 module.exports = function (api, options) {
   api.loadSource(async ({ addCollection }) => {
     // Data Store API docs: https://gridsome.org/docs/data-store-api/
 
-    await populateCmsImagesCollection(addCollection('CmsImages'))
+    await populateCmsMediaCollections(addCollection)
     
 
   })
