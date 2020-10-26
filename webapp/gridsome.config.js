@@ -20,7 +20,7 @@ module.exports = {
     {
       use: '@gridsome/source-graphql',
       options: {
-        url: (process.env.GRIDSOME_CMS_URL) + "/graphql",
+        url: (process.env.CMS_URL) + "/graphql",
         fieldName: 'cms',
         typeName: 'cmsTypes'
       }
