@@ -8,16 +8,21 @@
 const axios = require('axios')
 
 async function populateCmsMediaCollections(addCollection) {
-  const mediaResponse = await axios.get(process.env.GRIDSOME_CMS_IMAGES_URL);
-  let count = 0
-  if (mediaResponse && mediaResponse.status === 200) {
-    const mediaJson = mediaResponse.data
-    console.info(`INFO: Received metadata for ${mediaJson.length} CMS media assets`)
-    count = await populateCmsMediaCollection(mediaJson, "image", addCollection('CmsImages'), count)
-    count = await populateCmsMediaCollection(mediaJson, "video", addCollection('CmsVideos'), count)
-    count = await populateCmsMediaCollection(mediaJson, "audio", addCollection('CmsAudios'), count)
-  } else {
-    console.error("ERROR: Unable to fetch CMS media assets metadata")
+  try {
+    const mediaResponse = await axios.get(process.env.CMS_MEDIA_URL);
+    let count = 0
+    if (mediaResponse && mediaResponse.status === 200) {
+      const mediaJson = mediaResponse.data
+      console.info(`INFO: Received metadata for ${mediaJson.length} CMS media assets from  ${process.env.CMS_MEDIA_URL}`)
+      count = await populateCmsMediaCollection(mediaJson, "image", addCollection('CmsImages'), count)
+      count = await populateCmsMediaCollection(mediaJson, "video", addCollection('CmsVideos'), count)
+      count = await populateCmsMediaCollection(mediaJson, "audio", addCollection('CmsAudios'), count)
+      console.info(`INFO: ${count} CMS media assets from  ${process.env.CMS_MEDIA_URL} were processed`)
+    } else {
+      console.error("ERROR: Unable to fetch CMS media assets metadata")
+    }
+  } catch (error) {
+    console.error(`ERROR: ${error.response.statusText} error retrieving ${process.env.CMS_MEDIA_URL}`)
   }
 }
 
@@ -43,10 +48,7 @@ async function populateCmsMediaCollection(mediaJson, type, cmsCollection, count)
 module.exports = function (api, options) {
   api.loadSource(async ({ addCollection }) => {
     // Data Store API docs: https://gridsome.org/docs/data-store-api/
-
     await populateCmsMediaCollections(addCollection)
-    
-
   })
 
   api.createPages(async ({ createPage, graphql }) => {
