@@ -12,6 +12,7 @@ const fse = require('fs-extra')
 const CMS_URL = process.env.CMS_URL
 const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', process.env.GRIDSOME_CMS_MEDIA_PATH)
+const GRIDSOME_CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 
 function getMediaFilename(media) {
   return media.hash + media.ext
@@ -47,6 +48,10 @@ async function populateCmsMediaCollections(addCollection) {
   return tally.mediaFiles
 }
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally) {
   const filteredMediaJson = mediaJson.filter(media =>media.mime.startsWith(type))
   let count = tally.count
@@ -60,7 +65,10 @@ async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally)
     //  media assets embedded inside Rich Text)
     if(media.mime.startsWith(type)) {
       // add absolute local path property
-      media.localImage = path.resolve(CMS_MEDIA_TARGET_PATH, getMediaFilename(media))
+      media.localPath = path.resolve(CMS_MEDIA_TARGET_PATH, getMediaFilename(media))
+      media.src = path.join(GRIDSOME_CMS_MEDIA_PATH, getMediaFilename(media))
+      media.mimeType = media.mime
+      media.type = capitalizeFirstLetter(type)
       // add media data to the collection
       cmsCollection.addNode(media)
       console.info(`INFO: ${count} CMS ${type} Collection: added ${media.name}`)
@@ -109,6 +117,7 @@ async function downloadCmsMediaFiles(files) {
 }
 
 module.exports = function (api, options) {
+
   api.loadSource(async ({ addCollection }) => {
     // Data Store API docs: https://gridsome.org/docs/data-store-api/
     const mediaFiles = await populateCmsMediaCollections(addCollection)
