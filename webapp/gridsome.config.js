@@ -25,5 +25,8 @@ module.exports = {
         typeName: 'cmsTypes'
       }
     }
-  ]
+  ],
+  chainWebpack: config => {
+    config.resolve.alias.set('@cmsmedia', '@/assets/cmsmedia')
+  },
 }
