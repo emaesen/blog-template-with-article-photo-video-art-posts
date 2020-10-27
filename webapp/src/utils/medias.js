@@ -2,7 +2,7 @@ export function getCmsMedia(target) {
   // Check if target is a local path
   if (target.startsWith('/')) {
     // Prepend CMS host if available, else require asset
-    const cmsHost = process.env.GRIDSOME_CMS_MEDIA_HOST
+    const cmsMediaPath = process.env.GRIDSOME_CMS_MEDIA_PATH
       /* in case of a local file, 
        * since the image name is dynamic, 
        * the webpack builder needs to be instructed 
@@ -12,9 +12,7 @@ export function getCmsMedia(target) {
        * include everything in that static path.
        * https://blog.lichter.io/posts/dynamic-images-vue-nuxt/
        */
-    return cmsHost 
-        ? cmsHost + target 
-        : require(`@/assets/cmsmedia${target}`)
+    return require(`@${cmsMediaPath}/${target.replace(/\/.*\//,"")}`)
   }
   // Otherwise return full URL
   return target
