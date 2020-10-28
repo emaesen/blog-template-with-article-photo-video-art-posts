@@ -1,4 +1,4 @@
-export function getCmsMedia(target) {
+export function getCmsMedia(target, isGImage=true) {
   // Check if target is a local path
   if (target.startsWith('/')) {
     // Require asset
@@ -6,12 +6,16 @@ export function getCmsMedia(target) {
      * since the image name is dynamic, 
      * the webpack builder needs to be instructed 
      * which file to include. 
-     * The path needs to be hardcoded and as specific 
-     * as possible because webpack will try to 
-     * include everything in that static path.
-     * https://blog.lichter.io/posts/dynamic-images-vue-nuxt/
+     * Use solution proposed in
+     * https://github.com/gridsome/gridsome/issues/292#issuecomment-583692119
      */
-    return require(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
+    if (isGImage) {
+      // to be used in <g-image> case
+      return require(`!!assets-loader!@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
+    } else {
+      // to be used in regular <img> case
+      return require(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
+    }
   }
   // Otherwise return original target (presumably full URL)
   return target

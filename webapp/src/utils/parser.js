@@ -91,7 +91,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     /* image */
     .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, function(_full, alt, src){
       if (typeof getMediaUrl === "function") {
-        src = getMediaUrl(src)
+        src = getMediaUrl(src, false)
       }
       return '<img src="'+src+'" alt="'+alt+'" class="'+imgClassName+'"/>'
     })

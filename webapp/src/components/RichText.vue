@@ -19,7 +19,7 @@ export default {
       return this.data && this.data.content ? 
         parseAsHtml(this.data.content, {
           paraClassName: "rtpara", 
-          imgClassName:"rtimg g-image", 
+          imgClassName:"rtimg", 
           extLinkClassName:"ext",
           extLinkIconClassName:"icon-Outbound deemph"
         }, getCmsMedia) : "";
