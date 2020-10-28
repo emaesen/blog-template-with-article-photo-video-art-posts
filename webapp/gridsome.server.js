@@ -5,6 +5,19 @@
 // Changes here require a server restart.
 // To stop current process, press CTRL + C in terminal.
 
+/* NOTE:
+ * There is room for improvement in this setup:
+ * 1) The media file information is derived from an API call 
+ *    to the CMS server, but that info is also already available 
+ *    in the cms graphql schema. I have not (yet) found a clean
+ *    hook within the server API to access graphql and do some side
+ *    processing. Were that possible, then the extra API call can
+ *    be replaced with a query of the cms graphql.
+ * 2) New graphql schematypes are created for the cms media files
+ *    but that's not really necessary because the same info is
+ *    already present in the cms graphql schema.
+ */
+
 const axios = require('axios').default
 const path = require('path')
 const fse = require('fs-extra')
@@ -14,9 +27,6 @@ const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', process.env.GRIDSOME_CMS_MEDIA_PATH)
 const GRIDSOME_CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 
-function getMediaFilename(media) {
-  return media.hash + media.ext
-}
 
 async function populateCmsMediaCollections(addCollection) {
   let tally = {count:0, mediaFiles:[]}
@@ -48,9 +58,6 @@ async function populateCmsMediaCollections(addCollection) {
   return tally.mediaFiles
 }
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally) {
   const filteredMediaJson = mediaJson.filter(media =>media.mime.startsWith(type))
@@ -64,11 +71,6 @@ async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally)
     //  actually referenced anywhere in the CMS content - particularly
     //  media assets embedded inside Rich Text)
     if(media.mime.startsWith(type)) {
-      // add absolute local path property
-      media.localPath = path.resolve(CMS_MEDIA_TARGET_PATH, getMediaFilename(media))
-      media.src = path.join(GRIDSOME_CMS_MEDIA_PATH, getMediaFilename(media))
-      media.mimeType = media.mime
-      media.type = capitalizeFirstLetter(type)
       // add media data to the collection
       cmsCollection.addNode(media)
       console.info(`INFO: ${count} CMS ${type} Collection: added ${media.name}`)
@@ -93,7 +95,7 @@ async function downloadCmsMediaFile(file) {
 
   // download the CMS media file, unless it exists already
   if (await fse.exists(targetFile)) {
-    console.info("INFO: file exists " + targetFile)
+    //console.debug("INFO: file exists " + targetFile)
   } else {
     try {
       response = await axios({
@@ -124,9 +126,9 @@ module.exports = function (api, options) {
     await downloadCmsMediaFiles(mediaFiles)
   })
 
-  api.onCreateNode(options => {
-    console.log("LOG: onCreateNode",{options})
-  })
+  // api.onCreateNode(options => {
+  //   console.log("LOG: onCreateNode",{options})
+  // })
 
   api.createPages(async ({ createPage, graphql }) => {
     // Pages API docs: https://gridsome.org/docs/pages-api/
