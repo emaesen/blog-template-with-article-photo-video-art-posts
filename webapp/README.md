@@ -61,8 +61,11 @@ In the project's root folder (`webapp`), create files `.env.development.`and `.e
   `CMS_URL=http://localhost:1337`
   which is accessed in `gridsome.config.js` as `process.env.CMS_URL`.
   Also required are:
-  `GRIDSOME_CMS_MEDIA_PATH=/assets/cmsmedia`
   `CMS_MEDIA_URL=http://localhost:1337/upload/files`
+  `GRIDSOME_CMS_MEDIA_PATH=/assets/cmsmedia`
+  `GRIDSOME_CMS_MEDIA_ALIAS=cmsmedia`
+
+For production, point these URLs at a deployed CMS server.
 
 (Variables that should be available in the browser must be prefixed with `GRIDSOME_`. Variables without that prefix are available to the Gridsome server only; for security reasons.)
 

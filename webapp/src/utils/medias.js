@@ -11,7 +11,7 @@ export function getCmsMedia(target) {
      * include everything in that static path.
      * https://blog.lichter.io/posts/dynamic-images-vue-nuxt/
      */
-    return require(`@cmsmedia/${target.replace(/\/.*\//,"")}`)
+    return require(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
   }
   // Otherwise return original target (presumably full URL)
   return target

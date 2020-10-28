@@ -27,6 +27,6 @@ module.exports = {
     }
   ],
   chainWebpack: config => {
-    config.resolve.alias.set('@cmsmedia', '@/assets/cmsmedia')
+    config.resolve.alias.set(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}`, `@${process.env.GRIDSOME_CMS_MEDIA_PATH}`)
   },
 }
