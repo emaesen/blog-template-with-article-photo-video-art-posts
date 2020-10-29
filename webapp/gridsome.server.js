@@ -13,22 +13,28 @@
  *    hook within the server API to access graphql and do some side
  *    processing. Were that possible, then the extra API call can
  *    be replaced with a query of the cms graphql.
- * 2) New graphql schematypes are created for the cms media files
- *    but that's not really necessary because the same info is
- *    already present in the cms graphql schema.
+ * 2) Code branches related to INCLUDE_DERIVED_MEDIA_ASSETS are
+ *    probably never used and can be removed to improve clarity.
+ * 3) Code branches related to CREATE_CMS_MEDIA_COLLECTIONS are
+ *    probably never used and can be removed to improve clarity.
+ *    These embed the INCLUDE_DERIVED_MEDIA_ASSETS code branches so
+ *    this covers item 2) above as well.
  */
 
 const axios = require('axios').default
 const path = require('path')
 const fse = require('fs-extra')
 
+const CREATE_CMS_MEDIA_COLLECTIONS = false
+const INCLUDE_DERIVED_MEDIA_ASSETS = false
+
 const CMS_URL = process.env.CMS_URL
 const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
-const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', process.env.GRIDSOME_CMS_MEDIA_PATH)
 const GRIDSOME_CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
+const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', GRIDSOME_CMS_MEDIA_PATH)
 
 
-async function populateCmsMediaCollections(addCollection) {
+async function getListOfCmsMediaFiles(addCollection) {
   let tally = {count:0, mediaFiles:[]}
   let mediaResponse
   try {
@@ -38,19 +44,28 @@ async function populateCmsMediaCollections(addCollection) {
   }
 
   if (mediaResponse && mediaResponse.status === 200) {
-    const mediaJson = mediaResponse.data.map(asset => {
-      // only allow a select set of properties to be processed further
-      let props = ["id", "url", "name", "ext", "width", "height", "size", "mime", "hash", "formats", "updatedAt", "alternativeText", "caption"]
-      let simplifiedAsset = {}
-      props.forEach(prop => {
-        simplifiedAsset[prop] = asset[prop]
-      })
-      return simplifiedAsset
+    const mediaAssets = mediaResponse.data.map(asset => {
+      if (CREATE_CMS_MEDIA_COLLECTIONS) {
+        // only allow a select set of properties to be processed further
+        let props = ["url", "mime", "id", "name", "ext", "width", "height", "size", "hash", "formats", "updatedAt", "alternativeText", "caption"]
+        let simplifiedAsset = {}
+        props.forEach(prop => {
+          simplifiedAsset[prop] = asset[prop]
+        })
+        return simplifiedAsset
+      } else {
+        return asset.url
+      }
     })
-    console.info(`INFO: Received metadata for ${mediaJson.length} CMS media assets from  ${CMS_MEDIA_URL}`)
-    tally = await populateCmsMediaCollection(mediaJson, "image", addCollection('CmsImages'), tally)
-    tally = await populateCmsMediaCollection(mediaJson, "video", addCollection('CmsVideos'), tally)
-    tally = await populateCmsMediaCollection(mediaJson, "audio", addCollection('CmsAudios'), tally)
+    console.info(`INFO: Received metadata for ${mediaAssets.length} CMS media assets from  ${CMS_MEDIA_URL}`)
+    if (CREATE_CMS_MEDIA_COLLECTIONS) {
+      tally = await populateCmsMediaCollection(mediaAssets, "image", addCollection('CmsImages'), tally)
+      tally = await populateCmsMediaCollection(mediaAssets, "video", addCollection('CmsVideos'), tally)
+      tally = await populateCmsMediaCollection(mediaAssets, "audio", addCollection('CmsAudios'), tally)
+    } else {
+      tally.count = mediaAssets.length
+      tally.mediaFiles = mediaAssets
+    }
   } else {
     console.error("ERROR: Unable to process CMS media assets metadata")
   }
@@ -76,7 +91,7 @@ async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally)
       console.info(`INFO: ${count} CMS ${type} Collection: added ${media.name}`)
       // populate mediaFiles aray with all available media files
       mediaFiles.push(media.url)
-      if (media.formats) {
+      if (media.formats && INCLUDE_DERIVED_MEDIA_ASSETS) {
         // also include alternative formats of the asset
         for(let [_altKey,alt] of Object.entries(media.formats)) {
           mediaFiles.push(alt.url)
@@ -122,7 +137,7 @@ module.exports = function (api, options) {
 
   api.loadSource(async ({ addCollection }) => {
     // Data Store API docs: https://gridsome.org/docs/data-store-api/
-    const mediaFiles = await populateCmsMediaCollections(addCollection)
+    const mediaFiles = await getListOfCmsMediaFiles(addCollection)
     await downloadCmsMediaFiles(mediaFiles)
   })
 
