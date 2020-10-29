@@ -105,20 +105,18 @@ async function populateCmsMediaCollection(mediaJson, type, cmsCollection, tally)
 }
 
 async function downloadCmsMediaFile(file) {
-  // remove any subfolder
+  // remove any subfolder in cms filename
   const targetFile = path.join(CMS_MEDIA_TARGET_PATH, file.replace(/\/.*\//,""))
-
+  const targetFileExists = await fse.pathExists(targetFile)
   // download the CMS media file, unless it exists already
-  if (await fse.exists(targetFile)) {
-    //console.debug("INFO: file exists " + targetFile)
-  } else {
+  if (!targetFileExists) {
     try {
-      response = await axios({
+      let response = await axios({
         method: 'get',
         url: CMS_URL + file,
         responseType: 'stream'
       })
-      response.data.pipe(fse.createWriteStream(targetFile))
+      await response.data.pipe(fse.createWriteStream(targetFile))
       console.info("INFO: created " + targetFile)
     } catch (error) {
       console.error(`ERROR: error retrieving ${file}`)
@@ -127,8 +125,14 @@ async function downloadCmsMediaFile(file) {
   }
 }
 
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
 async function downloadCmsMediaFiles(files) {
-  await files.forEach(async file => {
+  await asyncForEach(files, async file => {
     await downloadCmsMediaFile(file)
   })
 }
