@@ -23,7 +23,7 @@
 </template>
 
 <page-query>
-query {
+query IndexPage {
   cms {
     # Get homepage data
     home {

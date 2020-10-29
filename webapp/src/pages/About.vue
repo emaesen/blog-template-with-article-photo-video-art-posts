@@ -25,7 +25,7 @@ export default {
 </script>
 
 <page-query>
-query {
+query AboutPage {
   cms {
     about {
       content {

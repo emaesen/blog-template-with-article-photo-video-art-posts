@@ -12,7 +12,7 @@
 </template>
 
 <static-query>
-query {
+query Meta {
   metadata {
     siteName
   }

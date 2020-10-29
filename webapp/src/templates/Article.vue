@@ -18,7 +18,7 @@
 </template>
 
 <page-query>
-query ($slug: String!) {
+query Article ($slug: String!) {
   cms {
     articles(where: { slug: $slug }) {
       id
