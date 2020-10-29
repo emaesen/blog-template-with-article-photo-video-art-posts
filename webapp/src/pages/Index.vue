@@ -5,14 +5,13 @@
       <div class="">
         <RichText :data="{ content: $page.cms.home.bio }" />
       </div>
-      <h2
-        class=""
-      >
-        My latest articles
-      </h2>
     </div>
+
     <!-- List of article preview cards -->
-    <div class="">
+    <h2 class="">
+      My latest articles
+    </h2>
+    <div class="articles">
       <ArticleCard
         v-for="article in $page.cms.articles"
         :key="article.id"
@@ -81,5 +80,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 </style>

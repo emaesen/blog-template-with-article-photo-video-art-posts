@@ -1,16 +1,24 @@
 <template>
   <div class="article-card">
-    <div class="article-summary">
-      <g-link :to="'article/' + article.slug">
-        <h3 class="">
+    <g-link :to="'article/' + article.slug">
+      <div class="article-summary">
+        <div class="article-image-container">
+          <g-image
+            :alt="article.title"
+            :src="getCmsMedia(article.coverImage.url)"
+            class="article-cover-image img-fluid"
+          />
+          <span :class="{'article-badge':mainCategory}">{{ mainCategory }}</span>
+        </div>
+        <h3 class="article-title">
           {{ article.title }}
         </h3>
-      </g-link>
-      <g-image
-        :alt="article.title"
-        :src="getCmsMedia(article.coverImage.url)"
-        class="article-cover-image"
-      />
+        <div class="article-description">
+          {{ article.description }}
+        </div>
+      </div>
+    </g-link>
+    <div class="article-meta">
       <div class="article-categories">
         <div
           v-for="category in article.categories"
@@ -20,17 +28,7 @@
           {{ category.title }}
         </div>
       </div>
-      <p class="article-description">
-        {{ article.description }}
-      </p>
     </div>
-    <g-link
-      :to="'article/' + article.slug"
-      :title="article.title"
-      class="article-link"
-    >
-      Read more...
-    </g-link>
   </div>
 </template>
 
@@ -41,16 +39,52 @@ export default {
   props: ['article'],
   methods: {
     getCmsMedia,
+  },
+  computed: {
+    mainCategory() {
+      const mainCat = this.article.categories[0]
+      return mainCat && mainCat.title
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-
 .article-card {
-  margin: 2em 0;
-  padding: .5em 2em;
-  border: 1px solid #ccc;
-  background-color: #eee;
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+  width: 100%;
+  margin-bottom: 2em;
+  padding: .3em .5em;
+  border: 1px solid #eee;
 }
+.article-title {
+  margin: 0;
+}
+.article-image-container {
+  position: relative;
+  margin-bottom: .4em;
+}
+.article-cover-image {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.article-badge {
+  padding: .05em .3em;
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
+  color: #eee;
+  background-color: #0f5ca0;
+  border-radius: 3px;
+}
+
+@media all and (max-width: 600px) {
+  .article-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+  }
+}
+
 </style>
