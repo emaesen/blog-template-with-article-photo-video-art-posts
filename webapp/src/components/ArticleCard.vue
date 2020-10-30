@@ -19,6 +19,9 @@
       </div>
     </g-link>
     <div class="article-meta">
+      <div class="article-date">
+        {{ dateText }}
+      </div>
       <div class="article-categories">
         <div
           v-for="category in article.categories"
@@ -34,9 +37,11 @@
 
 <script>
 import { getCmsMedia } from '~/utils/medias'
+import date from '@/mixins/date.js'
 
 export default {
   props: ['article'],
+  mixins: [date],
   methods: {
     getCmsMedia,
   },
@@ -44,6 +49,11 @@ export default {
     mainCategory() {
       const mainCat = this.article.categories[0]
       return mainCat && mainCat.title
+    },
+    dateText() {
+      let opts = {shortForm:true, showYear:true};
+      let text = this.formattedDate(this.article.createdAt, opts);
+      return text;
     }
   }
 }
@@ -79,7 +89,10 @@ export default {
   background-color: #0f5ca0;
   border-radius: 3px;
 }
-
+.article-date {
+  font-size: 85%;
+  color: #c5c5c5;
+}
 @media all and (max-width: 600px) {
   .article-card {
   flex: 0 0 100%;
