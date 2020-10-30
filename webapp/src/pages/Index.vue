@@ -8,21 +8,26 @@
     </div>
 
     <!-- List of article preview cards -->
-    <h2 class="">
-      My latest articles
-    </h2>
-    <div class="articles">
-      <ArticleCard
-        v-for="article in $page.cms.articles"
-        :key="article.id"
-        :article="article"
-      />
-    </div>
+    <section v-if="hasArticles">
+      <div class="cards-header-container">
+        <h2 class="cards-header">
+          Latest articles
+        </h2>
+        <a class="button" href="#">view all</a>
+      </div>
+      <div class="cards-container">
+        <ArticleCard
+          v-for="article in latestArticles"
+          :key="article.id"
+          :article="article"
+        />
+      </div>
+    </section>
   </Layout>
 </template>
 
 <page-query>
-query IndexPage {
+query IndexPage ($articlesLimit: Int!) {
   cms {
     # Get homepage data
     home {
@@ -38,8 +43,9 @@ query IndexPage {
       }
     }
     # List articles
-    articles(sort: "date:desc") {
+    articles(sort: "createdAt:desc" limit:$articlesLimit) {
       title
+      createdAt
       slug
       description
       categories {
@@ -69,6 +75,13 @@ export default {
     ArticleCard,
     RichText,
   },
+  data() {
+    return {
+      params: {
+      articlesLimit: 1,
+      }
+    }
+  },
   metaInfo() {
     const { title, description, shareImage } = this.$page.cms.home.seo
     const image = getCmsMedia(shareImage.url)
@@ -77,11 +90,29 @@ export default {
       meta: getSeoMetaTags(title, description, image),
     }
   },
+  computed: {
+    hasArticles() {
+      return this.$page.cms.articles.length > 0
+    },
+    latestArticles() {
+      // the maximum nr of articles to show is defined by `limit` in the 
+      // graphql query
+      return this.$page.cms.articles
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
-.articles {
+.cards-header-container {
+  border-bottom: 1px solid #0f5ca0;
+  margin-bottom: 1.5em;
+}
+.cards-header {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.cards-container {
   display: flex;
   flex-wrap: wrap;
 }

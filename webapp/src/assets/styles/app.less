@@ -27,6 +27,27 @@ pre {
   border-radius: .5em;
 }
 a {
+  color: 
+}
+button,
+a.button {
+  margin: 1em .5em 1em 1em;
+  background-color: rgba(85, 26,139, 0.1);
+  border: 1px solid rgb(85, 26,139);
+  border-radius: 9px;
+  box-shadow: 0 0 5px #d9f0ff13;
+  padding: 2px 5px;
+  position: relative;
+  bottom: 5px;
+}
+button:disabled {
+  cursor: default;
+  opacity: 0.3;
+  box-shadow: none;
+}
+
+a {
+  color: rgb(85, 26,139);
   text-decoration: none;
 }
 a:hover {
