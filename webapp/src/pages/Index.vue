@@ -27,7 +27,7 @@
 </template>
 
 <page-query>
-query IndexPage ($articlesLimit: Int!) {
+query IndexPage($limit: Int = 4) {
   cms {
     # Get homepage data
     home {
@@ -43,7 +43,7 @@ query IndexPage ($articlesLimit: Int!) {
       }
     }
     # List articles
-    articles(sort: "createdAt:desc" limit:$articlesLimit) {
+    articles(sort: "createdAt:desc" limit:$limit) {
       title
       createdAt
       slug
