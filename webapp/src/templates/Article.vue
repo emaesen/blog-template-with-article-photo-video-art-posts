@@ -1,18 +1,15 @@
 <template>
   <Layout>
-    <div class="">
-      <div class="">
-        <h1>
-          {{ $page.cms.articles[0].title }}
-        </h1>
-        <p class="">{{ $page.cms.articles[0].description }}</p>
+    <h1>
+      {{ $page.cms.articles[0].title }}
+    </h1>
 
-        <g-image
-          :alt="$page.cms.articles[0].title"
-          :src="imgUrl"
-        />
-      </div>
-    </div>
+    <g-image
+      :alt="$page.cms.articles[0].title"
+      :src="imgUrl"
+    />
+    <caption>{{ $page.cms.articles[0].description }}</caption>
+
     <Content :content="$page.cms.articles[0].content" class="" />
   </Layout>
 </template>
