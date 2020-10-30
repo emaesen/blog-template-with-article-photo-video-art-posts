@@ -31,7 +31,6 @@ query IndexPage($limit: Int = 4) {
   cms {
     # Get homepage data
     home {
-      title
       # Metadata for SEO
       seo {
         title
@@ -39,6 +38,31 @@ query IndexPage($limit: Int = 4) {
         shareImage {
           id
           url
+        }
+      }
+      title
+      content {
+        __typename
+        ... on cmsTypes_ComponentSectionsRichText {
+          id
+          content
+        }
+        ... on cmsTypes_ComponentSectionsLargeMedia {
+          id
+          media {
+            id
+            url
+            mime
+          }
+          description
+        }
+        ... on cmsTypes_ComponentSectionsImagesSlider {
+          id
+          title
+          images {
+            id
+            url
+          }
         }
       }
     }
