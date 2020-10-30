@@ -9,6 +9,9 @@
     "timestamps": true
   },
   "attributes": {
+    "title": {
+      "type": "string"
+    },
     "content": {
       "type": "dynamiczone",
       "components": [
@@ -23,9 +26,6 @@
       "repeatable": false,
       "component": "meta.seo",
       "required": true
-    },
-    "mainTitle": {
-      "type": "string"
     }
   }
 }

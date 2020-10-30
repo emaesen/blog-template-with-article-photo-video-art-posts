@@ -12,8 +12,13 @@
     "title": {
       "type": "string"
     },
-    "intro": {
-      "type": "richtext",
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.images-slider",
+        "sections.large-media",
+        "sections.rich-text"
+      ],
       "required": true
     },
     "seo": {
