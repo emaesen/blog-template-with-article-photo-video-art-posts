@@ -4,7 +4,10 @@
       <h2 class="cards-header">
         Latest articles
       </h2>
-      <a class="button" href="#">view all</a>
+      <a 
+        v-if="showViewAllLink"
+        class="button" href="#"
+      >view all {{ totalNrOfArticles }} articles</a>
     </div>
     <div class="cards-container">
       <ArticleCard
@@ -20,7 +23,7 @@
 query LatestArticles($limit: Int = 4) {
   cms {
     # List articles
-    articles(sort: "createdAt:desc" limit:$limit) {
+    latestArticles: articles(sort: "createdAt:desc" limit:$limit) {
       title
       createdAt
       slug
@@ -33,6 +36,9 @@ query LatestArticles($limit: Int = 4) {
         id
         url
       }
+    }
+    allArticles: articles {
+    	slug
     }
   }
 }
@@ -57,13 +63,22 @@ export default {
     }
   },
   computed: {
-    hasArticles() {
-      return this.$static.cms.articles.length > 0
-    },
     latestArticles() {
       // the maximum nr of articles to show is defined by `limit` in the 
       // graphql query
-      return this.$static.cms.articles
+      return this.$static.cms.latestArticles
+    },
+    nrOfDisplayedArticles() {
+      return this.latestArticles.length
+    },
+    hasArticles() {
+      return this.nrOfDisplayedArticles > 0
+    },
+    totalNrOfArticles() {
+      return this.$static.cms.allArticles.length
+    },
+    showViewAllLink() {
+      return this.totalNrOfArticles > this.nrOfDisplayedArticles
     }
   }
 }
