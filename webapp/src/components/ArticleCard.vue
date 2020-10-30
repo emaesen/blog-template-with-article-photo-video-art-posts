@@ -23,13 +23,13 @@
         {{ dateText }}
       </div>
       <div class="article-categories">
-        <div
+        <span
           v-for="category in article.categories"
           :key="category.id"
           class="article-category"
         >
           {{ category.title }}
-        </div>
+        </span>
       </div>
     </div>
   </div>
@@ -61,33 +61,37 @@ export default {
 
 <style lang="less" scoped>
 .article-card {
-  flex: 0 0 50%;
+  flex: 0 0 49%;
   max-width: 50%;
   position: relative;
   width: 100%;
   margin-bottom: 2em;
-  padding: .3em .5em;
-  border: 1px solid #eee;
+  line-height: normal;
 }
 .article-title {
   margin: 0;
 }
 .article-image-container {
   position: relative;
-  margin-bottom: .4em;
 }
 .article-cover-image {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.article-category {
+  font-size: 90%;
+  color: #0f5ca0d0;
+  margin-right: 1em;
+}
 .article-badge {
+  font-size: 90%;
   padding: .05em .3em;
-  position: absolute;
-  bottom: 10px;
-  right: 5px;
   color: #eee;
   background-color: #0f5ca0b0;
   border-radius: 3px;
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
 }
 .article-date {
   font-size: 85%;
