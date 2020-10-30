@@ -86,7 +86,7 @@ export default {
   bottom: 10px;
   right: 5px;
   color: #eee;
-  background-color: #0f5ca0;
+  background-color: #0f5ca0b0;
   border-radius: 3px;
 }
 .article-date {
