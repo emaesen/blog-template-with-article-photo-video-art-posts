@@ -75,7 +75,7 @@ export default {
   position: relative;
 }
 .article-cover-image {
-  border: 1px solid #ccc;
+  border: 1px solid #0f5ca0;
   border-radius: 5px;
 }
 .article-category {
@@ -97,7 +97,7 @@ export default {
   font-size: 85%;
   color: #c5c5c5;
 }
-@media all and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .article-card {
   flex: 0 0 100%;
   max-width: 100%;

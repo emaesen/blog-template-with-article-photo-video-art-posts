@@ -1,3 +1,7 @@
+html {
+  font-size: 16px;
+  background-color: #fffefb;
+}
 body {
   font-family: "Heebo","Helvetica Neue",Arial,sans-serif;
   margin:0;
@@ -58,12 +62,14 @@ img {
 caption {
   font-style: italic;
   color: #0f5ca0d0;
+  display: inline-block;
 }
 .layout {
-  max-width: 760px;
+  /* scale to html font-size */
+  max-width: 72rem;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 .header {
   display: flex;
@@ -91,13 +97,25 @@ caption {
 }
 
 
-@media print {
-  nav, .noprint, button {
-    display:none !important;
-  }
+@media screen and (max-width: 700px) {
   html {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 450px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media print {
+  html {
+    font-size: 15px;
     background-color: #fff;
     background-image: none;
+  }
+  nav, .noprint, button {
+    display:none !important;
   }
   body,
   input,
