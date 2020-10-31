@@ -1,6 +1,24 @@
 html {
-  font-size: 16px;
+  /* scale font-size with viewport width */
+  font-size: calc(.7em + .7vw);
   background-color: #fffefb;
+}
+button { font-size: inherit }
+input { font-size: inherit }
+h1 {
+  font-size: 1.6em;
+}
+h2 {
+  font-size: 1.3em;
+}
+h3 {
+  font-size: 1.15em;
+}
+h4,h5 {
+  font-size: 1.1em;
+}
+h6 {
+  font-size: 1em;
 }
 body {
   font-family: "Heebo","Helvetica Neue",Arial,sans-serif;
@@ -16,7 +34,15 @@ h1,h2,h3,h4,h5,h6 {
   font-weight: 400;
 }
 h4,h5,h6 {
-  font-weight: 800;
+  font-weight: 400;
+  margin-block-start: 1.2em;
+  margin-block-end: 1.2em;
+}
+h5,h6 {
+  font-style: italic;
+}
+h6 {
+  font-size: 1em;
 }
 blockquote {
   border-left: 3px solid  rgba(216, 199, 204, 0.6);
@@ -65,8 +91,6 @@ caption {
   display: inline-block;
 }
 .layout {
-  /* scale to html font-size */
-  max-width: 72rem;
   margin: 0 auto;
   padding-left: .5rem;
   padding-right: .5rem;
@@ -96,15 +120,12 @@ caption {
   background-color: rgba(199, 209, 216, 0.27);
 }
 
-
-@media screen and (max-width: 700px) {
-  html {
-    font-size: 15px;
-  }
+.layout {
+  max-width: 1100px;
 }
-@media screen and (max-width: 450px) {
+@media screen and (min-width: 1100px) {
   html {
-    font-size: 14px;
+    font-size: 19px;
   }
 }
 

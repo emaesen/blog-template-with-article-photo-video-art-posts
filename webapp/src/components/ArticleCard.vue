@@ -79,12 +79,12 @@ export default {
   border-radius: 5px;
 }
 .article-category {
-  font-size: 90%;
+  font-size: 0.9em;
   color: #0f5ca0d0;
   margin-right: 1em;
 }
 .article-badge {
-  font-size: 90%;
+  font-size: 0.9em;
   padding: .05em .3em;
   color: #eee;
   background-color: #0f5ca0b0;
@@ -94,8 +94,8 @@ export default {
   right: 5px;
 }
 .article-date {
-  font-size: 85%;
-  color: #c5c5c5;
+  font-size: 0.8em;
+  color: #737373;
 }
 @media screen and (max-width: 600px) {
   .article-card {
