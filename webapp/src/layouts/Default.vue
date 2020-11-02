@@ -12,6 +12,7 @@
       </nav>
     </header>
     <slot/>
+    <Footer/>
   </div>
 </template>
 
@@ -22,6 +23,16 @@ query {
   }
 }
 </static-query>
+
+<script>
+import Footer from '~/components/Footer'
+
+export default {
+  components: {
+    Footer,
+  },
+}
+</script>
 
 <style>
 @import "../assets/styles/app.less"
