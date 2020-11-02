@@ -11,7 +11,7 @@
           :href="socialNetwork.url"
           target="_blank"
           rel="noopener noreferrer"
-          class=""
+          class="nowrap"
         >{{ socialNetwork.title }}</a>
       </li>
     </ul>
