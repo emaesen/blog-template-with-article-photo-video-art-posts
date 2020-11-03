@@ -3,13 +3,13 @@
     <div class="">
       <h1 class="">{{ $page.cms.home.title }}</h1>
       <div class="">
-        <RichText :data="{ content: $page.cms.home.bio }" />
+        <Content :content="$page.cms.home.content" />
       </div>
+
+      <!-- Section with latest articles -->
+      <LatestArticles/>
+
     </div>
-
-    <!-- Section with latest articles -->
-    <LatestArticles/>
-
   </Layout>
 </template>
 
@@ -59,7 +59,8 @@ query IndexPage {
 
 <script>
 import LatestArticles from '~/components/LatestArticles'
-import RichText from '~/components/RichText'
+import Content from '~/components/Content'
+
 import { getCmsMedia } from '~/utils/medias'
 import { getSeoMetaTags } from '~/utils/seo'
 
@@ -69,7 +70,7 @@ export default {
   },
   components: {
     LatestArticles,
-    RichText,
+    Content,
   },
   data() {
     return {
