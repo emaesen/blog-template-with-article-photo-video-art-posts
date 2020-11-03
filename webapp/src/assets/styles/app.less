@@ -1,3 +1,5 @@
+@import './variab.less';
+
 html {
   /* scale font-size with viewport width */
   font-size: calc(.7em + .5vw);
@@ -95,11 +97,6 @@ caption {
   color: #0f5ca0d0;
   display: inline-block;
 }
-.layout {
-  margin: 0 auto;
-  padding-left: .5rem;
-  padding-right: .5rem;
-}
 .header {
   display: flex;
   justify-content: space-between;
@@ -181,14 +178,17 @@ caption {
 
 /* main layout dimensions */
 .layout {
-  max-width: 1100px;
+  max-width: @layout-max-width;
+  margin: 0 auto;
+  padding-left: @layout-padding;
+  padding-right: @layout-padding;
 }
 .expand {
-  max-width: 1100px;
-  margin-left: -.5rem;
-  margin-right: -5rem;
+  max-width: @layout-max-width;
+  margin-left: -@layout-padding;
+  margin-right: -@layout-padding;
 }
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: @layout-max-width) {
   html {
     font-size: 19px;
   }
