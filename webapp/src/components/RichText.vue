@@ -27,3 +27,15 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+div.rtpara {
+  margin-bottom: 1em;
+}
+img.rtimg {
+  display: block;
+  float:right;
+  max-width: 50%;
+  margin-left: .5em;
+}
+</style>

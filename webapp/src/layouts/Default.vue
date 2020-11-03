@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style>
-@import "../assets/styles/app.less"
+<style lang="less">
+@import "../assets/styles/app.less";
 
 </style>

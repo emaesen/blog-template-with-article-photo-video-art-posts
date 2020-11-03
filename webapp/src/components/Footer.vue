@@ -16,7 +16,7 @@
       </li>
     </ul>
 
-    <div class="legal expand">
+    <div class="legal expand bgcolor-opaque">
       <span class="contact">{{ $static.cms.global.contactEmail }}</span>
       <span class="copyright">
         © {{ copyrightYear }} {{ $static.cms.global.siteName }}. {{ $static.cms.global.rightsText }}
@@ -75,6 +75,9 @@ query Footer {
 </static-query>
 
 <style lang="less" scoped>
+footer {
+  margin-top: 5em;
+}
 ul.social {
   margin-bottom: 3em;
   list-style-type: none;
@@ -102,6 +105,6 @@ ul.social li {
   padding-top: 5px;
   border-top: 1px solid #0f5ca0;
   z-index: 999;
-  background-color:#f5f2eadd;
+  opacity: .9;
 }
 </style>

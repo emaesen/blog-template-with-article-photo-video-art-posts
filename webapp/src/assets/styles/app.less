@@ -38,11 +38,14 @@ h1,h2,h3,h4,h5,h6 {
   font-family: "Quando",serif;
   font-weight: 400;
   color: @color_text_header;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+h1 {
+  margin-top: .5em;
 }
 h4,h5,h6 {
   font-weight: 400;
-  margin-block-start: 1.2em;
-  margin-block-end: 1.2em;
 }
 h5,h6 {
   font-style: italic;
@@ -52,15 +55,15 @@ h6 {
   margin-bottom: .2em;
 }
 blockquote {
-  border-left: 3px solid  rgba(216, 199, 204, 0.6);
+  border-left: 3px solid  fadeout(@color_border_accent-1, 60%);
   padding-left: 1em;
   margin-left: 1em;
 }
 pre {
   padding: .2em 1em;
   margin: .2em 1em;
-  background-color: rgb(199, 209, 216);
-  border: 5px solid  rgba(216, 199, 204, 0.6);
+  background-color: fadeout(@color_bg_accent-2, 60%);
+  border: 2px solid  fadeout(@color_border_accent-2, 60%);
   border-radius: .5em;
 }
 a {
@@ -117,15 +120,21 @@ caption {
 }
 .boxed {
   padding: .2em 1em;
-  border: 3px solid rgba(216, 199, 204, 0.6) ;
+  background-color: fadeout(@color_bg_accent-1, 80%);
+  border: 2px solid fadeout(@color_border_accent-1, 80%);
   border-radius: .5em;
-  background-color: rgba(199, 209, 216, 0.27);
 }
 
 .nowrap {
   white-space: nowrap
 }
 
+.bgcolor {
+  background-color: @color_bg;
+}
+.bgcolor-opaque {
+  background-color: fadeout(@color_bg, 10%);
+}
 /* "clearfix" */
 .group:after {
   content: "";
@@ -135,18 +144,19 @@ caption {
 
 
 /* scrollbar */
+@scroll-width:13px;
 ::-webkit-scrollbar {
-  background-color: @color-primary-0;
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
+  background-color: darken(@color_bg,20%);
+  width: @scroll-width;
+  height: @scroll-width;
+  border-radius: @scroll-width;
 }
 ::-webkit-scrollbar-track {
-  border-radius: 10px;
+  border-radius: @scroll-width;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #77676c;
-  border-radius: 10px;
+  background-color:@color-primary-0;
+  border-radius: @scroll-width;
   border: 1px solid @color-primary-0;
 }
 
