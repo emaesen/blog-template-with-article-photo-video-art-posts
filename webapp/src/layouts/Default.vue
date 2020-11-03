@@ -6,12 +6,13 @@
           <g-image alt="Logo" src="~/assets/images/logo.png" width="65" />
         </g-link>
       </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav>
+      <SiteNav/>
     </header>
-    <slot/>
+    <transition name="fade" appear>
+      <main>
+        <slot/>
+      </main>
+    </transition>
     <Footer/>
   </div>
 </template>
@@ -25,10 +26,12 @@ query {
 </static-query>
 
 <script>
+import SiteNav from '~/components/SiteNav'
 import Footer from '~/components/Footer'
 
 export default {
   components: {
+    SiteNav,
     Footer,
   },
 }
