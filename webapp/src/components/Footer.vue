@@ -16,7 +16,7 @@
       </li>
     </ul>
 
-    <div class="legal layout-width">
+    <div class="legal expand">
       <span class="contact">{{ $static.cms.global.contactEmail }}</span>
       <span class="copyright">
         © {{ copyrightYear }} {{ $static.cms.global.siteName }}. {{ $static.cms.global.rightsText }}
@@ -97,7 +97,6 @@ ul.social li {
   position: fixed;
   width: 100%;
   bottom: 0;
-  margin: auto;
   text-align: center;
   font-size: .75em;
   padding-top: 5px;

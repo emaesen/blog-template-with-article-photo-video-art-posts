@@ -1,6 +1,6 @@
 html {
   /* scale font-size with viewport width */
-  font-size: calc(.7em + .7vw);
+  font-size: calc(.7em + .5vw);
   background-color: #f5f2ea;
   background-position: fixed;
   /* https://www.svgbackgrounds.com/#large-triangles */
@@ -35,6 +35,7 @@ body {
 h1,h2,h3,h4,h5,h6 {
   font-family: "Quando",serif;
   font-weight: 400;
+  color: #6b0404;
 }
 h4,h5,h6 {
   font-weight: 400;
@@ -128,9 +129,43 @@ caption {
   white-space: nowrap
 }
 
-.layout,
-.layout-width {
+/* "clearfix" */
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+::-webkit-scrollbar {
+  background-color: @color-primary-0;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #77676c;
+  border-radius: 10px;
+  border: 1px solid @color-primary-0;
+}
+
+
+
+
+.layout {
   max-width: 1100px;
+}
+.expand {
+  max-width: 1100px;
+  margin-left: -.5rem;
+  margin-right: -5rem;
 }
 @media screen and (min-width: 1100px) {
   html {
