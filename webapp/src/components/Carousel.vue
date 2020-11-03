@@ -1,12 +1,18 @@
 <template>
-  <div class="">
-    <p class="">{{ data.title }}</p>
-    <g-image
-      :src="getCmsMedia(data.images[parsedSelectedIndex].url)"
-    />
-    <div class="">
+  <div class="carousel-container">
+    <h3 class="">{{ data.title }}</h3>
+    <div class="carousel replacefade-container">
+    <transition name="replacefade" >
+      <div :key="parsedSelectedIndex" >
+      <g-image
+        :src="getCmsMedia(data.images[parsedSelectedIndex].url)"
+      />
+      </div>
+    </transition>
+    <div class="carousel-controls">
       <button class="" @click="rawSelectedIndex -= 1">Previous</button>
       <button class="" @click="rawSelectedIndex += 1">Next</button>
+    </div>
     </div>
   </div>
 </template>
@@ -30,3 +36,9 @@ export default {
   },
 }
 </script>
+
+<style lang="less" scoped>
+.carousel-container {
+  position: relative;
+}
+</style>
