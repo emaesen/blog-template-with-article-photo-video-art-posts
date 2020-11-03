@@ -14,9 +14,7 @@ Image size optimizer: [OptimiZilla](https://imagecompressor.com/)
 
 Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource)
 
-  1. [search for](https://fontsource.github.io/search-directory/) and npm install the desired font.
-  2. `require` the desired font in main.js
-  3. reference the desired font in your css, e.g. in layouts/Default.vue
+Color palette designer [Paletton](http://paletton.com/)
 
 ## Versions
 
