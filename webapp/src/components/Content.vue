@@ -12,7 +12,7 @@
         <LargeMedia :data="contentSection" />
       </div>
       <div v-if="contentSection.__typename === 'cmsTypes_ComponentSectionsImagesSlider'">
-        <Slider :data="contentSection" />
+        <Carousel :data="contentSection" />
       </div>
     </div>
   </div>
@@ -21,14 +21,14 @@
 <script>
 import RichText from '~/components/RichText'
 import LargeMedia from '~/components/LargeMedia'
-import Slider from '~/components/Slider'
+import Carousel from '~/components/Carousel'
 
 export default {
   props: ["content"],
   components: {
     RichText,
     LargeMedia,
-    Slider,
+    Carousel,
   }
 }
 </script>
