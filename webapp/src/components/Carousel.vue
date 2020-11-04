@@ -27,7 +27,7 @@
             v-for="n in nrOfImages"
             :key="n"
             class="carousel-dot"
-            :class="{'carousel-dot--current': n - 1 === currentImageIndex}"
+            :class="{'carousel-dot--current': n - 1 === currentImageIndex, 'carousel-paused': isPaused}"
           >
             <button 
               @click="goTo(n - 1), startAutoPlay()"
@@ -56,6 +56,7 @@ export default {
   data: () => ({
     currentImageIndex: 0,
     autoplaySpeed: 9000,
+    isPaused: false,
     dragDistance: 0,
     dragThreshold: 50,
     supportsTouch: 'ontouchstart' in window
@@ -104,11 +105,13 @@ export default {
     startAutoPlay() {
       this.stopAutoPlay()
       this.toggleAutoPlay()
+      this.isPaused = false
     },
 
     stopAutoPlay() {
       clearInterval(this.autoplayInterval)
       this.autoplayInterval = null
+      this.isPaused = true
     },
 
     goToNext() {
@@ -220,5 +223,8 @@ export default {
 .carousel-dot--current button {
   background-color: #cccccc99;
   cursor: unset;
+}
+.carousel-dot--current.carousel-paused button {
+  background-color: #eeccccdd;
 }
 </style>
