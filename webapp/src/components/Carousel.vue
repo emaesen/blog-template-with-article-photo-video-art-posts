@@ -1,5 +1,8 @@
 <template>
-  <div class="carousel-container">
+  <div 
+    class="carousel-container"
+    v-if="hasImages"
+  >
     <h3 class="">{{ title }}</h3>
     <div 
       class="carousel replacefade-container"
@@ -63,19 +66,23 @@ export default {
   }),
   mounted() {
     // Setup - Add mouse and touch event listeners
-    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
-    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
-    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
+    if (this.hasImages) {
+      this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
+      this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
+      this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
 
-    this.startAutoPlay();
+      this.startAutoPlay();
+    }
   },
   beforeDestroy () {
     // Cleanup - Remove mouse and touch event listeners
-    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
-    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
-    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
+    if (this.hasImages) {
+      this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
+      this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
+      this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
 
-    this.stopAutoPlay()
+      this.stopAutoPlay()
+    }
   },
   computed: {
     title() {
@@ -87,6 +94,9 @@ export default {
     nrOfImages() {
       return this.images.length
     },
+    hasImages() {
+      return this.data && this.images && this.nrOfImages > 0
+    }
   },
   methods: {
     getCmsMedia,
