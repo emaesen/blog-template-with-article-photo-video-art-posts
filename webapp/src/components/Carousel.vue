@@ -4,8 +4,10 @@
     <div 
       class="carousel replacefade-container"
       aria-label="image carousel"
-      @mouseover="handleMouseOver()" 
-      @mouseout="handleMouseOut()"
+      @mouseover.stop="handleMouseOver" 
+      @mouseout.stop="handleMouseOut"
+      ref="carousel"
+      :id="title.toLowerCase().replace(/ /g, '-')"
     >
       <transition name="replacefade" >
         <div :key="currentImageIndex" >
@@ -20,7 +22,7 @@
           @click="goToPrev(), startAutoPlay()"
           aria-label="previous image"
         >‹</button>
-        <ul ref="carousel-dots" class="carousel-dots">
+        <ul class="carousel-dots">
           <li 
             v-for="n in nrOfImages"
             :key="n"
@@ -44,18 +46,35 @@
 </template>
 
 <script>
-import handlers from '@/mixins/mouse-handlers'
+import mouseHandlers from '@/mixins/mouse-handlers'
 
 import { getCmsMedia } from '~/utils/medias'
 
 export default {
   props: ['data'],
+  mixins: [mouseHandlers],
   data: () => ({
     currentImageIndex: 0,
-    autoplaySpeed: 9000
+    autoplaySpeed: 9000,
+    dragDistance: 0,
+    dragThreshold: 50,
+    supportsTouch: 'ontouchstart' in window
   }),
   mounted() {
-    this.toggleAutoPlay();
+    // Setup - Add mouse and touch event listeners
+    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
+    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
+    this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
+
+    this.startAutoPlay();
+  },
+  beforeDestroy () {
+    // Cleanup - Remove mouse and touch event listeners
+    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
+    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
+    this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
+
+    this.stopAutoPlay()
   },
   computed: {
     title() {
@@ -93,7 +112,7 @@ export default {
     },
 
     goToNext() {
-     this.goTo(this.currentImageIndex + 1)
+      this.goTo(this.currentImageIndex + 1)
     },
 
     goToPrev() {
@@ -101,7 +120,11 @@ export default {
     },
 
     goTo (n) {
-      // Ensure we don't go beyond the number of images
+      // don't go beyond first image
+      if (n<0) {
+        n = this.nrOfImages - 1
+      }
+      // don't go beyond last image
       this.currentImageIndex = n  % this.nrOfImages;
     },
 
@@ -114,6 +137,21 @@ export default {
     }   
 
   },
+  watch: {
+    dragDistance () {
+      if (this.mouseDown) {
+        if (this.dragDistance > this.dragThreshold) {
+          this.goToPrev()
+          this.handleMouseUp()
+        }
+
+        if (this.dragDistance < -1 * this.dragThreshold) {
+          this.goToNext()
+          this.handleMouseUp()
+        }
+      }
+    },
+  }
 }
 </script>
 
