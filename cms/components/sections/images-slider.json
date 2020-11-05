@@ -9,14 +9,10 @@
     "title": {
       "type": "string"
     },
-    "images": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": true
+    "sliderImages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.slider-image"
     }
   }
 }
