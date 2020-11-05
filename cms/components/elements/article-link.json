@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_elements_article_links",
+  "info": {
+    "name": "articleLink",
+    "icon": "external-link-square-alt"
+  },
+  "options": {},
+  "attributes": {
+    "article": {
+      "model": "article"
+    }
+  }
+}
