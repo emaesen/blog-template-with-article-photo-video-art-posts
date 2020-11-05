@@ -4,13 +4,17 @@ This is a starter project for a Strapi-cms powered dynamic Vue.js website, pre-b
 
 This project is based upon [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio).
 
+## Images
+
+For a clean look, images that are uploaded to Strapi-cms should be of consistent height/width ratio. A phi-ratio is pleasing to the eye and the recommended image size is 1165px x 720px.
+
 ## Tools used
 
 (This is not an endorsement for the resources listed below. It's simply the set of tools that I happened to use for this project)
 
 Favicon icon generator: [RealFaviconGenerator](https://realfavicongenerator.net/)
 
-Image size optimizer: [OptimiZilla](https://imagecompressor.com/)
+Image file-size optimizer: [OptimiZilla](https://imagecompressor.com/)
 
 Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource)
 
