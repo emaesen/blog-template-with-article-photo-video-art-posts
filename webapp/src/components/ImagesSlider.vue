@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasData">
-    <h3 class="">{{ title }}</h3>
+    <h3 v-if="title">{{ title }}</h3>
     <Carousel :slides="slides" />
   </div>
 </template>
