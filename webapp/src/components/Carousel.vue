@@ -209,7 +209,7 @@ export default {
   margin: 0 10px;
 }
 
-@diam:25px;
+@diam:20px;
 .carousel-dot button {
   background-color: transparent;
   border: 1px solid #ccc;
@@ -236,11 +236,18 @@ export default {
 }
 .slide-title {
   position: absolute;
-  width: 80%;
   top: 0.1em;
   right: 0.1em;
   color: #fff;
-  font-size: 3em;
+  font-size: 2em;
+  line-height: 1em;
   opacity: .8;
+  text-shadow: 2px 2px 10px #000;
+  opacity:.1;
+  transition-duration: 1s;
+}
+.slide:hover .slide-title,
+.slide.replacefade-enter-active .slide-title {
+  opacity:1;
 }
 </style>
