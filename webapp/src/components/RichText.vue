@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h2>{{data.sectionTitle}}</h2>
+    <h2 v-if="title">{{title}}</h2>
     <div v-html="contentAsHtml"/>
   </div>
 </template>
@@ -15,9 +15,13 @@ export default {
   components: {
   },
   computed: {
+    title() {
+      return this.data.sectionTitle
+    },
     contentAsHtml() {
-      return this.data && this.data.content ? 
-        parseAsHtml(this.data.content, {
+      const content = this.data && this.data.content ? this.data.content : this.data
+      return content ? 
+        parseAsHtml(content, {
           paraClassName: "rtpara", 
           imgClassName:"rtimg", 
           extLinkClassName:"ext",
