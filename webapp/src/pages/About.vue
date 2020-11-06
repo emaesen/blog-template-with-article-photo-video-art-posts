@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <h1>{{$page.cms.about.title}}</h1>
     <Content :content="$page.cms.about.content" class="" />
   </Layout>
 </template>
@@ -28,6 +29,7 @@ export default {
 query AboutPage {
   cms {
     about {
+      title
       content {
         __typename
         ... on cmsTypes_ComponentSectionsRichText {
@@ -46,9 +48,18 @@ query AboutPage {
         ... on cmsTypes_ComponentSectionsImagesSlider {
           id
           title
-          images {
+          sliderImages {
             id
-            url
+            slide {
+              type
+              title
+              slug
+              url
+              image {
+                name
+                url
+              }
+            }
           }
         }
       }
