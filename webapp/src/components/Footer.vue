@@ -17,7 +17,6 @@
     </ul>
 
     <div class="legal expand bgcolor-opaque">
-      <span class="contact">{{ $static.cms.global.contactEmail }}</span>
       <span class="copyright">
         © {{ copyrightYear }} {{ $static.cms.global.siteName }}. {{ $static.cms.global.rightsText }}
       </span>
@@ -26,29 +25,13 @@
 </template>
 
 <script>
-import { getCmsMedia } from '~/utils/medias'
-
 export default {
   methods: {
-    getCmsMedia,
   },
   computed: {
-    pages() {
-      return [
-        {
-          title: 'Home',
-          path: '/',
-        },
-        {
-          title: 'About',
-          path: '/about',
-        },
-      ]
-    },
     copyrightYear() {
       const currentYear = new Date().getFullYear();
       const startYear = this.$static.cms.global.createdAt.substring(0,4)
-      // TODO: add createAt as starting year in range
       return startYear < currentYear ? startYear + " - " + currentYear : currentYear
     }
   }
