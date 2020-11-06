@@ -15,6 +15,11 @@
       "type": "component",
       "repeatable": false,
       "component": "elements.link-image"
+    },
+    "slide": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.slide"
     }
   }
 }

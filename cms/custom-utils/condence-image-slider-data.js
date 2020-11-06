@@ -5,6 +5,28 @@ const _ = require('lodash');
  * optional. So we'll condence it into something managable here
  */
 
+/* The modified data show up in the REST API, but for graphql the 
+ * schema would have to be custom extended. 
+ * That's possible (https://hashinteractive.com/blog/strapi-customize-graphql-schema-example/),
+ * but there are several problems/complications:
+ * - that schema is auto-generated, 
+ * - and these Image Sliders can appear anywhere,
+ * - in multiple places,
+ * - potentially nested deep within a data structure.
+ * It seems impracticle and a maintenance nightmare to extend the
+ * graphql schema programatically.
+ * So my solution in this project is a fairly simple work-around: 
+ * - create a new Slide component in the API CMS,
+ *     - which has all the properties of the `slide` that is 
+ *       defined below here
+ *     - and thus auto-generates the desired corresponding graphql
+ *       schema
+ * - include the Slide component in the SliderImage component
+ * - configure the view of the SliderImage component and hide the
+ *   Slide component, so the CMS user doesn't see it
+ * Thus Slide provides a placeholder for the code below to populate.
+ * The graphql interface will still have 
+ */
 const condenceImageSliderData = (sourceData) => {
   if (typeof sourceData !== 'object' || _.isNil(sourceData)) {
     return sourceData;
