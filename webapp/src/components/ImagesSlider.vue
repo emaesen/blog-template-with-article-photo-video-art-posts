@@ -1,5 +1,8 @@
 <template>
-  <Carousel :data="carouselData" />
+  <div v-if="hasData">
+    <h3 class="">{{ title }}</h3>
+    <Carousel :slides="slides" />
+  </div>
 </template>
 
 <script>
@@ -11,21 +14,16 @@ export default {
     Carousel,
   },
   computed: {
-    carouselData() {
-      const sourceData = this.data
-      let data = {
-        title: sourceData.title
-      }
-      console.log(sourceData)
-      data.images = sourceData.linkImages.map(current => {
-        let image = {}
-        console.log({current}) 
-        return image
-      })
-
-      console.log({data})
-      return sourceData
-    }
+    title() {
+      return this.data && this.data.title
+    },
+    slides() {
+      const sliderImages = this.data.sliderImages || []
+      return sliderImages.map(current => current.slide)
+    },
+    hasData() {
+      return this.title && this.slides && this.slides.length > 0
+    },
   }
 }
 </script>

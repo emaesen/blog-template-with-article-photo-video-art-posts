@@ -1,47 +1,49 @@
 <template>
   <div 
     class="carousel-container"
-    v-if="hasImages"
+    v-if="hasSlides"
   >
-    <h3 class="">{{ title }}</h3>
     <div 
       class="carousel replacefade-container"
-      aria-label="image carousel"
+      aria-label="slide carousel"
       @mouseover.stop="handleMouseOver" 
       @mouseout.stop="handleMouseOut"
       ref="carousel"
-      :id="title.toLowerCase().replace(/ /g, '-')"
     >
       <transition name="replacefade" >
-        <div :key="currentImageIndex" >
-        <g-image
-          :src="getCmsMedia(images[currentImageIndex].url)"
-        />
+        <div :key="currentSlideIndex" class="slide">
+          <a :href="slide.url">
+            <!-- ToDo: support other slide types -->
+            <g-image
+              :src="getCmsMedia(slide.image.url)"
+            />
+          </a>
+          <div class="slide-title">{{ slide.title }}</div>
         </div>
       </transition>
       <div class="carousel-controls">
         <button 
           class="carousel-nav"
           @click="goToPrev(), startAutoPlay()"
-          aria-label="previous image"
+          aria-label="previous slide"
         >‹</button>
         <ul class="carousel-dots">
           <li 
-            v-for="n in nrOfImages"
+            v-for="n in nrOfSlides"
             :key="n"
             class="carousel-dot"
-            :class="{'carousel-dot--current': n - 1 === currentImageIndex, 'carousel-paused': isPaused}"
+            :class="{'carousel-dot--current': n - 1 === currentSlideIndex, 'carousel-paused': isPaused}"
           >
             <button 
               @click="goTo(n - 1), startAutoPlay()"
-              :aria-label="'jump to image ' + n"
+              :aria-label="'jump to slide ' + n"
             >{{n}}</button>
           </li>
         </ul>
         <button 
           class="carousel-nav"
           @click="goToNext(), startAutoPlay()"
-          aria-label="next image"
+          aria-label="next slide"
         >›</button>
       </div>
     </div>
@@ -54,10 +56,10 @@ import mouseHandlers from '@/mixins/mouse-handlers'
 import { getCmsMedia } from '~/utils/medias'
 
 export default {
-  props: ['data'],
+  props: ['slides'],
   mixins: [mouseHandlers],
   data: () => ({
-    currentImageIndex: 0,
+    currentSlideIndex: 0,
     autoplaySpeed: 9000,
     isPaused: false,
     dragDistance: 0,
@@ -66,7 +68,7 @@ export default {
   }),
   mounted() {
     // Setup - Add mouse and touch event listeners
-    if (this.hasImages) {
+    if (this.hasSlides) {
       this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
       this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
       this.$refs.carousel.addEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
@@ -76,7 +78,7 @@ export default {
   },
   beforeDestroy () {
     // Cleanup - Remove mouse and touch event listeners
-    if (this.hasImages) {
+    if (this.hasSlides) {
       this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchstart' : 'mousedown', this.handleMouseDown)
       this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchend' : 'mouseup', this.handleMouseUp)
       this.$refs.carousel.removeEventListener(this.supportsTouch ? 'touchmove' : 'mousemove', this.handleMouseMove)
@@ -85,17 +87,14 @@ export default {
     }
   },
   computed: {
-    title() {
-      return this.data.title
+    nrOfSlides() {
+      return this.slides.length
     },
-    images() {
-      return this.data.images
+    hasSlides() {
+      return this.slides && this.nrOfSlides > 0
     },
-    nrOfImages() {
-      return this.images.length
-    },
-    hasImages() {
-      return this.data && this.images && this.nrOfImages > 0
+    slide() {
+      return this.slides[this.currentSlideIndex]
     }
   },
   methods: {
@@ -125,20 +124,20 @@ export default {
     },
 
     goToNext() {
-      this.goTo(this.currentImageIndex + 1)
+      this.goTo(this.currentSlideIndex + 1)
     },
 
     goToPrev() {
-      this.goTo(this.currentImageIndex - 1)
+      this.goTo(this.currentSlideIndex - 1)
     },
 
     goTo (n) {
-      // don't go beyond first image
+      // don't go beyond first slide
       if (n<0) {
-        n = this.nrOfImages - 1
+        n = this.nrOfSlides - 1
       }
-      // don't go beyond last image
-      this.currentImageIndex = n  % this.nrOfImages;
+      // don't go beyond last slide
+      this.currentSlideIndex = n  % this.nrOfSlides;
     },
 
     handleMouseOver () {
@@ -198,7 +197,6 @@ export default {
   font-size: 5em;
 }
 
-
 .carousel-dots {
   align-items: center;
   display: flex;
@@ -207,7 +205,6 @@ export default {
   margin: 0;
   white-space: nowrap;
 }
-
 .carousel-dot {
   margin: 0 10px;
 }
@@ -236,5 +233,14 @@ export default {
 }
 .carousel-dot--current.carousel-paused button {
   background-color: #eeccccdd;
+}
+.slide-title {
+  position: absolute;
+  width: 80%;
+  top: 0.1em;
+  right: 0.1em;
+  color: #fff;
+  font-size: 3em;
+  opacity: .8;
 }
 </style>

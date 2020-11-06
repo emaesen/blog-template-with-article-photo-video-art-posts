@@ -46,9 +46,18 @@ query IndexPage {
         ... on cmsTypes_ComponentSectionsImagesSlider {
           id
           title
-          images {
+          sliderImages {
             id
-            url
+            slide {
+              type
+              title
+              slug
+              url
+              image {
+                name
+                url
+              }
+            }
           }
         }
       }
