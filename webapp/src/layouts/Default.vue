@@ -1,11 +1,9 @@
 <template>
   <div class="layout">
     <header class="header">
-      <strong>
-        <g-link to="/">
-          <g-image alt="Logo" src="~/assets/images/logo.png" width="65" />
-        </g-link>
-      </strong>
+      <g-link to="/" class="nodeco">
+        <g-image alt="logo" src="~/assets/images/logo.png" width="65"/>
+      </g-link>
       <SiteNav/>
     </header>
     <transition name="fade" appear>
