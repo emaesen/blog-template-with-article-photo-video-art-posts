@@ -1,5 +1,6 @@
 @import './variab.less';
 @import './transi.less';
+@import './anima.less';
 
 html {
   /* scale font-size with viewport width */
@@ -87,11 +88,13 @@ button:disabled {
 }
 a {
   color: @color_text_action;
+}
+a.active--exact {
+  cursor: default;
+  font-weight: 800;
   text-decoration: none;
 }
-a:hover {
-  text-decoration: underline;
-}
+
 img {
   max-width: 100%;
 }
@@ -142,6 +145,31 @@ caption {
   clear: both;
 }
 
+/* fancy hyperlinks */
+a:not(.active--exact) {
+  transition: color, background-color 1s cubic-bezier(.43,.15,.63,.93);
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+}
+a:not(.active--exact)::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  background-color: fadeout(@color_text_action_hover,70%);
+}
+a:not(.active--exact):hover {
+  color: @color_text_action_hover;
+  background-color: fadeout(@color_text_action,90%);
+}
+a:not(.active--exact):hover::after {
+  background-color: @color_text_action_hover;
+  .anima__scalex-out_scalex-in();
+}
 
 /* scrollbar */
 @scroll-width:13px;
