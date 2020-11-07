@@ -14,13 +14,4 @@ query SiteNav {
 </static-query>
 
 <style lang="less" scoped>
-a.active--exact {
-  cursor: default;
-  font-weight: 800;
-  text-decoration: none;
-}
-a:not(.active--exact):hover {
-  text-decoration: underline;
-}
-
 </style>
