@@ -1,0 +1,60 @@
+.anima__-paused {
+  animation-play-state: paused;
+}
+.anima__-pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
+.anima__scalex-out_scalex-in {
+  animation-name: scalex-out, scalex-in;
+  animation-duration: 0.3s, 0.4s;
+  animation-delay: 0s, 0.3s;
+  animation-iteration-count: 1, 1;
+  animation-direction: normal, normal;
+  animation-fill-mode: forwards, forwards;
+  animation-timing-function: cubic-bezier(.43,.15,.63,.93), cubic-bezier(.43,.15,.63,.93);
+  animation-play-state: running, running;
+}
+.anima__scalex-in {
+  animation-name: scalex-in;
+	animation-duration: .5s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(.43,.15,.63,.93);
+  animation-fill-mode: forwards;
+}
+@keyframes scalex-in {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left
+  }
+}
+.anima__scalex-out {
+  animation-name: scalex-out;
+	animation-duration: .5s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(.43,.15,.63,.93);
+  animation-fill-mode: forwards;
+}
+@keyframes scalex-out {
+  0% {
+    transform: scaleX(1);
+    transform-origin: right
+  }
+  to {
+    transform: scaleX(0);
+    transform-origin: right
+  }
+}
+
+@media (prefers-reduced-motion) {
+  /* adjust motion of 'transition' or 'animation' properties */
+  .anima__scalex-out_scalex-in,
+  .anima__scalex-in,
+  .anima__scalex-out {
+    animation-duration: 0s;
+  }
+}
