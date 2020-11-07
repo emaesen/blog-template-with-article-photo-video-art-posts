@@ -1,6 +1,6 @@
 <template>
   <div class="article-card">
-    <g-link :to="'/article/' + article.slug">
+    <g-link :to="'/article/' + article.slug" class="nodeco">
       <div class="article-summary">
         <div class="article-image-container">
           <g-image
