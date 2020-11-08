@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
-    <g-link class="nav__link" to="/">Home</g-link>
-    <g-link class="nav__link" to="/about/">About</g-link>
+    <g-link class="nav-link" to="/">Home</g-link>
+    <g-link class="nav-link" to="/about/">About</g-link>
   </nav>
 </template>
 
@@ -14,4 +14,7 @@ query SiteNav {
 </static-query>
 
 <style lang="less" scoped>
+a.nav-link {
+  margin-left: 20px!important;
+}
 </style>

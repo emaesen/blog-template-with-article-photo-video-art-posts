@@ -67,9 +67,7 @@ pre {
   border: 2px solid  fadeout(@color_border_accent-2, 60%);
   border-radius: .5em;
 }
-a {
-  color: rgb(9,54,183)
-}
+
 button,
 a.button {
   margin: 1em .5em 1em 1em;
@@ -95,7 +93,7 @@ a.active--exact {
   font-weight: 800;
   text-decoration: none;
 }
-a:hover, a:hover * {
+a:not(.active--exact):hover, a:hover * {
   color: @color_text_action_hover;
 }
 
@@ -113,9 +111,6 @@ caption {
   align-items: center;
   margin-bottom: 20px;
   height: 80px;
-}
-.nav__link {
-  margin-left: 20px;
 }
 
 .para {
@@ -158,6 +153,9 @@ a:not(.active--exact):not(.nodeco) {
   position: relative;
   text-decoration: none;
   overflow: hidden;
+  margin: -0.1em -0.2em;
+  padding: 0.1em 0.2em;
+  border-radius:3px;
 }
 a:not(.active--exact):not(.nodeco)::after {
   content: "";
@@ -173,7 +171,6 @@ a:not(.active--exact):not(.nodeco)::after {
 a:not(.active--exact):not(.nodeco):hover {
   color: @color_text_action_hover;
   background-color: fadeout(@color_text_highlight,50%);
-  border-radius:3px;
 }
 a:not(.active--exact):not(.nodeco):hover::after {
   background-color: @color_text_action_hover;
