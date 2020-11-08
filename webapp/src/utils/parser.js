@@ -96,7 +96,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
       return '<img src="'+src+'" alt="'+alt+'" class="'+imgClassName+'"/>'
     })
     /* internal link */
-    .replace(/\[([^\]]+)\]\((\/[^\/].+\/)\)/g, '<a href="$2">$1</a>' )
+    .replace(/\[([^\]]+)\]\((\/[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* external link */
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="' + extLinkClassName + '">$1</a>' + (extLinkIconClassName?'<i class="' + extLinkIconClassName + '"></i>':'') ))
     /* add line breaks */
