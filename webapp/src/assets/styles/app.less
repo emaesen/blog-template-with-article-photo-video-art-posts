@@ -167,11 +167,13 @@ a:not(.active--exact):not(.nodeco)::after {
   right: 0;
   height: 2px;
   width: 100%;
+  transition: background-color .4s cubic-bezier(.43,.15,.63,.93) 0.5s;
   background-color: fadeout(@color_text_action_hover,70%);
 }
 a:not(.active--exact):not(.nodeco):hover {
   color: @color_text_action_hover;
-  background-color: fadeout(@color_text_action,90%);
+  background-color: fadeout(@color_text_highlight,50%);
+  border-radius:3px;
 }
 a:not(.active--exact):not(.nodeco):hover::after {
   background-color: @color_text_action_hover;
