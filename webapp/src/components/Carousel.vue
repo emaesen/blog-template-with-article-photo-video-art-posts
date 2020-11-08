@@ -12,7 +12,7 @@
     >
       <transition name="replacefade" >
         <div :key="currentSlideIndex" class="slide">
-          <a :href="slide.url">
+          <a :href="slide.url" class="nodeco">
             <!-- ToDo: support other slide types -->
             <g-image
               :src="getCmsMedia(slide.image.url)"
