@@ -245,6 +245,7 @@ export default {
   text-shadow: 2px 2px 10px #000;
   opacity:.1;
   transition-duration: 1s;
+  backdrop-filter: blur(4px);
 }
 .slide:hover .slide-title,
 .slide.replacefade-enter-active .slide-title {
