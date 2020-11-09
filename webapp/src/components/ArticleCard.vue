@@ -1,6 +1,6 @@
 <template>
-  <div class="article-card">
-    <g-link :to="'/article/' + article.slug" class="nodeco">
+  <div class="article-card h-entry as-article">
+    <g-link :to="'/article/' + article.slug" class="nodeco u-url u-uid">
       <div class="article-summary">
         <div class="article-image-container">
           <g-image
@@ -10,23 +10,23 @@
           />
           <span :class="{'article-badge':mainCategory}">{{ mainCategory }}</span>
         </div>
-        <h3 class="article-title">
+        <h3 class="article-title p-name">
           {{ article.title }}
         </h3>
-        <div class="article-description">
+        <div class="article-description p-summary">
           {{ article.description }}
         </div>
       </div>
     </g-link>
     <div class="article-meta">
-      <div class="article-date">
+      <div class="article-date dt-published">
         {{ dateText }}
       </div>
       <div class="article-categories">
         <span
           v-for="category in article.categories"
           :key="category.id"
-          class="article-category"
+          class="article-category p-category"
         >
           {{ category.title }}
         </span>

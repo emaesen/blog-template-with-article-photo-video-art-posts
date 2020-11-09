@@ -1,7 +1,7 @@
 <template>
-  <section v-if="hasArticles">
+  <section v-if="hasArticles" class="h-feed">
     <div class="cards-header-container">
-      <h2 class="cards-header">
+      <h2 class="cards-header p-name">
         Latest articles
       </h2>
       <a 
