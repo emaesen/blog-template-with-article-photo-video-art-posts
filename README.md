@@ -13,7 +13,10 @@ Database: [MongoDB](https://www.mongodb.com/)
 
 Vue.js and Gridsome are installed in this project's `webapp` directory. (run `npm install` in that directory)
 Strapi is installed in this project's `cms` directory. (run `npm install` in that directory)
-MongoDB should be installed separately, globally on the host system.
+
+I have chosen MongoDB for no other reason than to be able to get some experience with it. If you choose to use it as well, MongoDB should be installed separately, globally on the host system.
+
+You may also use any other database supported by Strapi; by default it will use [SQLite](https://sqlite.org/).
 
 ## Images
 
