@@ -8,19 +8,15 @@
 <script>
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
-import { getSeoMetaTags } from '~/utils/seo'
+import { getMetaTags } from '~/utils/meta-tags'
+
 
 export default {
   components: {
     RichText,
   },
   metaInfo() {
-    const { title, description, shareImage } = this.$page.cms.test.seo
-    const image = shareImage && getCmsMedia(shareImage.url)
-    return {
-      title,
-      meta: getSeoMetaTags(title, description, image),
-    }
+    return getMetaTags(this.$page.cms.test.seo) 
   },
 }
 </script>

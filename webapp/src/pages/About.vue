@@ -8,19 +8,15 @@
 <script>
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
-import { getSeoMetaTags } from '~/utils/seo'
+import { getMetaTags } from '~/utils/meta-tags'
+
 
 export default {
   components: {
     Content,
   },
   metaInfo() {
-    const { title, description, shareImage } = this.$page.cms.about.seo
-    const image = getCmsMedia(shareImage.url)
-    return {
-      title,
-      meta: getSeoMetaTags(title, description, image),
-    }
+    return getMetaTags(this.$page.cms.about.seo) 
   },
 }
 </script>

@@ -71,11 +71,11 @@ import LatestArticles from '~/components/LatestArticles'
 import Content from '~/components/Content'
 
 import { getCmsMedia } from '~/utils/medias'
-import { getSeoMetaTags } from '~/utils/seo'
+import { getMetaTags } from '~/utils/meta-tags'
+
 
 export default {
   methods: {
-    getCmsMedia,
   },
   components: {
     LatestArticles,
@@ -88,12 +88,7 @@ export default {
     }
   },
   metaInfo() {
-    const { title, description, shareImage } = this.$page.cms.home.seo
-    const image = getCmsMedia(shareImage.url)
-    return {
-      title,
-      meta: getSeoMetaTags(title, description, image),
-    }
+    return getMetaTags(this.$page.cms.home.seo) 
   },
   computed: {
   }
