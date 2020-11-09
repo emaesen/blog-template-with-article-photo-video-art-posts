@@ -1,6 +1,7 @@
 <template>
   <nav class="nav">
     <g-link class="nav-link" to="/">Home</g-link>
+    <g-link class="nav-link" to="/articles/">Articles</g-link>
     <g-link class="nav-link" to="/about/">About</g-link>
   </nav>
 </template>
