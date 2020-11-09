@@ -31,3 +31,6 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
   - changing a property name doesn't always propagate to the graphql schema
   - adding a new property to an existing component sometimes is non-editable when trying to use in a content type.
     - restarting the server may or may not fix this.
+  - if you create a Single Type with the same name (but singular) as a Collection Type (plural name), the application shows again a non-descriptive "an error occured" message.
+    - it's not possible to restart the server.
+    - the conflicting configuration files need to be manually removed before the server can be restarted.
