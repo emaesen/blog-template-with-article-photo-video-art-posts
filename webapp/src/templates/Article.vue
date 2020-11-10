@@ -71,7 +71,7 @@ query Article ($slug: String!) {
 <script>
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
-import { getSeoMetaTags } from '~/utils/seo'
+import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
   methods: {
@@ -81,12 +81,7 @@ export default {
     Content,
   },
   metaInfo() {
-    const { title, description, coverImage } = this.$page.cms.articles[0]
-    const image = getCmsMedia(coverImage.url)
-    return {
-      title,
-      meta: getSeoMetaTags(title, description, image),
-    }
+    return getMetaTags(this.$page.cms.articles[0]) 
   },
   computed: {
     imgUrl() {
