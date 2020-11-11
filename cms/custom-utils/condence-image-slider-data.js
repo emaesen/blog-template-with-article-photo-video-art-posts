@@ -1,8 +1,11 @@
 'use strict';
 const _ = require('lodash');
 
-/* The image slider data is a complex collection of properties, some
- * optional. So we'll condence it into something managable here
+/* The image slider provides a "choice" between a linkImage
+ * and an articleLink. It's a component, which doesn't support
+ * a dynamic zone, so both types can potentially be filled out.
+ * The resulting data is a complex collection of properties, some
+ * optional. So we'll condence it into something managable here.
  */
 
 /* The modified data show up in the REST API, but for graphql the 
@@ -25,7 +28,8 @@ const _ = require('lodash');
  * - configure the view of the SliderImage component and hide the
  *   Slide component, so the CMS user doesn't see it
  * Thus Slide provides a placeholder for the code below to populate.
- * The graphql interface will still have 
+ * The graphql schema will still have the orignal linkImage and
+ * articleLink fields, but both will always be null.
  */
 const condenceImageSliderData = (sourceData) => {
   if (typeof sourceData !== 'object' || _.isNil(sourceData)) {
