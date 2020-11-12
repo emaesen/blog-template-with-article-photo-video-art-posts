@@ -24,7 +24,7 @@ module.exports = {
   },
   async find(ctx) {
     let entities;
-    console.log("find article: " + ctx.query.slug)
+    console.log("find article: ", ctx.query)
     if (ctx.query._q) {
       entities = await strapi.services.article.search(ctx.query);
     } else {
