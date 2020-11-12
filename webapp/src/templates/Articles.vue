@@ -1,8 +1,11 @@
 <template>
   <Layout>
+    route-params: {{ this.$route.params }}<br>
+    $context: {{ $context }}<br>
+    $page: {{ $page }}<br>
     <h1>{{$page.cms.articlesPage.title}}</h1>
     <RichText :data="$page.cms.articlesPage.introduction" class="para"/>
-    <div v-if="hasArticles" class="h-feed">
+    <div class="h-feed">
       <div class="cards-container">
         <ArticleCard
           v-for="article in articles"
@@ -10,12 +13,14 @@
           :article="article"
         />
       </div>
+
     </div>
 
   </Layout>
 </template>
 
 <script>
+import { Pager } from 'gridsome'
 import ArticleCard from '~/components/ArticleCard'
 import RichText from '~/components/RichText'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -24,6 +29,7 @@ export default {
   methods: {
   },
   components: {
+    Pager,
     ArticleCard,
     RichText,
   },
@@ -40,24 +46,12 @@ export default {
       // graphql query
       return this.$page.cms.articles
     },
-    nrOfDisplayedArticles() {
-      return this.articles.length
-    },
-    hasArticles() {
-      return this.nrOfDisplayedArticles > 0
-    },
-    totalNrOfArticles() {
-      return this.$page.cms.allArticles.length
-    },
-    showViewAllLink() {
-      return this.totalNrOfArticles > this.nrOfDisplayedArticles
-    }
   }
 }
 </script>
 
 <page-query>
-query ArticlesPage {
+query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
   cms {
     articlesPage {
       title
@@ -73,19 +67,22 @@ query ArticlesPage {
     }
 
     # List articles
-    articles(sort: "createdAt:desc") {
-      title
-      createdAt
-      slug
-      description
-      categories {
-        id
-        title
-      }
-      coverImage {
-        id
-        url
-      }
+    articles (sort: $sort, limit:$limit, start:$start) {
+
+          id
+          title
+          createdAt
+          slug
+          description
+          categories {
+            id
+            title
+          }
+          coverImage {
+            id
+            url
+          }
+
     }
 
   }

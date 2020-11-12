@@ -30,8 +30,9 @@ const INCLUDE_DERIVED_MEDIA_ASSETS = false
 
 const CMS_URL = process.env.CMS_URL
 const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
-const GRIDSOME_CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
-const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', GRIDSOME_CMS_MEDIA_PATH)
+const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
+const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', CMS_MEDIA_PATH)
+const CMS_ARTICLES_PAGELIMIT = process.env.GRIDSOME_CMS_ARTICLES_PAGELIMIT
 
 
 async function getListOfCmsMediaFiles(addCollection) {
@@ -160,13 +161,14 @@ module.exports = function (api, options) {
     // find all article slugs
     const { data } = await graphql(`{
       cms {
+        articlesCount
         articles {
           slug
         }
       }
     }`)
 
-    // Create a page for each article
+    // Create a route for each individual article
     data.cms.articles.forEach((article) => {
       createPage({
         path: `/article/${article.slug}`,
@@ -176,6 +178,45 @@ module.exports = function (api, options) {
         }
       })
     })
+
+    // create routes for the "articles" page, with pagination
+    const nrOfArticlesPages = Math.ceil(data.cms.articlesCount / CMS_ARTICLES_PAGELIMIT)
+    createPage({
+      path: `/articles/`,
+      component: './src/templates/Articles.vue',
+      context: {
+        page: 0,
+        limit: 1 * CMS_ARTICLES_PAGELIMIT,
+        start: 0,
+        sort: "createdAt:desc",
+        totalPages: nrOfArticlesPages
+      }
+    })
+    for (let page = 0; page < nrOfArticlesPages; page++) {
+      createPage({
+        path: `/articles/${page}`,
+        component: './src/templates/Articles.vue',
+        context: {
+          page: page,
+          limit: 1 * CMS_ARTICLES_PAGELIMIT,
+          start: 1 * page * CMS_ARTICLES_PAGELIMIT,
+          sort: "createdAt:desc",
+          totalPages: nrOfArticlesPages
+        }
+      })
+      // create additional routes for reversed sort
+      createPage({
+        path: `/articles/${page}/asc`,
+        component: './src/templates/Articles.vue',
+        context: {
+          page: page,
+          limit: 1 * CMS_ARTICLES_PAGELIMIT,
+          start: 1 * page * CMS_ARTICLES_PAGELIMIT,
+          sort: "createdAt:asc",
+          totalPages: nrOfArticlesPages
+        }
+      })
+    }
   })
 
 }
