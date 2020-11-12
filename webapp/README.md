@@ -73,3 +73,29 @@ See `sample.env.development` and use that to creat your own `.env.development`an
 ## Dynamic images
 
 The implemented solution for loading dynamic images is based on [How to load dynamic images in Vue and Nuxt with ease](https://blog.lichter.io/posts/dynamic-images-vue-nuxt/), however this does not allow for Gridsome image optimizations. Currently (Gridsome 0.7.0) there does not seem to be a solution to support dynamic image filenames in `<g-image>`.
+
+## source-graphql vs source-strapi
+
+Gridsome (0.7.22) has two plugins that can be used to load data from Strapi CMS: `@gridsome/source-graphql` (0.1.0) and `@gridsome/source-strapi`. Neither is perfect. Both require workarounds. Here are the pros and cons:
+
+### @gridsome/source-graphql
+
+pro:
+  >> a generic plugin that pulls in Strapi's graphql schema as-is. What's present within Gridsome is the same (aside from a namespace) as what's present in Strapi; including the powerfull Dynamic Zone conditional structures.
+  >> any graphql queries that were written in Strapi's graphql explorer can be copied to gridsome (with a minor change to take the namespace into account). This includes conditional logic to handle Strapi's Dynamic Zones.
+
+con:
+  >> Gridsome's pagination support doesn't work, since that expects a specific graphql schema structure using `nodes` and `egdes`.
+
+### @gridsome/source-strapi
+
+pro:
+  >> a specific plugin that gets Strapi data but puts it in a new schema structure, using `nodes` and `egdes`.
+  >> Gridsome's pagination support works.
+
+con:
+  >> the plugin does not support Strapi's Dynamic Zones. Instead it collapses the possible choices into one, and the others are absent. A UI component can only query one possible choice.
+
+### Choice
+
+The choice between the two plugins is the choice between adding a custom pagination implmentation to the UI, or adding a solution to Strapi to integrate the possible choices of Dynamic Zones into a fixed schema structure.
