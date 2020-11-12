@@ -1,16 +1,17 @@
 <template>
   <Layout>
-    <h1>
-      {{ $page.cms.articles[0].title }}
-    </h1>
+    <article>
+      <h1>
+        {{ $page.cms.articles[0].title }}
+      </h1>
+      <g-image
+        :alt="$page.cms.articles[0].title"
+        :src="imgUrl"
+      />
+      <caption>{{ $page.cms.articles[0].description }}</caption>
 
-    <g-image
-      :alt="$page.cms.articles[0].title"
-      :src="imgUrl"
-    />
-    <caption>{{ $page.cms.articles[0].description }}</caption>
-
-    <Content :content="$page.cms.articles[0].content" class="" />
+      <Content :content="$page.cms.articles[0].content" class="" />
+    </article>
   </Layout>
 </template>
 
