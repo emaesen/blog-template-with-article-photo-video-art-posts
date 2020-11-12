@@ -1,10 +1,9 @@
 <template>
   <Layout>
-    route-params: {{ this.$route.params }}<br>
-    $context: {{ $context }}<br>
-    $page: {{ $page }}<br>
     <h1>{{$page.cms.articlesPage.title}}</h1>
+
     <RichText :data="$page.cms.articlesPage.introduction" class="para"/>
+
     <div class="h-feed">
       <div class="cards-container">
         <ArticleCard
@@ -13,14 +12,18 @@
           :article="article"
         />
       </div>
-
     </div>
+    <Pagination 
+      :basePath="basePath"
+      :currentPage="currentPage"
+      :totalPages="totalPages"
+    />
 
   </Layout>
 </template>
 
 <script>
-import { Pager } from 'gridsome'
+import Pagination from '~/components/Pagination'
 import ArticleCard from '~/components/ArticleCard'
 import RichText from '~/components/RichText'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -29,7 +32,7 @@ export default {
   methods: {
   },
   components: {
-    Pager,
+    Pagination,
     ArticleCard,
     RichText,
   },
@@ -46,6 +49,15 @@ export default {
       // graphql query
       return this.$page.cms.articles
     },
+    basePath() {
+      return this.$route.path.replace(/\/\d+.*/,"/");
+    },
+    currentPage() {
+      return this.$context.page
+    },
+    totalPages() {
+      return this.$context.totalPages
+    }
   }
 }
 </script>
