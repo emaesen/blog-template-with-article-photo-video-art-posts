@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showNav">
     <a 
       :href="$url(firstPath)"
       :class="['nav nodeco first', {inactive: noFirst}]"
@@ -59,6 +59,9 @@ export default {
     },
     noLast() {
       return this.currentPage == this.lastPage
+    },
+    showNav() {
+      return this.totalPages > 1
     },
   }
 }
