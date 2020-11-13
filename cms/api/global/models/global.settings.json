@@ -30,8 +30,10 @@
       "plugin": "upload",
       "required": false
     },
-    "author": {
-      "type": "string"
+    "Author": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.person"
     },
     "organization": {
       "type": "component",
