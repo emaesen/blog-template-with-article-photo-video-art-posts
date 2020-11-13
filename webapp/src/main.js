@@ -11,6 +11,25 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('Layout', DefaultLayout)
 
 
+  /*****************
+   * router settings
+   *****************/
+  router.options.scrollBehavior = function(to, from, savedPosition) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (to.hash) {
+          resolve( {
+            selector: to.hash,
+            behavior: 'smooth'
+          } );
+        } else if (savedPosition) {
+          resolve( savedPosition );
+        } else {
+          resolve( { x: 0, y: 0 } );
+        }
+      }, 500)
+    })
+  }
 
   /***********************************
    * meta icon settings
