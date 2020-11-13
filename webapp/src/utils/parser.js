@@ -95,6 +95,8 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
       }
       return '<img src="'+src+'" alt="'+alt+'" class="'+imgClassName+'"/>'
     })
+    /* in-page hash link */
+    .replace(/\[([^\]]+)\]\((#[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* internal link */
     .replace(/\[([^\]]+)\]\((\/[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* external link */
