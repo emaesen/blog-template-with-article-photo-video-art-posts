@@ -91,17 +91,20 @@ ul.social {
   margin-inline-end:0;
   padding-inline-start: 0;
 }
-ul.social li {
+ul.social > li {
   display: block;
   margin-right: 2em;
   position: relative;
 }
 .description {
   margin-left: 1em;
+  font-size: 90%;
+  opacity: .6;
 }
 .description::before {
   content: " ≻ ";
 }
+
 .legal {
   position: fixed;
   width: 100%;
@@ -112,5 +115,14 @@ ul.social li {
   border-top: 1px solid #0f5ca0;
   z-index: 999;
   opacity: .9;
+}
+
+/* fancy description */
+.description {
+  transition: all .3s cubic-bezier(.43,.15,.63,.93);
+}
+ul.social > li > a:hover + .description {
+  opacity: .9;
+  font-size: 95%;
 }
 </style>
