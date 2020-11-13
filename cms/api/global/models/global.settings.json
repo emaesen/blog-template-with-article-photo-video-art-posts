@@ -30,7 +30,7 @@
       "plugin": "upload",
       "required": false
     },
-    "Author": {
+    "author": {
       "type": "component",
       "repeatable": false,
       "component": "elements.person"
