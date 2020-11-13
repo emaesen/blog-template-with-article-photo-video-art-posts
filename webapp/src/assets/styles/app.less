@@ -150,7 +150,8 @@ caption {
  * or has custom class `nodeco` (no decoration)
  */
 a:not(.active--exact):not(.nodeco) {
-  transition: color, background-color 1s cubic-bezier(.43,.15,.63,.93);
+  transition: color .5s cubic-bezier(.43,.15,.63,.93), 
+              background-color 1s cubic-bezier(.43,.15,.63,.93);
   position: relative;
   text-decoration: none;
   overflow: hidden;
