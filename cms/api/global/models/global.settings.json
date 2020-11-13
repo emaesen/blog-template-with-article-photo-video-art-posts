@@ -16,11 +16,6 @@
     "contactEmail": {
       "type": "string"
     },
-    "socialNetworks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "elements.social-link"
-    },
     "siteLanguage": {
       "type": "string",
       "default": "en",
@@ -35,12 +30,22 @@
       "plugin": "upload",
       "required": false
     },
+    "author": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.organization"
+    },
+    "otherWebsites": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.other-websites"
+    },
     "rightsText": {
       "type": "string",
       "default": "All rights reserved"
-    },
-    "socialNetworksHeader": {
-      "type": "string"
     }
   }
 }

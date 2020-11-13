@@ -9,6 +9,11 @@
     "name": {
       "type": "string"
     },
+    "website": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.website"
+    },
     "address": {
       "type": "component",
       "repeatable": false,
