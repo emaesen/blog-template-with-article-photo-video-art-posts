@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_elements_people",
+  "info": {
+    "name": "person",
+    "icon": "baby"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "photo": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "tag": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.tag"
+    }
+  }
+}
