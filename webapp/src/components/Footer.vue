@@ -15,8 +15,8 @@
             <a
               :href="website.url"
               target="_blank"
-              rel="noopener noreferrer"
-              class="nowrap"
+              rel="me noopener noreferrer nofollow"
+              class="nowrap u-url"
             >{{ website.title }}</a>
             <span class="description">
               {{ website.description }}
