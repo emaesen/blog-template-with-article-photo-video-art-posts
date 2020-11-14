@@ -13,9 +13,6 @@
       "type": "string",
       "required": true
     },
-    "contactEmail": {
-      "type": "string"
-    },
     "siteLanguage": {
       "type": "string",
       "default": "en",

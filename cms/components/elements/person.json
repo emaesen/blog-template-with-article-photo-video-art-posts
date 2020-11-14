@@ -23,6 +23,17 @@
       "type": "component",
       "repeatable": true,
       "component": "elements.tag"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phoneNr": {
+      "type": "string"
+    },
+    "address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.address"
     }
   }
 }
