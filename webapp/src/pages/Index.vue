@@ -1,21 +1,64 @@
 <template>
   <Layout>
-    <div class="">
-      <h1 class="">{{ $page.cms.home.title }}</h1>
-      <div class="">
-        <Content :content="$page.cms.home.content" />
+
+    <h1>{{ $page.cms.home.title }}</h1>
+
+    <div class="personal h-card">
+      <div class="photo u-photo" v-if="photoUrl">
+        <g-image :src="photoUrl" width="100"/>
       </div>
-
-      <!-- Section with latest articles -->
-      <LatestArticles/>
-
+      <div class="name p-name">
+        {{ author.name }}
+      </div>
+      <span
+        v-for="tag in author.tag"
+        :key="tag.name"
+        class="tag"
+      >
+        {{ tag.name }}
+      </span>
+      <div class="city">
+        {{ author.address.city }}
+      </div>
     </div>
+
+    <Content :content="$page.cms.home.content" />
+
+    <!-- Section with latest articles -->
+    <LatestArticles/>
+
+
   </Layout>
 </template>
 
 <page-query>
 query IndexPage {
   cms {
+    # Get global data
+    global {
+      author {
+        name
+        photo {
+          url
+        }
+        tag {
+          name
+        }
+        email
+        address {
+          city
+          state_province
+          country
+        }
+      }
+      organization {
+        name
+        website {
+          url
+          title
+        }
+      }
+    }
     # Get homepage data
     home {
       # Metadata for SEO
@@ -91,9 +134,25 @@ export default {
     return getMetaTags(this.$page.cms.home.seo) 
   },
   computed: {
+    global() {
+      return this.$page.cms.global
+    },
+    author() {
+      return this.global.author
+    },
+    photoUrl() {
+      return getCmsMedia(this.author.photo.url)
+    },
+    organizations() {
+      return this.global.organization
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.photo {
+  width: 20%;
+  max-width: 100px;
+}
 </style>
