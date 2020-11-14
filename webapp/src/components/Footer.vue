@@ -41,7 +41,6 @@ query Footer {
       createdAt
       rightsText
       siteName
-      contactEmail
       otherWebsites {
         title
         website {
