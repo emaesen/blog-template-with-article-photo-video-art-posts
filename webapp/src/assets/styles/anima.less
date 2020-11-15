@@ -50,11 +50,12 @@
   }
 }
 
-@media (prefers-reduced-motion) {
-  /* adjust motion of 'transition' or 'animation' properties */
+@media (prefers-reduced-motion: reduce) {
+  /* adjust motion of 'animation' properties */
   .anima__scalex-out_scalex-in,
   .anima__scalex-in,
-  .anima__scalex-out {
-    animation-duration: 0s;
+  .anima__scalex-out,
+  .anima {
+    animation: none !important;
   }
 }

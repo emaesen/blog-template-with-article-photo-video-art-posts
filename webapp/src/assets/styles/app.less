@@ -145,38 +145,40 @@ caption {
   clear: both;
 }
 
-/* fancy hyperlinks
- * except if the link refers to the current page: `active--exact`
- * or has custom class `nodeco` (no decoration)
- */
-a:not(.active--exact):not(.nodeco) {
-  transition: color .5s cubic-bezier(.43,.15,.63,.93), 
-              background-color 1s cubic-bezier(.43,.15,.63,.93);
-  position: relative;
-  text-decoration: none;
-  overflow: hidden;
-  margin: -0.1em -0.2em;
-  padding: 0.1em 0.2em;
-  border-radius:3px;
-}
-a:not(.active--exact):not(.nodeco)::after {
-  content: "";
-  position: absolute;
-  bottom: 3px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  width: 100%;
-  transition: background-color .4s cubic-bezier(.43,.15,.63,.93) 0.5s;
-  background-color: fadeout(@color_text_action_hover,70%);
-}
-a:not(.active--exact):not(.nodeco):hover {
-  color: @color_text_action_hover;
-  background-color: fadeout(@color_text_highlight,50%);
-}
-a:not(.active--exact):not(.nodeco):hover::after {
-  background-color: @color_text_action_hover;
-  .anima__scalex-out_scalex-in();
+@media (prefers-reduced-motion: no-preference) {
+  /* fancy hyperlinks
+  * except if the link refers to the current page: `active--exact`
+  * or has custom class `nodeco` (no decoration)
+  */
+  a:not(.active--exact):not(.nodeco) {
+    transition: color .5s cubic-bezier(.43,.15,.63,.93), 
+                background-color 1s cubic-bezier(.43,.15,.63,.93);
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+    margin: -0.1em -0.2em;
+    padding: 0.1em 0.2em;
+    border-radius:3px;
+  }
+  a:not(.active--exact):not(.nodeco)::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    transition: background-color .4s cubic-bezier(.43,.15,.63,.93) 0.5s;
+    background-color: fadeout(@color_text_action_hover,70%);
+  }
+  a:not(.active--exact):not(.nodeco):hover {
+    color: @color_text_action_hover;
+    background-color: fadeout(@color_text_highlight,50%);
+  }
+  a:not(.active--exact):not(.nodeco):hover::after {
+    background-color: @color_text_action_hover;
+    .anima__scalex-out_scalex-in();
+  }
 }
 
 /* scrollbar */
