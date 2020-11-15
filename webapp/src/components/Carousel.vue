@@ -46,6 +46,7 @@
           aria-label="next slide"
         >›</button>
       </div>
+      <div class="progress" ref="progress"></div>
     </div>
   </div>
 </template>
@@ -110,27 +111,24 @@ export default {
         this.stopAutoPlay()
       }
     },
-
     startAutoPlay() {
       this.stopAutoPlay()
       this.toggleAutoPlay()
       this.isPaused = false
+      this.startProgress()
     },
-
     stopAutoPlay() {
       clearInterval(this.autoplayInterval)
       this.autoplayInterval = null
       this.isPaused = true
+      this.stopProgress()
     },
-
     goToNext() {
       this.goTo(this.currentSlideIndex + 1)
     },
-
     goToPrev() {
       this.goTo(this.currentSlideIndex - 1)
     },
-
     goTo (n) {
       // don't go beyond first slide
       if (n<0) {
@@ -143,10 +141,24 @@ export default {
     handleMouseOver () {
       this.stopAutoPlay()
     },
-
     handleMouseOut () {
       this.startAutoPlay()
-    }   
+    },
+
+    startProgress() {
+      let progress = 0;
+      const nrOfSteps = 9;
+      const interval = nrOfSteps - 1;
+      const progressEl = this.$refs.progress;
+      progressEl.setAttribute("style", "width:0%");
+      this.progressInterval = setInterval(() => {
+        progress = progress > interval - 1 ? 0 : progress+1
+        progressEl.setAttribute("style", "width:" + progress * ( 100/interval) + "%");
+      }, this.autoplaySpeed / nrOfSteps)
+    },
+    stopProgress() {
+      clearInterval(this.progressInterval)
+    }
 
   },
   watch: {
@@ -250,5 +262,21 @@ export default {
 .slide:hover .slide-title,
 .slide.replacefade-enter-active .slide-title {
   opacity:1;
+}
+
+/* animated progress bar */
+.progress {
+  position: absolute;
+  bottom: 5px;
+  transition: width .5s ease;
+  height: 2px;
+  background-color: #fff;
+  min-width: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress {
+    display: none;
+  }
 }
 </style>
