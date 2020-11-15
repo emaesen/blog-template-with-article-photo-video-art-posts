@@ -116,12 +116,14 @@ ul.social > li {
   opacity: .9;
 }
 
-/* fancy description */
-.description {
-  transition: all .3s cubic-bezier(.43,.15,.63,.93);
-}
-ul.social > li > a:hover + .description {
-  opacity: .9;
-  font-size: 95%;
+@media (prefers-reduced-motion: no-preference) {
+  /* fancy description */
+  .description {
+    transition: all .3s cubic-bezier(.43,.15,.63,.93);
+  }
+  ul.social > li > a:hover + .description {
+    opacity: .9;
+    font-size: 95%;
+  }
 }
 </style>
