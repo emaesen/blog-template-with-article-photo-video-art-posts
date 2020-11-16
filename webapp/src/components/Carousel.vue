@@ -61,7 +61,7 @@ export default {
   mixins: [mouseHandlers],
   data: () => ({
     currentSlideIndex: 0,
-    autoplaySpeed: 9000,
+    secondsPerSlide: 9,
     isPaused: false,
     dragDistance: 0,
     dragThreshold: 50,
@@ -88,6 +88,9 @@ export default {
     }
   },
   computed: {
+    autoplaySpeed() {
+      return this.secondsPerSlide * 1000
+    },
     nrOfSlides() {
       return this.slides.length
     },
@@ -147,14 +150,14 @@ export default {
 
     startProgress() {
       let progress = 0;
-      const nrOfSteps = 9;
-      const interval = nrOfSteps - 1;
+      const duration = this.secondsPerSlide;
+      const nrOfNodes = duration + 1;
       const progressEl = this.$refs.progress;
       progressEl.setAttribute("style", "width:0%");
       this.progressInterval = setInterval(() => {
-        progress = progress > interval - 1 ? 0 : progress+1
-        progressEl.setAttribute("style", "width:" + progress * ( 100/interval) + "%");
-      }, this.autoplaySpeed / nrOfSteps)
+        progress = progress > duration - 1 ? 0 : progress+1
+        progressEl.setAttribute("style", "width:" + progress * ( 100/duration) + "%");
+      }, this.autoplaySpeed / nrOfNodes)
     },
     stopProgress() {
       clearInterval(this.progressInterval)
