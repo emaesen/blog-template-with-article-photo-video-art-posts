@@ -54,6 +54,8 @@
       <div class="color text_action"><span class="text">text_action</span></div>
       <div class="color text_action_hover"><span class="text">text_action_hover</span></div>
       <div class="color text_action_selected"><span class="text">text_action_selected</span></div>
+      <div class="color text_action_underline"><span class="text">text_action_underline</span></div>
+      <div class="color text_action_underline_hover"><span class="text">text_action_underline_hover</span></div>
       <div class="color text_highlight"><span class="text">text_highlight</span></div>
       <div class="color formfield_border"><span class="text">formfield_border</span></div>
       <div class="color scrollbar"><span class="text">scrollbar</span></div>
@@ -216,6 +218,12 @@ query TestPage {
 }
 .text_action_selected {
   background-color: var(--color_text_action_selected);
+}
+.text_action_underline {
+  background-color: var(--color_text_action_underline);
+}
+.text_action_underline_hover {
+  background-color: var(--color_text_action_underline_hover);
 }
 .text_highlight {
   background-color: var(--color_text_highlight);
