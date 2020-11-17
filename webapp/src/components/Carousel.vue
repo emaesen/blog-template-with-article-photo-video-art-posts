@@ -238,6 +238,7 @@ export default {
   transition-duration: .3s;
   width: @diam;
   border-radius: @diam/2;
+  box-shadow: none;
 }
 .carousel-dot:hover button {
   background-color: #ccccccdd;
@@ -273,7 +274,7 @@ export default {
   bottom: 5px;
   transition: width .5s ease;
   height: 2px;
-  background-color: #fff;
+  background-color: #ccccccbb;
   min-width: 1px;
 }
 

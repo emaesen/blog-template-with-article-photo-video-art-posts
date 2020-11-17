@@ -86,7 +86,7 @@ export default {
 
 <style lang="less" scoped>
 .cards-header-container {
-  border-bottom: 1px solid #0f5ca0;
+  border-bottom: 1px solid var(--color_border_accent-2);
   margin-bottom: 1.5em;
 }
 .cards-header {

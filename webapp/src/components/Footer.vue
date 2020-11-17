@@ -111,7 +111,7 @@ ul.social > li {
   text-align: center;
   font-size: .75em;
   padding-top: 5px;
-  border-top: 1px solid #0f5ca0;
+  border-top: 1px solid var(--color_border_accent-1);
   z-index: 999;
   opacity: .9;
 }
