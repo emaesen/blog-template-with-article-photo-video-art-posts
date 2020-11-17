@@ -43,6 +43,10 @@
       "collection": "category",
       "via": "articles",
       "dominant": true
+    },
+    "publicationDate": {
+      "type": "date",
+      "required": true
     }
   }
 }
