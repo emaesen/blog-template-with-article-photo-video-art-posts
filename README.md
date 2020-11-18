@@ -32,7 +32,9 @@ Image file-size optimizer: [OptimiZilla](https://imagecompressor.com/)
 
 Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource)
 
-SVGs designed with: [LibreCAD](https://librecad.org/)
+Geometrical SVGs designed with: [LibreCAD](https://librecad.org/)
+
+Free-hand SVGs designed with: [InkScape](https://inkscape.org/). Use *"Edit-> Resize Page to Selection"* to reduze the box size, and *"Save as Optimized SVG"* to minimize metadata in the SVG output.
 
 Color palette designer [Paletton](http://paletton.com/)
 
