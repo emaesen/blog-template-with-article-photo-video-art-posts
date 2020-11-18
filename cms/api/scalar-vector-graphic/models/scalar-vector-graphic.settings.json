@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scalar_vector_graphics",
+  "info": {
+    "name": "scalarVectorGraphic"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "code": {
+      "type": "text"
+    },
+    "ValueOfIdAttributeInSvg": {
+      "type": "string"
+    }
+  }
+}

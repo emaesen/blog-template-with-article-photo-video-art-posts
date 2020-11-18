@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/scalar-vector-graphics",
+      "handler": "scalar-vector-graphic.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scalar-vector-graphics/count",
+      "handler": "scalar-vector-graphic.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scalar-vector-graphics/:id",
+      "handler": "scalar-vector-graphic.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/scalar-vector-graphics",
+      "handler": "scalar-vector-graphic.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/scalar-vector-graphics/:id",
+      "handler": "scalar-vector-graphic.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/scalar-vector-graphics/:id",
+      "handler": "scalar-vector-graphic.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
