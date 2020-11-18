@@ -32,11 +32,13 @@ Image file-size optimizer: [OptimiZilla](https://imagecompressor.com/)
 
 Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource)
 
+SVGs designed with: [LibreCAD](https://librecad.org/)
+
 Color palette designer [Paletton](http://paletton.com/)
 
 Visual designer for [cubic bezier](https://cubic-bezier.com/) animations
 
-Library for free [scg icons](https://iconmonstr.com/)
+Library for free [svg icons](https://iconmonstr.com/)
 
 ## Versions
 
