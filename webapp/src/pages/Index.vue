@@ -3,6 +3,13 @@
 
     <h1>{{ $page.cms.home.title }}</h1>
 
+    <AnimatedSVG
+      v-if="signatureSVG"
+      v-html="signatureSVG"
+      svgId="signature"
+    >
+    </AnimatedSVG>
+
     <div class="personal h-card">
       <div class="photo u-photo" v-if="photoUrl">
         <g-image :src="photoUrl" width="100"/>
@@ -34,6 +41,9 @@
 <page-query>
 query IndexPage {
   cms {
+    scalarVectorGraphics(where: {valueOfIdAttributeInSvg: "signature"}) {
+      code
+    }
     # Get global data
     global {
       author {
@@ -112,6 +122,7 @@ query IndexPage {
 <script>
 import LatestArticles from '~/components/LatestArticles'
 import Content from '~/components/Content'
+import AnimatedSVG from '~/components/AnimatedSVG'
 
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -123,6 +134,7 @@ export default {
   components: {
     LatestArticles,
     Content,
+    AnimatedSVG,
   },
   data() {
     return {
@@ -145,7 +157,10 @@ export default {
     },
     organizations() {
       return this.global.organization
-    }
+    },
+    signatureSVG() {
+      return this.$page.cms.scalarVectorGraphics[0].code
+    },
   }
 }
 </script>
