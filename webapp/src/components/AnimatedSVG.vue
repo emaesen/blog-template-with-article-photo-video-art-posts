@@ -21,6 +21,9 @@ export default {
       colorFill: "#314cf9aa",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
+      strokeDrawSpeed: 1.5,
+      fillDrawSpeed: 2.5,
+      drawDelayMultiplier: 1,
     }
   },
   mounted() {
@@ -48,7 +51,9 @@ export default {
       })
     },
     drawPath(i, el, color) {
-      const delay = i + "s";
+      const delay = (this.drawDelayMultiplier * i) + 's'
+      const strokeDrawSpeed = this.strokeDrawSpeed + 's'
+      const fillDrawSpeed = this.fillDrawSpeed + 's'
       const length = el.getTotalLength();
       //console.log({i, el, length})
       // Clear any previous transition
@@ -60,7 +65,7 @@ export default {
       // Trigger layout to set startpoint styles
       el.getBoundingClientRect();
       // Define transition
-      el.style.transition = 'stroke-dashoffset 3s ease-in-out ' + delay + ', fill 5s ease-in-out ' + delay;
+      el.style.transition = 'stroke-dashoffset ' + strokeDrawSpeed + ' ease-in-out ' + delay + ', fill ' + fillDrawSpeed + ' ease-in-out ' + delay;
       // Set endpoint to trigger start of animation
       el.style.strokeDashoffset = '0';
       el.style.fill = color;
