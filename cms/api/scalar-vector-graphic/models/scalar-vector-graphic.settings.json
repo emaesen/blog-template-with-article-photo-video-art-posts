@@ -12,7 +12,7 @@
     "code": {
       "type": "text"
     },
-    "ValueOfIdAttributeInSvg": {
+    "valueOfIdAttributeInSvg": {
       "type": "string"
     }
   }
