@@ -78,7 +78,7 @@ export default {
       this.nrOfAnimatedPaths ++
       if (this.nrOfAnimatedPaths === 2 * this.nrOfPaths) {
         this.svgEl.removeEventListener('transitionend', ()=>{});
-        console.log("final animation end", {ev})
+        this.$emit('animatedsvg-done')
       }
     }
   }
