@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="os_wrapper">
     <Layout ref="pagelayout">
 
       <h1>{{ $page.cms.home.title }}</h1>
@@ -30,23 +30,23 @@
 
     </Layout>
 
-    <div
-      v-if="signatureSVG"
-      class="os_wrapper"
+
+    <Reveal
+      ref="revealContainer"
+      class="os_reveal"
+      @reveal-done="onRevealDone"
     >
-      <Reveal
-        class="os_reveal"
-        @reveal-done="onRevealDone"
-      >
-      </Reveal>
-      <AnimatedSVG
-        v-html="signatureSVG"
-        svgId="signature"
-        :class="['os_signature', fillviewportClassName]"
-        @animatedsvg-done="onAnimatedSVGDone"
-      >
-      </AnimatedSVG>
-    </div>
+    </Reveal>
+    <AnimatedSVG
+      ref="signatureContainer"
+      v-if="signatureSVG"
+      v-html="signatureSVG"
+      svgId="signature"
+      :class="['os_signature', fillviewportClassName]"
+      @animatedsvg-done="onAnimatedSVGDone"
+    >
+    </AnimatedSVG>
+
 
   </div>
 </template>
@@ -192,13 +192,24 @@ export default {
     },
     onRevealDone() {
       this.pageClassList.remove(this.fillviewportClassName)
+      this.removeRevealContainer()
+      this.placeSignature()
     },
+    removeRevealContainer() {
+      this.$refs.revealContainer.$el.remove()
+    },
+    placeSignature() {
+      this.$refs.signatureContainer.$el.classList.remove(this.fillviewportClassName)
+    }
   },
 }
 </script>
 
 <style lang="less" scoped>
-.fillviewport {
+.os_wrapper {
+  position: relative;
+}
+.layout.fillviewport {
   position: absolute;
   top: 0;
   left: 0;
@@ -207,9 +218,17 @@ export default {
   overflow: hidden;
 }
 .os_signature {
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  transform: scale(1) translate(75px,20px);
+  transition: transform 2.5s ease;
+}
+.os_signature.fillviewport {
+  transform: scale(3) translate(75px,100px);
+  max-width: 30vw;
+  max-height: 30vh;
 }
 .photo {
   width: 20%;
