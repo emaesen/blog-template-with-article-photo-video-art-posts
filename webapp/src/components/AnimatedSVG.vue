@@ -90,8 +90,6 @@ export default {
 
 <style lang="less">
 .svg-container svg {
-  max-width: 369px;
-  width: 69vw;
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.4;
