@@ -13,15 +13,24 @@
 </template>
 
 <script>
+import caniuse from '@/mixins/caniuse'
+import { EventBus } from '~/utils/event-bus'
+
 export default {
+  name: 'reveal',
+  mixins: [caniuse],
   data() {
     return {
     }
   },
   mounted() {
-    this.$nextTick(function () {
-      //this.reveal()
-    })
+    if(this.caniuse.motion) {
+      this.bladesWrapper.addEventListener('transitionend', this.revealEndCallback);
+      EventBus.$on('start-reveal', () => {
+        this.reveal()
+      })
+    }
+
   },
   computed: {
     bladesWrapper() {
@@ -31,6 +40,11 @@ export default {
   methods: {
     reveal() {
       this.bladesWrapper.classList.add('reveal')
+    },
+    revealEndCallback() {
+      this.bladesWrapper.removeEventListener('transitionend', ()=>{})
+        this.$emit('reveal-done')
+        EventBus.$emit('reveal-done')
     }
   }
 }
@@ -45,7 +59,7 @@ export default {
   height: 100vh;
   overflow: hidden;
   background-color: #ccc;
-  opacity: 0.95;
+  opacity: 0.97;
   transition: opacity 2s cubic-bezier(.9,0,.9,.9); 
 }
 .blade {

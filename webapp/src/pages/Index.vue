@@ -1,31 +1,34 @@
 <template>
-  <Layout ref="pagelayout">
+  <div>
+    <Layout ref="pagelayout">
 
-    <h1>{{ $page.cms.home.title }}</h1>
+      <h1>{{ $page.cms.home.title }}</h1>
 
-    <div class="personal h-card">
-      <div class="photo u-photo" v-if="photoUrl">
-        <g-image :src="photoUrl" width="100"/>
+      <div class="personal h-card">
+        <div class="photo u-photo" v-if="photoUrl">
+          <g-image :src="photoUrl" width="100"/>
+        </div>
+        <div class="name p-name">
+          {{ author.name }}
+        </div>
+        <span
+          v-for="tag in author.tag"
+          :key="tag.name"
+          class="tag"
+        >
+          {{ tag.name }}
+        </span>
+        <div class="city">
+          {{ author.address.city }}
+        </div>
       </div>
-      <div class="name p-name">
-        {{ author.name }}
-      </div>
-      <span
-        v-for="tag in author.tag"
-        :key="tag.name"
-        class="tag"
-      >
-        {{ tag.name }}
-      </span>
-      <div class="city">
-        {{ author.address.city }}
-      </div>
-    </div>
 
-    <Content :content="$page.cms.home.content" />
+      <Content :content="$page.cms.home.content" />
 
-    <!-- Section with latest articles -->
-    <LatestArticles/>
+      <!-- Section with latest articles -->
+      <LatestArticles/>
+
+    </Layout>
 
     <div
       v-if="signatureSVG"
@@ -33,18 +36,19 @@
     >
       <Reveal
         class="os_reveal"
+        @reveal-done="onRevealDone"
       >
       </Reveal>
       <AnimatedSVG
         v-html="signatureSVG"
         svgId="signature"
         :class="['os_signature', fillviewportClassName]"
-        @animatedsvg-done="onAnimatedSVGEnd"
+        @animatedsvg-done="onAnimatedSVGDone"
       >
       </AnimatedSVG>
     </div>
 
-  </Layout>
+  </div>
 </template>
 
 <page-query>
@@ -134,6 +138,7 @@ import Content from '~/components/Content'
 import AnimatedSVG from '~/components/AnimatedSVG'
 import Reveal from '~/components/Reveal'
 
+import { EventBus } from '~/utils/event-bus'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
@@ -155,9 +160,16 @@ export default {
   },
   mounted() {
     console.log(this.$refs.pagelayout)
-    this.$refs.pagelayout.$el.classList.add(this.fillviewportClassName)
+    this.pageClassList.add(this.fillviewportClassName)
+    EventBus.$emit('start-animatedsvg')
   },
   computed: {
+    pageEl() {
+      return this.$refs.pagelayout.$el
+    },
+    pageClassList() {
+      return this.pageEl.classList
+    },
     global() {
       return this.$page.cms.global
     },
@@ -175,9 +187,12 @@ export default {
     },
   },
   methods: {
-    onAnimatedSVGEnd() {
-      console.log("onAnimatedSVGEnd")
-    }
+    onAnimatedSVGDone() {
+      EventBus.$emit('start-reveal')
+    },
+    onRevealDone() {
+      this.pageClassList.remove(this.fillviewportClassName)
+    },
   },
 }
 </script>

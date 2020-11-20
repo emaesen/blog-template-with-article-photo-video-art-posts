@@ -6,6 +6,7 @@
 
 <script>
 import caniuse from '@/mixins/caniuse'
+import { EventBus } from '~/utils/event-bus'
 
 export default {
   name: 'animated-svg',
@@ -29,7 +30,9 @@ export default {
   mounted() {
     if(this.caniuse.motion) {
       this.svgEl.addEventListener('transitionend', this.animationEndCallback);
-      this.drawSVG(this.svgSelector, this.colorFill)
+      EventBus.$on('start-animatedsvg', () => {
+        this.drawSVG(this.svgSelector)
+      })
     }
   },
   computed: {
@@ -41,16 +44,16 @@ export default {
     },
   },
   methods: {
-    drawSVG(selector, color) {
+    drawSVG(selector) {
       const el = document.querySelector(selector);
       const paths = el.getElementsByTagName("path");
       const pathsArray = Array.from(paths);
       this.nrOfPaths = pathsArray.length;
       pathsArray.forEach((path, i) => {
-        this.drawPath(i, path, color);
+        this.drawPath(i, path);
       })
     },
-    drawPath(i, el, color) {
+    drawPath(i, el) {
       const delay = (this.drawDelayMultiplier * i) + 's'
       const strokeDrawSpeed = this.strokeDrawSpeed + 's'
       const fillDrawSpeed = this.fillDrawSpeed + 's'
@@ -62,13 +65,14 @@ export default {
       el.style.strokeDasharray = length + ' ' + length;
       el.style.strokeDashoffset = length;
       el.style.fill = 'transparent';
+      el.style.stroke = this.colorStroke
       // Trigger layout to set startpoint styles
       el.getBoundingClientRect();
       // Define transition
       el.style.transition = 'stroke-dashoffset ' + strokeDrawSpeed + ' ease-in-out ' + delay + ', fill ' + fillDrawSpeed + ' ease-in-out ' + delay;
       // Set endpoint to trigger start of animation
       el.style.strokeDashoffset = '0';
-      el.style.fill = color;
+      el.style.fill = this.colorFill;
     },
     animationEndCallback(ev) {
       // because there are multiple paths that are being animated,
@@ -77,8 +81,9 @@ export default {
       // one.
       this.nrOfAnimatedPaths ++
       if (this.nrOfAnimatedPaths === 2 * this.nrOfPaths) {
-        this.svgEl.removeEventListener('transitionend', ()=>{});
+        this.svgEl.removeEventListener('transitionend', ()=>{})
         this.$emit('animatedsvg-done')
+        EventBus.$emit('animatedsvg-done')
       }
     }
   }
@@ -91,8 +96,8 @@ export default {
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.4;
-  stroke: #314cf9;
-  fill: #314cf9aa;
+  stroke: transparent;
+  fill: transparent;
 }
 
 </style>
