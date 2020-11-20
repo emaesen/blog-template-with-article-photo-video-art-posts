@@ -40,6 +40,8 @@ Color palette designer [Paletton](http://paletton.com/)
 
 Visual designer for [cubic bezier](https://cubic-bezier.com/) animations
 
+CSS/SVG/JS animation designs prototyped in [CodePen](https://codepen.io/emaesen)
+
 Library for free [svg icons](https://iconmonstr.com/)
 
 ## Versions
