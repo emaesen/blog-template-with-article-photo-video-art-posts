@@ -221,14 +221,14 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100px;
-  transform: scale(1) translate(75px,20px);
+  width: 15vw;
+  min-width: 100px;
+  transform-origin: top left;
+  transform: scale(1) translate(75px,15px);
   transition: transform 2.5s ease;
 }
 .os_signature.fillviewport {
-  transform: scale(3) translate(75px,100px);
-  max-width: 30vw;
-  max-height: 30vh;
+  transform: scale(3) translate(5vw,5vh);
 }
 .photo {
   width: 20%;
