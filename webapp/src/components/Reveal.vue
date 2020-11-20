@@ -73,11 +73,11 @@ export default {
 .blade {
   position: absolute;
   top: 50vh;
-  left: -50vw;
+  left: -100vw;
   transform-origin: top center;
   transition: transform 2s cubic-bezier(.55,.01,.86,1); 
-  width: 200vmax;
-  height: 200vmax;
+  width: 300vw;
+  height: 300vh;
   background-color: #cdc;
   opacity: 0.2;
 }
