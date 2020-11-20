@@ -22,9 +22,7 @@ export default {
       colorFill: "#314cf9aa",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
-      strokeDrawSpeed: 1.5,
-      fillDrawSpeed: 2.5,
-      drawDelayMultiplier: 1,
+      drawTimeSeconds: 1,
     }
   },
   mounted() {
@@ -54,9 +52,9 @@ export default {
       })
     },
     drawPath(i, el) {
-      const delay = (this.drawDelayMultiplier * i) + 's'
-      const strokeDrawSpeed = this.strokeDrawSpeed + 's'
-      const fillDrawSpeed = this.fillDrawSpeed + 's'
+      const strokeDrawTiming = this.drawTimeSeconds + 's'
+      const fillDrawTiming = (1.5 * this.drawTimeSeconds) + 's'
+      const delay = (0.75 * this.drawTimeSeconds * i) + 's'
       const length = el.getTotalLength();
       //console.log({i, el, length})
       // Clear any previous transition
@@ -69,7 +67,7 @@ export default {
       // Trigger layout to set startpoint styles
       el.getBoundingClientRect();
       // Define transition
-      el.style.transition = 'stroke-dashoffset ' + strokeDrawSpeed + ' ease-in-out ' + delay + ', fill ' + fillDrawSpeed + ' ease-in-out ' + delay;
+      el.style.transition = 'stroke-dashoffset ' + strokeDrawTiming + ' ease-in-out ' + delay + ', fill ' + fillDrawTiming + ' ease-in-out ' + delay;
       // Set endpoint to trigger start of animation
       el.style.strokeDashoffset = '0';
       el.style.fill = this.colorFill;
@@ -92,7 +90,8 @@ export default {
 
 <style lang="less">
 .svg-container svg {
-  width: 500px;
+  max-width: 369px;
+  width: 69vw;
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.4;
