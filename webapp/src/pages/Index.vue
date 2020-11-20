@@ -39,7 +39,7 @@
         v-html="signatureSVG"
         svgId="signature"
         :class="['os_signature', fillviewportClassName]"
-        @done="onAnimatedSVGEnd"
+        @animatedsvg-done="onAnimatedSVGEnd"
       >
       </AnimatedSVG>
     </div>
