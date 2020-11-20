@@ -1,14 +1,7 @@
 <template>
-  <Layout>
+  <Layout ref="pagelayout">
 
     <h1>{{ $page.cms.home.title }}</h1>
-
-    <AnimatedSVG
-      v-if="signatureSVG"
-      v-html="signatureSVG"
-      svgId="signature"
-    >
-    </AnimatedSVG>
 
     <div class="personal h-card">
       <div class="photo u-photo" v-if="photoUrl">
@@ -34,6 +27,22 @@
     <!-- Section with latest articles -->
     <LatestArticles/>
 
+    <div
+      v-if="signatureSVG"
+      class="os_wrapper"
+    >
+      <Reveal
+        class="os_reveal"
+      >
+      </Reveal>
+      <AnimatedSVG
+        v-html="signatureSVG"
+        svgId="signature"
+        :class="['os_signature', fillviewportClassName]"
+        @done="onAnimatedSVGEnd"
+      >
+      </AnimatedSVG>
+    </div>
 
   </Layout>
 </template>
@@ -123,27 +132,30 @@ query IndexPage {
 import LatestArticles from '~/components/LatestArticles'
 import Content from '~/components/Content'
 import AnimatedSVG from '~/components/AnimatedSVG'
+import Reveal from '~/components/Reveal'
 
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 
 export default {
-  methods: {
-  },
   components: {
     LatestArticles,
     Content,
     AnimatedSVG,
+    Reveal,
   },
   data() {
     return {
-      params: {
-      }
+      fillviewportClassName: "fillviewport"
     }
   },
   metaInfo() {
     return getMetaTags(this.$page.cms.home.seo) 
+  },
+  mounted() {
+    console.log(this.$refs.pagelayout)
+    this.$refs.pagelayout.$el.classList.add(this.fillviewportClassName)
   },
   computed: {
     global() {
@@ -161,11 +173,29 @@ export default {
     signatureSVG() {
       return this.$page.cms.scalarVectorGraphics[0].code
     },
-  }
+  },
+  methods: {
+    onAnimatedSVGEnd() {
+      console.log("onAnimatedSVGEnd")
+    }
+  },
 }
 </script>
 
 <style lang="less" scoped>
+.fillviewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.os_signature {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 .photo {
   width: 20%;
   max-width: 100px;
