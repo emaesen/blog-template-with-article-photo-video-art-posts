@@ -21,6 +21,7 @@ export default {
   mixins: [caniuse],
   data() {
     return {
+      nrOfAnimatedBlades: 0,
     }
   },
   mounted() {
@@ -41,10 +42,17 @@ export default {
     reveal() {
       this.bladesWrapper.classList.add('reveal')
     },
-    revealEndCallback() {
-      this.bladesWrapper.removeEventListener('transitionend', ()=>{})
+    revealEndCallback(ev) {
+      // because there are multiple blades that are being animated,
+      // we need to keep track of the nr of finished events and only
+      // act when we reached the final one.
+      this.nrOfAnimatedBlades ++
+      // 9 blades + wrapper
+      if ( this.nrOfAnimatedBlades === 10 ) {
+        this.bladesWrapper.removeEventListener('transitionend', ()=>{})
         this.$emit('reveal-done')
         EventBus.$emit('reveal-done')
+      }
     }
   }
 }
