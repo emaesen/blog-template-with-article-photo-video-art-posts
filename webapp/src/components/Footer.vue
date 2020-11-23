@@ -79,7 +79,7 @@ footer h6 {
   margin-top: 1.5em;
 }
 div.social {
-  margin-bottom: 5em;
+  padding-bottom: 5em;
 }
 ul.social {
   margin-bottom: 0;
