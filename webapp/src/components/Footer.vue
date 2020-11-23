@@ -89,12 +89,11 @@ export default {
     const version = this.$static.metadata.version;
     if (this.isInStandaloneMode()) {
       // Site is running stand-alone as installed web App
-      this.version = version + ".A";
+      this.version = version + "-A";
     } else {
       // Site is running in web Browser
-      this.version = version + ".B";
+      this.version = version + "-B";
     }
-
   },
   computed: {
     websiteLists() {
