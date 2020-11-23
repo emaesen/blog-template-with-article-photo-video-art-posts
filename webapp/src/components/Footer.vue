@@ -192,7 +192,7 @@ ul.social > li {
   justify-content: flex-end;
   align-items: flex-end;
   z-index: 4;
-  background-color: #eef;
+  background-color: var(--color_bg_opaque);
   font-size: 0.9em;
   line-height: 1.3em;
 }
