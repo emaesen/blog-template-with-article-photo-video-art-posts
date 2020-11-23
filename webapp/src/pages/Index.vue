@@ -4,22 +4,25 @@
 
       <h1>{{ $page.cms.home.title }}</h1>
 
-      <div class="personal h-card">
+      <div class="personal h-card vcard">
+        <a class="u-url u-uid" rel="author" href=""></a>
         <div class="photo u-photo" v-if="photoUrl">
           <g-image :src="photoUrl" width="100"/>
         </div>
-        <div class="name p-name">
+        <div class="name p-name fn">
           {{ author.name }}
         </div>
-        <span
-          v-for="tag in author.tag"
-          :key="tag.name"
-          class="tag"
-        >
-          {{ tag.name }}
-        </span>
-        <div class="city">
-          {{ author.address.city }}
+        <div class="p-role role">
+          <span
+            v-for="tag in author.tag"
+            :key="tag.name"
+            class="tag p-category category"
+          >
+            {{ tag.name }}
+          </span>
+        </div>
+        <div class="city p-location location" :title="location">
+          {{ location }}
         </div>
       </div>
 
@@ -184,6 +187,9 @@ export default {
     author() {
       return this.global.author
     },
+    address() {
+      return this.author.address
+    },
     photoUrl() {
       return getCmsMedia(this.author.photo.url)
     },
@@ -193,6 +199,9 @@ export default {
     signatureSVG() {
       return this.$page.cms.scalarVectorGraphics[0].code
     },
+    location() {
+      return this.address.city + ", " + this.address.state_province + ", " + this.address.country
+    }
   },
   methods: {
     onAnimatedSVGDone() {
