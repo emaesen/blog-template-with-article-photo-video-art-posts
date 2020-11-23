@@ -67,6 +67,14 @@ export default {
   width: 100%;
   margin-bottom: 2em;
   line-height: normal;
+  background-color: transparent;
+  border-radius: 5px;
+  border-bottom: 3px solid #c9c9c9;
+  background-color: #cccccc88;
+  transition: background-color .3s ease-in-out
+}
+.article-card:hover {
+  background-color: #c8ccc3aa;
 }
 .article-title {
   margin: 0;
