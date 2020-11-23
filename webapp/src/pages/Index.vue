@@ -138,12 +138,16 @@ import Content from '~/components/Content'
 import AnimatedSVG from '~/components/AnimatedSVG'
 import Reveal from '~/components/Reveal'
 
+import caniuse from '@/mixins/caniuse'
+
 import { EventBus } from '~/utils/event-bus'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 
 export default {
+  name: 'home',
+  mixins: [caniuse],
   components: {
     LatestArticles,
     Content,
@@ -159,9 +163,13 @@ export default {
     return getMetaTags(this.$page.cms.home.seo) 
   },
   mounted() {
-    console.log(this.$refs.pagelayout)
-    this.pageClassList.add(this.fillviewportClassName)
-    EventBus.$emit('start-animatedsvg')
+    if(this.caniuse.motion) {
+      this.pageClassList.add(this.fillviewportClassName)
+      EventBus.$emit('start-animatedsvg')
+    } else {
+      this.placeSignature()
+      this.removeRevealContainer()
+    }
   },
   computed: {
     pageEl() {
