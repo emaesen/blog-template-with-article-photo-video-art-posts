@@ -30,12 +30,35 @@
       <span class="copyright">
         © {{ copyrightYear }} {{ $static.cms.global.siteName }}. {{ $static.cms.global.rightsText }}
       </span>
+      <span
+        class="version"
+        @click="revealMadeBy"
+      >{{ version }}</span>
     </div>
+
+    <div class="madeby-container">
+      <div
+        ref="madeby"
+        class="madeby"
+      >
+        <div>
+          <a href="https://github.com/emaesen/blog-template" target="_blank" rel="noopener noreferrer nofollow" class="nodeco">Website template</a><br>by <a href="https://epvm.name" target="_blank" rel="noopener noreferrer nofollow" class="nodeco">Edward Maesen</a>.
+        </div>
+        <div
+          class="close-icon"
+          @click="hideMadeBy"
+        >×</div>
+      </div>
+    </div>
+
   </footer>
 </template>
 
 <static-query>
 query Footer {
+  metadata {
+    version
+  }
   cms {
     global {
       createdAt
@@ -56,7 +79,22 @@ query Footer {
 
 <script>
 export default {
-  methods: {
+  name: "Footer",
+  data() {
+    return {
+      version: "",
+    }
+  },
+  beforeMount() {
+    const version = this.$static.metadata.version;
+    if (this.isInStandaloneMode()) {
+      // Site is running stand-alone as installed web App
+      this.version = version + ".A";
+    } else {
+      // Site is running in web Browser
+      this.version = version + ".B";
+    }
+
   },
   computed: {
     websiteLists() {
@@ -67,13 +105,28 @@ export default {
       const startYear = this.$static.cms.global.createdAt.substring(0,4)
       return startYear < currentYear ? startYear + " - " + currentYear : currentYear
     },
-  }
+    madeby() {
+      return this.$refs.madeby
+    }
+  },
+  methods: {
+    isInStandaloneMode() {
+      return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone)
+    },
+    revealMadeBy() {
+      this.madeby.classList.add('reveal')
+    },
+    hideMadeBy() {
+      this.madeby.classList.remove('reveal')
+    },
+  },
 }
 </script>
 
 <style lang="less" scoped>
 footer {
   margin-top: 5em;
+  overflow: hidden;
 }
 footer h6 {
   margin-top: 1.5em;
@@ -114,6 +167,58 @@ ul.social > li {
   border-top: 1px solid var(--color_border_accent-1);
   z-index: 999;
   opacity: .9;
+}
+
+.version {
+  position: fixed;
+  right: 5px;
+  opacity: .6;
+  cursor: pointer;
+}
+
+.madeby-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 999;
+}
+.madeby {
+  width: 8em;
+  height: 8em;
+  border: 5px solid var(--color_border_accent-1);
+  border-radius: 8em 0 0 0;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 4;
+  background-color: #eef;
+  font-size: 0.9em;
+  line-height: 1.3em;
+}
+.madeby div {
+   padding: 0 .3em .3em 0;
+}
+.madeby {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: transform 1s cubic-bezier(1,-0.04,.81,1.32);
+  transform-origin: bottom right;
+  transform: rotate(90deg);
+}
+.madeby.reveal {
+  transform: rotate(0);
+}
+.madeby .close-icon {
+  cursor: pointer;
+  font-size: 2em;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 5px;
+  bottom: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
