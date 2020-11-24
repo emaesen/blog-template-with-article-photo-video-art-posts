@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <div class="main-article">
     <article>
       <h1>
         {{ $page.cms.articles[0].title }}
@@ -12,7 +12,7 @@
 
       <Content :content="$page.cms.articles[0].content" class="" />
     </article>
-  </Layout>
+  </div>
 </template>
 
 <page-query>

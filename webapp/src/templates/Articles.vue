@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <div class="main-articles">
     <h1>{{$page.cms.articlesPage.title}}</h1>
 
     <RichText :data="$page.cms.articlesPage.introduction" class="para"/>
@@ -19,7 +19,7 @@
       :totalPages="totalPages"
     />
 
-  </Layout>
+  </div>
 </template>
 
 <script>

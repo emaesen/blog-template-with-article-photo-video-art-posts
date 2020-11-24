@@ -1,8 +1,8 @@
 <template>
-  <Layout>
+  <div class="main-about">
     <h1>{{$page.cms.about.title}}</h1>
     <Content :content="$page.cms.about.content" class="" />
-  </Layout>
+  </div>
 </template>
 
 <script>

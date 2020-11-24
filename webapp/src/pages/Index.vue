@@ -1,38 +1,34 @@
 <template>
-  <div class="os_wrapper">
-    <Layout ref="pagelayout">
+  <div class="main-index" ref="pagelayout">
 
-      <h1>{{ $page.cms.home.title }}</h1>
+    <h1>{{ $page.cms.home.title }}</h1>
 
-      <div class="personal h-card vcard">
-        <a class="u-url u-uid" rel="author" href=""></a>
-        <div class="photo u-photo" v-if="photoUrl">
-          <g-image :src="photoUrl" width="100"/>
-        </div>
-        <div class="name p-name fn">
-          {{ author.name }}
-        </div>
-        <div class="p-role role">
-          <span
-            v-for="tag in author.tag"
-            :key="tag.name"
-            class="tag p-category category"
-          >
-            {{ tag.name }}
-          </span>
-        </div>
-        <div class="city p-location location" :title="location">
-          {{ location }}
-        </div>
+    <div class="personal h-card vcard">
+      <a class="u-url u-uid" rel="author" href=""></a>
+      <div class="photo u-photo" v-if="photoUrl">
+        <g-image :src="photoUrl" width="100"/>
       </div>
+      <div class="name p-name fn">
+        {{ author.name }}
+      </div>
+      <div class="p-role role">
+        <span
+          v-for="tag in author.tag"
+          :key="tag.name"
+          class="tag p-category category"
+        >
+          {{ tag.name }}
+        </span>
+      </div>
+      <div class="city p-location location" :title="location">
+        {{ location }}
+      </div>
+    </div>
 
-      <Content :content="$page.cms.home.content" />
+    <Content :content="$page.cms.home.content" />
 
-      <!-- Section with latest articles -->
-      <LatestArticles/>
-
-    </Layout>
-
+    <!-- Section with latest articles -->
+    <LatestArticles/>
 
     <Reveal
       ref="revealContainer"
@@ -50,7 +46,6 @@
       @animatedsvg-done="onAnimatedSVGDone"
     >
     </AnimatedSVG>
-
 
   </div>
 </template>
@@ -183,7 +178,8 @@ export default {
   },
   computed: {
     pageEl() {
-      return this.$refs.pagelayout.$el
+      console.log({pagelayout:this.$refs.pagelayout})
+      return this.$refs.pagelayout
     },
     pageClassList() {
       return this.pageEl.classList
@@ -230,9 +226,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.os_wrapper {
-  position: relative;
-}
 .layout.fillviewport {
   position: absolute;
   top: 0;

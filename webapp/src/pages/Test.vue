@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <div class="main-test">
     <h1>{{$page.cms.test.title}}</h1>
     <h2>Formatted content of Rich Text block</h2>
     <RichText :data="$page.cms.test.richText" class="richtext" />
@@ -62,7 +62,7 @@
       <div class="color scrollbar-thumb"><span class="text">scrollbar-thumb</span></div>
     </div>
 
-  </Layout>
+  </div>
 </template>
 
 <script>
