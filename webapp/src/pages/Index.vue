@@ -45,6 +45,7 @@
       v-if="signatureSVG"
       v-html="signatureSVG"
       svgId="signature"
+      :animate="animateSignature"
       :class="['os_signature', fillviewportClassName]"
       @animatedsvg-done="onAnimatedSVGDone"
     >
@@ -159,17 +160,23 @@ export default {
   },
   data() {
     return {
-      fillviewportClassName: "fillviewport"
+      fillviewportClassName: "fillviewport",
+      animateSignature: true,
     }
   },
   metaInfo() {
     return getMetaTags(this.$page.cms.home.seo) 
   },
   mounted() {
-    if(this.caniuse.motion) {
+    console.log({"location": document.location})
+    console.log({"URL": document.URL})
+    console.log({"referrer": document.referrer})
+    const internalReferrer = document.referrer.startsWith(document.URL)
+    if(!internalReferrer && this.caniuse.motion) {
       this.pageClassList.add(this.fillviewportClassName)
       EventBus.$emit('start-animatedsvg')
     } else {
+      this.animateSignature = false
       this.placeSignature()
       this.removeRevealContainer()
     }
