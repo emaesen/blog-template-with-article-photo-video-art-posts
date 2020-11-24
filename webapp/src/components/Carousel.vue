@@ -273,7 +273,7 @@ export default {
   position: absolute;
   bottom: 5px;
   transition: width .5s ease;
-  height: 2px;
+  height: 4px;
   background-color: #ccccccbb;
   min-width: 1px;
 }
