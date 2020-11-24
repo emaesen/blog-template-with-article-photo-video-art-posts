@@ -6,7 +6,7 @@ html {
   /* scale font-size with viewport width */
   font-size: calc(.7em + .5vw);
 }
-.app-layout {
+.app-container {
   transition: color 1s ease-in-out, background-color 1s ease-in-out;
   color: var(--color_text_body);
   background-color: var(--color_bg);
@@ -253,7 +253,7 @@ caption {
 
 
 /* main layout dimensions */
-.app-layout {
+.app-container {
   min-width: @layout-min-width;
   max-width: @layout-max-width;
   margin: 0 auto;
@@ -269,6 +269,15 @@ caption {
   html {
     font-size: 19px;
   }
+}
+
+.fillviewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* print settings */
