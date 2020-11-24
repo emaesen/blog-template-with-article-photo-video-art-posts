@@ -15,6 +15,9 @@ export default {
     svgId: {
       type: String
     },
+    animate: {
+      type: Boolean
+    }
   },
   data() {
     return {
@@ -26,11 +29,13 @@ export default {
     }
   },
   mounted() {
-    if(this.caniuse.motion) {
+    if(this.animate && this.caniuse.motion) {
       this.svgEl.addEventListener('transitionend', this.animationEndCallback);
       EventBus.$on('start-animatedsvg', () => {
         this.drawSVG(this.svgSelector)
       })
+    } else {
+      this.setStyles(this.svgSelector)
     }
   },
   computed: {
@@ -83,6 +88,12 @@ export default {
         this.$emit('animatedsvg-done')
         EventBus.$emit('animatedsvg-done')
       }
+    },
+    setStyles(selector) {
+      const el = document.querySelector(selector)
+      console.log({el})
+      el.style.stroke = this.colorStroke
+      el.style.fill = this.colorFill
     }
   }
 }
@@ -93,8 +104,8 @@ export default {
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.4;
-  stroke: transparent;
-  fill: transparent;
+  stroke: #314cf9;
+  fill: #314cf9aa;
 }
 
 </style>
