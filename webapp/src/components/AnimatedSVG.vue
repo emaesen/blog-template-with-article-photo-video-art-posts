@@ -25,7 +25,7 @@ export default {
       colorFill: "#314cf9aa",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
-      drawTimeSeconds: 1,
+      drawTimeSeconds: 0.7,
     }
   },
   mounted() {
