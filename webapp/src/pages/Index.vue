@@ -3,8 +3,8 @@
 
     <h1>{{ $page.cms.home.title }}</h1>
 
-    <div class="personal h-card vcard">
-      <a class="u-url u-uid" rel="author" href=""></a>
+    <div id="author" class="personal h-card vcard">
+      <a class="u-url u-uid" rel="author" href="#author"></a>
       <div class="photo u-photo" v-if="photoUrl">
         <g-image :src="photoUrl" width="100"/>
       </div>
@@ -156,6 +156,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.u-uid {
+  display: none;
+}
 .photo {
   width: 20%;
   max-width: 100px;
