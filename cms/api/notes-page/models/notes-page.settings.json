@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "notes_pages",
+  "info": {
+    "name": "NotesPage"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "introduction": {
+      "type": "text"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "meta.seo"
+    }
+  }
+}

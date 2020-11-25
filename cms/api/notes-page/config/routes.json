@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/notes-page",
+      "handler": "notes-page.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/notes-page",
+      "handler": "notes-page.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/notes-page",
+      "handler": "notes-page.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
