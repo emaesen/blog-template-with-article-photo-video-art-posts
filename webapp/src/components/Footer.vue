@@ -42,7 +42,17 @@
         class="madeby"
       >
         <div>
-          <a href="https://github.com/emaesen/blog-template" target="_blank" rel="noopener noreferrer nofollow" class="nodeco">Website template</a><br>by <a href="https://epvm.name" target="_blank" rel="noopener noreferrer nofollow" class="nodeco">Edward Maesen</a>.
+          <a
+            href="https://github.com/emaesen/blog-template-with-article-photo-video-posts"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            class="nodeco"
+          >Website template</a><br>by <a
+            href="https://epvm.name"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            class="nodeco"
+          >Edward Maesen</a>.
         </div>
         <div
           class="close-icon"
