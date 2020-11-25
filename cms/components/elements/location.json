@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_elements_locations",
+  "info": {
+    "name": "Location",
+    "icon": "search-location"
+  },
+  "options": {},
+  "attributes": {
+    "landmark": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state_province": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  }
+}
