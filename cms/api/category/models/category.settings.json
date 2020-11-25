@@ -24,6 +24,10 @@
     "photos": {
       "via": "categories",
       "collection": "photo"
+    },
+    "videos": {
+      "via": "categories",
+      "collection": "video"
     }
   }
 }

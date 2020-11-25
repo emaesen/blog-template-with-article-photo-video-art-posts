@@ -18,6 +18,10 @@
     "photos": {
       "via": "series",
       "collection": "photo"
+    },
+    "videos": {
+      "via": "series",
+      "collection": "video"
     }
   }
 }
