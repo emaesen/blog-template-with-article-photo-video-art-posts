@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "photos",
+  "info": {
+    "name": "Photo"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "photo": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "location": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.location"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "series": {
+      "model": "collection",
+      "via": "photos"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "photos",
+      "dominant": true
+    },
+    "publicationDate": {
+      "type": "date"
+    }
+  }
+}
