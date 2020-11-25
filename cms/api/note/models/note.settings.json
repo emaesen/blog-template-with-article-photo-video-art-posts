@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notes",
+  "info": {
+    "name": "Note"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "text": {
+      "type": "string",
+      "maxLength": 280,
+      "required": true
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "article": {
+      "model": "article",
+      "via": "notes"
+    },
+    "photo": {
+      "model": "photo",
+      "via": "notes"
+    },
+    "video": {
+      "model": "video",
+      "via": "notes"
+    }
+  }
+}
