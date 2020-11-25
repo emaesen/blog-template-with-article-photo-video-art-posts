@@ -20,6 +20,10 @@
     "articles": {
       "via": "categories",
       "collection": "article"
+    },
+    "photos": {
+      "via": "categories",
+      "collection": "photo"
     }
   }
 }

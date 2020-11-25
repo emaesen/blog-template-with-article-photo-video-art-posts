@@ -14,6 +14,10 @@
     },
     "description": {
       "type": "string"
+    },
+    "photos": {
+      "via": "series",
+      "collection": "photo"
     }
   }
 }
