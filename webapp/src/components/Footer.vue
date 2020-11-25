@@ -136,12 +136,14 @@ export default {
 footer {
   margin-top: 5em;
   overflow: hidden;
+  font-size: .9em;
+  border-top: 1px solid var(--color_border_accent-1);
 }
 footer h6 {
   margin-top: 1.5em;
 }
 div.social {
-  padding-bottom: 5em;
+  padding-bottom: 3em;
 }
 ul.social {
   margin-bottom: 0;
