@@ -44,6 +44,10 @@
     },
     "publicationDate": {
       "type": "date"
+    },
+    "notes": {
+      "via": "photo",
+      "collection": "note"
     }
   }
 }

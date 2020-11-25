@@ -42,6 +42,10 @@
     },
     "publicationDate": {
       "type": "date"
+    },
+    "notes": {
+      "via": "video",
+      "collection": "note"
     }
   }
 }

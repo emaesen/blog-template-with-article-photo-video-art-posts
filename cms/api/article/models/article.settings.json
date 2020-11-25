@@ -47,6 +47,10 @@
     "publicationDate": {
       "type": "date",
       "required": true
+    },
+    "notes": {
+      "via": "article",
+      "collection": "note"
     }
   }
 }
