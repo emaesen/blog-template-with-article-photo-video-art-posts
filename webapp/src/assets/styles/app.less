@@ -6,6 +6,9 @@ html {
   /* scale font-size with viewport width */
   font-size: calc(.7em + .5vw);
 }
+body {
+  overflow-y: scroll;
+}
 .app-container {
   transition: color 1s ease-in-out, background-color 1s ease-in-out;
   color: var(--color_text_body);
@@ -276,6 +279,10 @@ caption {
   top: 0;
   left: 0;
   width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.heightviewport {
   height: 100vh;
   overflow: hidden;
 }
