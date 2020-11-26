@@ -1,6 +1,6 @@
 <template>
   <div class="article-card h-entry as-article">
-    <g-link :to="'/article/' + article.slug" class="nodeco u-url u-uid">
+    <g-link :to="'/articles/' + article.slug" class="nodeco u-url u-uid">
       <div class="article-summary">
         <div class="article-image-container">
           <g-image

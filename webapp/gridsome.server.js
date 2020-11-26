@@ -171,7 +171,7 @@ module.exports = function (api, options) {
     // Create a route for each individual article
     data.cms.articles.forEach((article) => {
       createPage({
-        path: `/article/${article.slug}`,
+        path: `/articles/${article.slug}`,
         component: './src/templates/Article.vue',
         context: {
           slug: article.slug
