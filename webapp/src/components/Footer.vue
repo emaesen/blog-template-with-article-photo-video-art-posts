@@ -5,6 +5,7 @@
       <div
         v-for="list in websiteLists"
         :key="list.title"
+        class="social-group"
       >
         <h6>{{ list.title }}</h6>
         <ul class="social">
@@ -52,7 +53,7 @@
             target="_blank"
             rel="noopener noreferrer nofollow"
             class="nodeco"
-          >Edward Maesen</a>.
+          >Edward Maesen</a>
         </div>
         <div
           class="close-icon"
@@ -138,12 +139,18 @@ footer {
   overflow: hidden;
   font-size: .9em;
   border-top: 1px solid var(--color_border_accent-1);
+  background-color: rgba(var(--base-color_bg_accent-1),.1);
 }
 footer h6 {
   margin-top: 1.5em;
 }
 div.social {
   padding-bottom: 3em;
+}
+.social-group {
+  border-left: 1px solid var(--color_border_accent-1);
+  border-right: 1px solid var(--color_border_accent-1);
+  padding: 0 1em;
 }
 ul.social {
   margin-bottom: 0;
@@ -208,7 +215,7 @@ ul.social > li {
   line-height: 1.3em;
 }
 .madeby div {
-   padding: 0 .3em .3em 0;
+   padding: 0 .5em .3em 0;
 }
 .madeby {
   position: absolute;
