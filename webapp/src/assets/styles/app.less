@@ -40,7 +40,7 @@ input,
 textarea,
 select,
 button {
-  font-family: "Heebo","Helvetica Neue",Arial,sans-serif;
+  font-family: var(--font_family_body),"Helvetica Neue",Arial,sans-serif;
   margin:0;
   padding:0;
   line-height: 1.6;
@@ -53,7 +53,7 @@ button {
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: "Quando",serif;
+  font-family: var(--font_family_header),serif;
   font-weight: 400;
   color: var(--color_text_header);
   margin-top: 3em;
@@ -272,18 +272,18 @@ caption {
 
 /* main layout dimensions */
 .app-container {
-  min-width: @layout-min-width;
-  max-width: @layout-max-width;
+  min-width: var(--layout-min-width);
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding-left: @layout-padding;
-  padding-right: @layout-padding;
+  padding-left: var(--layout-padding);
+  padding-right: var(--layout-padding);
 }
 .expand {
-  max-width: @layout-max-width;
-  margin-left: -@layout-padding;
-  margin-right: -@layout-padding;
+  max-width: var(--layout-max-width);
+  margin-left: -var(--layout-padding);
+  margin-right: -var(--layout-padding);
 }
-@media screen and (min-width: @layout-max-width) {
+@media screen and (min-width: var(--layout-max-width)) {
   html {
     font-size: 19px;
   }
