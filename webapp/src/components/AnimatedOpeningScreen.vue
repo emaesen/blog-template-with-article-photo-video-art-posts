@@ -73,7 +73,9 @@ export default {
     }
   },
   mounted() {
-    if(this.caniuse.motion) {
+    // don't show opening animation if no-or-reduced motion is 
+    // requested or if the route leads to a 404 page.
+    if(this.caniuse.motion && this.$route.name !== "*") {
       this.rootElClassList.add(this.heightviewportClassName)
       this.animateTags()
       EventBus.$emit('start-animatedsvg')
