@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <h2 v-if="title">{{title}}</h2>
     <div v-html="contentAsHtml"/>
   </div>
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     title() {
-      return this.data.sectionTitle
+      return this.data && this.data.sectionTitle
     },
     contentAsHtml() {
       const content = this.data && this.data.content ? this.data.content : this.data
