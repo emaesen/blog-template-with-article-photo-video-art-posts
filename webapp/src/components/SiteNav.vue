@@ -1,7 +1,7 @@
 <template>
     <nav :class="['nowrap', 'expand', {'bar-open':isBarMenuOpen, 'bar-closed':!isBarMenuOpen}]">
 
-    <span @click="toggleMenu" class="toggle-icons">
+    <span @click="toggleMenu" class="menu-icon">
       <IconMenu/>
     </span>
 
@@ -202,9 +202,6 @@ a.active {
   border-bottom: 2px solid #80afe4;
 }
 
-.icon_transition {
-  transition: transform 0.3s linear;
-}
 .actionicon {
   float: right;
   height: 1em;
@@ -215,9 +212,6 @@ a.active {
 .actionicon .icon-arrows {
   height: 1em;
   width: 1em;
-}
-.flip {
-  transform: rotate(180deg);
 }
 ul.nav {
   list-style-type: none;
@@ -254,7 +248,7 @@ ul.nav {
   border-top: 1px solid var(--color_border_accent-2);
   margin: 10px 0;
 }
-.toggle-icons {
+.menu-icon {
   position: fixed;
   top: 0;
   right: 0;
@@ -262,10 +256,6 @@ ul.nav {
   visibility: hidden;
   z-index: 10;
   cursor: pointer;
-}
-.toggle-icon {
-  width: 25px;
-  height: 25px;
 }
 ul {
   transition: transform .3s cubic-bezier(0.23, 0.03, 0.82, 1.8), 
@@ -325,7 +315,7 @@ li li {
       position: relative;
       margin-left: 1em;
     }
-    .toggle-icons {
+    .menu-icon {
       visibility: visible;
     }
   }
