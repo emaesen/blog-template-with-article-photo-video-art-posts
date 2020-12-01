@@ -271,19 +271,21 @@ caption {
 
 
 /* main layout dimensions */
+body {
+  padding-left: var(--layout-padding);
+  padding-right: var(--layout-padding);
+}
 .app-container {
   min-width: var(--layout-min-width);
   max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding-left: var(--layout-padding);
-  padding-right: var(--layout-padding);
 }
 .expand {
-  max-width: var(--layout-max-width);
-  margin-left: -var(--layout-padding);
-  margin-right: -var(--layout-padding);
+  max-width: calc(var(--layout-max-width) + 2 * var(--layout-padding));
+  margin-left: calc(-1 * var(--layout-padding));
+  margin-right: calc(-1 * var(--layout-padding));
 }
-@media screen and (min-width: var(--layout-max-width)) {
+@media screen and (min-width: 1100px) {
   html {
     font-size: 19px;
   }
