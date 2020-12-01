@@ -37,7 +37,7 @@
       >{{ version }}</span>
     </div>
 
-    <div class="madeby-container">
+    <div class="madeby-container expand noprint">
       <div
         ref="madeby"
         class="madeby"
@@ -237,6 +237,12 @@ ul.social > li {
   position: absolute;
   left: 5px;
   bottom: 0;
+}
+
+@media screen and (min-width:1100px) {
+  .madeby-container {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
