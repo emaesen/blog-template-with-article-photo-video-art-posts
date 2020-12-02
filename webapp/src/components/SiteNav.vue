@@ -13,7 +13,7 @@
       <li
         @mouseover.passive="onNavMouseOver('posts', $event)"
         @mouseleave.passive="onNavMouseLeave('posts', $event)"
-        class="nav item"
+        :class="['nav item', {flip:isNavpostsExpanded}]"
         role="menuitem"
       >
         <g-link to="/posts">
@@ -159,6 +159,7 @@ nav {
   border-bottom: 1px solid var(--color_border_accent-1);
   opacity: 0.9;
   background-color: var(--color_bg);
+  box-shadow: 0 0 30px #a7dcff;
   display: grid;
   justify-content: flex-end;
 }
@@ -167,15 +168,8 @@ nav {
     opacity: 1;
     padding: 5px 10px;
     display: inline-block;
-    border: 2px solid #293849;
-    border: 2px solid #80afe430;
     background-color: var(--color_bg);
     font-family: var(--font_family_header);
-    font-weight: 700;
-    &.active {
-      color: var(--color_text_action_selected);
-      box-shadow: 0 0 30px #a7dcff;
-    }
   }
   a + a {
     margin-left:0;
@@ -189,18 +183,6 @@ nav {
     border: none;
   }
 }
-a.active--exact {
-  cursor: default;
-  color: var(--color_text_action_selected);
-  text-decoration: none;
-}
-a:not(.active--exact):hover {
-  text-decoration: underline;
-}
-a.active {
-  border-top: 2px solid #80afe4;
-  border-bottom: 2px solid #80afe4;
-}
 
 .actionicon {
   float: right;
@@ -213,6 +195,7 @@ a.active {
   height: 1em;
   width: 1em;
 }
+
 ul.nav {
   list-style-type: none;
   margin: 0;
