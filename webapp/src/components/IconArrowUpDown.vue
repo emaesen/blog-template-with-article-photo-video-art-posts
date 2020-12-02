@@ -48,19 +48,23 @@ export default {
   stroke-linejoin: round;
   transform-origin: 50% 50%;
   transition: all .5s ease-in-out;
-  transform: scaleY(1);
   will-change: transform, opacity;
   opacity: 1;
 }
 .arrow-down {
-  transform: translateY(-15px) scaleY(1)
+  transform: translateY(-15px) scaleY(1);
 }
 .arrow-up {
-  transform: translateY(15px) scaleY(1)
+  transform: translateY(15px) scaleY(1);
 }
+.flip .arrow-down,
 .up .arrow-down,
 .down .arrow-up {
   opacity: 0;
   transform: translateY(0) scaleY(0);
+}
+.flip .arrow-up {
+  opacity: 1;
+  transform: translateY(15px) scaleY(1);
 }
 </style>
