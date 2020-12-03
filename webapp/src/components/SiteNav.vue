@@ -229,7 +229,7 @@ ul.nav {
   cursor: pointer;
 }
 ul {
-  transition: transform .6s cubic-bezier(0.23, 0.03, 0.82, 1.8), 
+  transition: transform .6s cubic-bezier(0.23, 0.03, 0.82, 1.2), 
               opacity .3s linear;
   transform: translateY(0);
   opacity: 1;
@@ -275,6 +275,14 @@ li li {
     .nav.menu {
       width: 80%;
     }
+    ul {
+      transform: translate(0,0);
+    }
+    ul.collapsed {
+      transform: translate(-50px,-30px);
+      z-index:0;
+    }
+
     .nav.item {
       float: none;
       display: grid;
