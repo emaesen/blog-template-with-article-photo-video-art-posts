@@ -2,7 +2,7 @@
   <div class="main-articles">
     <h1>{{$page.cms.articlesPage.title}}</h1>
 
-    <RichText :data="$page.cms.articlesPage.introduction" class="para"/>
+    <RichText :data="$page.cms.articlesPage.introduction" class="para intro"/>
 
     <div class="h-feed">
       <div class="cards-container">
