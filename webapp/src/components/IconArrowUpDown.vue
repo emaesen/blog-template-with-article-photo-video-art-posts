@@ -53,6 +53,7 @@ export default {
 }
 .arrow-down {
   transform: translateY(-15px) scaleY(1);
+  fill: none;
 }
 .arrow-up {
   transform: translateY(15px) scaleY(1);
