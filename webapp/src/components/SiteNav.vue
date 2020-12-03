@@ -133,7 +133,6 @@ export default {
   watch: {
     windowWidth(newWidth) {
       // windowWidth is set/updated by the windowSize mixin on window resize
-      console.log({windowWidth:newWidth})
       this.showBarMenu = newWidth < this.windowBreakPoint;
       // for dev case, check if (virtual) device was switched
       this.checkDeviceSwitch();
@@ -160,25 +159,26 @@ nav {
   opacity: 0.9;
   background-color: var(--color_bg);
   box-shadow: 0 0 30px #a7dcff;
-  display: grid;
+  display: flex;
   justify-content: flex-end;
+  align-content: stretch;
+  align-items: stretch;
 }
 .menu {
   a {
     opacity: 1;
-    padding: 5px 10px;
     display: inline-block;
     background-color: var(--color_bg);
     font-family: var(--font_family_header);
   }
   a + a {
-    margin-left:0;
+
     border-left: none;
   }
 }
 .submenu {
-  border-left: 2px solid #80afe430;
-  border-right: 2px solid #80afe430;
+  border: 1px solid #ccccccaa;
+  border-top: none;
   a {
     border: none;
   }
@@ -188,7 +188,7 @@ nav {
   float: right;
   height: 1em;
   width: 2em;
-  text-align: right;
+  text-align: center;
   cursor: pointer;
 }
 .actionicon .icon-arrows {
@@ -200,14 +200,11 @@ ul.nav {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 .nav.item {
   float: left;
   position: relative;
-  a {
-    padding: 5px 10px;
-  }
+  padding: 10px;
 }
 .nav.submenu {
   background-color: var(--color_bg);
@@ -242,7 +239,7 @@ ul.nav {
 }
 ul {
   transition: transform .3s cubic-bezier(0.23, 0.03, 0.82, 1.8), 
-              opacity .3s linear;
+              opacity .6s linear;
   transform: translateY(0);
   opacity: 1;
 }
@@ -264,7 +261,7 @@ li li {
     padding-left: 10px;
     margin-left: 0;
     border-radius: 0;
-    opacity: 0.9;
+    opacity: 0.96;
     display: block;
     &.bar-open {
       z-index: 999999;
@@ -290,9 +287,14 @@ li li {
     .nav.item {
       float: none;
       display: grid;
+      margin-bottom: 5px;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
       a {
         padding: 10px;
       }
+    }
+    .nav.submenu {
+      border: none;
     }
     .nav.submenu:not(.collapsed) {
       position: relative;
