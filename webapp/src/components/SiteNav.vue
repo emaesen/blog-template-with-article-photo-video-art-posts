@@ -13,7 +13,7 @@
       <li
         @mouseover.passive="onNavMouseOver('posts', $event)"
         @mouseleave.passive="onNavMouseLeave('posts', $event)"
-        :class="['nav item', {flip:isNavpostsExpanded}]"
+        :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
         role="menuitem"
       >
         <g-link to="/posts">
@@ -209,20 +209,11 @@ ul.nav {
 .nav.submenu {
   background-color: var(--color_bg);
   position: absolute;
-  height: auto;
   left: 0;
  .nav.item {
     display: grid;
     float: none;
  }
-}
-.nav.submenu.collapsed {
-  height: 0;
-  visibility: hidden;
-  top:-200px;
-}
-.nav.submenu.collapsed a {
-  display: none;
 }
 .divider {
   border-top: 1px solid var(--color_border_accent-2);
@@ -238,13 +229,13 @@ ul.nav {
   cursor: pointer;
 }
 ul {
-  transition: transform .3s cubic-bezier(0.23, 0.03, 0.82, 1.8), 
-              opacity .6s linear;
+  transition: transform .6s cubic-bezier(0.23, 0.03, 0.82, 1.8), 
+              opacity .3s linear;
   transform: translateY(0);
   opacity: 1;
 }
 ul.collapsed {
-  transform: translateY(-20px);
+  transform: translateY(-30px);
   opacity: 0;
   z-index:-1;
 }
@@ -293,10 +284,22 @@ li li {
         padding: 10px;
       }
     }
+    .nav.item.hassubmenu {
+      max-height: 5em;
+      min-height: 3em;
+      transition: max-height 0.3s linear, min-height 0.9s linear;
+    }
+    .nav.item.hassubmenu.flip {
+      min-height: 15em;
+      max-height: 25em;
+    }
     .nav.submenu {
       border: none;
+      .nav.item {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+      }
     }
-    .nav.submenu:not(.collapsed) {
+    .nav.submenu {
       position: relative;
       margin-left: 1em;
     }
