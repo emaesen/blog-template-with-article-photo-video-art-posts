@@ -81,6 +81,11 @@ export default {
     this.setUA();
     this.setTouchProp();
   },
+  computed: {
+    basePath() {
+      return this.$route.path.replace(/\/\d+.*/,"/");
+    },
+  },
   methods: {
     onNavMouseOver(target) {
       if (target==="posts" && !this.showBarMenu && !this.isTouch) {
@@ -116,7 +121,14 @@ export default {
     },
     toggleMenu() {
       this.isBarMenuOpen = !this.isBarMenuOpen;
-      if (!this.isBarMenuOpen) this.isNavpostsExpanded = false
+      // close posts subnav when menu is closed
+      if (!this.isBarMenuOpen) {
+        this.isNavpostsExpanded = false
+      }
+      // open posts subnav when menu is opened and a posts subpage is currently active
+      if (this.isBarMenuOpen && this.basePath.match(/^\/posts\/.+/i)) {
+        this.isNavpostsExpanded = true
+      }
     },
     setTouchProp() {
       this.isTouch = (window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window;
