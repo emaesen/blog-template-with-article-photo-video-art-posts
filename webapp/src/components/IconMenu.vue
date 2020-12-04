@@ -18,6 +18,11 @@
 <script>
 export default {
   name: 'IconMenu',
+  props: {
+    isBarMenuOpen: {
+      type: Boolean,
+    }
+  },
   data() {
     return {
       hasCrossShape: false,
@@ -26,6 +31,11 @@ export default {
   methods: {
     toggle() {
       this.hasCrossShape = !this.hasCrossShape
+    }
+  },
+  watch: {
+    isBarMenuOpen(newVal) {
+      this.hasCrossShape = newVal
     }
   }
 }

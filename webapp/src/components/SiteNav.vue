@@ -2,7 +2,7 @@
     <nav :class="['nowrap', 'expand', {'bar-open':isBarMenuOpen, 'bar-closed':!isBarMenuOpen}]">
 
     <span @click="toggleMenu" class="menu-icon">
-      <IconMenu/>
+      <IconMenu :isBarMenuOpen="isBarMenuOpen"/>
     </span>
 
     <ul :class="['nav menu', {'bar-open':isBarMenuOpen, 'bar-closed':!isBarMenuOpen}]" role="menu"
