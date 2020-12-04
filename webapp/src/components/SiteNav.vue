@@ -22,7 +22,7 @@
           </span>
           Posts
         </g-link>
-        <ul :class="['nav submenu', {collapsed:!isNavpostsExpanded}]" role="menu">
+        <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
           <li class="nav item post-sub" role="menuitem">
             <g-link to="/posts/articles">
               Articles
@@ -154,7 +154,6 @@ nav {
   top: 0;
   width: 100%;
   z-index: 3;
-  padding: 3px;
   border-bottom: 1px solid var(--color_border_accent-1);
   opacity: 0.9;
   background-color: var(--color_bg);
@@ -223,7 +222,7 @@ ul.nav {
   position: fixed;
   top: 0;
   right: 0;
-  padding: 10px;
+  padding: 5px 10px;
   visibility: hidden;
   z-index: 10;
   cursor: pointer;
@@ -234,8 +233,11 @@ ul {
   transform: translateY(0);
   opacity: 1;
 }
+ul.expanded {
+  z-index:-1;
+}
 ul.collapsed {
-  transform: translateY(-30px);
+  transform: translateY(-200px);
   opacity: 0;
   z-index:-1;
 }
@@ -278,6 +280,9 @@ li li {
     ul {
       transform: translate(0,0);
     }
+    ul.expanded {
+      z-index:0;
+    }
     ul.collapsed {
       transform: translate(-50px,-30px);
       z-index:0;
@@ -314,6 +319,13 @@ li li {
     .menu-icon {
       visibility: visible;
     }
+    .nav a::after {
+      background-color: initial !important;
+    }
+    .nav a:hover, .nav a:hover * {
+      background-color: initial !important;
+    }
+
   }
 };
 </style>
