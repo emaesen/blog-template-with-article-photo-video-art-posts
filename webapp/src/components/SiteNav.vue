@@ -116,6 +116,7 @@ export default {
     },
     toggleMenu() {
       this.isBarMenuOpen = !this.isBarMenuOpen;
+      if (!this.isBarMenuOpen) this.isNavpostsExpanded = false
     },
     setTouchProp() {
       this.isTouch = (window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window;
