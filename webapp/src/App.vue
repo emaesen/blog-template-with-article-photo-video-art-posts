@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <header class="header">
-      <g-link to="/" class="nodeco">
+      <g-link to="/" class="nodeco above">
         <g-image alt="logo" src="~/assets/images/logo.png" width="65"/>
       </g-link>
       <SiteNav/>
@@ -13,7 +13,7 @@
     </main>
     <Footer/>
 
-    <AnimatedOpeningScreen/>
+    <AnimatedOpeningScreen class="os"/>
 
   </div>
 </template>
@@ -62,4 +62,11 @@ export default {
 
 <style lang="less">
 @import "~/assets/styles/app.less";
+.above {
+  z-index: 9;
+  position: fixed;
+}
+.os {
+  z-index: 99999999;
+}
 </style>

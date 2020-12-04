@@ -130,14 +130,15 @@ export default {
   overflow: hidden;
 }
 .signature {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 15vw;
   min-width: 100px;
   transform-origin: top left;
-  transform: scale(1) translate(75px,15px);
+  transform: scale(1) translate(75px,7px);
   transition: transform 2.5s ease-in-out;
+  z-index: 9;
 }
 .signature.os_anima {
   transform: scale(3) translate(5vw,5vh);
