@@ -18,7 +18,7 @@
       >
         <g-link to="/posts">
           <span @click.stop.prevent="onNavClick('posts', $event)" class="actionicon">
-            <IconArrowUpDown/>
+            <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
           </span>
           Posts
         </g-link>
@@ -110,7 +110,8 @@ export default {
         }
       }
       if (target==="menu" && this.showBarMenu) {
-        this.isBarMenuOpen = false;
+        this.isBarMenuOpen = false
+        this.isNavpostsExpanded = false
       }
     },
     toggleMenu() {

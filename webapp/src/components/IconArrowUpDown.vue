@@ -18,6 +18,11 @@
 <script>
 export default {
   name: 'IconArrowUpDown',
+  props: {
+    isArrowUp: {
+      type: Boolean,
+    }
+  },
   data() {
     return {
       isUp: false,
@@ -26,6 +31,11 @@ export default {
   methods: {
     toggle() {
       this.isUp = !this.isUp
+    }
+  },
+  watch: {
+    isArrowUp(newVal) {
+      this.isUp = newVal
     }
   }
 }
