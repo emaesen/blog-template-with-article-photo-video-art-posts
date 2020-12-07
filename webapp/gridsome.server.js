@@ -171,7 +171,7 @@ module.exports = function (api, options) {
     // Create a route for each individual article
     data.cms.articles.forEach((article) => {
       createPage({
-        path: `/posts/articles/${article.slug}`,
+        path: `/p/articles/${article.slug}`,
         component: './src/templates/Article.vue',
         context: {
           slug: article.slug
@@ -182,7 +182,7 @@ module.exports = function (api, options) {
     // create routes for the "articles" page, with pagination
     const nrOfArticlesPages = Math.ceil(data.cms.articlesCount / CMS_ARTICLES_PAGELIMIT)
     createPage({
-      path: `/posts/articles/`,
+      path: `/p/articles/`,
       component: './src/templates/Articles.vue',
       context: {
         page: 0,
@@ -194,7 +194,7 @@ module.exports = function (api, options) {
     })
     for (let page = 0; page < nrOfArticlesPages; page++) {
       createPage({
-        path: `/posts/articles/${page}`,
+        path: `/p/articles/${page}`,
         component: './src/templates/Articles.vue',
         context: {
           page: page,
@@ -206,7 +206,7 @@ module.exports = function (api, options) {
       })
       // create additional routes for reversed sort
       createPage({
-        path: `/posts/articles/${page}/asc`,
+        path: `/p/articles/${page}/asc`,
         component: './src/templates/Articles.vue',
         context: {
           page: page,

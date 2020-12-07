@@ -28,7 +28,7 @@
         :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
         role="menuitem"
       >
-        <g-link to="/posts">
+        <g-link to="/posts/">
           <span @click.stop.prevent="onNavClick('posts', $event)" class="actionicon">
             <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
           </span>
@@ -124,13 +124,13 @@ export default {
     activePosts () {
       let posts = []
       if (this.nrOfArticles) 
-        posts.push({name:"Articles",url:"/posts/articles"})
+        posts.push({name:"Articles",url:"/p/articles/"})
       if (this.nrOfPhotos) 
-        posts.push({name:"Photos",url:"/posts/photos"})
+        posts.push({name:"Photos",url:"/p/photos/"})
       if (this.nrOfVideos) 
-        posts.push({name:"Videos",url:"/posts/videos"})
+        posts.push({name:"Videos",url:"/p/videos/"})
       if (this.nrOfNotes) 
-        posts.push({name:"Notes",url:"/posts/notes"})
+        posts.push({name:"Notes",url:"/p/notes/"})
       return posts
     },
     groupPostTypes() {
@@ -181,7 +181,7 @@ export default {
         this.isNavpostsExpanded = false
       }
       // open posts subnav when menu is opened and a posts subpage is currently active
-      if (this.isBarMenuOpen && this.basePath.match(/^\/posts\/.+/i)) {
+      if (this.isBarMenuOpen && this.basePath.match(/^\/p\/.+/i)) {
         this.isNavpostsExpanded = true
       }
     },
