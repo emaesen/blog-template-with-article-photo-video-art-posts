@@ -7,39 +7,20 @@
 
     <ul :class="['nav menu', {'bar-open':isBarMenuOpen, 'bar-closed':!isBarMenuOpen}]" role="menu"
       @click="onNavClick('menu', $event)">
+
       <li class="nav item" role="menuitem">
         <g-link to="/" exact>Home</g-link>
       </li>
 
       <li
-        v-if="nrOfArticles && !groupPostTypes"
+        v-for="post in activePostsUngrouped"
+        :key="post.name"
         class="nav item"
         role="menuitem"
       >
-        <g-link to="/posts/articles">Articles</g-link>
+        <g-link :to="post.url">{{post.name}}</g-link>
       </li>
-      <li
-        v-if="nrOfPhotos && !groupPostTypes"
-        class="nav item"
-        role="menuitem"
-      >
-        <g-link to="/posts/photos">Photos</g-link>
-      </li>
-      <li
-        v-if="nrOfVideos && !groupPostTypes"
-        class="nav item"
-        role="menuitem"
-      >
-        <g-link to="/posts/videos">Videos</g-link>
-      </li>
-      <li
-        v-if="nrOfNotes && !groupPostTypes"
-        class="nav item"
-        role="menuitem"
-      >
-        <g-link to="/posts/notes">Notes</g-link>
-      </li>
-      
+
       <li
         v-if="groupPostTypes"
         @mouseover.passive="onNavMouseOver('posts', $event)"
@@ -54,31 +35,23 @@
           Posts
         </g-link>
         <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
-          <li v-if="nrOfArticles" class="nav item post-sub" role="menuitem">
-            <g-link to="/posts/articles">
-              Articles
-            </g-link>
+
+          <li
+            v-for="post in activePosts"
+            :key="post.name"
+            class="nav item post-sub"
+            role="menuitem"
+          >
+            <g-link :to="post.url">{{post.name}}</g-link>
           </li>
-          <li v-if="nrOfPhotos" class="nav item post-sub" role="menuitem">
-            <g-link to="/posts/photos">
-              Photos
-            </g-link>
-          </li>
-          <li v-if="nrOfVideos" class="nav item post-sub" role="menuitem">
-            <g-link to="/posts/videos">
-              Videos
-            </g-link>
-          </li>
-          <li v-if="nrOfNotes" class="nav item post-sub" role="menuitem">
-            <g-link to="/posts/notes">
-              Notes
-            </g-link>
-          </li>
+
         </ul>
       </li>
+
       <li class="nav item" role="menuitem">
         <g-link to="/about/">About</g-link>
       </li>
+
     </ul>
   </nav>
 
@@ -119,6 +92,7 @@ export default {
       windowBreakPoint: 650,
       isTouch: false,
       ua: "",
+      groupedPostsThreshold: 2,
     }
   },
   mounted() {
@@ -147,9 +121,24 @@ export default {
     nrActivePostsTypes() {
       return Math.sign(this.nrOfArticles) + Math.sign(this.nrOfNotes) + Math.sign(this.nrOfPhotos) + Math.sign(this.nrOfVideos)
     },
+    activePosts () {
+      let posts = []
+      if (this.nrOfArticles) 
+        posts.push({name:"Articles",url:"/posts/articles"})
+      if (this.nrOfPhotos) 
+        posts.push({name:"Photos",url:"/posts/photos"})
+      if (this.nrOfVideos) 
+        posts.push({name:"Videos",url:"/posts/videos"})
+      if (this.nrOfNotes) 
+        posts.push({name:"Notes",url:"/posts/notes"})
+      return posts
+    },
     groupPostTypes() {
       // decide whether to groups post types under one "Posts" header
-      return this.nrActivePostsTypes && this.nrActivePostsTypes > 2
+      return this.nrActivePostsTypes && this.nrActivePostsTypes > this.groupedPostsThreshold
+    },
+    activePostsUngrouped() {
+      return !this.groupPostTypes && this.activePosts
     },
   },
   methods: {
