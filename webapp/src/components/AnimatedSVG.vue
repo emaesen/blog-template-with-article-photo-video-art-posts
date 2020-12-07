@@ -21,8 +21,8 @@ export default {
   },
   data() {
     return {
-      colorStroke: "#1130ff",
-      colorFill: "#1130ffaa",
+      colorStroke: "#62849a",
+      colorFill: "#62849aaa",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
       drawTimeSeconds: 0.7,
@@ -104,8 +104,6 @@ export default {
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.6;
-  stroke: #1130ff;
-  fill: #1130ffaa;
   filter: drop-shadow(1px 1px 2px #fff);
 }
 
