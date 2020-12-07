@@ -10,7 +10,38 @@
       <li class="nav item" role="menuitem">
         <g-link to="/" exact>Home</g-link>
       </li>
+
       <li
+        v-if="nrOfArticles && !groupPostTypes"
+        class="nav item"
+        role="menuitem"
+      >
+        <g-link to="/posts/articles">Articles</g-link>
+      </li>
+      <li
+        v-if="nrOfPhotos && !groupPostTypes"
+        class="nav item"
+        role="menuitem"
+      >
+        <g-link to="/posts/photos">Photos</g-link>
+      </li>
+      <li
+        v-if="nrOfVideos && !groupPostTypes"
+        class="nav item"
+        role="menuitem"
+      >
+        <g-link to="/posts/videos">Videos</g-link>
+      </li>
+      <li
+        v-if="nrOfNotes && !groupPostTypes"
+        class="nav item"
+        role="menuitem"
+      >
+        <g-link to="/posts/notes">Notes</g-link>
+      </li>
+      
+      <li
+        v-if="groupPostTypes"
         @mouseover.passive="onNavMouseOver('posts', $event)"
         @mouseleave.passive="onNavMouseLeave('posts', $event)"
         :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
@@ -23,22 +54,22 @@
           Posts
         </g-link>
         <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
-          <li class="nav item post-sub" role="menuitem">
+          <li v-if="nrOfArticles" class="nav item post-sub" role="menuitem">
             <g-link to="/posts/articles">
               Articles
             </g-link>
           </li>
-          <li class="nav item post-sub" role="menuitem">
+          <li v-if="nrOfPhotos" class="nav item post-sub" role="menuitem">
             <g-link to="/posts/photos">
               Photos
             </g-link>
           </li>
-          <li class="nav item post-sub" role="menuitem">
+          <li v-if="nrOfVideos" class="nav item post-sub" role="menuitem">
             <g-link to="/posts/videos">
               Videos
             </g-link>
           </li>
-          <li class="nav item post-sub" role="menuitem">
+          <li v-if="nrOfNotes" class="nav item post-sub" role="menuitem">
             <g-link to="/posts/notes">
               Notes
             </g-link>
@@ -52,6 +83,19 @@
   </nav>
 
 </template>
+
+<static-query>
+query SiteNav {
+  cms {
+    articlesCount
+    notesCount
+    photosCount
+    videosCount
+  }
+}
+</static-query>
+
+
 
 <script>
 import IconMenu from '~/components/IconMenu'
@@ -74,16 +118,38 @@ export default {
       isBarMenuOpen: false,
       windowBreakPoint: 650,
       isTouch: false,
-      ua: ""
+      ua: "",
     }
   },
   mounted() {
-    this.setUA();
-    this.setTouchProp();
+    this.setUA()
+    this.setTouchProp()
   },
   computed: {
     basePath() {
-      return this.$route.path.replace(/\/\d+.*/,"/");
+      return this.$route.path.replace(/\/\d+.*/,"/")
+    },
+    cms() {
+      return this.$static.cms
+    },
+    nrOfArticles() {
+      return this.cms.articlesCount
+    },
+    nrOfNotes() {
+      return this.cms.notesCount
+    },
+    nrOfPhotos() {
+      return this.cms.photosCount
+    },
+    nrOfVideos() {
+      return this.cms.videosCount
+    },
+    nrActivePostsTypes() {
+      return Math.sign(this.nrOfArticles) + Math.sign(this.nrOfNotes) + Math.sign(this.nrOfPhotos) + Math.sign(this.nrOfVideos)
+    },
+    groupPostTypes() {
+      // decide whether to groups post types under one "Posts" header
+      return this.nrActivePostsTypes && this.nrActivePostsTypes > 2
     },
   },
   methods: {
@@ -229,6 +295,7 @@ ul.nav {
  .nav.item {
     display: grid;
     float: none;
+    padding-left: 0;
  }
 }
 .divider {
