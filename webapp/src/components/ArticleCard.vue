@@ -6,7 +6,7 @@
           <g-image
             :alt="article.title"
             :src="getCmsMedia(article.coverImage.url)"
-            class="article-cover-image img-fluid"
+            class="article-image img-fluid"
           />
           <span :class="{'article-badge':mainCategory}">{{ mainCategory }}</span>
         </div>
@@ -82,7 +82,7 @@ export default {
 .article-image-container {
   position: relative;
 }
-.article-cover-image {
+.article-image {
   border: 1px solid #0f5ca0;
   border-radius: 5px;
 }
