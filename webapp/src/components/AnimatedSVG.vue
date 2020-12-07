@@ -21,8 +21,8 @@ export default {
   },
   data() {
     return {
-      colorStroke: "#314cf9",
-      colorFill: "#314cf9aa",
+      colorStroke: "#1130ff",
+      colorFill: "#1130ffaa",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
       drawTimeSeconds: 0.7,
@@ -103,9 +103,10 @@ export default {
 .svg-container svg {
   stroke-linecap:round;
   stroke-linejoin:round;
-  stroke-width:.4;
-  stroke: #314cf9;
-  fill: #314cf9aa;
+  stroke-width:.6;
+  stroke: #1130ff;
+  fill: #1130ffaa;
+  filter: drop-shadow(1px 1px 2px #fff);
 }
 
 </style>
