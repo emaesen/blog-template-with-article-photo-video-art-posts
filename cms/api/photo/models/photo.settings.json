@@ -25,6 +25,9 @@
       "type": "uid",
       "targetField": "title"
     },
+    "description": {
+      "type": "text"
+    },
     "location": {
       "type": "component",
       "repeatable": false,
@@ -46,8 +49,8 @@
       "type": "date"
     },
     "notes": {
-      "via": "photo",
-      "collection": "note"
+      "collection": "note",
+      "via": "photo"
     }
   }
 }
