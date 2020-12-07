@@ -69,6 +69,7 @@ export default {
   background-color: #ccc;
   opacity: 0.97;
   transition: opacity 2s cubic-bezier(.9,0,.9,.9); 
+  z-index: 1;
 }
 .blade {
   position: absolute;

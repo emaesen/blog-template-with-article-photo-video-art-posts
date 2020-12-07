@@ -155,6 +155,7 @@ export default {
   transition: transform 9s ease-in-out;
   animation: 8s ease-in-out tags;
   opacity: 0;
+  z-index: 1;
 }
 .os_tags.os_anima {
   transform: scale(1.1) translate(10vw,-10vh);
