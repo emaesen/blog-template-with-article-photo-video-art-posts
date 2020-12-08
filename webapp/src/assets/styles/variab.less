@@ -36,7 +36,8 @@
 }
 
 /* light color scheme (default) */
-:root {
+:root,
+:root[data-color-mode="light"] {
   --base-color_bg_accent-1: var(--base-color-secondary-1-1);
   --color_bg: rgb(var(--base-color-primary-1));
   --color_bg_opaque: rgba(var(--base-color-primary-1), 0.9);
@@ -60,27 +61,25 @@
 }
 
 /* dark color scheme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --base-color_bg_accent-1: var(--base-color-secondary-1-4);
-    --color_bg: rgb(var(--base-color-primary-4));
-    --color_bg_opaque: rgba(var(--base-color-primary-4), 0.9);
-    --color_bg_accent-1: rgba(var(--base-color-secondary-1-4), 0.8);
-    --color_bg_accent-2: rgba(var(--base-color-secondary-2-4), 0.6);
-    --color_border_accent-1: rgba(var(--base-color-secondary-1-2), 0.8);
-    --color_border_accent-2: rgba(var(--base-color-secondary-2-2), 0.6);
-    --color_text_body: rgb(var(--base-color-primary-1));
-    --color_text_header: rgb(var(--base-color-secondary-2-1));
-    --color_text_action: rgb(var(--base-color-primary-2));
-    --color_text_action_hover: rgb(var(--base-color-secondary-1-2));
-    --color_text_action_selected: rgb(var(--base-color-primary-0));
-    --color_text_action_active: rgb(var(--base-color-secondary-1-0));
-    --color_text_action_underline: rgba(var(--base-color-secondary-1-2), 0.3);
-    --color_text_action_underline_hover: rgb(var(--base-color-secondary-1-2));
-    --color_text_highlight: rgba(var(--base-color-secondary-2-2),0.3);
-    --color_text_deemph: rgb(var(--base-color-primary-1).0.6);
-    --color_formfield_border: rgba(var(--base-color-primary-2), 0.5);
-    --color_scrollbar:  rgb(var(--base-color-primary-0));
-    --color_scrollbar-thumb:  rgb(var(--base-color-primary-2));
-  }
+:root[data-color-mode="dark"] {
+  --base-color_bg_accent-1: var(--base-color-secondary-1-4);
+  --color_bg: rgb(var(--base-color-primary-4));
+  --color_bg_opaque: rgba(var(--base-color-primary-4), 0.9);
+  --color_bg_accent-1: rgba(var(--base-color-secondary-1-4), 0.8);
+  --color_bg_accent-2: rgba(var(--base-color-secondary-2-4), 0.6);
+  --color_border_accent-1: rgba(var(--base-color-secondary-1-2), 0.8);
+  --color_border_accent-2: rgba(var(--base-color-secondary-2-2), 0.6);
+  --color_text_body: rgb(var(--base-color-primary-1));
+  --color_text_header: rgb(var(--base-color-secondary-2-1));
+  --color_text_action: rgb(var(--base-color-primary-2));
+  --color_text_action_hover: rgb(var(--base-color-secondary-1-2));
+  --color_text_action_selected: rgb(var(--base-color-primary-0));
+  --color_text_action_active: rgb(var(--base-color-secondary-1-0));
+  --color_text_action_underline: rgba(var(--base-color-secondary-1-2), 0.3);
+  --color_text_action_underline_hover: rgb(var(--base-color-secondary-1-2));
+  --color_text_highlight: rgba(var(--base-color-secondary-2-2),0.3);
+  --color_text_deemph: rgb(var(--base-color-primary-1).0.6);
+  --color_formfield_border: rgba(var(--base-color-primary-2), 0.5);
+  --color_scrollbar:  rgb(var(--base-color-primary-0));
+  --color_scrollbar-thumb:  rgb(var(--base-color-primary-2));
 }
