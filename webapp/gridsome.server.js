@@ -32,7 +32,7 @@ const CMS_URL = process.env.CMS_URL
 const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
 const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', CMS_MEDIA_PATH)
-const CMS_ARTICLES_PAGELIMIT = process.env.GRIDSOME_CMS_ARTICLES_PAGELIMIT
+const CMS_POSTS_PAGELIMIT = process.env.GRIDSOME_CMS_POSTS_PAGELIMIT
 
 
 async function getListOfCmsMediaFiles(addCollection) {
@@ -138,6 +138,62 @@ async function downloadCmsMediaFiles(files) {
   })
 }
 
+function createPostsRoutes(opts, createPage) {
+  // create route for each indivual post page
+  opts.data.forEach((post) => {
+    createPage({
+      path: `/p/${opts.type}/${post.slug}`,
+      component: `./src/templates/${opts.component}.vue`,
+      context: {
+        slug: post.slug
+      }
+    })
+  })
+
+
+  // create routes for the posts-type entry page, with pagination
+  const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
+  createPage({
+    path: `/p/${opts.type}/`,
+    component: `./src/templates/${opts.component}s.vue`,
+    context: {
+      page: 0,
+      limit: 1 * CMS_POSTS_PAGELIMIT,
+      start: 0,
+      sort: "createdAt:desc",
+      totalPages: nrOfPaginationPages
+    }
+  })
+  //create pagination pages
+  for (let page = 0; page < nrOfPaginationPages; page++) {
+    // for default sort...
+    createPage({
+      path: `/p/${opts.type}/${page}`,
+      component: `./src/templates/${opts.component}s.vue`,
+      context: {
+        page: page,
+        limit: 1 * CMS_POSTS_PAGELIMIT,
+        start: 1 * page * CMS_POSTS_PAGELIMIT,
+        sort: "createdAt:desc",
+        totalPages: nrOfPaginationPages
+      }
+    })
+    // ...and for reversed sort
+    createPage({
+      path: `/p/${opts.type}/${page}/asc`,
+      component: `./src/templates/${opts.component}s.vue`,
+      context: {
+        page: page,
+        limit: 1 * CMS_POSTS_PAGELIMIT,
+        start: 1 * page * CMS_POSTS_PAGELIMIT,
+        sort: "createdAt:asc",
+        totalPages: nrOfPaginationPages
+      }
+    })
+  }
+
+}
+
 module.exports = function (api, options) {
 
   api.loadSource(async ({ addCollection }) => {
@@ -158,65 +214,33 @@ module.exports = function (api, options) {
     // The cms graphql data is loaded with the source-graphql
     // plugin, defined in gridsome.config.js.
 
-    // find all article slugs
+    // find all post type slugs
     const { data } = await graphql(`{
       cms {
         articlesCount
         articles {
           slug
         }
+        photosCount
+        photos {
+          slug
+        }
       }
     }`)
 
-    // Create a route for each individual article
-    data.cms.articles.forEach((article) => {
-      createPage({
-        path: `/p/articles/${article.slug}`,
-        component: './src/templates/Article.vue',
-        context: {
-          slug: article.slug
-        }
-      })
-    })
+    createPostsRoutes({
+      type: "articles",
+      count: data.cms.articlesCount,
+      data: data.cms.articles,
+      component: "Article"
+    }, createPage)
 
-    // create routes for the "articles" page, with pagination
-    const nrOfArticlesPages = Math.ceil(data.cms.articlesCount / CMS_ARTICLES_PAGELIMIT)
-    createPage({
-      path: `/p/articles/`,
-      component: './src/templates/Articles.vue',
-      context: {
-        page: 0,
-        limit: 1 * CMS_ARTICLES_PAGELIMIT,
-        start: 0,
-        sort: "createdAt:desc",
-        totalPages: nrOfArticlesPages
-      }
-    })
-    for (let page = 0; page < nrOfArticlesPages; page++) {
-      createPage({
-        path: `/p/articles/${page}`,
-        component: './src/templates/Articles.vue',
-        context: {
-          page: page,
-          limit: 1 * CMS_ARTICLES_PAGELIMIT,
-          start: 1 * page * CMS_ARTICLES_PAGELIMIT,
-          sort: "createdAt:desc",
-          totalPages: nrOfArticlesPages
-        }
-      })
-      // create additional routes for reversed sort
-      createPage({
-        path: `/p/articles/${page}/asc`,
-        component: './src/templates/Articles.vue',
-        context: {
-          page: page,
-          limit: 1 * CMS_ARTICLES_PAGELIMIT,
-          start: 1 * page * CMS_ARTICLES_PAGELIMIT,
-          sort: "createdAt:asc",
-          totalPages: nrOfArticlesPages
-        }
-      })
-    }
+    createPostsRoutes({
+      type: "photos",
+      count: data.cms.photosCount,
+      data: data.cms.photos,
+      component: "Photo"
+    }, createPage)
   })
 
 }
