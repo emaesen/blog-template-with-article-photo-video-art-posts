@@ -1,32 +1,32 @@
 <template>
-  <div class="photo-card h-entry as-photo">
-    <g-link :to="'/p/photos/' + photo.slug" class="nodeco u-url u-uid">
-      <div class="photo-summary">
-        <div class="photo-image-container">
+  <div :class="['post-card h-entry', asClass]">
+    <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
+      <div class="post-summary">
+        <div class="post-image-container">
           <g-image
-            :alt="photo.title"
-            :src="getCmsMedia(photo.photo.url)"
-            class="photo-image img-fluid"
+            :alt="post.title"
+            :src="imageSrc"
+            class="post-image img-fluid"
           />
-          <span :class="{'photo-badge':mainCategory}">{{ mainCategory }}</span>
+          <span :class="{'post-badge':mainCategory}">{{ mainCategory }}</span>
         </div>
-        <h3 class="photo-title p-name">
-          {{ photo.title }}
+        <h3 class="post-title p-name">
+          {{ post.title }}
         </h3>
-        <div class="photo-description p-summary">
-          {{ photo.description }}
+        <div class="post-description p-summary">
+          {{ post.description }}
         </div>
       </div>
     </g-link>
-    <div class="photo-meta">
-      <div class="photo-date dt-taken">
+    <div class="post-meta">
+      <div class="post-date dt-published">
         {{ dateText }}
       </div>
-      <div class="photo-categories">
+      <div class="post-categories">
         <span
-          v-for="category in photo.categories"
+          v-for="category in post.categories"
           :key="category.id"
-          class="photo-category p-category"
+          class="post-category p-category"
         >
           {{ category.title }}
         </span>
@@ -40,19 +40,34 @@ import { getCmsMedia } from '~/utils/medias'
 import date from '@/mixins/date.js'
 
 export default {
-  props: ['photo'],
+  props: {
+    post: Object,
+    postType: String,
+  },
   mixins: [date],
   methods: {
     getCmsMedia,
   },
   computed: {
+    postBasePath() {
+      return `/p/${this.postType}s/`
+    },
+    asClass() {
+      return `as-${this.postType}`
+    },
+    imageSrc() {
+      const post = this.post
+      const url = (post.coverImage && post.coverImage.url) ||
+      (post.photo && post.photo.url)
+      return getCmsMedia(url)
+    },
     mainCategory() {
-      const mainCat = this.photo.categories[0]
+      const mainCat = this.post.categories[0]
       return mainCat && mainCat.title
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
-      let text = this.formattedDate(this.photo.date, opts);
+      let text = this.formattedDate(this.post.date || this.post.createdAt, opts);
       return text;
     }
   }
@@ -60,7 +75,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.photo-card {
+.post-card {
   flex: 0 0 49%;
   max-width: 50%;
   position: relative;
@@ -73,25 +88,25 @@ export default {
   background-color: #cccccc88;
   transition: background-color .3s ease-in-out
 }
-.photo-card:hover {
+.post-card:hover {
   background-color: #c8ccc3aa;
 }
-.photo-title {
+.post-title {
   margin: 0;
 }
-.photo-image-container {
+.post-image-container {
   position: relative;
 }
-.photo-image {
+.post-image {
   border: 1px solid #0f5ca0;
   border-radius: 5px;
 }
-.photo-category {
+.post-category {
   font-size: 0.9em;
   color: #0f5ca0d0;
   margin-right: 1em;
 }
-.photo-badge {
+.post-badge {
   font-size: 0.9em;
   padding: .05em .3em;
   color: #eee;
@@ -101,12 +116,12 @@ export default {
   bottom: 10px;
   right: 5px;
 }
-.photo-date {
+.post-date {
   font-size: 0.8em;
   color: #737373;
 }
 @media screen and (max-width: 600px) {
-  .photo-card {
+  .post-card {
   flex: 0 0 100%;
   max-width: 100%;
   }
