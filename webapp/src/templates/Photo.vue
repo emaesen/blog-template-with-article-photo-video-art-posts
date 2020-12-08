@@ -11,6 +11,9 @@
       <div class="date dt-taken">
         {{ dateText }}
       </div>
+      <div class="location">
+        {{ location }}
+      </div>
       <div class="categories">
         <span
           v-for="category in photo.categories"
@@ -82,6 +85,13 @@ export default {
     imgUrl() {
       const url=this.photo.photo.url
       return getCmsMedia(url)
+    },
+    location() {
+      const loc = this.photo.location
+      return (loc.landmark ? loc.landmark + " ⚐ " : "")
+        + (loc.city ? loc.city + ", " : "") 
+        + (loc.state_province ? loc.state_province + ", " : "") 
+        + (loc.country ? loc.country : "") 
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
