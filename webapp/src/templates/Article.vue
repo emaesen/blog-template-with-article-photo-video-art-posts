@@ -8,7 +8,9 @@
         :alt="$page.cms.articles[0].title"
         :src="imgUrl"
       />
-      <caption>{{ $page.cms.articles[0].description }}</caption>
+      <div class="description">
+        {{ $page.cms.articles[0].description }}
+      </div>
 
       <Content :content="$page.cms.articles[0].content" class="" />
     </article>
@@ -75,6 +77,7 @@ import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
+  name: 'Article',
   methods: {
     getCmsMedia,
   },
