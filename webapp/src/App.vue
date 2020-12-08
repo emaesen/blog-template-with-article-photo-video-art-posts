@@ -6,7 +6,7 @@
       </g-link>
       <SiteNav/>
 
-      <div @click="toggleColorMode" class="color-mode-toggle">
+      <div @click="toggleColorMode" class="color-mode-toggle" title="toggle light or dark mode">
         <IconLightDark :colorMode="colorMode" />
       </div>
     </header>
