@@ -1,16 +1,30 @@
 <template>
-  <div class="main-photo">
-    <figure>
-      <h1>
-        {{ $page.cms.photos[0].title }}
-      </h1>
-      <g-image
-        :alt="$page.cms.photos[0].title"
-        :src="imgUrl"
-      />
-      <caption>{{ $page.cms.photos[0].description }}</caption>
+  <div class="main-photo h-entry as-photo">
+    <h1>
+      {{ photo.title }}
+    </h1>
+    <g-image
+      :alt="photo.title"
+      :src="imgUrl"
+    />
+    <div class="meta">
+      <div class="date dt-taken">
+        {{ dateText }}
+      </div>
+      <div class="categories">
+        <span
+          v-for="category in photo.categories"
+          :key="category.id"
+          class="category p-category"
+        >
+          {{ category.title }}
+        </span>
+      </div>
+    </div>
 
-    </figure>
+    <div class="description">
+      {{ photo.description }}
+    </div>
   </div>
 </template>
 
@@ -46,8 +60,12 @@ query Photo ($slug: String!) {
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
+import date from '@/mixins/date.js'
+
 
 export default {
+  name: 'Photo',
+  mixins: [date],
   methods: {
     getCmsMedia,
   },
@@ -55,13 +73,21 @@ export default {
     Content,
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.photos[0]) 
+    return getMetaTags(this.photo) 
   },
   computed: {
+    photo() {
+      return this.$page.cms.photos[0]
+    },
     imgUrl() {
-      const imgName=this.$page.cms.photos[0].photo.url
-      return getCmsMedia(imgName)
-    }
+      const url=this.photo.photo.url
+      return getCmsMedia(url)
+    },
+    dateText() {
+      let opts = {shortForm:true, showYear:true};
+      let text = this.formattedDate(this.photo.date, opts);
+      return text;
+    },
   }
 }
 </script>
