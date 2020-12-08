@@ -6,10 +6,11 @@
 
     <div class="h-feed">
       <div class="cards-container">
-        <ArticleCard
+        <PostCard
           v-for="article in articles"
           :key="article.id"
-          :article="article"
+          :post="article"
+          postType="article"
         />
       </div>
     </div>
@@ -24,16 +25,17 @@
 
 <script>
 import Pagination from '~/components/Pagination'
-import ArticleCard from '~/components/ArticleCard'
+import PostCard from '~/components/PostCard'
 import RichText from '~/components/RichText'
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
+  name: 'Articles',
   methods: {
   },
   components: {
     Pagination,
-    ArticleCard,
+    PostCard,
     RichText,
   },
   data() {

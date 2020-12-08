@@ -12,10 +12,11 @@
 
     <div class="h-feed">
       <div class="cards-container">
-        <PhotoCard
+        <PostCard
           v-for="photo in photos"
           :key="photo.id"
-          :photo="photo"
+          :post="photo"
+          postType="photo"
         />
       </div>
     </div>
@@ -30,17 +31,18 @@
 
 <script>
 import Pagination from '~/components/Pagination'
-import PhotoCard from '~/components/PhotoCard'
+import PostCard from '~/components/PostCard'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
+  name: 'Photos',
   methods: {
   },
   components: {
     Pagination,
-    PhotoCard,
+    PostCard,
     RichText,
   },
   data() {
@@ -100,7 +102,6 @@ query PhotosPage ($sort: String!, $start: Int, $limit: Int) {
       id
       title
       slug
-      description
       categories {
         id
         title

@@ -10,10 +10,11 @@
       >view all {{ totalNrOfArticles }} articles</a>
     </div>
     <div class="cards-container">
-      <ArticleCard
+      <PostCard
         v-for="article in latestArticles"
         :key="article.id"
-        :article="article"
+        :post="article"
+        postType="article"
       />
     </div>
   </section>
@@ -45,7 +46,7 @@ query LatestArticles($limit: Int = 4) {
 </static-query>
 
 <script>
-import ArticleCard from '~/components/ArticleCard'
+import PostCard from '~/components/PostCard'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getSeoMetaTags } from '~/utils/seo'
@@ -55,7 +56,7 @@ export default {
     getCmsMedia,
   },
   components: {
-    ArticleCard,
+    PostCard,
     RichText,
   },
   data() {
