@@ -6,8 +6,14 @@
       </g-link>
       <SiteNav/>
 
-      <div @click="toggleColorMode" class="color-mode-toggle" title="toggle light or dark mode">
-        <IconLightDark :colorMode="colorMode" />
+      <div class="color-mode-toggle-container">
+        <div
+          @click="toggleColorMode"
+          class="color-mode-toggle"
+          title="toggle light or dark mode"
+        >
+          <IconLightDark :colorMode="colorMode" />
+        </div>
       </div>
     </header>
     <main>
@@ -105,10 +111,13 @@ export default {
 .os {
   z-index: 99999999;
 }
-.color-mode-toggle {
+.color-mode-toggle-container {
   width: 100%;
   text-align: right;
   position: relative;
   top: 50px;
+}
+.color-mode-toggle {
+  display: inline-block;
 }
 </style>
