@@ -27,6 +27,9 @@ export default {
       isLight: false,
     }
   },
+  mounted() {
+    this.isLight = (this.colorMode==="light")
+  },
   methods: {
     toggle() {
       this.isLight = !this.isLight
