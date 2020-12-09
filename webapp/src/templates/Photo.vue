@@ -7,7 +7,7 @@
       :alt="photo.title"
       :src="imgUrl"
     />
-    <div class="meta">
+    <div class="meta deemph">
       <div class="date dt-taken">
         {{ dateText }}
       </div>
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="description">
+    <div class="description para spacious">
       {{ photo.description }}
     </div>
   </div>
@@ -101,3 +101,15 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.meta {
+  text-align: center;
+  font-style: italic;
+}
+.category {
+  font-size: 0.9em;
+  opacity: 0.6;
+  margin: 0 1em;
+}
+</style>
