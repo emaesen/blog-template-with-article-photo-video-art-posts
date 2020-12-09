@@ -141,24 +141,24 @@ export default {
   z-index: 9;
 }
 .signature.os_anima {
-  transform: scale(3) translate(5vw,5vh);
+  transform: scale(3) translate(4vw,4vh);
 }
 
 
 .os_tags {
   position: absolute;
-  font-size: 5rem;
+  font-size: 3.69rem;
   bottom: 0;
   left: 0;
   transform-origin: bottom left;
-  transform: scale(1) translate(9vw,-9vh);
+  transform: scale(1) translate(1vw,-9vh);
   transition: transform 9s ease-in-out;
   animation: 8s ease-in-out tags;
   opacity: 0;
   z-index: 1;
 }
 .os_tags.os_anima {
-  transform: scale(1.1) translate(10vw,-10vh);
+  transform: scale(1.1) translate(2vw,-10vh);
   opacity: 0;
 }
 
