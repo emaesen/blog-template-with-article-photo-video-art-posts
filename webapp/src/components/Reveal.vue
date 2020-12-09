@@ -84,39 +84,39 @@ export default {
 }
 .blade-1 {
   transform: rotate(0);
-  background-color: #864;
+  background-color: rgb(146, 139, 132);
 }
 .blade-2 {
   transform: rotate(40deg);
-  background-color: #766;
+  background-color: rgb(143, 127, 127);
 }
 .blade-3 {
   transform: rotate(80deg);
-  background-color: #869;
+  background-color: rgb(141, 132, 146);
 }
 .blade-4 {
   transform: rotate(120deg);
-  background-color: #766;
+  background-color: rgb(131, 121, 121);
 }
 .blade-5 {
   transform: rotate(160deg);
-  background-color: #667;
+  background-color: rgb(114, 114, 126);
 }
 .blade-6 {
   transform: rotate(200deg);
-  background-color: #764;
+  background-color: rgb(129, 124, 115);
 }
 .blade-7 {
   transform: rotate(240deg);
-  background-color: #557;
+  background-color: rgb(112, 112, 129);
 }
 .blade-8 {
   transform: rotate(280deg);
-  background-color: #657;
+  background-color: rgb(117, 109, 124);
 }
 .blade-9 {
   transform: rotate(320deg);
-  background-color: #655;
+  background-color: rgb(126, 111, 111);
 }
 
 .reveal.blades-wrapper {
