@@ -48,7 +48,10 @@ export default {
   width: 30px;
   height: 30px;
   padding: 0;
-  stroke-width: 9;
+  stroke-width: 18;
+  stroke-opacity: .6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 .icon-light-dark:hover {
   cursor: pointer;
