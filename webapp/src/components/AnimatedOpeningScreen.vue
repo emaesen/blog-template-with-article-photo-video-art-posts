@@ -132,9 +132,9 @@ export default {
 .signature {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 15vw;
-  min-width: 100px;
+  width: 18vw;
+  min-width: 110px;
+  max-width: 180px;
   transform-origin: top left;
   transform: scale(1) translate(75px,7px);
   transition: transform 2.5s ease-in-out;
