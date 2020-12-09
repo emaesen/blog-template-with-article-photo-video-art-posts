@@ -52,9 +52,12 @@ export default {
   stroke-opacity: .6;
   stroke-linecap:round;
   stroke-linejoin:round;
+  transition: opacity 1s cubic-bezier(.61,.09,.45,1.11);
+  opacity: .6;
 }
 .icon-light-dark:hover {
   cursor: pointer;
+  opacity: 1;
 }
 svg.light.yin-yang {
   stroke: #000;
