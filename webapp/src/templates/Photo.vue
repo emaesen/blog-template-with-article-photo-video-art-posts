@@ -2,7 +2,9 @@
   <div class="main-photo h-entry as-photo">
     
     <h1>
-      <IconGoBackOrUp />
+      <span  @click="goBackOrUp">
+        <IconGoBackOrUp :title="goBackOrUpText"/>
+      </span>
       {{ photo.title }}
     </h1>
     <g-image
@@ -67,10 +69,12 @@ import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 import date from '@/mixins/date.js'
+import goBackOrUp from '@/mixins/go-back-or-up.js'
+
 
 export default {
   name: 'Photo',
-  mixins: [date],
+  mixins: [date, goBackOrUp],
   methods: {
     getCmsMedia,
   },
