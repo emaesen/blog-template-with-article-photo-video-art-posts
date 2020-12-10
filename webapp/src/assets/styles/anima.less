@@ -88,6 +88,33 @@
 }
 
 
+.anima__pendulum {
+	animation-name: pendulum;
+	animation-duration: 6s;
+  animation-iteration-count: 18;
+}
+@keyframes pendulum {
+	0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(.28,.28,.36,1);
+  }
+  25% {
+    transform: rotate(-10deg);
+    animation-timing-function: cubic-bezier(.36,.0,.72,.72);
+  }
+  50% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(.28,.28,.36,1);
+  }
+  75% {
+    transform: rotate(10deg);
+    animation-timing-function: cubic-bezier(.36,.0,.72,.72);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
 .anima__flicker {
 	animation-name: flicker;
 	animation-duration: 5s;
@@ -179,6 +206,7 @@
   .anima__scalex-out_scalex-in,
   .anima__scalex-in,
   .anima__scalex-out,
+  .anima__pendulum,
   .anima {
     animation: none !important;
   }
