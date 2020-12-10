@@ -2,6 +2,7 @@
   <div class="main-article">
     <article>
       <h1>
+        <IconGoBackOrUp />
         {{ $page.cms.articles[0].title }}
       </h1>
       <g-image
@@ -72,6 +73,7 @@ query Article ($slug: String!) {
 </page-query>
 
 <script>
+import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -82,6 +84,7 @@ export default {
     getCmsMedia,
   },
   components: {
+    IconGoBackOrUp,
     Content,
   },
   metaInfo() {

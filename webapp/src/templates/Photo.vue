@@ -1,6 +1,8 @@
 <template>
   <div class="main-photo h-entry as-photo">
+    
     <h1>
+      <IconGoBackOrUp />
       {{ photo.title }}
     </h1>
     <g-image
@@ -60,11 +62,11 @@ query Photo ($slug: String!) {
 </page-query>
 
 <script>
+import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 import date from '@/mixins/date.js'
-
 
 export default {
   name: 'Photo',
@@ -73,7 +75,10 @@ export default {
     getCmsMedia,
   },
   components: {
+    IconGoBackOrUp,
     Content,
+  },
+  mounted() {
   },
   metaInfo() {
     return getMetaTags(this.photo) 
@@ -98,6 +103,8 @@ export default {
       let text = this.formattedDate(this.photo.date, opts);
       return text;
     },
+  },
+  methods: {
   }
 }
 </script>
