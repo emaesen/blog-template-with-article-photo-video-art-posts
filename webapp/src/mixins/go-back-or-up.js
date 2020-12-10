@@ -11,10 +11,21 @@
  */
 
 export default {
+
   beforeRouteEnter(to, from, next) {
+    console.log("in mixin beforeRouteEnter ", {from})
     next(vm => {
       vm.prevRoute = from.matched.length > 0 && from.path
     })
+  },
+  computed: {
+    goBackOrUpText() {
+      if(this.prevRoute) {
+        return "go back to previous page"
+      } else {
+        return "go up one level"
+      }
+    },
   },
   methods: {
     goBackOrUp() {
