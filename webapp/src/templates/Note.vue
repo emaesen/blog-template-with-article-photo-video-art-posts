@@ -54,9 +54,6 @@ import goBackOrUp from '@/mixins/go-back-or-up.js'
 export default {
   name: 'Note',
   mixins: [date, goBackOrUp],
-  methods: {
-    getCmsMedia,
-  },
   components: {
     IconGoBackOrUp,
     Content,
@@ -83,6 +80,7 @@ export default {
     },
   },
   methods: {
+    getCmsMedia,
   }
 }
 </script>
