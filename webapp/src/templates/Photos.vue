@@ -8,7 +8,7 @@
       :src="introImage"
     />
 
-    <RichText :data="photosPage.introduction" class="para intro"/>
+    <RichText :data="photosPage.introduction" class="para intro group"/>
 
     <div class="h-feed">
       <div class="cards-container">
