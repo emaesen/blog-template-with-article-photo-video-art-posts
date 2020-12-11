@@ -2,18 +2,27 @@
   <div class="main-article">
     <article>
       <h1>
-        <IconGoBackOrUp />
-        {{ $page.cms.articles[0].title }}
+      <span  @click="goBackOrUp">
+        <IconGoBackOrUp :title="goBackOrUpText"/>
+      </span>
+        {{ article.title }}
       </h1>
-      <g-image
-        :alt="$page.cms.articles[0].title"
-        :src="imgUrl"
-      />
-      <div class="description">
-        {{ $page.cms.articles[0].description }}
+      <div class="meta deemph para">
+        <div class="date dt-published">
+          {{ dateText }}
+        </div>
       </div>
 
-      <Content :content="$page.cms.articles[0].content" class="" />
+      <g-image
+        :alt="article.title"
+        :src="imgUrl"
+      />
+      <div class="description para spacious">
+        {{ article.description }}
+      </div>
+
+      <Content :content="article.content" class="" />
+
     </article>
   </div>
 </template>
@@ -77,9 +86,12 @@ import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
+import date from '@/mixins/date.js'
+import goBackOrUp from '@/mixins/go-back-or-up.js'
 
 export default {
   name: 'Article',
+  mixins: [date, goBackOrUp],
   methods: {
     getCmsMedia,
   },
@@ -88,13 +100,28 @@ export default {
     Content,
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.articles[0]) 
+    return getMetaTags(this.article) 
   },
   computed: {
+    article() {
+      return this.$page.cms.articles[0]
+    },
     imgUrl() {
-      const imgName=this.$page.cms.articles[0].coverImage.url
+      const imgName=this.article.coverImage.url
       return getCmsMedia(imgName)
-    }
+    },
+    dateText() {
+      let opts = {shortForm:true, showYear:true};
+      let text = this.formattedDate(this.article.createdAt, opts);
+      return text;
+    },
+
   }
 }
 </script>
+
+<style lang="less" scoped>
+.description {
+  font-style: italic;
+}
+</style>
