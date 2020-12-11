@@ -92,9 +92,6 @@ import goBackOrUp from '@/mixins/go-back-or-up.js'
 export default {
   name: 'Article',
   mixins: [date, goBackOrUp],
-  methods: {
-    getCmsMedia,
-  },
   components: {
     IconGoBackOrUp,
     Content,
@@ -115,8 +112,10 @@ export default {
       let text = this.formattedDate(this.article.createdAt, opts);
       return text;
     },
-
-  }
+  },
+  methods: {
+    getCmsMedia,
+  },
 }
 </script>
 
