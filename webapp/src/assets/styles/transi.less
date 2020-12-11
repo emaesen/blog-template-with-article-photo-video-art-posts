@@ -13,13 +13,36 @@
   position: relative;
 }
 .replacefade-enter-active {
-  transition: opacity 2.5s ease;
+  transition: opacity 2.7s ease;
 }
 .replacefade-leave-active {
   position: absolute;
   top: 0;
-  transition: opacity 2.5s ease;
+  transition: opacity 2.7s ease;
 }
 .replacefade-enter, .replacefade-leave-to {
   opacity: 0;
+}
+
+
+.list-enter-active, .list-leave-active {
+  transition: all .9s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.list-move {
+  transition: all 1.8s;
+}
+
+
+.slidable {
+  transition: transform 2.7s ease-in-out;
+}
+.slidable.slide-left {
+  transform: translateX(-100vw);
+}
+.slidable.slide-right {
+  transform: translateX(100vw);
 }

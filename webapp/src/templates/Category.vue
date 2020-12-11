@@ -2,14 +2,20 @@
   <div class="main-category h-entry as-category">
     <h1>{{ headerText }} <span class="category">{{ category.title }}</span></h1>
 
+    <div class="sort action button" @click="reverseSort">
+      {{ sortText }}
+    </div>
+
     <div class="h-feed">
       <div class="cards-container">
+        <transition-group name="list" tag="div">
         <PostCard
           v-for="post in posts"
           :key="post.id"
           :post="post"
           :postType="post.type"
         />
+        </transition-group>
       </div>
     </div>
 
@@ -23,16 +29,19 @@ query Category {
       title
       description
       articles {
+        id
         title
         slug
         createdAt
       }
       photos {
+        id
         title
         slug
         createdAt
       }
       videos {
+        id
         title
         slug
         createdAt
@@ -89,6 +98,9 @@ export default {
       // as a tokenized string.
       return "All " + this.postType + " in category "
     },
+    sortText() {
+      return "Reverse sort order"
+    },
     articles() {
       return this.getMatchedPosts("article")
     },
@@ -99,7 +111,6 @@ export default {
       return this.getMatchedPosts("video")
     },
     posts() {
-      console.log([].concat(this.articles, this.photos, this.videos))
       return [].concat(this.articles, this.photos, this.videos).sort((a,b) => this.sortByDate(a,b))
     },
   },
@@ -107,7 +118,6 @@ export default {
     getMatchedPosts(postTypeSingular) {
       if (this.postType === postTypeSingular+"s" || this.postType === "posts") {
         let posts = this.category[postTypeSingular+"s"]
-        console.log({postTypeSingular, posts})
         posts.map(p => p.type=postTypeSingular)
         return posts || []
       } else {
@@ -124,13 +134,21 @@ export default {
         a=postB
       }
       return (new Date(b.createdAt)).getTime() - (new Date(a.createdAt)).getTime()
+    },
+    reverseSort() {
+      this.showLatestOnTop = !this.showLatestOnTop
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+@import "~/assets/styles/transi.less";;
+
 .category {
   font-style: italic;
+}
+.sort {
+  margin-bottom: 1em;
 }
 </style>
