@@ -140,17 +140,26 @@ async function downloadCmsMediaFiles(files) {
 
 function createPostsRoutes(opts, createPage) {
   // create route for each indivual post page
-  opts.data.forEach((post) => {
-    createPage({
-      path: `/p/${opts.type}/${post.slug}`,
-      component: `./src/templates/${opts.component}.vue`,
-      context: {
-        slug: post.slug
-      }
+  // except if skipIndividualPages==true
+  if (!opts.skipIndividualPages) {
+    console.info("INFO: create individual " + opts.type + " pages")
+    opts.data.forEach((post) => {
+      createPage({
+        path: `/p/${opts.type}/${post.slug}`,
+        component: `./src/templates/${opts.component}.vue`,
+        context: {
+          slug: post.slug
+        }
+      })
     })
-  })
+  } else {
+    createPage({
+      path: `/p/${opts.type}/:slug`,
+      component: `./src/templates/${opts.component}.vue`
+    })
+  }
 
-
+  console.info("INFO: create " + opts.type + " entry page + variants")
   // create routes for the posts-type entry page, with pagination
   const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
   createPage({
@@ -221,8 +230,16 @@ module.exports = function (api, options) {
         articles {
           slug
         }
+        notesCount
+        notes {
+          slug
+        }
         photosCount
         photos {
+          slug
+        }
+        videosCount
+        videos {
           slug
         }
       }
@@ -233,6 +250,14 @@ module.exports = function (api, options) {
       count: data.cms.articlesCount,
       data: data.cms.articles,
       component: "Article"
+    }, createPage)
+
+    createPostsRoutes({
+      type: "notes",
+      count: data.cms.notesCount,
+      data: data.cms.notes,
+      component: "Note",
+      skipIndividualPages: true
     }, createPage)
 
     createPostsRoutes({
