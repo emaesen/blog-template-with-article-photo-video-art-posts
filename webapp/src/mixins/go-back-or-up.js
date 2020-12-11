@@ -13,7 +13,6 @@
 export default {
 
   beforeRouteEnter(to, from, next) {
-    console.log("in mixin beforeRouteEnter ", {from})
     next(vm => {
       vm.prevRoute = from.matched.length > 0 && from.path
     })
