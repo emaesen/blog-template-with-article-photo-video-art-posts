@@ -23,7 +23,7 @@
 
       <li
         v-if="groupPostTypes"
-        @mouseover.passive="onNavMouseOver('posts', $event)"
+        @mouseenter.passive="onNavMouseEnter('posts', $event)"
         @mouseleave.passive="onNavMouseLeave('posts', $event)"
         :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
         role="menuitem"
@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       isNavpostsExpanded: false,
-      isMouseOverNavposts: false,
+      isMouseEnterNavposts: false,
       showBarMenu: true,
       isBarMenuOpen: false,
       windowBreakPoint: 650,
@@ -142,23 +142,23 @@ export default {
     },
   },
   methods: {
-    onNavMouseOver(target) {
+    onNavMouseEnter(target) {
       if (target==="posts" && !this.showBarMenu && !this.isTouch) {
         this.isNavpostsExpanded = true;
-        this.isMouseOverNavposts = true;
+        this.isMouseEnterNavposts = true;
       }
     },
     onNavMouseLeave(target) {
       if (target==="posts" && !this.showBarMenu && !this.isTouch) {
         this.isNavpostsExpanded = false;
-        this.isMouseOverNavposts = false;
+        this.isMouseEnterNavposts = false;
       }
     },
     onNavClick(target, evt) {
       if (target==="postsMenuToggle") {
         this.isNavpostsExpanded = !this.isNavpostsExpanded;
       }
-      if (target==="posts" && !this.isMouseOverNavposts) {
+      if (target==="posts" && !this.isMouseEnterNavposts) {
         this.isNavpostsExpanded = !this.isNavpostsExpanded;
       }
       if (target==="menu" && this.isNavpostsExpanded) {
