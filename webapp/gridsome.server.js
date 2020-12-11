@@ -201,6 +201,13 @@ function createPostsRoutes(opts, createPage) {
     })
   }
 
+  // create category page
+  
+  createPage({
+    path: `/p/${opts.type}/c/:category`,
+    component: `./src/templates/Category.vue`
+  })
+
 }
 
 module.exports = function (api, options) {
@@ -266,6 +273,13 @@ module.exports = function (api, options) {
       data: data.cms.photos,
       component: "Photo"
     }, createPage)
+
+    // create aggregate level category page
+    createPage({
+      path: `/posts/c/:category`,
+      component: `./src/templates/Category.vue`
+    })
+
   })
 
 }
