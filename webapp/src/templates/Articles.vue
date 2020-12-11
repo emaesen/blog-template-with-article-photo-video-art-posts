@@ -1,8 +1,8 @@
 <template>
   <div class="main-articles">
-    <h1>{{$page.cms.articlesPage.title}}</h1>
+    <h1>{{articlesPage.title}}</h1>
 
-    <RichText :data="$page.cms.articlesPage.introduction" class="para intro"/>
+    <RichText :data="articlesPage.introduction" class="para intro group"/>
 
     <div class="h-feed">
       <div class="cards-container">
@@ -43,9 +43,12 @@ export default {
     }
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.articlesPage.seo) 
+    return getMetaTags(this.articlesPage.seo) 
   },
   computed: {
+    articlesPage() {
+      return this.$page.cms.articlesPage
+    },
     articles() {
       // the maximum nr of articles to show is defined by `limit` in the 
       // graphql query
