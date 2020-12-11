@@ -2,7 +2,7 @@
   <div :class="['post-card h-entry', asClass]">
     <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
       <div class="post-summary">
-        <div class="post-image-container">
+        <div v-if="imageSrc" class="post-image-container">
           <g-image
             :alt="post.title"
             :src="imageSrc"
@@ -10,11 +10,14 @@
           />
           <span :class="{'post-badge':mainCategory}">{{ mainCategory }}</span>
         </div>
-        <h3 class="post-title p-name">
+        <h3 v-if="post.title" class="post-title p-name">
           {{ post.title }}
         </h3>
-        <div class="post-description p-summary">
+        <div v-if="post.description" class="post-description p-summary">
           {{ post.description }}
+        </div>
+        <div v-if="post.text" class="post-text p-summary">
+          {{ post.text }}
         </div>
       </div>
     </g-link>
@@ -57,12 +60,14 @@ export default {
     },
     imageSrc() {
       const post = this.post
-      const url = (post.coverImage && post.coverImage.url) ||
-      (post.photo && post.photo.url)
-      return getCmsMedia(url)
+      if (post.coverImage || post.photo) {
+        const url = (post.coverImage && post.coverImage.url) ||
+        (post.photo && post.photo.url)
+        return getCmsMedia(url)
+      }
     },
     mainCategory() {
-      const mainCat = this.post.categories[0]
+      const mainCat = this.post && this.post.categories[0]
       return mainCat && mainCat.title
     },
     dateText() {
