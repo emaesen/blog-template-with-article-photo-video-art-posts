@@ -15,7 +15,8 @@
       "required": true
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "default": "auto-generated---do-not-change"
     },
     "article": {
       "model": "article",
