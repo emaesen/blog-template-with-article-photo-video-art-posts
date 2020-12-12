@@ -1,21 +1,36 @@
 <template>
   <div class="main-category h-entry as-category">
-    <h1>{{ headerText }} <span class="category">{{ category.title }}</span></h1>
+    <h1>{{ headerText }} <span class="category">{{ categoryTitle }}</span></h1>
 
-    <div class="sort action button" @click="reverseSort">
-      {{ sortText }}
+    <div v-if="category">
+      <div class="sort action button" @click="reverseSort">
+        {{ sortText }}
+      </div>
+
+      <div class="h-feed">
+        <div class="cards-container">
+          <transition-group name="list" tag="div">
+          <PostCard
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            :postsType="post.type"
+          />
+          </transition-group>
+        </div>
+      </div>
     </div>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <transition-group name="list" tag="div">
-        <PostCard
-          v-for="post in posts"
-          :key="post.id"
-          :post="post"
-          :postType="post.type"
-        />
-        </transition-group>
+    <div v-else>
+      <div class="center anima__zoom pnf">
+        <p class="anima__flicker emph spaced_chars">NO POSTS FOUND</p>
+        <p class="spaced_chars">---------</p>
+        <p class="anima__slide-in-from-below anima__-delay1 spaced_chars">SO</p>
+        <p class="anima__slide-in-from-below anima__-delay2 spaced_chars">SORRY</p>
+        <p class="anima__slide-in-from-below anima__-delay3 spacious">
+          The category you requested does not have any associated {{ postsType }}.<br>
+          Please click any of the navigation links to continue.<br>
+        </p>
       </div>
     </div>
 
@@ -85,18 +100,18 @@ export default {
     category() {
       return this.categories.filter(category => category.title === this.categoryTitle)[0]
     },
-    postType() {
+    postsType() {
       const routeName = this.$route.name
-      let postType = routeName.replace("__p_","").replace("__","").split('_')[0];
-      // note that postType is plural: 
+      let postsType = routeName.replace("__p_","").replace("__","").split('_')[0];
+      // note that postsType is plural: 
       // expect "posts", "articles", "photos" or "videos"
-      return postType
+      return postsType
     },
     headerText() {
       // Note: if this website template is to be used for multi-language
       // versions, any currently hardcoded text must be moved to the CMS
       // as a tokenized string.
-      return "All " + this.postType + " in category "
+      return "All " + this.postsType + " in category "
     },
     sortText() {
       return "Reverse sort order"
@@ -115,10 +130,10 @@ export default {
     },
   },
   methods: {
-    getMatchedPosts(postTypeSingular) {
-      if (this.postType === postTypeSingular+"s" || this.postType === "posts") {
-        let posts = this.category[postTypeSingular+"s"]
-        posts.map(p => p.type=postTypeSingular)
+    getMatchedPosts(postsTypeSingular) {
+      if (this.category && (this.postsType === postsTypeSingular+"s" || this.postsType === "posts")) {
+        let posts = this.category[postsTypeSingular+"s"]
+        posts.map(p => p.type=postsTypeSingular)
         return posts || []
       } else {
         return []
@@ -143,7 +158,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~/assets/styles/transi.less";;
+@import "~/assets/styles/transi.less";
 
 .category {
   font-style: italic;
