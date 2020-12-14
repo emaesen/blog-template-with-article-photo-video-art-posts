@@ -29,6 +29,10 @@
     "video": {
       "model": "video",
       "via": "notes"
+    },
+    "thread": {
+      "model": "thread",
+      "via": "notes"
     }
   }
 }
