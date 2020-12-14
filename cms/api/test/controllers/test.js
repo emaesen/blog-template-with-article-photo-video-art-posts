@@ -5,4 +5,15 @@
  * to customize this controller
  */
 
-module.exports = {};
+// `sanitizeEntity` removes all private fields from the model 
+// and its relations
+const { sanitizeEntity } = require('strapi-utils');
+
+module.exports = {
+
+  async find(ctx) {
+    console.log("find Test")
+    const entity = await strapi.services.test.find();
+    return sanitizeEntity(entity, { model: strapi.models.test });
+  },
+};
