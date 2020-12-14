@@ -25,7 +25,7 @@
       <div class="post-date dt-published">
         {{ dateText }}
       </div>
-      <div class="post-categories">
+      <div v-if="post.categories" class="post-categories">
         <span
           v-for="category in post.categories"
           :key="category.id"
@@ -33,6 +33,9 @@
         >
           {{ category.title }}
         </span>
+      </div>
+      <div v-if="post.thread" class="post-thread">
+        {{ post.thread.title }}
       </div>
     </div>
   </div>
@@ -108,10 +111,16 @@ export default {
   border: 1px solid var(--color_border_accent-2);
   border-radius: 5px;
 }
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-thread,
 .post-category {
   font-size: 0.9em;
-  opacity: 0.6;
-  margin-right: 1em;
+  opacity: 0.9;
+  margin-left: 1em;
 }
 .post-badge {
   font-size: 0.9em;
