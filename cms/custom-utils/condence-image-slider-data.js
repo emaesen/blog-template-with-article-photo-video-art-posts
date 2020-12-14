@@ -38,10 +38,9 @@ const condenceImageSliderData = (sourceData) => {
   let data = sourceData;
   data.content.map(section => {
     let type = section.__component
-    console.log("section " + type)
     if (type === "sections.images-slider") {
       let sliderImages = section.sliderImages
-      console.log("sliderImages ", sliderImages)
+      console.log("condence image slider data")
       let condensedSliderImages = sliderImages.map(item => {
         let condenced = {}
         const articleLink = item.articleLink
