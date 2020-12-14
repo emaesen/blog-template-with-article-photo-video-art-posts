@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "threads",
+  "info": {
+    "name": "Thread"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "notes": {
+      "via": "thread",
+      "collection": "note"
+    }
+  }
+}
