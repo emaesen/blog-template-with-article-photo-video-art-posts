@@ -15,14 +15,8 @@
       <div class="date dt-taken">
         {{ dateText }}
       </div>
-      <div class="categories">
-        <span
-          v-for="category in note.categories"
-          :key="category.id"
-          class="category p-category"
-        >
-          {{ category.title }}
-        </span>
+      <div class="thread">
+        {{ threadText }}
       </div>
     </div>
 
@@ -37,6 +31,9 @@ query Note {
       slug
       text
       createdAt
+      thread {
+        title
+      }
     }
   }
 }
@@ -78,6 +75,9 @@ export default {
       let text = this.formattedDate(this.note.createdAt, opts);
       return text;
     },
+    threadText() {
+      return this.note.thread && this.note.thread.title
+    },
   },
   methods: {
     getCmsMedia,
@@ -97,9 +97,13 @@ export default {
   text-align: center;
   font-style: italic;
 }
-.category {
+.date {
+  font-size: 0.8em;
+  font-style: italic;
+  opacity: 0.8;
+}
+.thread {
   font-size: 0.9em;
-  opacity: 0.6;
-  margin: 0 1em;
+  opacity: 0.9;
 }
 </style>

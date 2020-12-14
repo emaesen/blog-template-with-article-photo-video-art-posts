@@ -103,6 +103,9 @@ query NotesPage ($sort: String!, $start: Int, $limit: Int) {
       text
       slug
       createdAt
+      thread {
+        title
+      }
     }
 
   }
