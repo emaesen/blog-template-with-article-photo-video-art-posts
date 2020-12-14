@@ -22,16 +22,9 @@
     </div>
 
     <div v-else>
-      <div class="center anima__zoom pnf">
-        <p class="anima__flicker emph spaced_chars">NO POSTS FOUND</p>
-        <p class="spaced_chars">---------</p>
-        <p class="anima__slide-in-from-below anima__-delay1 spaced_chars">SO</p>
-        <p class="anima__slide-in-from-below anima__-delay2 spaced_chars">SORRY</p>
-        <p class="anima__slide-in-from-below anima__-delay3 spacious">
-          The category you requested does not have any associated {{ postsType }}.<br>
-          Please click any of the navigation links to continue.<br>
-        </p>
-      </div>
+      <NoPostsFound
+        :postsType = "postsType"
+      />
     </div>
 
   </div>
@@ -68,6 +61,7 @@ query Category {
 
 <script>
 import PostCard from '~/components/PostCard'
+import NoPostsFound from '~/components/NoPostsFound'
 
 export default {
   name: 'Category',
@@ -79,6 +73,7 @@ export default {
   },
   components: {
     PostCard,
+    NoPostsFound,
   },
   created() {
     /* Individual Category pages are not pre-generated,
