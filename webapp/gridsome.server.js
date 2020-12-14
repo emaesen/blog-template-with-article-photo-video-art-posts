@@ -202,10 +202,16 @@ function createPostsRoutes(opts, createPage) {
   }
 
   // create category page
-  
   createPage({
     path: `/p/${opts.type}/c/:category`,
     component: `./src/templates/Category.vue`
+  })
+
+
+  // create series (collection) page
+  createPage({
+    path: `/p/${opts.type}/s/:series`,
+    component: `./src/templates/Series.vue`
   })
 
 }
@@ -278,6 +284,12 @@ module.exports = function (api, options) {
     createPage({
       path: `/posts/c/:category`,
       component: `./src/templates/Category.vue`
+    })
+
+    // create aggregate level series (collection) page
+    createPage({
+      path: `/posts/s/:series`,
+      component: `./src/templates/Series.vue`
     })
 
   })
