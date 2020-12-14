@@ -14,7 +14,7 @@
             v-for="post in posts"
             :key="post.id"
             :post="post"
-            :postsType="post.type"
+            :postType="post.type"
           />
           </transition-group>
         </div>
