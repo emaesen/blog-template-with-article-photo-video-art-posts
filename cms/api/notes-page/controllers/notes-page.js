@@ -13,7 +13,7 @@ module.exports = {
 
   async find(ctx) {
     console.log("find NotesPage")
-    const entity = await strapi.services.notesPage.find();
-    return sanitizeEntity(entity, { model: strapi.models.notesPage });
+    const entity = await strapi.services['notes-page'].find();
+    return sanitizeEntity(entity, { model: strapi.models['notes-page'] });
   },
 };

@@ -17,21 +17,20 @@ module.exports = {
    */
 
   async findOne(ctx) {
-    const { slug } = ctx.params;
-    console.log("findOne scalarVectorGraphic: " + slug)
-    const entity = await strapi.services.scalarVectorGraphic.findOne({ slug });
-    return sanitizeEntity(entity, { model: strapi.models.scalarVectorGraphic });
+    const { valueOfIdAttributeInSvg } = ctx.params;
+    console.log("findOne scalarVectorGraphic: " + valueOfIdAttributeInSvg)
+    const entity = await strapi.services['scalar-vector-graphic'].findOne({ valueOfIdAttributeInSvg });
+    return sanitizeEntity(entity, { model: strapi.models['scalar-vector-graphic'] });
   },
   async find(ctx) {
     let entities;
     console.log("find scalarVectorGraphic: ", ctx.query)
     if (ctx.query._q) {
-      entities = await strapi.services.scalarVectorGraphic.search(ctx.query);
+      entities = await strapi.services['scalar-vector-graphic'].search(ctx.query);
     } else {
-      entities = await strapi.services.scalarVectorGraphic.find(ctx.query);
+      entities = await strapi.services['scalar-vector-graphic'].find(ctx.query);
     }
-
-    return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.scalarVectorGraphic }));
+    return entities.map(entity => sanitizeEntity(entity, { model: strapi.models['scalar-vector-graphic'] }));
   },
 };
 
