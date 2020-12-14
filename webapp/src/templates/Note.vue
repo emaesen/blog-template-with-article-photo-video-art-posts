@@ -105,5 +105,6 @@ export default {
 .thread {
   font-size: 0.9em;
   opacity: 0.9;
+  font-style: italic;
 }
 </style>

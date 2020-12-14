@@ -121,6 +121,7 @@ export default {
   font-size: 0.9em;
   opacity: 0.9;
   margin-left: 1em;
+  font-style: italic;
 }
 .post-badge {
   font-size: 0.9em;
