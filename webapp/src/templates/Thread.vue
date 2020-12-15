@@ -47,10 +47,11 @@ query Thread {
 <script>
 import PostCard from '~/components/PostCard'
 import NoPostsFound from '~/components/NoPostsFound'
+import taxonomy from '@/mixins/taxonomy.js'
 
 export default {
   name: 'Thread',
-  mixins: [],
+  mixins: [taxonomy],
   data() {
     return {
       showLatestOnTop: false
@@ -71,21 +72,14 @@ export default {
     return {}
   },
   computed: {
-    cms() {
-      return this.$page.cms
-    },
     threads() {
       return this.cms.threads
     },
     thread() {
       return this.threads.filter(thread => thread.title.toLowerCase() === this.threadTitle.toLowerCase())[0]
     },
-    postsType() {
-      const routeName = this.$route.name
-      let postsType = routeName.replace("__p_","").replace("__","").split('_')[0];
-      // note that postsType is plural: 
-      // expect "posts" or "notes"
-      return postsType
+    taxonomy() {
+      return this.thread;
     },
     headerText() {
       // Note: if this website template is to be used for multi-language
@@ -93,40 +87,11 @@ export default {
       // as a tokenized string.
       return "All " + this.postsType + " in thread "
     },
-    sortText() {
-      return "Reverse sort order"
-    },
-    notes() {
-      return this.getMatchedPosts("note")
-    },
     posts() {
       return this.notes.sort((a,b) => this.sortByDate(a,b)).map(p=>{p.createdAt = null; return p})
     },
   },
   methods: {
-    getMatchedPosts(postsTypeSingular) {
-      if (this.thread && (this.postsType === postsTypeSingular+"s" || this.postsType === "posts")) {
-        let posts = this.thread[postsTypeSingular+"s"]
-        posts.map(p => p.type=postsTypeSingular)
-        return posts || []
-      } else {
-        return []
-      }
-    },
-    sortByDate(postA,postB) {
-      let a,b
-      if (this.showLatestOnTop) {
-        a=postA
-        b=postB
-      } else {
-        b=postA
-        a=postB
-      }
-      return (new Date(b.createdAt)).getTime() - (new Date(a.createdAt)).getTime()
-    },
-    reverseSort() {
-      this.showLatestOnTop = !this.showLatestOnTop
-    }
   }
 }
 </script>

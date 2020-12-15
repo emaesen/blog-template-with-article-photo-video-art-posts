@@ -76,13 +76,13 @@ query Collection {
 <script>
 import PostCard from '~/components/PostCard'
 import NoPostsFound from '~/components/NoPostsFound'
+import taxonomy from '@/mixins/taxonomy.js'
 
 export default {
   name: 'Series',
-  mixins: [],
+  mixins: [taxonomy],
   data() {
     return {
-      showLatestOnTop: true
     }
   },
   components: {
@@ -112,12 +112,8 @@ export default {
     series() {
       return this.allSeries.filter(series => series.title.toLowerCase() === this.seriesTitle.toLowerCase())[0]
     },
-    postsType() {
-      const routeName = this.$route.name
-      let postsType = routeName.replace("__p_","").replace("__","").split('_')[0];
-      // note that postsType is plural: 
-      // expect "posts", "photos" or "videos"
-      return postsType
+    taxonomy() {
+      return this.series;
     },
     headerText() {
       // Note: if this website template is to be used for multi-language
@@ -125,43 +121,11 @@ export default {
       // as a tokenized string.
       return "All " + this.postsType + " in series "
     },
-    sortText() {
-      return "Reverse sort order"
-    },
-    photos() {
-      return this.getMatchedPosts("photo")
-    },
-    videos() {
-      return this.getMatchedPosts("video")
-    },
     posts() {
       return [].concat(this.photos, this.videos).sort((a,b) => this.sortByDate(a,b))
     },
   },
   methods: {
-    getMatchedPosts(postsTypeSingular) {
-      if (this.series && (this.postsType === postsTypeSingular+"s" || this.postsType === "posts")) {
-        let posts = this.series[postsTypeSingular+"s"]
-        posts.map(p => p.type=postsTypeSingular)
-        return posts || []
-      } else {
-        return []
-      }
-    },
-    sortByDate(postA,postB) {
-      let a,b
-      if (this.showLatestOnTop) {
-        a=postA
-        b=postB
-      } else {
-        b=postA
-        a=postB
-      }
-      return (new Date(b.createdAt)).getTime() - (new Date(a.createdAt)).getTime()
-    },
-    reverseSort() {
-      this.showLatestOnTop = !this.showLatestOnTop
-    }
   }
 }
 </script>
