@@ -159,7 +159,7 @@ function createPostsRoutes(opts, createPage) {
     })
   }
 
-  console.info("INFO: create " + opts.type + " entry page + variants")
+  console.info("INFO: create " + opts.type + " entry page + pagination variants")
   // create routes for the posts-type entry page, with pagination
   const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
   createPage({
@@ -201,19 +201,28 @@ function createPostsRoutes(opts, createPage) {
     })
   }
 
-  // create category page
+  console.info("INFO: create " + opts.type + "-level category page")
+  // create dynamic category page
   createPage({
     path: `/p/${opts.type}/c/:category`,
     component: `./src/templates/Category.vue`
   })
 
-
-  // create series (collection) page
+  console.info("INFO: create " + opts.type + "-level series page")
+  // create dynamic series (collection) page
   createPage({
     path: `/p/${opts.type}/s/:series`,
     component: `./src/templates/Series.vue`
   })
 
+  if (opts.type==="notes") {
+    console.info("INFO: create " + opts.type + "-level thread page")
+    // create dynamic thread page (for Notes only)
+    createPage({
+      path: `/p/${opts.type}/t/:thread`,
+      component: `./src/templates/Thread.vue`
+    })
+  }
 }
 
 module.exports = function (api, options) {
@@ -281,12 +290,14 @@ module.exports = function (api, options) {
     }, createPage)
 
     // create aggregate level category page
+    console.info("INFO: create posts-level category page")
     createPage({
       path: `/posts/c/:category`,
       component: `./src/templates/Category.vue`
     })
 
     // create aggregate level series (collection) page
+    console.info("INFO: create posts-level series page")
     createPage({
       path: `/posts/s/:series`,
       component: `./src/templates/Series.vue`
