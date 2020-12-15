@@ -44,7 +44,9 @@
         {{ post.type }}
       </div>
       <div v-if="post.thread" class="post-thread">
-        {{ post.thread.title }}
+        <g-link :to="threadBasePath + post.thread.title" class="nodeco">
+          ❈ {{ post.thread.title }}
+        </g-link>
       </div>
     </div>
   </div>
@@ -69,10 +71,13 @@ export default {
       return `/p/${this.postType}s/`
     },
     categoryBasePath() {
-      return this.postsType + '/c/'
+      return this.postBasePath + '/c/'
     },
     seriesBasePath() {
-      return this.postsType + '/s/'
+      return this.postBasePath + '/s/'
+    },
+    threadBasePath() {
+      return this.postBasePath + '/t/'
     },
     asClass() {
       return `as-${this.postType}`
@@ -90,9 +95,12 @@ export default {
       return series && series.title
     },
     dateText() {
-      let opts = {shortForm:true, showYear:true};
-      let text = this.formattedDate(this.post.date || this.post.createdAt, opts);
-      return text;
+      let date = this.post.date || this.post.createdAt
+      if (date) {
+        let opts = {shortForm:true, showYear:true};
+        let text = this.formattedDate(date, opts);
+        return text;
+      }
     },
     showPostType() {
       // show the type of post if we are on an aggregate page
