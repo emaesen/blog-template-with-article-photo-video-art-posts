@@ -49,7 +49,7 @@ export default {
       }
     },
     sortByDate(postA,postB) {
-      let a,b
+      let a, b, aDate, bDate
       if (this.showLatestOnTop) {
         a=postA
         b=postB
@@ -57,7 +57,9 @@ export default {
         b=postA
         a=postB
       }
-      return (new Date(b.createdAt)).getTime() - (new Date(a.createdAt)).getTime()
+      aDate = a.date || a.createdAt
+      bDate = b.date || b.createdAt
+      return (new Date(bDate)).getTime() - (new Date(aDate)).getTime()
     },
     reverseSort() {
       this.showLatestOnTop = !this.showLatestOnTop
