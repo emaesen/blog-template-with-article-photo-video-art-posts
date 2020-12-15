@@ -8,7 +8,7 @@
             :src="imageSrc"
             class="post-image img-fluid"
           />
-          <span :class="{'post-badge':mainCategory}">{{ mainCategory }}</span>
+          <span :class="{'post-badge':postSeries}">{{ postSeries }}</span>
         </div>
         <h3 v-if="post.title" class="post-title p-name">
           {{ post.title }}
@@ -31,7 +31,7 @@
           :key="category.id"
           class="post-category p-category"
         >
-          {{ category.title }}
+          #{{ category.title }}
         </span>
       </div>
       <div v-if="showPostType" class="post-type">
@@ -73,9 +73,9 @@ export default {
         return getCmsMedia(url)
       }
     },
-    mainCategory() {
-      const mainCat = this.post && this.post.categories[0]
-      return mainCat && mainCat.title
+    postSeries() {
+      const series = this.post && this.post.series
+      return series && series.title
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
