@@ -48,6 +48,25 @@ query Category {
         title
         slug
         date
+        categories {
+          id
+          title
+        }
+        series {
+          id
+          title
+        }
+        photo {
+          id
+          url
+        }
+        date
+        location {
+          landmark
+          city
+          state_province
+          country
+        }
       }
       videos {
         id
