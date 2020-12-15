@@ -8,7 +8,11 @@
             :src="imageSrc"
             class="post-image img-fluid"
           />
-          <span :class="{'post-badge':postSeries}">{{ postSeries }}</span>
+          <g-link :to="seriesBasePath + postSeries" class="nodeco">
+            <span :class="{'post-series':postSeries}">
+              {{ postSeries }}
+            </span>
+          </g-link>
         </div>
         <h3 v-if="post.title" class="post-title p-name">
           {{ post.title }}
@@ -31,7 +35,9 @@
           :key="category.id"
           class="post-category p-category"
         >
-          #{{ category.title }}
+          <g-link :to="categoryBasePath + category.title" class="nodeco">
+            #{{ category.title }}
+          </g-link>
         </span>
       </div>
       <div v-if="showPostType" class="post-type">
@@ -61,6 +67,12 @@ export default {
   computed: {
     postBasePath() {
       return `/p/${this.postType}s/`
+    },
+    categoryBasePath() {
+      return this.postsType + '/c/'
+    },
+    seriesBasePath() {
+      return this.postsType + '/s/'
     },
     asClass() {
       return `as-${this.postType}`
@@ -132,8 +144,9 @@ export default {
   margin-left: 1em;
   font-style: italic;
 }
-.post-badge {
+.post-series {
   font-size: 0.9em;
+  font-weight: 400;
   padding: .05em .3em;
   color: #eee;
   background-color: #0f5ca0b0;
