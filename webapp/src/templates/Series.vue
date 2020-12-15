@@ -42,6 +42,25 @@ query Collection {
         title
         slug
         createdAt
+        categories {
+          id
+          title
+        }
+        series {
+          id
+          title
+        }
+        photo {
+          id
+          url
+        }
+        date
+        location {
+          landmark
+          city
+          state_province
+          country
+        }
       }
       videos {
         id
@@ -87,7 +106,7 @@ export default {
     allSeries() {
       // a "series" is defined as a "collection" in CMS because CMS 
       // can not handle names that are the same in singular and 
-      // plural form ("series", "series")
+      // plural form ("series", "series").
       return this.cms.collections
     },
     series() {
