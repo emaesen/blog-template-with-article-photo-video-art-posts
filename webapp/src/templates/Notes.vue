@@ -17,6 +17,7 @@
           :key="note.id"
           :post="note"
           postType="note"
+          postsType="notes"
         />
       </div>
     </div>
