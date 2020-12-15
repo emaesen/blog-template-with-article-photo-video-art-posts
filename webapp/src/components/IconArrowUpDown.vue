@@ -52,8 +52,8 @@ export default {
   cursor: pointer;
 }
 .arrow {
-  stroke: #000;
-  fill: #000;
+  stroke: var(--color_icon);
+  fill: var(--color_icon);
   stroke-linecap: round;
   stroke-linejoin: round;
   transform-origin: 50% 50%;

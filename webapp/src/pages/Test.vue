@@ -59,6 +59,7 @@
       <div class="color text_action_underline_hover"><span class="text">text_action_underline_hover</span></div>
       <div class="color text_highlight"><span class="text">text_highlight</span></div>
       <div class="color formfield_border"><span class="text">formfield_border</span></div>
+      <div class="color icon"><span class="text">icon</span></div>
       <div class="color scrollbar"><span class="text">scrollbar</span></div>
       <div class="color scrollbar-thumb"><span class="text">scrollbar-thumb</span></div>
     </div>
@@ -234,6 +235,9 @@ query TestPage {
 }
 .formfield_border {
   background-color: var(--color_formfield_border);
+}
+.icon {
+  background-color: var(--color_icon);
 }
 .scrollbar {
   background-color: var(--color_scrollbar);
