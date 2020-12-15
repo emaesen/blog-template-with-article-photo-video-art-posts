@@ -130,7 +130,7 @@ export default {
   overflow: hidden;
 }
 .signature {
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 18vw;
   min-width: 110px;
