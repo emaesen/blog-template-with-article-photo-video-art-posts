@@ -41,7 +41,7 @@ query Collection {
         id
         title
         slug
-        createdAt
+        date
         categories {
           id
           title
@@ -66,7 +66,7 @@ query Collection {
         id
         title
         slug
-        createdAt
+        date
       }
     }
   }

@@ -47,13 +47,13 @@ query Category {
         id
         title
         slug
-        createdAt
+        date
       }
       videos {
         id
         title
         slug
-        createdAt
+        date
       }
     }
   }
