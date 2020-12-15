@@ -15,6 +15,7 @@
             :key="post.id"
             :post="post"
             :postType="post.type"
+            :postsType = "postsType"
           />
           </transition-group>
         </div>

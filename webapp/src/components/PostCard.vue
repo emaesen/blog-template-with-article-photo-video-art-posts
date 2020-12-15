@@ -34,6 +34,9 @@
           {{ category.title }}
         </span>
       </div>
+      <div v-if="showPostType" class="post-type">
+        {{ post.type }}
+      </div>
       <div v-if="post.thread" class="post-thread">
         {{ post.thread.title }}
       </div>
@@ -49,6 +52,7 @@ export default {
   props: {
     post: Object,
     postType: String,
+    postsType: String,
   },
   mixins: [date],
   methods: {
@@ -77,6 +81,10 @@ export default {
       let opts = {shortForm:true, showYear:true};
       let text = this.formattedDate(this.post.date || this.post.createdAt, opts);
       return text;
+    },
+    showPostType() {
+      // show the type of post if we are on an aggregate page
+      return this.postsType && this.postType +"s" !== this.postsType
     }
   }
 }
@@ -116,6 +124,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+.post-type,
 .post-thread,
 .post-category {
   font-size: 0.9em;
