@@ -106,6 +106,10 @@ query PhotosPage ($sort: String!, $start: Int, $limit: Int) {
         id
         title
       }
+      series {
+        id
+        title
+      }
       photo {
         id
         url
