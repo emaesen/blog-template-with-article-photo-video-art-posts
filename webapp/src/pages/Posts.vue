@@ -8,6 +8,9 @@
     <!-- Section with latest articles -->
     <LatestArticles/>
 
+    <!-- Section with latest photos -->
+    <LatestPhotos/>
+
   </div>
 </template>
 
@@ -35,6 +38,7 @@ query PostsPage {
 <script>
 import RichText from '~/components/RichText'
 import LatestArticles from '~/components/LatestArticles'
+import LatestPhotos from '~/components/LatestPhotos'
 
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -45,6 +49,7 @@ export default {
   components: {
     RichText,
     LatestArticles,
+    LatestPhotos,
   },
   data() {
     return {
