@@ -1,5 +1,7 @@
 # A Gridsome Vue.js Strapi project
 
+************** WORK IN PROGRESS **************
+
 This is a starter project for a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
 
 This project is based upon [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio).
@@ -11,12 +13,11 @@ Static site generator: [Gridsome](https://gridsome.org/)
 Headless content management system: [Strapi](https://strapi.io/)
 Database: [MongoDB](https://www.mongodb.com/)
 
-Vue.js and Gridsome are installed in this project's `webapp` directory. (run `npm install` in that directory)
-Strapi is installed in this project's `cms` directory. (run `npm install` in that directory)
+`Vue.js` and `Gridsome` are installed in this project's `webapp` directory. (run `npm install` in that directory)
+`Strapi` is installed in this project's `cms` directory. (run `npm install` in that directory)
 
-I have chosen MongoDB for no other reason than to be able to get some experience with it. If you choose to use it as well, MongoDB should be installed separately, globally on the host system.
-
-You may also use any other database supported by Strapi; by default it will use [SQLite](https://sqlite.org/).
+If used, `MongoDB` should be installed separately, globally on the host system.
+You may also choose any other database supported by Strapi; by default it will use [SQLite](https://sqlite.org/).
 
 ## Images
 
@@ -30,7 +31,7 @@ Favicon icon generator: [RealFaviconGenerator](https://realfavicongenerator.net/
 
 Image file-size optimizer: [OptimiZilla](https://imagecompressor.com/)
 
-Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource)
+Self-hosted public-domain webfont loader: [FontSource](https://github.com/fontsource/fontsource). Select a font at <https://fonts.google.com> and make it available in this project with `npm install fontsource-your-selected-font` in the `webapp` folder.
 
 Geometrical SVGs designed with: [LibreCAD](https://librecad.org/)
 
