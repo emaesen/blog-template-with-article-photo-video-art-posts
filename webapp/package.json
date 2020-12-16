@@ -16,8 +16,13 @@
   "dependencies": {
     "@gridsome/source-graphql": "^0.1.0",
     "axios": "^0.21.0",
+    "fontsource-arizonia": "^3.1.5",
+    "fontsource-eagle-lake": "^3.1.5",
     "fontsource-heebo": "^3.0.5",
+    "fontsource-lora": "^3.1.6",
+    "fontsource-playfair-display-sc": "^3.1.5",
     "fontsource-quando": "^3.0.3",
+    "fontsource-share-tech-mono": "^3.1.5",
     "fs-extra": "^9.0.1",
     "gridsome": "^0.7.22",
     "less": "^3.12.2",
