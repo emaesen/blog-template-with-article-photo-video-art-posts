@@ -75,13 +75,15 @@ export default {
   mounted() {
     // don't show opening animation if no-or-reduced motion is 
     // requested or if the route leads to a 404 page.
-    if(this.caniuse.motion && this.$route.name !== "*") {
+    if(this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
       this.rootElClassList.add(this.heightviewportClassName)
       this.animateTags()
       EventBus.$emit('start-animatedsvg')
     } else {
       this.animateSignature = false
-      this.placeSignature()
+      if(this.signatureSVG) {
+        this.placeSignature()
+      }
       this.removeRevealContainer()
       this.removeTagsContainer()
     }
@@ -91,7 +93,8 @@ export default {
       return this.$root.$el.classList
     },
     signatureSVG() {
-      return this.$static.cms.scalarVectorGraphics[0].code
+      const svg = this.$static.cms.scalarVectorGraphics[0]
+      return svg && svg.code
     },
     authorTags() {
       return this.$static.cms.global.author.tag
