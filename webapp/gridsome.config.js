@@ -6,11 +6,11 @@
 
 module.exports = {
   siteName: 'Vue-Gridsome-Strapi-concept',
-  siteDescription: 'A starter webapp using Vue.js, Gridsome and Strapi',
+  siteDescription: 'A blog-style webapp using Vue.js, Gridsome and Strapi',
   siteUrl: '',
   titleTemplate: '%s',
   metadata: {
-    version: 'V0.1.0',
+    version: 'V0.2.0',
   },
   icon: {
     favicon: './src/assets/images/icons/favicon.png',
