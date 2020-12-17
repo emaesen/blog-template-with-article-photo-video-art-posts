@@ -1,8 +1,12 @@
 <template>
   <div class="main-thread h-entry as-thread">
-    <h1>{{ headerText }} <span class="thread">{{ threadTitle }}</span></h1>
+    <h1>{{ headerText }} <span class="thread-title">{{ threadTitle }}</span></h1>
 
     <div v-if="thread">
+
+      <div v-if="threadDescription" class="thread-description">
+        {{ threadDescription }}
+      </div>
 
       <div class="h-feed">
         <div class="cards-container">
@@ -78,6 +82,9 @@ export default {
     thread() {
       return this.threads.filter(thread => thread.title.toLowerCase() === this.threadTitle.toLowerCase())[0]
     },
+    threadDescription() {
+      return this.thread.description
+    },
     taxonomy() {
       return this.thread;
     },
@@ -99,10 +106,11 @@ export default {
 <style lang="less" scoped>
 @import "~/assets/styles/transi.less";
 
-.thread {
+.thread-title {
   font-style: italic;
 }
-.sort {
-  margin-bottom: 1em;
+.thread-description {
+  margin-bottom: 2em;
+  font-style: italic;
 }
 </style>
