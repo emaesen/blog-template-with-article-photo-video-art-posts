@@ -24,8 +24,16 @@
           :key="category.id"
           class="category p-category post-category"
         >
-          #{{ category.title }}
+          <g-link :to="categoryBasePath + category.title" class="nodeco">
+            #{{ category.title }}
+          </g-link>
         </span>
+      </div>
+      <div v-if="seriesTitle" class="series">
+        Series: 
+        <g-link :to="seriesBasePath + seriesTitle" class="nodeco post-series">
+             ❈ {{ seriesTitle }}
+          </g-link>
       </div>
     </div>
 
@@ -44,6 +52,10 @@ query Photo ($slug: String!) {
       slug
       description
       categories {
+        id
+        title
+      }
+      series {
         id
         title
       }
@@ -91,6 +103,16 @@ export default {
     imgUrl() {
       const url=this.photo.photo.url
       return getCmsMedia(url)
+    },
+    categoryBasePath() {
+      return '/p/photos/c/'
+    },
+    seriesBasePath() {
+      return '/p/photos/s/'
+    },
+    seriesTitle() {
+      const series = this.photo && this.photo.series
+      return series && series.title
     },
     location() {
       const loc = this.photo.location
