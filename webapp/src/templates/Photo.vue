@@ -22,9 +22,9 @@
         <span
           v-for="category in photo.categories"
           :key="category.id"
-          class="category p-category"
+          class="category p-category post-category"
         >
-          {{ category.title }}
+          #{{ category.title }}
         </span>
       </div>
     </div>
