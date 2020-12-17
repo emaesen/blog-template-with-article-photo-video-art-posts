@@ -10,7 +10,7 @@
   },
   "attributes": {
     "text": {
-      "type": "string",
+      "type": "text",
       "maxLength": 280,
       "required": true
     },
