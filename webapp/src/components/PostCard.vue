@@ -20,8 +20,7 @@
         <div v-if="post.description" class="post-description p-summary">
           {{ post.description }}
         </div>
-        <div v-if="post.text" class="post-text p-summary">
-          {{ post.text }}
+        <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary">
         </div>
       </div>
     </g-link>
@@ -55,6 +54,7 @@
 <script>
 import { getCmsMedia } from '~/utils/medias'
 import date from '@/mixins/date.js'
+import { parseAsHtml } from '~/utils/parser'
 
 export default {
   props: {
@@ -105,7 +105,17 @@ export default {
     showPostType() {
       // show the type of post if we are on an aggregate page
       return this.postsType && this.postType +"s" !== this.postsType
-    }
+    },
+    textAsHtml() {
+      const text = this.post && this.post.text ? this.post.text : ""
+      return text ? 
+        parseAsHtml(text, {
+          paraClassName: "margin-top-small", 
+          imgClassName:"rtimg", 
+          extLinkClassName:"ext",
+          extLinkIconClassName:"icon-Outbound deemph"
+        }, getCmsMedia) : "";
+    },
   }
 }
 </script>
@@ -139,6 +149,9 @@ export default {
   border: 1px solid var(--color_border_accent-2);
   border-radius: 5px;
 }
+.post-text {
+  margin-bottom: 1em;
+}
 .post-meta {
   display: flex;
   justify-content: space-between;
@@ -150,10 +163,8 @@ export default {
   font-size: 0.8em;
   opacity: 0.9;
   margin-left: 1em;
-  font-family: var(--font_family_emph);
 }
 .post-series {
-  font-family: var(--font_family_emph);
   font-size: 0.9em;
   font-weight: 400;
   padding: .05em .3em;
@@ -169,6 +180,7 @@ export default {
   font-style: italic;
   opacity: 0.8;
 }
+
 @media screen and (max-width: 600px) {
   .post-card {
   flex: 0 0 100%;
