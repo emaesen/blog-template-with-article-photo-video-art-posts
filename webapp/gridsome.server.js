@@ -41,7 +41,7 @@ async function getListOfCmsMediaFiles(addCollection) {
   try {
     mediaResponse = await axios.get(CMS_MEDIA_URL)
   } catch (error) {
-    console.error(`ERROR: ${error.response.statusText} error retrieving ${CMS_MEDIA_URL}`)
+    console.error(`ERROR: error retrieving ${CMS_MEDIA_URL}. MAKE SURE THE STRAPI CMS SERVER IS RUNNING!`, {error})
   }
 
   if (mediaResponse && mediaResponse.status === 200) {
