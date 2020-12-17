@@ -1,8 +1,11 @@
 // This is the main.js file. Import global CSS and scripts here.
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
 
-require('fontsource-quando');
-require('fontsource-heebo');
+require('fontsource-lora')
+require('fontsource-racing-sans-one')
+require('fontsource-eagle-lake')
+require('fontsource-kaushan-script')
+require('fontsource-share-tech-mono')
 
 import DefaultLayout from '~/layouts/Default.vue'
 

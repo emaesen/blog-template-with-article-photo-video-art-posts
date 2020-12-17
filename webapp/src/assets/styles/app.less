@@ -21,19 +21,19 @@ input {
   font-size: inherit
 }
 h1 {
-  font-size: 1.6em;
+  font-size: 1.8em;
 }
 h2 {
-  font-size: 1.3em;
+  font-size: 1.6em;
 }
 h3 {
-  font-size: 1.15em;
+  font-size: 1.4em;
 }
 h4,h5 {
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 h6 {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 body,
 input,
@@ -53,8 +53,9 @@ button {
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: var(--font_family_header),serif;
+  font-family: var(--font_family_header), serif;
   font-weight: 400;
+  font-style: normal;
   color: var(--color_text_header);
   margin-top: 3em;
   margin-bottom: 2em;
@@ -66,10 +67,9 @@ h4,h5,h6 {
   font-weight: 400;
 }
 h5,h6 {
-  font-style: italic;
+  font-variant: small-caps;
 }
 h6 {
-  font-size: 1em;
   margin-bottom: .2em;
 }
 main {
@@ -82,7 +82,7 @@ blockquote {
   font-style: italic;
 }
 pre {
-  font-family: monospace;
+  font-family: var(--font_family_mono), monospace;
   padding: .2em 1em;
   margin: .2em 1em;
   background-color: var(--color_bg_accent-2);
@@ -116,7 +116,7 @@ button:focus {
 input,
 textarea,
 select {
-  font-family: monospace;
+  font-family: var(--font_family_mono), monospace;
   outline: 0;
   background-color: var(--color_bg_accent-2);
   border: 1px solid var(--color_formfield_border);
@@ -206,7 +206,14 @@ caption {
   white-space: nowrap
 }
 .emph {
-  font-weight: 700;
+  font-family: var(--font_family_emph), serif;
+}
+.cursive {
+  font-family: var(--font_family_cursive), cursive;
+  letter-spacing: .07em;
+}
+.mono {
+  font-family: var(--font_family_mono), monospace;
 }
 .deemph {
   font-size: 90%;

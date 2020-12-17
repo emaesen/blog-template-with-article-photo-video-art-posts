@@ -241,10 +241,9 @@ nav {
     opacity: 1;
     display: inline-block;
     background-color: var(--color_bg);
-    font-family: var(--font_family_header);
+    font-family: var(--font_family_emph);
   }
   a + a {
-
     border-left: none;
   }
 }

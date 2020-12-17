@@ -147,12 +147,13 @@ export default {
 .post-type,
 .post-thread,
 .post-category {
-  font-size: 0.9em;
+  font-size: 0.8em;
   opacity: 0.9;
   margin-left: 1em;
-  font-style: italic;
+  font-family: var(--font_family_emph);
 }
 .post-series {
+  font-family: var(--font_family_emph);
   font-size: 0.9em;
   font-weight: 400;
   padding: .05em .3em;
