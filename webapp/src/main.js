@@ -4,7 +4,7 @@
 require('fontsource-lora')
 require('fontsource-goldman')
 require('fontsource-eagle-lake')
-require('fontsource-kaushan-script')
+require('fontsource-marck-script')
 require('fontsource-share-tech-mono')
 
 import DefaultLayout from '~/layouts/Default.vue'
