@@ -6,17 +6,17 @@
       <IconGoBackOrUp :title="goBackOrUpText"/>
     </span>
 
-
-    <div class="text para">
-      {{ note.text }}
+    <div v-html="textAsHtml" class="text para">
     </div>
 
     <div class="meta deemph">
       <div class="date dt-taken">
         {{ dateText }}
       </div>
-      <div class="thread">
-        {{ threadText }}
+      <div v-if="threadText" class="thread post-thread">
+        <g-link :to="threadBasePath + note.thread.title" class="nodeco">
+          ❈ {{ threadText }}
+        </g-link>
       </div>
     </div>
 
@@ -44,6 +44,7 @@ import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
+import { parseAsHtml } from '~/utils/parser'
 import date from '@/mixins/date.js'
 import goBackOrUp from '@/mixins/go-back-or-up.js'
 
@@ -78,6 +79,19 @@ export default {
     threadText() {
       return this.note.thread && this.note.thread.title
     },
+    threadBasePath() {
+      return '/p/notes/t/'
+    },
+    textAsHtml() {
+      const text = this.note && this.note.text ? this.note.text : ""
+      return text ? 
+        parseAsHtml(text, {
+          paraClassName: "margin-top-small", 
+          imgClassName:"rtimg", 
+          extLinkClassName:"ext",
+          extLinkIconClassName:"icon-Outbound deemph"
+        }, getCmsMedia) : "";
+    },
   },
   methods: {
     getCmsMedia,
@@ -95,7 +109,6 @@ export default {
 }
 .meta {
   text-align: center;
-  font-style: italic;
 }
 .date {
   font-size: 0.8em;
@@ -105,6 +118,5 @@ export default {
 .thread {
   font-size: 0.9em;
   opacity: 0.9;
-  font-style: italic;
 }
 </style>
