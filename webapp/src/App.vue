@@ -99,6 +99,12 @@ export default {
       }
     }
   },
+  watch: {
+    colorModeIndex() {
+      console.log("change in color scheme")
+      EventBus.$emit('color-scheme-changed')
+    }
+  }
 }
 </script>
 
