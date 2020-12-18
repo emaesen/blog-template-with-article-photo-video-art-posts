@@ -16,27 +16,27 @@
     <h2>Color scheme</h2>
     <h3>Primary</h3>
     <div class="scheme">
-      <div class="color p0"><span class="text">0</span></div>
       <div class="color p1"><span class="text">1</span></div>
       <div class="color p2"><span class="text">2</span></div>
+      <div class="color p0"><span class="text">0</span></div>
       <div class="color p3"><span class="text">3</span></div>
       <div class="color p4"><span class="text">4</span></div>
     </div>
 
     <h3>Secondary (1)</h3>
     <div class="scheme">
-      <div class="color s10"><span class="text">1-0</span></div>
       <div class="color s11"><span class="text">1-1</span></div>
       <div class="color s12"><span class="text">1-2</span></div>
+      <div class="color s10"><span class="text">1-0</span></div>
       <div class="color s13"><span class="text">1-3</span></div>
       <div class="color s14"><span class="text">1-4</span></div>
     </div>
 
     <h3>Secondary (2)</h3>
     <div class="scheme">
-      <div class="color s20"><span class="text">2-0</span></div>
       <div class="color s21"><span class="text">2-1</span></div>
       <div class="color s22"><span class="text">2-2</span></div>
+      <div class="color s20"><span class="text">2-0</span></div>
       <div class="color s23"><span class="text">2-3</span></div>
       <div class="color s24"><span class="text">2-4</span></div>
     </div>
