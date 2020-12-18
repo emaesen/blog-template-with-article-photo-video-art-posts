@@ -1,10 +1,37 @@
-# A Gridsome Vue.js Strapi project
+# Starter project for a personal blog/photo/article website
 
-************** WORK IN PROGRESS **************
+A Gridsome Vue.js Strapi project
 
-This is a starter project for a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
+## ************** WORK IN PROGRESS **************
 
-This project is based upon [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio).
+This is a starter project for a personal blog/gallery website.
+
+It features a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
+
+This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio) as its original foundation, expanded upon that, and has a much more complete feature set available out-of-the-box.
+
+## Intended audience
+
+This project is intended for people with an intermediate to advanced knowledge of JavaScript and website development. Either to use as a basis to create a personal website for themselves, or to use as a design template to create websites for others.
+
+## Features
+
+This project has two components:
+
+1. A headless CMS to manage content
+2. A mobile-friendly single-page-application web site, with static file generation capability for SEO purposes
+
+The *CMS* supports individual pages plus collections of articles, photos, notes and video. Taxonomy is supported with categories, collections/series and threads.
+
+The *webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos', 'notes' and 'videos'. Each with pagination support and associated taxonomy pages based on 'category', 'series' or 'thread'. All cross-linked.
+
+Light and Dark color modes are supported with automatic switch based on OS settings or through manual toggle.
+
+The color scheme can be replaced easily by redefining a core set of colors.
+
+Fonts can be replaced easily by redefining a core set of font families.
+
+The IndieWeb proposes syndication methods (so you can own your data, publish to your personal website first and from there syndicate to large social media sites). Those are *not* implemented in this project.
 
 ## Technology used
 
