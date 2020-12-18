@@ -252,6 +252,11 @@ caption {
 .bgcolor-opaque {
   background-color: var(--color_bg_opaque);
 }
+
+::selection {
+  background: var(--color_text_highlight); /* WebKit/Blink Browsers */
+}
+
 /* "clearfix" */
 .group:after {
   content: "";
