@@ -3,25 +3,27 @@
 
     <h1>{{ $page.cms.home.title }}</h1>
 
-    <div id="author" class="personal h-card vcard">
+    <div id="author" class="author personal h-card vcard">
       <a class="u-url u-uid" rel="author" href="#author"></a>
       <div class="photo u-photo" v-if="photoUrl">
         <g-image :src="photoUrl" width="100"/>
       </div>
-      <div class="name p-name fn">
-        {{ author.name }}
+      <div>
+        <div class="name p-name fn cursive">
+          {{ author.name }}
+        </div>
+        <div class="city p-location location emph" :title="location">
+          {{ location }}
+        </div>
       </div>
       <div class="p-role role">
         <span
           v-for="tag in author.tag"
           :key="tag.name"
-          class="tag p-category category"
+          class="tag p-category category cursive"
         >
           {{ tag.name }}
         </span>
-      </div>
-      <div class="city p-location location" :title="location">
-        {{ location }}
       </div>
     </div>
 
@@ -160,7 +162,32 @@ export default {
   display: none;
 }
 .photo {
-  width: 20%;
-  max-width: 100px;
+  width: 40%;
+  max-width: 180px;
+  img {
+    border-radius: 18px;
+    margin-left: 5px;
+    box-shadow: 0 0 7px var(--color_border_accent-1);
+  }
+}
+.author {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2em;
+  > * {
+    margin-right: 2em;
+  }
+}
+.name {
+  line-height: 1em;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+.role {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 </style>
