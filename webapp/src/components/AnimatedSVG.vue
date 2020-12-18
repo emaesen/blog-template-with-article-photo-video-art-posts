@@ -25,10 +25,24 @@ export default {
       colorFill: "#62849a",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
-      drawTimeSeconds: 0.7,
+      drawTimeSeconds: 0.4,
     }
   },
   mounted() {
+    this.initStyles()
+
+    EventBus.$on('color-scheme-changed', () => {
+      this.drawTimeSeconds = 0.1
+      window.setTimeout(() => {
+        this.initStyles()
+        if(this.animate && this.caniuse.motion) {
+          this.drawSVG(this.svgSelector)
+        } else {
+          this.setStyles(this.svgSelector)
+        }
+      },500)
+    })
+
     if(this.animate && this.caniuse.motion) {
       this.svgEl.addEventListener('transitionend', this.animationEndCallback);
       EventBus.$on('start-animatedsvg', () => {
@@ -89,6 +103,11 @@ export default {
         EventBus.$emit('animatedsvg-done')
       }
     },
+    initStyles() {
+      const styles = getComputedStyle(document.body)
+      this.colorStroke = styles.getPropertyValue('--color_text_header')
+      this.colorFill = styles.getPropertyValue('--color_text_action_selected')
+    },
     setStyles(selector) {
       const el = document.querySelector(selector)
       console.log({el})
@@ -103,8 +122,7 @@ export default {
 .svg-container svg {
   stroke-linecap:round;
   stroke-linejoin:round;
-  stroke-width:.3;
-  
+  stroke-width:.5;
 }
 
 </style>
