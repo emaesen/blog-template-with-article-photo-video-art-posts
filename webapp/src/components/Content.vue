@@ -1,18 +1,27 @@
 <template>
   <div>
     <div
-      v-for="contentSection in content"
-      :key="contentSection.__typename + contentSection.id"
+      v-for="cs in content"
+      :key="cs.__typename + cs.id"
     >
       <!-- Display the right component based on type name -->
-      <div v-if="contentSection.__typename === 'cmsTypes_ComponentSectionsRichText'">
-        <RichText :data="contentSection" class="" />
+      <div
+        v-if="cs.__typename === 'cmsTypes_ComponentSectionsRichText'"
+        class="para spacious"
+      >
+        <RichText :data="cs" />
       </div>
-      <div v-if="contentSection.__typename === 'cmsTypes_ComponentSectionsLargeMedia'">
-        <LargeMedia :data="contentSection" />
+      <div
+        v-if="cs.__typename === 'cmsTypes_ComponentSectionsLargeMedia'"
+        class="para spacious"
+      >
+        <LargeMedia :data="cs" />
       </div>
-      <div v-if="contentSection.__typename === 'cmsTypes_ComponentSectionsImagesSlider'">
-        <ImagesSlider :data="contentSection" />
+      <div
+        v-if="cs.__typename === 'cmsTypes_ComponentSectionsImagesSlider'"
+        class="para spacious"
+      >
+        <ImagesSlider :data="cs" />
       </div>
     </div>
   </div>
