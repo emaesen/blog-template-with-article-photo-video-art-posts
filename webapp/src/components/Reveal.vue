@@ -27,11 +27,11 @@ export default {
   mounted() {
     if(this.caniuse.motion) {
       this.bladesWrapper.addEventListener('transitionend', this.revealEndCallback);
-      EventBus.$on('start-reveal', () => {
-        this.reveal()
-      })
+      EventBus.$on('start-reveal', this.reveal)
     }
-
+  },
+  destroyed() {
+    EventBus.$off('start-reveal', this.reveal)
   },
   computed: {
     bladesWrapper() {
@@ -66,7 +66,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #ccc;
+  background-color: var(--color_bg);
   opacity: 0.97;
   transition: opacity 2s cubic-bezier(.9,0,.9,.9); 
   z-index: 1;
@@ -79,44 +79,35 @@ export default {
   transition: transform 2s cubic-bezier(.55,.01,.86,1); 
   width: 300vw;
   height: 300vh;
-  background-color: #cdc;
+  background-color: var(--color_border_accent-2);
   opacity: 0.2;
 }
 .blade-1 {
   transform: rotate(0);
-  background-color: rgb(146, 139, 132);
 }
 .blade-2 {
   transform: rotate(40deg);
-  background-color: rgb(143, 127, 127);
 }
 .blade-3 {
   transform: rotate(80deg);
-  background-color: rgb(141, 132, 146);
 }
 .blade-4 {
   transform: rotate(120deg);
-  background-color: rgb(131, 121, 121);
 }
 .blade-5 {
   transform: rotate(160deg);
-  background-color: rgb(114, 114, 126);
 }
 .blade-6 {
   transform: rotate(200deg);
-  background-color: rgb(129, 124, 115);
 }
 .blade-7 {
   transform: rotate(240deg);
-  background-color: rgb(112, 112, 129);
 }
 .blade-8 {
   transform: rotate(280deg);
-  background-color: rgb(117, 109, 124);
 }
 .blade-9 {
   transform: rotate(320deg);
-  background-color: rgb(126, 111, 111);
 }
 
 .reveal.blades-wrapper {
