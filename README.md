@@ -1,4 +1,4 @@
-# Starter project for a personal blog/photo/article website
+# Template for a personal blog/photo/article website
 
 A Gridsome Vue.js Strapi project
 
