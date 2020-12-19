@@ -1,5 +1,5 @@
 <template>
-  <div class="svg-container">
+  <div ref="animatedSvg" class="svg-container hidden">
     <slot></slot>
   </div>
 </template>
@@ -21,8 +21,8 @@ export default {
   },
   data() {
     return {
-      colorStroke: "#043859",
-      colorFill: "#62849a",
+      colorStroke: "#ccc",
+      colorFill: "#ccc",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
       drawTimeSeconds: 0.4,
@@ -31,26 +31,21 @@ export default {
   mounted() {
     this.initStyles()
 
-    EventBus.$on('color-scheme-changed', () => {
-      this.drawTimeSeconds = 0.1
-      window.setTimeout(() => {
-        this.initStyles()
-        if(this.animate && this.caniuse.motion) {
-          this.drawSVG(this.svgSelector)
-        } else {
-          this.setStyles(this.svgSelector)
-        }
-      },500)
-    })
+    EventBus.$on('color-scheme-changed', this.onColorSchemeChanged)
 
     if(this.animate && this.caniuse.motion) {
       this.svgEl.addEventListener('transitionend', this.animationEndCallback);
-      EventBus.$on('start-animatedsvg', () => {
-        this.drawSVG(this.svgSelector)
-      })
+      EventBus.$on('start-animatedsvg', this.onStartAnimatedsvg)
     } else {
+      this.initStyles()
       this.setStyles(this.svgSelector)
     }
+
+  },
+  destroyed() {
+    this.svgEl.removeEventListener('transitionend', this.animationEndCallback)
+    EventBus.$off('color-scheme-changed', this.onColorSchemeChanged)
+    EventBus.$off('start-animatedsvg', this.onStartAnimatedsvg)
   },
   computed: {
     svgSelector() {
@@ -61,11 +56,32 @@ export default {
     },
   },
   methods: {
+    onColorSchemeChanged(opts) {
+      const isAppInit = opts && opts.isAppInit
+      if(!isAppInit) {
+        this.drawTimeSeconds = 0.1
+        window.setTimeout(() => {
+          this.initStyles()
+          if(this.animate && this.caniuse.motion) {
+            this.drawSVG(this.svgSelector)
+          } else {
+            this.setStyles(this.svgSelector)
+          }
+        },500)
+      }
+    },
+    onStartAnimatedsvg() {
+      window.setTimeout(() => {
+        this.initStyles()
+        this.drawSVG(this.svgSelector)
+      },0)
+    },
     drawSVG(selector) {
       const el = document.querySelector(selector);
       const paths = el.getElementsByTagName("path");
       const pathsArray = Array.from(paths);
       this.nrOfPaths = pathsArray.length;
+      this.$refs.animatedSvg.classList.remove("hidden")
       pathsArray.forEach((path, i) => {
         this.drawPath(i, path);
       })
@@ -105,12 +121,11 @@ export default {
     },
     initStyles() {
       const styles = getComputedStyle(document.body)
-      this.colorStroke = styles.getPropertyValue('--color_text_header')
-      this.colorFill = styles.getPropertyValue('--color_text_action_selected')
+      this.colorStroke = styles.getPropertyValue('--color_icon_stroke')
+      this.colorFill = styles.getPropertyValue('--color_icon_fill')
     },
     setStyles(selector) {
       const el = document.querySelector(selector)
-      console.log({el})
       el.style.stroke = this.colorStroke
       el.style.fill = this.colorFill
     }
@@ -124,5 +139,4 @@ export default {
   stroke-linejoin:round;
   stroke-width:.5;
 }
-
 </style>

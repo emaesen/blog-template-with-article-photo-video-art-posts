@@ -73,20 +73,10 @@ export default {
     }
   },
   mounted() {
-    // don't show opening animation if no-or-reduced motion is 
-    // requested or if the route leads to a 404 page.
-    if(this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
-      this.rootElClassList.add(this.heightviewportClassName)
-      this.animateTags()
-      EventBus.$emit('start-animatedsvg')
-    } else {
-      this.animateSignature = false
-      if(this.signatureSVG) {
-        this.placeSignature()
-      }
-      this.removeRevealContainer()
-      this.removeTagsContainer()
-    }
+    EventBus.$on('start-animated-opening-screen', this.init)
+  },
+  destroyed() {
+    EventBus.$off('start-animated-opening-screen', this.init)
   },
   computed: {
     rootElClassList() {
@@ -101,6 +91,22 @@ export default {
     }
   },
   methods: {
+    init() {
+      // don't show opening animation if no-or-reduced motion is 
+      // requested or if the route leads to a 404 page.
+      if(this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
+        this.rootElClassList.add(this.heightviewportClassName)
+        this.animateTags()
+        EventBus.$emit('start-animatedsvg')
+      } else {
+        this.animateSignature = false
+        if(this.signatureSVG) {
+          this.placeSignature()
+        }
+        this.removeRevealContainer()
+        this.removeTagsContainer()
+      }
+    },
     animateTags() {
       this.$nextTick(() => {
         this.$refs.tagsContainer.classList.add(this.osAnimaClassName)

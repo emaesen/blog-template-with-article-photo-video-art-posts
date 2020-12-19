@@ -45,6 +45,11 @@ import IconLightDark from '~/components/IconLightDark'
 import caniuse from '@/mixins/caniuse'
 
 import { EventBus } from '~/utils/event-bus'
+import {
+  persistColorModeIndex,
+  retrieveColorModeIndex,
+  clearColorModeIndex
+} from "~/utils/persistence.js";
 
 export default {
   name: 'App',
@@ -59,18 +64,16 @@ export default {
     return {
       disableMotion: false,
       colorModes: ['light','dark'],
+      colorModeIndexDefault: 0,
       colorModeIndex: 0,
+      isAppInit: false,
     }
   },
   mounted() {
     if (this.disableMotion) {
       this.caniuse.motion = false
     }
-    if (window.matchMedia) {
-      this.setColorModeToOSDefault()
-      window.matchMedia("(prefers-color-scheme: dark)").onchange = this.setColorModeToOSDefault
-    }
-    
+    this.init()
   },
   metaInfo () {
     return {
@@ -86,10 +89,36 @@ export default {
     },
   },
   methods: {
-    toggleColorMode() {
+    init() {
+      this.$nextTick(() => {
+        this.initColorMode()
+        EventBus.$emit('start-animated-opening-screen')
+      })
+    },
+    initColorMode() {
+      this.isAppInit = true
+      if (window.matchMedia) {
+        this.setColorModeToOSDefault()
+        window.matchMedia("(prefers-color-scheme: dark)").onchange = this.setColorModeToOSDefault
+      }
+      // override OS colormode preference if colormode was set in app
+      this.setColorModeIndex(retrieveColorModeIndex(this.colorModeIndex))
+      this.$nextTick(() => {
+        this.isAppInit = false
+      })
+    },
+    setColorModeIndex(val) {
       const maxIndex = this.colorModes.length - 1
-      const index = this.colorModeIndex
-      this.colorModeIndex = (index === maxIndex ? 0 : index + 1)
+      val = val || Math.abs(val) || this.colorModeIndexDefault
+      this.colorModeIndex = (val > maxIndex ? 0 : val)
+    },
+    toggleColorMode() {
+      this.setColorModeIndex(this.colorModeIndex + 1)
+      if (this.colorModeIndex !== this.colorModeIndexDefault) {
+        persistColorModeIndex(this.colorModeIndex)
+      } else {
+        clearColorModeIndex()
+      }
     },
     setColorModeToOSDefault() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -101,8 +130,7 @@ export default {
   },
   watch: {
     colorModeIndex() {
-      console.log("change in color scheme")
-      EventBus.$emit('color-scheme-changed')
+      EventBus.$emit('color-scheme-changed', {isAppInit:this.isAppInit})
     }
   }
 }
