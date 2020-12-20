@@ -10,8 +10,46 @@
     </div>
 
     <h2>html elements:</h2>
+    
+    <div>
+      <input id="foo1" name="foo" type="text" placeholder="title"/>
+      <label for="foo1">label</label><br>
+
+      <input id="foo2" type="time" step="900"/>
+      <label for="foo2">time</label><br>
+
+      <input id="foo3" type="date"/>
+      <label for="foo3">date</label><br>
+
+      <input id="foo4" type="number"/>
+      <label for="foo4">number</label><br>
+
+      <input id="foo5" type="color"/>
+      <label for="foo5">color</label><br>
+
+      <input id="foo6" type="range"/>
+      <label for="foo6">range</label><br>
+
+      <input id="foo7" type="search"/>
+      <label for="foo7">search</label><br>
+
+    </div>
+    <div>
+      <textarea placeholder="type something"/>
+    </div>
+    <div>
+      <input type="checkbox" id="cb1" value="1" checked/>
+      <label for="cb1"><span><span></span></span>checkbox 1</label><br>
+      <input type="checkbox" id="cb2" value="2"/>
+      <label for="cb2"><span><span></span></span>checkbox 2</label>
+    </div>
+    <div>
+      <input type="radio" name="colors" id="r1">
+      <label for="r1"><span><span></span></span>radio 1</label><br>
+      <input type="radio" name="colors" id="r2" checked>
+      <label for="r2"><span><span></span></span>radio 2</label><br>
+    </div>
     <button>button</button>
-    <input type="text"/>
 
     <h2>Color scheme</h2>
     <h3>Primary</h3>
