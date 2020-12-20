@@ -320,6 +320,7 @@ li {
 li li {
   z-index: -1;
 }
+
 @media all and (max-width: 650px) {
   nav {
     left: 0;
@@ -327,15 +328,16 @@ li li {
     padding-left: 10px;
     margin-left: 0;
     border-radius: 0;
-    opacity: 0.96;
+    opacity: 0.9;
     display: block;
     border-bottom: 1px solid var(--color_border_accent-1);
     background-color: var(--color_bg);
-    box-shadow: 0 0 30px #a7dcff;
+    box-shadow: 0 0 30px var(--color_border_accent-1);
 
     &.bar-open {
       z-index: 8;
       padding-top: 10px;
+      opacity: 0.96;
     }
     .nav.menu {
       transition: all 1s ease-in-out;
@@ -372,7 +374,7 @@ li li {
       float: none;
       display: grid;
       margin-bottom: 5px;
-      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 1px 2px 0 var(--color_border_accent-2);
       border-radius: 0;
       a {
         padding: 10px;
@@ -390,7 +392,7 @@ li li {
     .nav.submenu {
       border: none;
       .nav.item {
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px 0 var(--color_border_accent-2);
       }
     }
     .nav.submenu {

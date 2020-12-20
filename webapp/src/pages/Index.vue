@@ -12,7 +12,7 @@
         <div class="name p-name fn cursive">
           {{ author.name }}
         </div>
-        <div class="city p-location location emph" :title="location">
+        <div class="p-location location emph" :title="location">
           {{ location }}
         </div>
       </div>
@@ -172,7 +172,7 @@ export default {
 }
 .author {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   flex-direction: row;
   align-items: center;
   margin-bottom: 2em;
@@ -187,7 +187,28 @@ export default {
 }
 .role {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
+  font-size: 120%;
+}
+.category {
+  text-align: center;
+}
+
+@media all and (max-width: 650px) {
+  .author {
+    flex-direction: column;
+  }
+  .name {
+    margin-top: .9em;
+    margin-bottom: .1em;
+  }
+  .location {
+    margin-bottom: .1em;
+  }
+  .role {
+    margin-top: .9em;
+    line-height: 1.6em;
+  }
 }
 </style>

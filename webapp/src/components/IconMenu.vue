@@ -52,7 +52,7 @@ export default {
   cursor: pointer;
 }
 .bar {
-  stroke: #000;
+  stroke: var(--color_icon);
   stroke-linecap: round;
   stroke-linejoin: round;
   transform-origin: 50% 50%;

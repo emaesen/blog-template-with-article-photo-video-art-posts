@@ -182,4 +182,10 @@ export default {
     opacity: 0;
   }
 }
+
+@media all and (max-width: 650px) {
+  .signature {
+    position: fixed;
+  }
+}
 </style>

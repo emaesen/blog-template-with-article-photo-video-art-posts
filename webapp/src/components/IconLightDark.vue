@@ -53,31 +53,31 @@ export default {
   stroke-linecap:round;
   stroke-linejoin:round;
   transition: opacity 1s cubic-bezier(.61,.09,.45,1.11);
-  opacity: .6;
+  opacity: .8;
 }
 .icon-light-dark:hover {
   cursor: pointer;
   opacity: 1;
 }
 svg.light.yin-yang {
-  stroke: #000;
+  stroke: rgb(var(--base-color-primary-4));
 }
 svg.dark.yin-yang {
-  stroke: #fff;
+  stroke: rgb(var(--base-color-primary-1));
 }
 .tao,
 .yin-inner-circle {
-  fill: #000;
+  fill: rgb(var(--base-color-primary-4));
 }
 .yang-inner-circle, 
 .yang-half {
-  fill: #fff;
+  fill: rgb(var(--base-color-primary-1));
 }
 svg.light .yang-inner-circle {
-  stroke: #fff;
+  stroke: rgb(var(--base-color-primary-1));
 }
 svg.dark .yin-inner-circle {
-  stroke: #000;
+  stroke: rgb(var(--base-color-primary-4));
 }
 
 .yang-half,
