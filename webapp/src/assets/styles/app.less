@@ -125,18 +125,66 @@ select {
   max-width: 15em;
   width: 90%;
   padding: 0 5px;
-  margin: 1px 0;
+  margin: .3em 1em .3em 0;
 }
 input.compact {
   max-width: 7.1em;
   width: 40%;
   margin-right: 1px;
 }
-input[type="radio"],
-label.radio {
-  max-width: 1em;
-  display: inline;
+
+
+input:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid var(--color_border_accent-1);
+  box-shadow: 1 1px 5px 3px var(--color_border_accent-1);
 }
+input[type=checkbox]:not(old),
+input[type=radio]:not(old) {
+  width: 1em;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+input[type=checkbox]:not(old) + label,
+input[type=radio]:not(old) + label {
+  display: inline-block;
+  margin-left: 0;
+  line-height: 1.5em;
+}
+input[type=checkbox]:not(old) + label > span,
+input[type=radio]:not(old) + label > span {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0.25em 1em 0.25em 0;
+  border: 1px solid var(--color_formfield_border);
+  border-radius: 3px;
+  background: var(--color_bg_accent-2);
+  vertical-align: top;
+}
+input[type=radio]:not(old) + label > span {
+  border-radius: 1em;
+}
+input[type=checkbox]:not(old):checked + label > span:before{
+  content: '✓';
+  display: block;
+  font-size: 1.4em;
+  line-height: 1em;
+  text-align: center;
+  margin-top: -.3em;
+}
+input[type=radio]:not(old):checked + label > span > span{
+  display: block;
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0.05em;
+  border-radius: 1em;
+  background: var(--color_text_body);
+  opacity: 0.8;
+}
+
 .action,
 a {
   cursor: pointer;
