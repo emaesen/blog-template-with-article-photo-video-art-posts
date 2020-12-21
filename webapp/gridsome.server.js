@@ -139,89 +139,94 @@ async function downloadCmsMediaFiles(files) {
 }
 
 function createPostsRoutes(opts, createPage) {
-  // create route for each indivual post page
-  // except if skipIndividualPages==true
-  if (!opts.skipIndividualPages) {
-    console.info("INFO: create individual " + opts.type + " pages")
-    opts.data.forEach((post) => {
-      createPage({
-        path: `/p/${opts.type}/${post.slug}`,
-        component: `./src/templates/${opts.component}.vue`,
-        context: {
-          slug: post.slug
-        }
-      })
-    })
-  } else {
-    createPage({
-      path: `/p/${opts.type}/:slug`,
-      component: `./src/templates/${opts.component}.vue`
-    })
-  }
+  if (opts.count > 0) {
 
-  console.info("INFO: create " + opts.type + " entry page + pagination variants")
-  // create routes for the posts-type entry page, with pagination
-  const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
-  createPage({
-    path: `/p/${opts.type}/`,
-    component: `./src/templates/${opts.component}s.vue`,
-    context: {
-      page: 0,
-      limit: 1 * CMS_POSTS_PAGELIMIT,
-      start: 0,
-      sort: "createdAt:desc",
-      totalPages: nrOfPaginationPages
+    // create route for each indivual post page
+    // except if skipIndividualPages==true
+    if (!opts.skipIndividualPages) {
+      console.info("INFO: create individual " + opts.type + " pages")
+      opts.data.forEach((post) => {
+        createPage({
+          path: `/p/${opts.type}/${post.slug}`,
+          component: `./src/templates/${opts.component}.vue`,
+          context: {
+            slug: post.slug
+          }
+        })
+      })
+    } else {
+      createPage({
+        path: `/p/${opts.type}/:slug`,
+        component: `./src/templates/${opts.component}.vue`
+      })
     }
-  })
-  //create pagination pages
-  for (let page = 0; page < nrOfPaginationPages; page++) {
-    // for default sort...
+
+    console.info("INFO: create " + opts.type + " entry page + pagination variants")
+    // create routes for the posts-type entry page, with pagination
+    const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
     createPage({
-      path: `/p/${opts.type}/${page}`,
+      path: `/p/${opts.type}/`,
       component: `./src/templates/${opts.component}s.vue`,
       context: {
-        page: page,
+        page: 0,
         limit: 1 * CMS_POSTS_PAGELIMIT,
-        start: 1 * page * CMS_POSTS_PAGELIMIT,
+        start: 0,
         sort: "createdAt:desc",
         totalPages: nrOfPaginationPages
       }
     })
-    // ...and for reversed sort
-    createPage({
-      path: `/p/${opts.type}/${page}/asc`,
-      component: `./src/templates/${opts.component}s.vue`,
-      context: {
-        page: page,
-        limit: 1 * CMS_POSTS_PAGELIMIT,
-        start: 1 * page * CMS_POSTS_PAGELIMIT,
-        sort: "createdAt:asc",
-        totalPages: nrOfPaginationPages
-      }
-    })
-  }
+    //create pagination pages
+    for (let page = 0; page < nrOfPaginationPages; page++) {
+      // for default sort...
+      createPage({
+        path: `/p/${opts.type}/${page}`,
+        component: `./src/templates/${opts.component}s.vue`,
+        context: {
+          page: page,
+          limit: 1 * CMS_POSTS_PAGELIMIT,
+          start: 1 * page * CMS_POSTS_PAGELIMIT,
+          sort: "createdAt:desc",
+          totalPages: nrOfPaginationPages
+        }
+      })
+      // ...and for reversed sort
+      createPage({
+        path: `/p/${opts.type}/${page}/asc`,
+        component: `./src/templates/${opts.component}s.vue`,
+        context: {
+          page: page,
+          limit: 1 * CMS_POSTS_PAGELIMIT,
+          start: 1 * page * CMS_POSTS_PAGELIMIT,
+          sort: "createdAt:asc",
+          totalPages: nrOfPaginationPages
+        }
+      })
+    }
 
-  console.info("INFO: create " + opts.type + "-level category page")
-  // create dynamic category page
-  createPage({
-    path: `/p/${opts.type}/c/:category`,
-    component: `./src/templates/Category.vue`
-  })
+    if (opts.type!=="notes") {
+      console.info("INFO: create " + opts.type + "-level category page")
+      // create dynamic category page
+      createPage({
+        path: `/p/${opts.type}/c/:category`,
+        component: `./src/templates/Category.vue`
+      })
 
-  console.info("INFO: create " + opts.type + "-level series page")
-  // create dynamic series (collection) page
-  createPage({
-    path: `/p/${opts.type}/s/:series`,
-    component: `./src/templates/Series.vue`
-  })
+      console.info("INFO: create " + opts.type + "-level series page")
+      // create dynamic series (collection) page
+      createPage({
+        path: `/p/${opts.type}/s/:series`,
+        component: `./src/templates/Series.vue`
+      })
+    }
 
-  if (opts.type==="notes") {
-    console.info("INFO: create " + opts.type + "-level thread page")
-    // create dynamic thread page (for Notes only)
-    createPage({
-      path: `/p/${opts.type}/t/:thread`,
-      component: `./src/templates/Thread.vue`
-    })
+    if (opts.type==="notes") {
+      console.info("INFO: create " + opts.type + "-level thread page")
+      // create dynamic thread page (for Notes only)
+      createPage({
+        path: `/p/${opts.type}/t/:thread`,
+        component: `./src/templates/Thread.vue`
+      })
+    }
   }
 }
 
@@ -287,6 +292,13 @@ module.exports = function (api, options) {
       count: data.cms.photosCount,
       data: data.cms.photos,
       component: "Photo"
+    }, createPage)
+
+    createPostsRoutes({
+      type: "videos",
+      count: data.cms.videosCount,
+      data: data.cms.videos,
+      component: "Video"
     }, createPage)
 
     // create aggregate level category page
