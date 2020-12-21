@@ -269,6 +269,8 @@ module.exports = function (api, options) {
         videos {
           slug
         }
+        categoriesCount
+        collectionsCount
       }
     }`)
 
@@ -301,19 +303,23 @@ module.exports = function (api, options) {
       component: "Video"
     }, createPage)
 
-    // create aggregate level category page
-    console.info("INFO: create posts-level category page")
-    createPage({
-      path: `/posts/c/:category`,
-      component: `./src/templates/Category.vue`
-    })
+    if (data.cms.categoriesCount > 0) {
+      // create aggregate level category page
+      console.info("INFO: create posts-level category page")
+      createPage({
+        path: `/posts/c/:category`,
+        component: `./src/templates/Category.vue`
+      })
+    }
 
-    // create aggregate level series (collection) page
-    console.info("INFO: create posts-level series page")
-    createPage({
-      path: `/posts/s/:series`,
-      component: `./src/templates/Series.vue`
-    })
+    if (data.cms.collectionsCount > 0) {
+      // create aggregate level series (collection) page
+      console.info("INFO: create posts-level series page")
+      createPage({
+        path: `/posts/s/:series`,
+        component: `./src/templates/Series.vue`
+      })
+    }
 
   })
 
