@@ -129,6 +129,7 @@ select {
   width: 90%;
   padding: 0 5px;
   margin: .3em 1em .3em 3px;
+  vertical-align: middle;
 }
 input[type=time],
 input[type=date],
@@ -138,6 +139,10 @@ input.compact {
   max-width: 9.6em;
   width: 40%;
 }
+textarea {
+  max-width: 30em;
+  vertical-align: top;
+}
 
 input:focus,
 textarea:focus,
@@ -145,6 +150,7 @@ select:focus {
   border: 1px solid var(--color_border_accent-1);
   box-shadow: 0 0 3px 0px var(--color_border_accent-1);
   background-color: var(--color_text_highlight);
+  outline: none;
 }
 
 .action,
