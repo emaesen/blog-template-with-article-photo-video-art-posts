@@ -44,8 +44,13 @@
       "type": "date"
     },
     "notes": {
-      "via": "video",
-      "collection": "note"
+      "collection": "note",
+      "via": "video"
+    },
+    "youtubeId": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 12
     }
   }
 }
