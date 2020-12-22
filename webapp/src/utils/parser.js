@@ -24,20 +24,21 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     .replace(/\r/, "")
     /* temporarily replace underlined formatting */
     .replace(/<\/?u>/g, "⇿")
-    /* temporarily replace un-escaped br formatting */
-    .replace(/(?<!`)<br\/?>/g, "↩")
+    /* temporarily replace br formatting */
+    .replace(/<br\/?>/g, "↩")
     /* escape any html element code */
     .replace(/</g, "&lt;")
     /* restore underlined */
     .replace(/⇿(.*)⇿/g, "<u>$1</u>")
     /* restore br */
+    .replace(/`↩`/g, "&lt;br>")
     .replace(/↩/g, "<br>")
     /* group related content in "paragraph" divs. 
      * has support for custom class attribute:
      * add a separate first line:
      * ~~my-special-class-name
      */
-    .replace(/(?<=\n)\n(?:~~(.+)\n)?([^]+?)\n(?=\n)/gim, function(full,specialClass,para){
+    .replace(/\n(?:~~(.+)\n)?([^]+?)\n(?=\n)/gim, function(full,specialClass,para){
       var classAttr = paraClassName
       if (para[0] === "#") {
         return full;
