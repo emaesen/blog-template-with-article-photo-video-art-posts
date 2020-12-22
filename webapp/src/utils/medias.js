@@ -1,6 +1,6 @@
 export function getCmsMedia(target, isGImage=true) {
   // Check if target is a local path
-  if (target.startsWith('/')) {
+  if (target && target.startsWith('/')) {
     // Require asset
     /* in case of a local file, 
      * since the image name is dynamic, 
