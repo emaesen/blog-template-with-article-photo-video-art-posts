@@ -3,6 +3,7 @@
     <h1>{{photosPage.title}}</h1>
 
     <g-image
+      v-if="introImage"
       class="img-postcat"
       alt="photos posts"
       :src="introImage"
@@ -66,7 +67,8 @@ export default {
       return this.$page.cms.photos
     },
     introImage() {
-      return getCmsMedia(this.photosPage.seo.shareImage.url)
+      const img = this.photosPage.seo.shareImage
+      return getCmsMedia(img && img.url)
     },
     basePath() {
       return this.$route.path.replace(/\/\d+.*/,"/");

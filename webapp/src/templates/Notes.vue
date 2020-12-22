@@ -3,6 +3,7 @@
     <h1>{{notesPage.title}}</h1>
 
     <g-image
+      v-if="introImage"
       class="img-postcat"
       alt="notes posts"
       :src="introImage"
@@ -67,7 +68,8 @@ export default {
       return this.$page.cms.notes
     },
     introImage() {
-      return getCmsMedia(this.notesPage.seo.shareImage.url)
+      const img = this.notesPage.seo.shareImage
+      return getCmsMedia(img && img.url)
     },
     basePath() {
       return this.$route.path.replace(/\/\d+.*/,"/");
