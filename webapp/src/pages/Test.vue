@@ -35,7 +35,16 @@
 
     </div>
     <div>
-      <textarea placeholder="type something"/>
+      <textarea id="foo20" placeholder="type something"/>
+      <label for="foo20">textarea</label>
+    </div>
+    <div>
+      <select id="foo30">
+        <option value="option1">option 1</option>
+        <option value="option2" selected>option 2</option>
+        <option value="option3">option 3</option>
+      </select>
+      <label for="foo30">select</label>
     </div>
     <div>
       <input type="checkbox" id="cb1" value="1" checked/>
