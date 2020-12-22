@@ -1,0 +1,100 @@
+input[type=checkbox]:not(old),
+input[type=radio]:not(old) {
+  -webkit-appearance: none;
+  width: 1em;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+input[type=checkbox]:not(old) + label,
+input[type=radio]:not(old) + label {
+  display: inline-block;
+  margin-left: 0;
+  line-height: 1.5em;
+}
+input[type=checkbox]:not(old) + label > span,
+input[type=radio]:not(old) + label > span {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0.25em 1em 0.25em 0;
+  border: 1px solid var(--color_formfield_border);
+  border-radius: 3px;
+  background: var(--color_bg_accent-2);
+  vertical-align: top;
+}
+input[type=radio]:not(old) + label > span {
+  border-radius: 1em;
+}
+input[type=checkbox]:not(old):checked + label > span:before{
+  content: '✓';
+  display: block;
+  font-size: 1.4em;
+  line-height: 1em;
+  text-align: center;
+  margin-top: -.3em;
+}
+input[type=radio]:not(old):checked + label > span > span{
+  display: block;
+  width: 0.6em;
+  height: 0.6em;
+  margin: 0.14em;
+  border-radius: 1em;
+  background: var(--color_text_body);
+  opacity: 0.8;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid var(--color_formfield_border);
+  height: 1em;
+  width: 1em;
+  border-radius: 3px;
+  background: var(--color_bg_accent-2);
+  cursor: pointer;
+  margin-top: -.6em;
+}
+input[type=range]::-moz-range-thumb {
+  border: 1px solid var(--color_formfield_border);
+  height: 1em;
+  width: 1em;
+  border-radius: 3px;
+  background: var(--color_bg_accent-2);
+  cursor: pointer;
+}
+input[type=range]::-ms-thumb {
+  border: 1px solid var(--color_formfield_border);
+  height: 1em;
+  width: 1em;
+  border-radius: 3px;
+  background: var(--color_bg_accent-2);
+  cursor: pointer;
+}
+input[type=range]:focus::-webkit-slider-thumb {
+  background: var(--color_text_highlight);;
+}
+input[type=range]:focus::-moz-range-thumb {
+  background: var(--color_text_highlight);;
+}
+input[type=range]:focus::-ms-thumb {
+  background: var(--color_text_highlight);;
+}

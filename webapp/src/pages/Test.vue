@@ -150,6 +150,8 @@ query TestPage {
 </page-query>
 
 <style lang="less" scoped>
+@import '~/assets/styles/form.less';
+
 .richtext {
   border: 15px solid #ccc;
   border-radius: 50px;
