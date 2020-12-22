@@ -2,6 +2,13 @@
   <div class="main-articles">
     <h1>{{articlesPage.title}}</h1>
 
+    <g-image
+      v-if="introImage"
+      class="img-postcat"
+      alt="articles posts"
+      :src="introImage"
+    />
+
     <RichText :data="articlesPage.introduction" class="para intro group"/>
 
     <div class="h-feed">
@@ -53,6 +60,10 @@ export default {
       // the maximum nr of articles to show is defined by `limit` in the 
       // graphql query
       return this.$page.cms.articles
+    },
+    introImage() {
+      const img = this.articlesPage.seo.shareImage
+      return getCmsMedia(img && img.url)
     },
     basePath() {
       return this.$route.path.replace(/\/\d+.*/,"/");
