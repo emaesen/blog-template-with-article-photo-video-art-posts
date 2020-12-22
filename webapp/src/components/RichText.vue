@@ -34,7 +34,12 @@ export default {
 
 <style lang="less">
 div.rtpara {
-  margin-bottom: 1em;
+  margin: 1em 0 1.5em 0;
+}
+div.rtpara ul,
+div.rtpara ol,
+div.rtpara dl {
+  margin: .5em 0 0 0;
 }
 img.rtimg {
   display: block;
