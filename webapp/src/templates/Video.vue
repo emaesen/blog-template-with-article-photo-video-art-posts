@@ -7,16 +7,12 @@
       </span>
       {{ video.title }}
     </h1>
-    <g-image
-      :alt="video.title"
-      :src="imgUrl"
-    />
+
+    <VideoEl :video="video"/>
+
     <div class="meta deemph">
       <div class="date dt-taken">
         {{ dateText }}
-      </div>
-      <div class="location">
-        {{ location }}
       </div>
       <div class="categories">
         <span
@@ -37,8 +33,7 @@
       </div>
     </div>
 
-    <div class="description para spacious">
-      {{ video.description }}
+    <div v-html="descriptionAsHtml" class="description para spacious">
     </div>
   </div>
 </template>
@@ -50,7 +45,17 @@ query Video ($slug: String!) {
       id
       title
       slug
+      youtubeId
       description
+      video {
+        id
+        url
+      }
+      coverImage {
+        id
+        url
+      }
+      date
       categories {
         id
         title
@@ -59,11 +64,7 @@ query Video ($slug: String!) {
         id
         title
       }
-      video {
-        id
-        url
-      }
-      date
+      publicationDate
     }
   }
 }
@@ -71,9 +72,11 @@ query Video ($slug: String!) {
 
 <script>
 import IconGoBackOrUp from '~/components/IconGoBackOrUp'
+import VideoEl from '~/components/Video'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
+import { parseAsHtml } from '~/utils/parser'
 import date from '@/mixins/date.js'
 import goBackOrUp from '@/mixins/go-back-or-up.js'
 
@@ -83,6 +86,7 @@ export default {
   mixins: [date, goBackOrUp],
   components: {
     IconGoBackOrUp,
+    VideoEl,
     Content,
   },
   mounted() {
@@ -94,10 +98,6 @@ export default {
     video() {
       return this.$page.cms.videos[0]
     },
-    imgUrl() {
-      const url=this.video.video.url
-      return getCmsMedia(url)
-    },
     categoryBasePath() {
       return '/p/videos/c/'
     },
@@ -108,17 +108,20 @@ export default {
       const series = this.video && this.video.series
       return series && series.title
     },
-    location() {
-      const loc = this.video.location
-      return (loc.landmark ? loc.landmark + " ⚐ " : "")
-        + (loc.city ? loc.city + ", " : "") 
-        + (loc.state_province ? loc.state_province + ", " : "") 
-        + (loc.country ? loc.country : "") 
-    },
     dateText() {
       let opts = {shortForm:true, showYear:true};
       let text = this.formattedDate(this.video.date, opts);
       return text;
+    },
+    descriptionAsHtml() {
+      const description = this.video && this.video.description ? this.video.description : ""
+      return description ? 
+        parseAsHtml(description, {
+          paraClassName: "margin-top-small", 
+          imgClassName:"rtimg", 
+          extLinkClassName:"ext",
+          extLinkIconClassName:"icon-Outbound deemph"
+        }, getCmsMedia) : "";
     },
   },
   methods: {

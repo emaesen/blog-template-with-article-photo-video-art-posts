@@ -3,6 +3,7 @@
     <h1>{{videosPage.title}}</h1>
 
     <g-image
+      v-if="introImage"
       class="img-postcat"
       alt="videos posts"
       :src="introImage"
@@ -66,7 +67,8 @@ export default {
       return this.$page.cms.videos
     },
     introImage() {
-      return getCmsMedia(this.videosPage.seo.shareImage.url)
+      const img = this.videosPage.seo.shareImage
+      return getCmsMedia(img && img.url)
     },
     basePath() {
       return this.$route.path.replace(/\/\d+.*/,"/");
@@ -102,6 +104,17 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
       id
       title
       slug
+      youtubeId
+      description
+      video {
+        id
+        url
+      }
+      coverImage {
+        id
+        url
+      }
+      date
       categories {
         id
         title
@@ -110,17 +123,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
         id
         title
       }
-      video {
-        id
-        url
-      }
-      date
-      location {
-        landmark
-        city
-        state_province
-        country
-      }
+      publicationDate
     }
 
   }
