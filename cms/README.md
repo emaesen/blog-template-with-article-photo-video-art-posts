@@ -22,6 +22,7 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
   - Once a field is added to a component it can't be removed through the UI interface
     - but can be manually deleted from the corresponding config file.
     - removing a field with a specific name and adding a new component with the same name results in a blank page and a cryptic error message in the server log: "TypeError: Cannot read property '0' of undefined".
+    - a date field, once entered, can not be erased through the UI interface
 - Its architecture is brittle:
   - It has frequent non-descriptive "an error occured" messages.
     - Reloading the page seems to resolve whatever the issue is.
@@ -31,7 +32,7 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
         (Initially the re-install process selected a newer version which led to even more errors - only re-installing to the exact same version as before solved the problem)
   - changing a property name doesn't always propagate to the graphql schema
   - adding a new property to an existing component sometimes is non-editable and grayed out ("No permission to see this field") when trying to use in a content type.
-    - restarting the server may or may not fix this.
+    - reloading the page or restarting the server may or may not fix this.
   - if you create a Single Type with the same name (but singular) as a Collection Type (plural name), the application shows again a non-descriptive "an error occured" message.
     - it's not possible to restart the server.
     - the conflicting configuration files need to be manually removed before the server can be restarted.
