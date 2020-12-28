@@ -2,11 +2,16 @@
   <div :class="['post-card h-entry', asClass]">
     <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
       <div class="post-summary">
-        <div v-if="imageSrc" class="post-image-container">
+        <div class="post-media-container">
           <g-image
+            v-if="imageSrc && postType!=='video'"
             :alt="post.title"
             :src="imageSrc"
             class="post-image img-fluid"
+          />
+          <Video
+            v-if="postType==='video'"
+            :video="post"
           />
           <g-link :to="seriesBasePath + postSeries" class="nodeco">
             <span :class="{'post-series':postSeries}">
@@ -52,6 +57,7 @@
 </template>
 
 <script>
+import Video from '~/components/Video'
 import { getCmsMedia } from '~/utils/medias'
 import date from '@/mixins/date.js'
 import { parseAsHtml } from '~/utils/parser'
@@ -63,6 +69,9 @@ export default {
     postsType: String,
   },
   mixins: [date],
+  components: {
+      Video,
+  },
   methods: {
     getCmsMedia,
   },
@@ -142,7 +151,7 @@ export default {
 .post-title {
   margin: 0;
 }
-.post-image-container {
+.post-media-container {
   position: relative;
 }
 .post-image {
@@ -151,6 +160,23 @@ export default {
 }
 .post-text {
   margin-bottom: 1em;
+}
+.post-description {
+  max-height: 5em;
+  overflow: hidden;
+  margin-bottom: .6em;
+  mix-blend-mode: hard-light;
+  position: relative;
+}
+.post-description::after {
+  position: absolute;
+  content: "";
+  left: 0px;
+  bottom: 0px;
+  height: 30%;
+  width: 100%;
+  background: linear-gradient(transparent, var(--color_bg_accent-2));
+  pointer-events: none;
 }
 .post-meta {
   display: flex;
