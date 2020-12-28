@@ -8,7 +8,7 @@
       {{ video.title }}
     </h1>
 
-    <VideoEl :video="video"/>
+    <VideoEl :video="video" class="video-outer-container"/>
 
     <div class="meta deemph">
       <div class="date dt-taken">
@@ -139,5 +139,9 @@ export default {
   font-size: 0.9em;
   opacity: 0.6;
   margin: 0 1em;
+}
+.video-outer-container {
+  max-width: 693px;
+  margin: auto;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <transition-group name="fade" mode="out-in">
+  <transition-group name="fade">
     <div
       v-if="playVideo"
       key="video"
@@ -81,7 +81,7 @@ export default {
 .video_preview {
   margin: auto;
   position: relative;
-  width: 80%;
+  width: 100%;
   cursor: pointer;
 }
 .play_button {
@@ -116,10 +116,10 @@ export default {
 .video_container {
   margin: auto;
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 0;
-  /* padding = 0.8 (width percentage) x 9/16 (aspect ratio) */
-  padding-bottom: 45%;
+  /* padding = 1 (width percentage) x 9/16 (aspect ratio) */
+  padding-bottom: 56.25%;
 }
 .video {
   position: absolute;
