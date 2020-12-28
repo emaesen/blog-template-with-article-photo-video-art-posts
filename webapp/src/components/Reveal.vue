@@ -32,6 +32,7 @@ export default {
   },
   destroyed() {
     EventBus.$off('start-reveal', this.reveal)
+    this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
   },
   computed: {
     bladesWrapper() {
@@ -49,7 +50,7 @@ export default {
       this.nrOfAnimatedBlades ++
       // 9 blades + wrapper
       if ( this.nrOfAnimatedBlades === 10 ) {
-        this.bladesWrapper.removeEventListener('transitionend', ()=>{})
+        this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
         this.$emit('reveal-done')
         EventBus.$emit('reveal-done')
       }
