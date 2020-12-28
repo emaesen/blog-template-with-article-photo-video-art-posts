@@ -332,7 +332,6 @@ li li {
     display: block;
     border-bottom: 1px solid var(--color_border_accent-1);
     background-color: var(--color_bg);
-    box-shadow: 0 0 30px var(--color_border_accent-1);
 
     &.bar-open {
       z-index: 8;
