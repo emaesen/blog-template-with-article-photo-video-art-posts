@@ -23,7 +23,7 @@
       <div
         v-for="tag in authorTags"
         :key="tag.name"
-        class="os_tag"
+        class="os_tag cursive"
       >
         {{ tag.name }}
       </div>
@@ -74,9 +74,11 @@ export default {
   },
   mounted() {
     EventBus.$on('start-animated-opening-screen', this.init)
+    this.tagsContainer.addEventListener('transitionend', this.removeTagsContainer);
   },
   destroyed() {
     EventBus.$off('start-animated-opening-screen', this.init)
+    this.tagsContainer.removeEventListener('transitionend', this.removeTagsContainer);
   },
   computed: {
     rootElClassList() {
@@ -88,6 +90,9 @@ export default {
     },
     authorTags() {
       return this.$static.cms.global.author.tag
+    },
+    tagsContainer() {
+      return this.$refs.tagsContainer;
     }
   },
   methods: {
@@ -109,7 +114,7 @@ export default {
     },
     animateTags() {
       this.$nextTick(() => {
-        this.$refs.tagsContainer.classList.add(this.osAnimaClassName)
+        this.tagsContainer.classList.add(this.osAnimaClassName)
       })
     },
     onAnimatedSVGDone() {
@@ -118,14 +123,13 @@ export default {
     onRevealDone() {
       this.rootElClassList.remove(this.heightviewportClassName)
       this.removeRevealContainer()
-      this.removeTagsContainer()
       this.placeSignature()
     },
     removeRevealContainer() {
       this.$refs.revealContainer.$el.remove()
     },
     removeTagsContainer() {
-      this.$refs.tagsContainer.remove()
+      this.tagsContainer.remove()
     },
     placeSignature() {
       this.$refs.signatureContainer.$el.classList.remove(this.osAnimaClassName)
@@ -162,7 +166,7 @@ export default {
   transform-origin: bottom left;
   transform: scale(1) translate(1vw,-9vh);
   transition: transform 9s ease-in-out;
-  animation: 8s ease-in-out tags;
+  animation: 9s ease-in-out tags;
   opacity: 0;
   z-index: 1;
 }
