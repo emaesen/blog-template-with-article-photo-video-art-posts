@@ -41,6 +41,12 @@ div.rtpara ol,
 div.rtpara dl {
   margin: .5em 0 0 0;
 }
+div.rtpara ul ul,
+div.rtpara ul ol,
+div.rtpara ol ol,
+div.rtpara ol ul {
+  margin: -.1em 0 .1em 0;
+}
 img.rtimg {
   display: block;
   float:right;
