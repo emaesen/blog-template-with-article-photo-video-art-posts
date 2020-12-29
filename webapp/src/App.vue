@@ -156,4 +156,14 @@ export default {
 .color-mode-toggle {
   display: inline-block;
 }
+
+@media all and (min-width: 650px) {
+  .logo {
+    border-right: 1px solid var(--color_border_accent-1);
+    border-bottom: 1px solid var(--color_border_accent-1);
+    border-bottom-right-radius: 15px;
+    background-color: var(--color_bg);
+    opacity: 0.9;
+  }
+}
 </style>
