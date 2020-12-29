@@ -2,8 +2,14 @@
   <div class="main-series h-entry as-series">
     <h1>{{ headerText }} <span class="series">{{ seriesTitle }}</span></h1>
 
-    <div v-if="series">
-      <div class="sort action button" @click="reverseSort">
+    <div
+      v-if="series"
+    >
+      <div
+        v-if="hasMultiplePosts"
+        class="sort action button"
+        @click="reverseSort"
+      >
         {{ sortText }}
       </div>
 
@@ -66,7 +72,26 @@ query Collection {
         id
         title
         slug
+        youtubeId
+        description
+        video {
+          id
+          url
+        }
+        coverImage {
+          id
+          url
+        }
         date
+        categories {
+          id
+          title
+        }
+        series {
+          id
+          title
+        }
+        publicationDate
       }
     }
   }
@@ -123,6 +148,9 @@ export default {
     },
     posts() {
       return [].concat(this.photos, this.videos).sort((a,b) => this.sortByDate(a,b))
+    },
+    hasMultiplePosts() {
+      return this.posts.length > 1
     },
   },
   methods: {
