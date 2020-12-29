@@ -28,10 +28,13 @@
         :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
         role="menuitem"
       >
+        <span
+          @click.stop.prevent="onNavClick('posts', $event)"
+          class="actionicon"
+        >
+          <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
+        </span>
         <g-link to="/posts/">
-          <span @click.stop.prevent="onNavClick('posts', $event)" class="actionicon">
-            <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
-          </span>
           Posts
         </g-link>
         <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
@@ -282,7 +285,6 @@ ul.nav {
   position: absolute;
   left: 0;
  .nav.item {
-    display: grid;
     float: none;
     padding-left: 0;
  }
@@ -335,23 +337,23 @@ li li {
 
     &.bar-open {
       z-index: 8;
-      padding-top: 10px;
       opacity: 0.96;
     }
     .nav.menu {
       transition: all 1s ease-in-out;
       padding: 0;
       padding-top: 50px;
+      display: flex;
+      flex-direction: column;
     }
     .nav.menu.bar-closed {
-      visibility: hidden;
       transform: translateY(-100px);
       opacity: 0;
       height: 35px;
     }
     .nav.menu.bar-open {
       height: 1000px;
-      transform: translateY(0);
+      transform: translateY(20px);
       opacity: 1;
     }
     .nav.menu {
@@ -371,12 +373,13 @@ li li {
 
     .nav.item {
       float: none;
-      display: grid;
       margin-bottom: 5px;
       box-shadow: 0 1px 2px 0 var(--color_border_accent-2);
       border-radius: 0;
       a {
+        margin: 0;
         padding: 10px;
+        font-size: 110%;
       }
     }
     .nav.item.hassubmenu {
