@@ -13,6 +13,7 @@ body {
   background-color: var(--color_bg);
   background-attachment: fixed;
   background-image: url("/images/flower-of-life-pattern.svg");
+  counter-reset: sidenote-counter;
 }
 button {
   font-size: inherit
@@ -63,13 +64,10 @@ h1,h2,h3,h4,h5,h6 {
 h1 {
   margin-top: .5em;
 }
-h4,h5,h6 {
-  font-weight: 400;
-}
-h5,h6 {
+
+h3,h4,h5,h6 {
   font-variant: small-caps;
-}
-h6 {
+  margin-top: 2em;
   margin-bottom: .2em;
 }
 main {
@@ -249,6 +247,27 @@ caption {
 .post-series {
   font-family: var(--font_family_emph);
   font-style: initial;
+}
+
+
+.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+
+.sidenote-number:after,
+.sidenote:before {
+  position: relative;
+  vertical-align: baseline;
+}
+
+.sidenote-number:after {
+  content: counter(sidenote-counter);
+  font-size: 80%;
+}
+
+.sidenote:before {
+  content: counter(sidenote-counter) " ";
+  font-size: 80%;
 }
 
 .spacer {
