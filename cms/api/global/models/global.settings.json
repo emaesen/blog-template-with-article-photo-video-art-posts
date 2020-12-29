@@ -45,6 +45,9 @@
     "rightsText": {
       "type": "string",
       "default": "All rights reserved"
+    },
+    "privacyPolicy": {
+      "type": "richtext"
     }
   }
 }

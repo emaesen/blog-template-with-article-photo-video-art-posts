@@ -1,12 +1,18 @@
 <template>
   <div class="main-about">
+
     <h1>{{$page.cms.about.title}}</h1>
+
     <Content :content="$page.cms.about.content" class="" />
+
+    <PrivacyPolicy/>
+    
   </div>
 </template>
 
 <script>
 import Content from '~/components/Content'
+import PrivacyPolicy from '~/components/PrivacyPolicy'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
@@ -14,6 +20,7 @@ import { getMetaTags } from '~/utils/meta-tags'
 export default {
   components: {
     Content,
+    PrivacyPolicy,
   },
   metaInfo() {
     return getMetaTags(this.$page.cms.about.seo) 
