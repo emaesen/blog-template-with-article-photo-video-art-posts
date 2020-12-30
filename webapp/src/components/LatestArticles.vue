@@ -6,7 +6,7 @@
       </h2>
       <a 
         v-if="showViewAllLink"
-        class="button" href="#"
+        class="append" href="/p/articles/"
       >view all {{ totalNrOfArticles }} articles</a>
     </div>
     <div class="cards-container">
@@ -87,8 +87,8 @@ export default {
 
 <style lang="less" scoped>
 .cards-header-container {
-  border-bottom: 1px solid var(--color_border_accent-2);
   margin-bottom: 1.5em;
+  box-shadow: 0 2px 7px -4px var(--color_border_accent-2);
 }
 .cards-header {
   display: inline-block;

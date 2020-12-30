@@ -1,15 +1,25 @@
 <template>
   <div class="main-index">
 
-    <h1>{{ $page.cms.postsPage.title }}</h1>
+    <h1>{{ page.title }}</h1>
 
-    <RichText :data="$page.cms.postsPage.introduction" class="para intro"/>
+    <RichText
+      v-if="page.introduction"
+      :data="page.introduction"
+      class="para intro"
+    />
 
     <!-- Section with latest articles -->
     <LatestArticles/>
 
     <!-- Section with latest photos -->
     <LatestPhotos/>
+
+    <!-- Section with latest videos -->
+    <LatestVideos/>
+
+    <!-- Section with latest notes -->
+    <LatestNotes/>
 
   </div>
 </template>
@@ -39,6 +49,8 @@ query PostsPage {
 import RichText from '~/components/RichText'
 import LatestArticles from '~/components/LatestArticles'
 import LatestPhotos from '~/components/LatestPhotos'
+import LatestVideos from '~/components/LatestVideos'
+import LatestNotes from '~/components/LatestNotes'
 
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -50,6 +62,8 @@ export default {
     RichText,
     LatestArticles,
     LatestPhotos,
+    LatestVideos,
+    LatestNotes,
   },
   data() {
     return {
