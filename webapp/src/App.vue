@@ -160,7 +160,7 @@ export default {
 @media all and (min-width: 650px) {
   .logo {
     border-bottom-right-radius: 15px;
-    box-shadow: 2px 2px 7px -3px var(--color_border_accent-2);
+    box-shadow: 2px 2px 7px -3px var(--color_border_accent-1);
     background-color: var(--color_bg);
     opacity: 0.9;
   }

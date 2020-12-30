@@ -234,7 +234,7 @@ nav {
 }
 .menu {
     border-bottom-left-radius: 15px;
-    box-shadow: -2px 2px 7px -3px var(--color_border_accent-2);
+    box-shadow: -2px 2px 7px -3px var(--color_border_accent-1);
     background-color: var(--color_bg);
     > li {
       border-radius: 15px;
@@ -331,7 +331,8 @@ li li {
     border-radius: 0;
     opacity: 0.9;
     display: block;
-    border-bottom: 1px solid var(--color_border_accent-1);
+    box-shadow: 0 2px 7px -3px var(--color_border_accent-1);
+
     background-color: var(--color_bg);
 
     &.bar-open {
@@ -344,6 +345,7 @@ li li {
       padding-top: 50px;
       display: flex;
       flex-direction: column;
+      box-shadow: none;
     }
     .nav.menu.bar-closed {
       transform: translateY(-100px);
