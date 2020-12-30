@@ -159,9 +159,8 @@ export default {
 
 @media all and (min-width: 650px) {
   .logo {
-    border-right: 1px solid var(--color_border_accent-1);
-    border-bottom: 1px solid var(--color_border_accent-1);
     border-bottom-right-radius: 15px;
+    box-shadow: 2px 2px 7px -3px var(--color_border_accent-2);
     background-color: var(--color_bg);
     opacity: 0.9;
   }

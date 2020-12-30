@@ -138,8 +138,9 @@ footer {
   margin-top: 5em;
   overflow: hidden;
   font-size: .9em;
-  border-top: 1px solid var(--color_border_accent-1);
+  border-radius: 15px;
   background-color: rgba(var(--base-color_bg_accent-1),.1);
+  box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
 }
 footer h6 {
   margin-top: 1.5em;
@@ -148,8 +149,6 @@ div.social {
   padding-bottom: 3em;
 }
 .social-group {
-  border-left: 1px solid var(--color_border_accent-1);
-  border-right: 1px solid var(--color_border_accent-1);
   padding: 0 1em;
 }
 ul.social {
@@ -182,13 +181,13 @@ ul.social > li {
   text-align: center;
   font-size: .75em;
   padding-top: 5px;
-  border-top: 1px solid var(--color_border_accent-1);
+  box-shadow: 0 -3px 7px -3px var(--color_border_accent-1);
   z-index: 999;
   opacity: .9;
 }
 
 .version {
-  position: fixed;
+  position: absolute;
   right: 5px;
   opacity: .6;
   cursor: pointer;
@@ -240,8 +239,8 @@ ul.social > li {
 }
 
 @media screen and (min-width:1100px) {
-  .madeby-container {
-    display: none;
+  .madeby {
+    transform: rotate(180deg);
   }
 }
 

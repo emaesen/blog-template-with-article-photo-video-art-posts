@@ -233,9 +233,8 @@ nav {
   align-items: stretch;
 }
 .menu {
-    border-left: 1px solid var(--color_border_accent-1);
-    border-bottom: 1px solid var(--color_border_accent-1);
     border-bottom-left-radius: 15px;
+    box-shadow: -2px 2px 7px -3px var(--color_border_accent-2);
     background-color: var(--color_bg);
     > li {
       border-radius: 15px;
