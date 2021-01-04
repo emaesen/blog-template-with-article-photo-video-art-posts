@@ -36,11 +36,15 @@ The IndieWeb proposes syndication methods (so you can own your data, publish to 
 ## Technology used
 
 Javscript framework for dynamic web apps: [Vue.js](https://vuejs.org/)
+
 Static site generator: [Gridsome](https://gridsome.org/)
+
 Headless content management system: [Strapi](https://strapi.io/)
+
 Database: [MongoDB](https://www.mongodb.com/)
 
 `Vue.js` and `Gridsome` are installed in this project's `webapp` directory. (run `npm install` in that directory)
+
 `Strapi` is installed in this project's `cms` directory. (run `npm install` in that directory)
 
 If used, `MongoDB` should be installed separately, globally on the host system.
