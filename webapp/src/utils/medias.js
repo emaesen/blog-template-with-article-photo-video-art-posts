@@ -13,7 +13,7 @@ export function getCmsMedia(target, isGImage=true) {
       // to be used in <g-image> case
       return require(`!!assets-loader!@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
     } else {
-      // to be used in regular <img> case
+      // to be used in regular <img> or <video> case
       return require(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}/${target.replace(/\/.*\//,"")}`)
     }
   }
