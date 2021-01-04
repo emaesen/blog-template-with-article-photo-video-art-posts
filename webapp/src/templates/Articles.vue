@@ -34,6 +34,7 @@
 import Pagination from '~/components/Pagination'
 import PostCard from '~/components/PostCard'
 import RichText from '~/components/RichText'
+import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
@@ -97,22 +98,31 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
     # List articles
     articles (sort: $sort, limit:$limit, start:$start) {
 
-          id
-          title
-          createdAt
-          slug
-          description
-          categories {
-            id
-            title
-          }
-          coverImage {
-            id
-            url
-          }
+      id
+      title
+      createdAt
+      slug
+      description
+      categories {
+        id
+        title
+      }
+      coverImage {
+        id
+        url
+      }
+      date
+      publicationDate
 
     }
 
   }
 }
 </page-query>
+
+<style lang="less" scoped>
+.img-postcat {
+  float: right;
+  width: 40%;
+}
+</style>
