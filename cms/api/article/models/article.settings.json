@@ -18,12 +18,7 @@
       "type": "text"
     },
     "content": {
-      "type": "dynamiczone",
-      "components": [
-        "sections.rich-text",
-        "sections.large-media",
-        "sections.images-slider"
-      ]
+      "type": "richtext"
     },
     "coverImage": {
       "model": "file",
@@ -31,8 +26,7 @@
       "allowedTypes": [
         "images"
       ],
-      "plugin": "upload",
-      "required": true
+      "plugin": "upload"
     },
     "slug": {
       "type": "uid",
@@ -44,9 +38,11 @@
       "via": "articles",
       "dominant": true
     },
+    "date": {
+      "type": "date"
+    },
     "publicationDate": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "notes": {
       "via": "article",
