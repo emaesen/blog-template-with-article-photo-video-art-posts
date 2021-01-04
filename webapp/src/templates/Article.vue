@@ -14,14 +14,15 @@
       </div>
 
       <g-image
+        v-if="imgUrl"
         :alt="article.title"
         :src="imgUrl"
       />
-      <div class="description para spacious">
+      <div class="description para spacious cursive">
         {{ article.description }}
       </div>
 
-      <Content :content="article.content" class="" />
+      <RichText :data="article.content" class="" />
 
     </article>
   </div>
@@ -43,39 +44,9 @@ query Article ($slug: String!) {
         id
         url
       }
-      content {
-        __typename
-        ... on cmsTypes_ComponentSectionsRichText {
-          id
-          content
-        }
-        ... on cmsTypes_ComponentSectionsLargeMedia {
-          id
-          media {
-            id
-            url
-            mime
-          }
-          description
-        }
-        ... on cmsTypes_ComponentSectionsImagesSlider {
-          id
-          title
-          sliderImages {
-            id
-            slide {
-              type
-              title
-              slug
-              url
-              image {
-                name
-                url
-              }
-            }
-          }
-        }
-      }
+      content
+      date
+      publicationDate
     }
   }
 }
@@ -83,7 +54,7 @@ query Article ($slug: String!) {
 
 <script>
 import IconGoBackOrUp from '~/components/IconGoBackOrUp'
-import Content from '~/components/Content'
+import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 import date from '@/mixins/date.js'
@@ -94,7 +65,7 @@ export default {
   mixins: [date, goBackOrUp],
   components: {
     IconGoBackOrUp,
-    Content,
+    RichText,
   },
   metaInfo() {
     return getMetaTags(this.article) 
@@ -104,12 +75,12 @@ export default {
       return this.$page.cms.articles[0]
     },
     imgUrl() {
-      const imgName=this.article.coverImage.url
+      const imgName=this.article.coverImage && this.article.coverImage.url
       return getCmsMedia(imgName)
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
-      let text = this.formattedDate(this.article.createdAt, opts);
+      let text = this.formattedDate(this.article.date || this.article.createdAt, opts);
       return text;
     },
   },
@@ -120,7 +91,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.description {
-  font-style: italic;
-}
 </style>
