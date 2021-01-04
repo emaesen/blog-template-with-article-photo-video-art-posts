@@ -70,7 +70,7 @@ export default {
   background-color: var(--color_bg);
   opacity: 0.97;
   transition: opacity 2s cubic-bezier(.9,0,.9,.9); 
-  z-index: 1;
+  z-index: 2;
 }
 .blade {
   position: absolute;
