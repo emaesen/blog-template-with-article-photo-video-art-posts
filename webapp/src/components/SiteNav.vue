@@ -34,7 +34,7 @@
         >
           <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
         </span>
-        <g-link to="/posts/">
+        <g-link to="/posts/" :class="{active:isPostSubPageActive}">
           Posts
         </g-link>
         <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
@@ -177,6 +177,9 @@ export default {
         this.isNavpostsExpanded = false
       }
     },
+    isPostSubPageActive() {
+      return this.basePath.match(/^\/p\/.+/i)
+    },
     toggleMenu() {
       this.isBarMenuOpen = !this.isBarMenuOpen;
       // close posts subnav when menu is closed
@@ -184,7 +187,7 @@ export default {
         this.isNavpostsExpanded = false
       }
       // open posts subnav when menu is opened and a posts subpage is currently active
-      if (this.isBarMenuOpen && this.basePath.match(/^\/p\/.+/i)) {
+      if (this.isBarMenuOpen && this.isPostSubPageActive) {
         this.isNavpostsExpanded = true
       }
     },
