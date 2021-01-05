@@ -192,6 +192,9 @@ export default {
   mix-blend-mode: hard-light;
   position: relative;
 }
+html[data-color-mode=dark] .post-description {
+  mix-blend-mode: lighten;
+}
 .post-description::after {
   position: absolute;
   content: "";

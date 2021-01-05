@@ -135,11 +135,11 @@ export default {
 
 <style lang="less" scoped>
 footer {
-  margin-top: 5em;
+  margin-top: 9em;
   overflow: hidden;
   font-size: .9em;
   border-radius: 15px;
-  background-color: rgba(var(--base-color_bg_accent-1),.1);
+  background-color: rgba(var(--base-color_bg_accent-1),.2);
   box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
 }
 footer h6 {
