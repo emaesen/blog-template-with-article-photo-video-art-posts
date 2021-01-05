@@ -19,13 +19,13 @@
             </span>
           </g-link>
         </div>
-        <h3 v-if="post.title" class="post-title p-name">
+        <h3 v-if="post.title" :class="['post-title p-name', {nodesc:!post.description}]">
           {{ post.title }}
         </h3>
         <div v-if="post.description" class="post-description p-summary">
           {{ post.description }}
         </div>
-        <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary">
+        <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary cursive">
         </div>
       </div>
     </g-link>
@@ -142,7 +142,24 @@ export default {
   border: 1px solid var(--color_border_accent-2);
   background-color: var(--color_bg_accent-2);
   transition: all .3s ease-in-out;
-  filter: brightness(.9);
+  filter: brightness(.93);
+}
+.post-card.as-note {
+  border: none;
+  background-color: transparent;
+  max-width: 600px;
+  width: 70%;
+  min-height: 5em;
+  margin: 1em auto;
+  padding: 1em 1em 2em 1em;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px  var(--color_border_accent-1);
+  .post-meta {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    left: 1em;
+  }
 }
 .post-card:hover {
   opacity:1;
@@ -150,6 +167,9 @@ export default {
 }
 .post-title {
   margin: 0;
+}
+.post-title.nodesc {
+  margin-bottom: 1.6em;
 }
 .post-media-container {
   position: relative;
@@ -159,12 +179,16 @@ export default {
   border-radius: 5px;
 }
 .post-text {
-  margin-bottom: 1em;
+  font-family: var(--font_family_cursive), cursive;
+  font-size: 135%;
+  line-height: normal;
+  text-align: center;
 }
 .post-description {
+  min-height: 3em;
   max-height: 5em;
   overflow: hidden;
-  margin-bottom: .6em;
+  margin-bottom: 1.6em;
   mix-blend-mode: hard-light;
   position: relative;
 }
@@ -179,6 +203,10 @@ export default {
   pointer-events: none;
 }
 .post-meta {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
