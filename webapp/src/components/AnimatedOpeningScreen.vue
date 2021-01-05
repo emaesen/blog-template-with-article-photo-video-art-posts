@@ -154,7 +154,7 @@ export default {
   z-index: 9;
 }
 .signature.os_anima {
-  transform: scale(3) translate(4vw,4vh);
+  transform: scale(2.7) translate(3vw,4vh);
 }
 
 
