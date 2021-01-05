@@ -69,6 +69,16 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     .replace(/\*([^*]+)\*/g, "<i>$1</i>")
     /* strikethrough */
     .replace(/~~(.*?)~~/g, "<del>$1</del>")
+    /* triple-nested unordered list (indented with 12 spaces) */
+    .replace(/\n            - (.*)/g, function(_full, item){
+      return '<ul><li>'+item.trim()+'</li></ul>'
+    })
+    .replace(/<\/ul><ul>/g,"")
+    /* double-nested unordered list (indented with 8 spaces) */
+    .replace(/\n        - (.*)/g, function(_full, item){
+      return '<ul><li>'+item.trim()+'</li></ul>'
+    })
+    .replace(/<\/ul><ul>/g,"")
     /* nested unordered list (indented with 4 spaces) */
     .replace(/\n    - (.*)/g, function(_full, item){
       return '<ul><li>'+item.trim()+'</li></ul>'
