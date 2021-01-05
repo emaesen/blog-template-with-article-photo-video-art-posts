@@ -7,12 +7,15 @@
       </span>
       {{ video.title }}
     </h1>
-
+    <div class="date dt-published">
+      {{ datePublishedText }}
+    </div>
+    
     <VideoEl :video="video" class="video-outer-container"/>
 
     <div class="meta deemph">
       <div class="date dt-taken">
-        {{ dateText }}
+        {{ dateCreatedText }}
       </div>
       <div class="categories">
         <span
@@ -50,6 +53,7 @@ query Video ($slug: String!) {
       video {
         id
         url
+        mime
       }
       coverImage {
         id
@@ -108,9 +112,14 @@ export default {
       const series = this.video && this.video.series
       return series && series.title
     },
-    dateText() {
+    dateCreatedText() {
       let opts = {shortForm:true, showYear:true};
       let text = this.formattedDate(this.video.date, opts);
+      return text;
+    },
+    datePublishedText() {
+      let opts = {shortForm:true, showYear:true};
+      let text = this.formattedDate(this.video.createdAt, opts);
       return text;
     },
     descriptionAsHtml() {
@@ -131,6 +140,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.dt-published {
+  position: relative;
+  top: -3em;
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
 .meta {
   text-align: center;
   font-style: italic;

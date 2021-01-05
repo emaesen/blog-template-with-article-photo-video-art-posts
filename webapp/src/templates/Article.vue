@@ -18,7 +18,7 @@
         :alt="article.title"
         :src="imgUrl"
       />
-      <div class="description para spacious cursive">
+      <div class="description para cursive">
         {{ article.description }}
       </div>
 
@@ -80,7 +80,7 @@ export default {
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
-      let text = this.formattedDate(this.article.date || this.article.createdAt, opts);
+      let text = this.formattedDate(this.article.createdAt, opts);
       return text;
     },
   },
@@ -91,4 +91,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.dt-published {
+  position: relative;
+  top: -3em;
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
 </style>

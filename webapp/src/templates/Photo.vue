@@ -7,13 +7,18 @@
       </span>
       {{ photo.title }}
     </h1>
+    <div class="date dt-published">
+      {{ datePublishedText }}
+    </div>
+
+
     <g-image
       :alt="photo.title"
       :src="imgUrl"
     />
     <div class="meta deemph">
       <div class="date dt-taken">
-        {{ dateText }}
+        {{ dateCreatedText }}
       </div>
       <div class="location">
         {{ location }}
@@ -121,9 +126,14 @@ export default {
         + (loc.state_province ? loc.state_province + ", " : "") 
         + (loc.country ? loc.country : "") 
     },
-    dateText() {
+    dateCreatedText() {
       let opts = {shortForm:true, showYear:true};
       let text = this.formattedDate(this.photo.date, opts);
+      return text;
+    },
+    datePublishedText() {
+      let opts = {shortForm:true, showYear:true};
+      let text = this.formattedDate(this.photo.createdAt, opts);
       return text;
     },
   },
@@ -134,6 +144,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.dt-published {
+  position: relative;
+  top: -3em;
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
 .meta {
   text-align: center;
   font-style: italic;

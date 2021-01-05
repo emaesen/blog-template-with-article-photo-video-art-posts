@@ -1,25 +1,26 @@
 <template>
-  <div class="main-note h-entry as-note">
+  <div>
     
 
     <span  @click="goBackOrUp">
       <IconGoBackOrUp :title="goBackOrUpText"/>
     </span>
-
-    <div v-html="textAsHtml" class="text para">
+    <div class="date dt-published">
+      {{ dateText }}
     </div>
 
-    <div class="meta deemph">
-      <div class="date dt-taken">
-        {{ dateText }}
+    <div  class="main-note h-entry as-note">
+      <div v-html="textAsHtml" class="text para">
       </div>
-      <div v-if="threadText" class="thread post-thread">
-        <g-link :to="threadBasePath + note.thread.title" class="nodeco">
-          ❈ {{ threadText }}
-        </g-link>
+
+      <div class="meta deemph">
+        <div v-if="threadText" class="thread post-thread">
+          <g-link :to="threadBasePath + note.thread.title" class="nodeco">
+            ❈ {{ threadText }}
+          </g-link>
+        </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -101,11 +102,18 @@ export default {
 
 <style lang="less" scoped>
 .main-note {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 5px;
+  max-width: 600px;
+  width: 70%;
+  margin: 1em auto;
+  padding: 2em;
   border-radius: 5px;
-  border: 1px solid var(--color_border_accent-2);
+  box-shadow: 1px 1px 3px  var(--color_border_accent-1);
+}
+.text {
+  font-family: var(--font_family_cursive), cursive;
+  font-size: 150%;
+  line-height: normal;
+  text-align: center;
 }
 .meta {
   text-align: center;
