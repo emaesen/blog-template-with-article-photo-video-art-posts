@@ -29,9 +29,6 @@
 
     <Content :content="$page.cms.home.content" />
 
-    <!-- Section with latest articles -->
-    <LatestArticles/>
-
   </div>
 </template>
 
@@ -114,7 +111,6 @@ query IndexPage {
 </page-query>
 
 <script>
-import LatestArticles from '~/components/LatestArticles'
 import Content from '~/components/Content'
 
 import { getCmsMedia } from '~/utils/medias'
@@ -124,7 +120,6 @@ import { getMetaTags } from '~/utils/meta-tags'
 export default {
   name: 'Index',
   components: {
-    LatestArticles,
     Content,
   },
   data() {
