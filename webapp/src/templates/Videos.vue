@@ -109,6 +109,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
       video {
         id
         url
+        mime
       }
       coverImage {
         id
