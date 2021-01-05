@@ -277,6 +277,10 @@ ul.nav {
   margin: 0;
   padding: 0 10px;
 }
+li.nav {
+  line-height: unset;
+  margin: unset;
+}
 .nav.item {
   float: left;
   position: relative;

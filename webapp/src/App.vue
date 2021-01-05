@@ -139,7 +139,7 @@ export default {
 <style lang="less">
 @import "~/assets/styles/app.less";
 .logo {
-  z-index: 2;
+  z-index: 9;
   position: fixed;
   top:0;
   margin-left:-10px;
