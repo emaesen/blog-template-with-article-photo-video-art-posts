@@ -21,7 +21,7 @@
 </template>
 
 <static-query>
-query LatestNotes($limit: Int = 4) {
+query LatestNotes($limit: Int = 6) {
   cms {
     # List notes
     latestNotes: notes(sort: "createdAt:desc" limit:$limit) {

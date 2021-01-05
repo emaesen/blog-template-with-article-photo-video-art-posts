@@ -21,7 +21,7 @@
 </template>
 
 <static-query>
-query LatestArticles($limit: Int = 4) {
+query LatestArticles($limit: Int = 6) {
   cms {
     # List articles
     latestArticles: articles(sort: "createdAt:desc" limit:$limit) {
