@@ -284,12 +284,13 @@ li.nav {
 .nav.item {
   float: left;
   position: relative;
-  padding: 10px;
+  padding: .6em .9em;
 }
 .nav.submenu {
   background-color: var(--color_bg);
   position: absolute;
   left: 0;
+  padding-top: .6em;
  .nav.item {
     float: none;
     padding-left: 0;
