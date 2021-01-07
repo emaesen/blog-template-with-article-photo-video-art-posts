@@ -51,7 +51,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     /* horizontal rule */
     .replace(/----+\n/g, "<hr>")
     /* code block */
-    .replace(/```\n([^`]+)\n```\n/g, "<pre>$1</pre>\n")
+    .replace(/```\n([^`]+)\n```\n/g, "<pre class='code'>$1</pre>\n")
     /* inline code fragment */
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     /* headers h1 to h6 */
