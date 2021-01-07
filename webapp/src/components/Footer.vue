@@ -29,7 +29,7 @@
 
     <div class="legal expand bgcolor-opaque">
       <span class="copyright">
-        © {{ copyrightYear }} {{ $static.cms.global.siteName }}. {{ $static.cms.global.rightsText }}
+        © {{ copyrightYear }} {{ $static.cms.global.copyrightOwner }}. {{ $static.cms.global.rightsText }}
       </span>
       <span
         class="version"
@@ -73,6 +73,7 @@ query Footer {
   cms {
     global {
       createdAt
+      copyrightOwner
       rightsText
       siteName
       otherWebsites {

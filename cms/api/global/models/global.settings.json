@@ -48,6 +48,9 @@
     },
     "privacyPolicy": {
       "type": "richtext"
+    },
+    "copyrightOwner": {
+      "type": "string"
     }
   }
 }
