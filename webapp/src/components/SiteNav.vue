@@ -263,8 +263,8 @@ nav {
 .actionicon {
   float: right;
   height: 1em;
-  width: 2em;
-  text-align: center;
+  width: 1.5em;
+  text-align: right;
   cursor: pointer;
 }
 .actionicon .icon-arrows {

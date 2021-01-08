@@ -7,7 +7,7 @@
         :key="list.title"
         class="social-group"
       >
-        <h6>{{ list.title }}</h6>
+        <h2 class="mini">{{ list.title }}</h2>
         <ul class="social">
           <li
             v-for="website in list.website" 
@@ -143,7 +143,7 @@ footer {
   background-color: rgba(var(--base-color_bg_accent-1),.2);
   box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
 }
-footer h6 {
+footer h2 {
   margin-top: 1.5em;
 }
 div.social {
