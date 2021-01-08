@@ -34,7 +34,7 @@ export default {
 
 <style lang="less">
 div.rtpara {
-  margin: 1em 0 1.5em 0;
+  margin: 1em 0 2.5em 0;
 }
 div.rtpara ul,
 div.rtpara ol,
