@@ -50,10 +50,22 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     })
     /* horizontal rule */
     .replace(/----+\n/g, "<hr>")
-    /* code block */
-    .replace(/```\n([^`]+)\n```\n/g, "<pre class='code'>$1</pre>\n")
+    /* char-encode code-inclosed liquid tag identifiers */
+    .replace(/`{%/g, "`&#123;&#37;")
+    .replace(/%}`/g, "&#37;&#125;`")
     /* inline code fragment */
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/ `([^`]+)` /g, " <code>$1</code> ")
+    /* char-encode any remaining single back-ticks */
+    .replace(/ `/g, " &#96;")
+    .replace(/`([ .'])/g, "&#96;$1")
+    /* code block */
+    .replace(/```\n([^`]+)\n```\n/g, function(_full, content){
+      /* char-encode embedded liquid tag identifiers */
+      content = content.replace(/%/g, "&#37;")
+      /* restore embedded code fragments */
+      content = content.replace(/<code>([^<]+)<\/code>/g, "`$1`")
+      return "<pre class='code'>" + content + "</pre>\n"
+    })
     /* headers h1 to h6 */
     .replace(/(#+) ([^{\n]*)(?:{#([^}]*)})?/g, function(_full, chars, header, id){
       var level = chars.length;
@@ -112,6 +124,15 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     .replace(/\[([^\]]+)\]\((\/[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* external link */
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer nofollow" class="' + extLinkClassName + '">$1</a>' + (extLinkIconClassName?'<i class="' + extLinkIconClassName + '"></i>':'') ))
+    /* liquid tags */
+    /* emph liquid tag */
+    .replace(/{% emph '([^']+)' %}/g, "<span class='emph'>$1</span>")
+    /* cssclass liquid tag */
+    .replace(/{% cssclass '([^']+)' '([^']+)' %}/g, "<span class='$1'>$2</span>")
+    /* sidenote liquid tag */
+    .replace(/{% sidenote '([^']+)' %}/g, "<span class='side-note margin-note'>$1</span>")
+    /* labelednote liquid tag */
+    .replace(/{% labelednote '([^']+)' %}/g, "<span class='labeled-note-number'></span><span class='labeled-note margin-note'>$1</span>")
     /* add line breaks */
     //.replace(/\n\n/g, "<br>")
     .trim() || "";
