@@ -103,6 +103,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
     videos (sort: $sort, limit:$limit, start:$start) {
       id
       title
+      byline
       slug
       youtubeId
       description
@@ -132,8 +133,5 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
 </page-query>
 
 <style lang="less" scoped>
-.img-postcat {
-  float: right;
-  width: 40%;
-}
+
 </style>
