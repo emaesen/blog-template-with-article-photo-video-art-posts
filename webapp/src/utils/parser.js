@@ -18,8 +18,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
   const imgClassName = classNames && classNames.imgClassName ? classNames.imgClassName : ""
   const extLinkClassName = classNames && classNames.extLinkClassName ? classNames.extLinkClassName : ""
   const extLinkIconClassName = classNames && classNames.extLinkIconClassName ? classNames.extLinkIconClassName : ""
-  return (txt && (txt
-    .trim() + "\n\n")
+  return (txt && ("\n" + txt.trim() + "\n\n")
     /* remove carriage returns (but leave linefeeds) */
     .replace(/\r/, "")
     /* temporarily replace underlined formatting */
