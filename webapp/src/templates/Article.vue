@@ -46,6 +46,7 @@ query Article ($slug: String!) {
       }
       content
       date
+      createdAt
       publicationDate
     }
   }
@@ -97,5 +98,10 @@ export default {
   font-style: italic;
   font-size: 0.9em;
   opacity: 0.8;
+}
+.description {
+  text-align: right;
+  margin-top: -2em;
+  margin-bottom: 2em;
 }
 </style>

@@ -112,6 +112,7 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
         url
       }
       date
+      createdAt
       publicationDate
 
     }
