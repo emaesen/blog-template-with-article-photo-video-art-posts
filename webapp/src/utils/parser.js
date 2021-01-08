@@ -53,10 +53,10 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     .replace(/`{%/g, "`&#123;&#37;")
     .replace(/%}`/g, "&#37;&#125;`")
     /* inline code fragment */
-    .replace(/ `([^`]+)` /g, " <code>$1</code> ")
+    .replace(/ `([^`]+)`([ .!?,'])/g, " <code>$1</code>$2")
     /* char-encode any remaining single back-ticks */
     .replace(/ `/g, " &#96;")
-    .replace(/`([ .'])/g, "&#96;$1")
+    .replace(/`([ .!?,'])/g, "&#96;$1")
     /* code block */
     .replace(/```\n([^`]+)\n```\n/g, function(_full, content){
       /* char-encode embedded liquid tag identifiers */
