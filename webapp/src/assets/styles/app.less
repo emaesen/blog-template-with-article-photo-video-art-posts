@@ -316,6 +316,7 @@ caption {
   color: var(--color_text_deemph);
   opacity: 0.8;
   line-height: normal;
+  overflow-wrap: break-word;
 }
 .labeled-note-number {
   counter-increment: labeled-note-counter;
@@ -336,7 +337,7 @@ caption {
 
 }
 .labeled-note:before {
-  content: counter(labeled-note-counter) ". ";
+  content: counter(labeled-note-counter) ".";
   font-size: 80%;
 }
 
@@ -378,6 +379,12 @@ caption {
   .cards-container {
     flex-direction: column;
     flex-wrap: nowrap;
+  }
+  .margin-note {
+    width: 30%;
+  }
+  ul {
+    padding-inline-start: 1em;
   }
 }
 
