@@ -60,6 +60,9 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "byline": {
+      "type": "string"
     }
   }
 }
