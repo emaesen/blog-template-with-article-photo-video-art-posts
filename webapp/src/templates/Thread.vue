@@ -9,17 +9,15 @@
       </div>
 
       <div class="h-feed">
-        <div class="cards-container">
-          <transition-group name="list" tag="div">
-          <PostCard
-            v-for="post in posts"
-            :key="post.id"
-            :post="post"
-            :postType="post.type"
-            :postsType = "postsType"
-          />
-          </transition-group>
-        </div>
+        <transition-group name="list" tag="div" class="cards-container">
+        <PostCard
+          v-for="post in posts"
+          :key="post.id"
+          :post="post"
+          :postType="post.type"
+          :postsType = "postsType"
+        />
+        </transition-group>
       </div>
     </div>
 
@@ -113,4 +111,9 @@ export default {
   margin-bottom: 2em;
   font-style: italic;
 }
+.cards-container {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
 </style>

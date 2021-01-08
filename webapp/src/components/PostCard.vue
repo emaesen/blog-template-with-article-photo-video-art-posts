@@ -23,7 +23,7 @@
           {{ post.title }}
         </h3>
         <div v-if="post.description" class="post-description p-summary">
-          {{ post.description }}
+          {{ post.byline || post.description }}
         </div>
         <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary cursive">
         </div>
@@ -139,14 +139,13 @@ export default {
   line-height: normal;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid var(--color_border_accent-2);
-  background-color: var(--color_bg_accent-2);
+  background-color: var(--color_bg);
   transition: all .3s ease-in-out;
-  filter: brightness(.93);
+  filter: brightness(0.98);
+  opacity: .9;
 }
 .post-card.as-note {
   border: none;
-  background-color: transparent;
   max-width: 600px;
   width: 70%;
   min-height: 5em;
@@ -163,13 +162,10 @@ export default {
 }
 .post-card:hover {
   opacity:1;
-  filter: brightness(1);
+  filter: brightness(1.026);
 }
 .post-title {
   margin: 0;
-}
-.post-title.nodesc {
-  margin-bottom: 1.6em;
 }
 .post-media-container {
   position: relative;
@@ -184,32 +180,9 @@ export default {
   line-height: normal;
   text-align: center;
 }
-.post-description {
-  min-height: 3em;
-  max-height: 5em;
-  overflow: hidden;
-  margin-bottom: 1.6em;
-  mix-blend-mode: hard-light;
-  position: relative;
-}
-html[data-color-mode=dark] .post-description {
-  mix-blend-mode: lighten;
-}
-.post-description::after {
-  position: absolute;
-  content: "";
-  left: 0px;
-  bottom: 0px;
-  height: 30%;
-  width: 100%;
-  background: linear-gradient(transparent, var(--color_bg_accent-2));
-  pointer-events: none;
-}
+
 .post-meta {
-  position: absolute;
-  bottom: 0;
-  left: 5px;
-  right: 5px;
+  margin-top: .3em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -239,9 +212,13 @@ html[data-color-mode=dark] .post-description {
 }
 
 @media screen and (max-width: 600px) {
-  .post-card {
-  flex: 0 0 100%;
-  max-width: 100%;
+  .post-card,
+  .post-card.as-note {
+    flex: 0 0 97%;
+    max-width: 100%;
+  }
+  .post-card.as-note {
+    width: 90%;
   }
 }
 

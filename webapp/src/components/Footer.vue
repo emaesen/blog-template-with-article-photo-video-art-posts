@@ -138,7 +138,7 @@ export default {
 footer {
   margin-top: 9em;
   overflow: hidden;
-  font-size: .9em;
+  font-size: .95em;
   border-radius: 15px;
   background-color: rgba(var(--base-color_bg_accent-1),.2);
   box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
@@ -162,8 +162,8 @@ ul.social {
   padding-inline-start: 0;
 }
 ul.social > li {
-  display: block;
-  margin-right: 2em;
+  display: flex;
+  align-items: baseline;
   position: relative;
 }
 .description {
@@ -251,8 +251,8 @@ ul.social > li {
     transition: all .3s cubic-bezier(.43,.15,.63,.93);
   }
   ul.social > li > a:hover + .description {
-    opacity: .9;
-    font-size: 95%;
+    opacity: 1;
+    color: var(--color_text_action_hover);
   }
 }
 </style>
