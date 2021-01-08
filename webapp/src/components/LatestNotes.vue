@@ -81,18 +81,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.cards-header-container {
-  margin-bottom: 1.5em;
-  box-shadow: 0 2px 7px -4px var(--color_border_accent-2);
-}
-.cards-header {
-  display: inline-block;
-  margin-bottom: 0;
-}
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  place-content: space-between;
-}
 
 </style>

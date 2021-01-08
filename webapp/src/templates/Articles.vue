@@ -121,8 +121,5 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
 </page-query>
 
 <style lang="less" scoped>
-.img-postcat {
-  float: right;
-  width: 40%;
-}
+
 </style>
