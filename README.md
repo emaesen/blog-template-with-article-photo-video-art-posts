@@ -1,14 +1,16 @@
 # Template for a personal blog/photo/article website
 
-A Gridsome Vue.js Strapi project
-
-## ************** WORK IN PROGRESS **************
-
-This is a starter project for a personal blog/gallery website.
+A Gridsome Vue.js Strapi starter project for a personal blog/gallery website.
 
 It features a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
 
 This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio) as its original foundation, expanded upon that, and has a much more complete feature set available out-of-the-box.
+
+## Project status
+
+This project is in the final stages of development.
+
+It is complete enough to try out.
 
 ## Intended audience
 
@@ -21,15 +23,15 @@ This project has two components:
 1. A headless CMS to manage content
 2. A mobile-friendly single-page-application web site, with static file generation capability for SEO purposes
 
-The *CMS* supports individual pages plus collections of articles, photos, notes and video. Taxonomy is supported with categories, collections/series and threads.
+*The CMS* supports individual pages plus collections of articles, photos, notes and video. Taxonomy is supported with categories, collections/series and threads.
 
-The *webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos', 'notes' and 'videos'. Each with pagination support and associated taxonomy pages based on 'category', 'series' or 'thread'. All cross-linked.
+*The webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos', 'notes' and 'videos'. Each with pagination support and associated taxonomy pages based on 'category', 'series' or 'thread'. All cross-linked.
 
-Light and Dark color modes are supported with automatic switch based on OS settings or through manual toggle.
+*Light and Dark color modes* are supported with automatic switch based on OS settings or through manual toggle.
 
-The color scheme can be replaced easily by redefining a core set of colors.
+*The color scheme* can be replaced easily by redefining a core set of colors.
 
-Fonts can be replaced easily by redefining a core set of font families.
+*Fonts* can be replaced easily by redefining a core set of font families.
 
 The IndieWeb proposes syndication methods (so you can own your data, publish to your personal website first and from there syndicate to large social media sites). Those are *not* implemented in this project.
 
@@ -52,7 +54,7 @@ You may also choose any other database supported by Strapi; by default it will u
 
 ## Images
 
-For a clean look, images that are uploaded to Strapi-cms should be of consistent height/width ratio. A phi-ratio is pleasing to the eye and the recommended image size is 1165px x 720px.
+For a clean look, images that are uploaded to Strapi-cms should be of consistent height/width ratio. The recommended image size for the photos section is 1165px x 720px (phi-ratio).
 
 ## Tools used
 
