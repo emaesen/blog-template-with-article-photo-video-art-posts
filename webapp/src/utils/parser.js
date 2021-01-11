@@ -110,6 +110,11 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
       return '\n<ol><li>'+item.trim()+'</li></ol>'
     })
     .replace(/<\/ol>\n<ol>/g,"")
+    /* description list */
+    .replace(/\n(.+)\n: (.+)/g, function(_full, term, desc){
+      return '\n<dl><dt>'+term.trim()+'</dt><dd>' + desc.trim() + '</dd></dl>'
+    })
+    .replace(/<\/dl>\n<dl>/g,"")
     /* image */
     .replace(/!\[([^\]]+)\]\(([^)]+)\)/g, function(_full, alt, src){
       if (typeof getMediaUrl === "function") {
