@@ -13,7 +13,7 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
 
 ## My impressions of Strapi
 
-- It's a decent CMS
+- It's a decent CMS, but has numerous issues
   - The UI interface looks nice
     - but I wish there was a way to customize it.
   - I can do most of what I want
@@ -23,6 +23,7 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
     - but can be manually deleted from the corresponding config file.
     - removing a field with a specific name and adding a new component with the same name results in a blank page and a cryptic error message in the server log: "TypeError: Cannot read property '0' of undefined".
     - a date field, once entered, can not be erased through the UI interface
+  - If a media file is replaced, the newly uploaded file gets the name of the old file. It should retain its original new filename so that any cached versions of the old file are ignored.
 - Its architecture is brittle:
   - It has frequent non-descriptive "an error occured" messages.
     - Reloading the page seems to resolve whatever the issue is.
