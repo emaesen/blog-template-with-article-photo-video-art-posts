@@ -43,10 +43,6 @@
     "publicationDate": {
       "type": "date"
     },
-    "notes": {
-      "collection": "note",
-      "via": "video"
-    },
     "youtubeId": {
       "type": "string",
       "minLength": 10,
@@ -63,6 +59,10 @@
     },
     "byline": {
       "type": "string"
+    },
+    "notes": {
+      "via": "videos",
+      "collection": "note"
     }
   }
 }

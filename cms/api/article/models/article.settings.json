@@ -45,7 +45,7 @@
       "type": "date"
     },
     "notes": {
-      "via": "article",
+      "via": "articles",
       "collection": "note"
     }
   }
