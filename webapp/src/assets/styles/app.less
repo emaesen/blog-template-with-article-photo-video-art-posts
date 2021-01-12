@@ -217,6 +217,35 @@ caption {
   color: #0f5ca0d0;
   display: inline-block;
 }
+
+table {
+  width: auto;
+  margin: 0 auto;
+  border-spacing: 0;
+  border-top: 2px solid var(--color_border_accent-1);
+  border-bottom: 2px solid var(--color_border_accent-1);
+  border-radius: 5px;
+}
+th {
+  border-bottom: 1px solid var(--color_border_accent-1);
+  padding: 0.4em 0.5em 0.4em 0.5em;
+  font-weight: normal;
+}
+th, td {
+  font-size: .95em;
+  line-height: 1.7;
+}
+td {
+  padding: 0 0.5em;
+  text-align: left;
+}
+tr:first-child td {
+  padding-top: 0.5em;
+}
+tr:last-child td {
+  padding-bottom: 0.5em;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -256,6 +285,13 @@ caption {
 .center {
   text-align: center;
 }
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+
 .flexcenter {
   display: flex;
   justify-content: center;
