@@ -164,6 +164,12 @@ export default {
   opacity:1;
   filter: brightness(1.026);
 }
+html[data-color-mode=dark] .post-card:hover {
+  filter: brightness(1.15);
+  img {
+    filter: brightness(.8);
+  }
+}
 .post-title {
   margin: 0;
 }
