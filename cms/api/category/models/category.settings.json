@@ -28,6 +28,10 @@
     "videos": {
       "via": "categories",
       "collection": "video"
+    },
+    "arts": {
+      "via": "categories",
+      "collection": "art"
     }
   }
 }

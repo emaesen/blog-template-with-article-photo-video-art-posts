@@ -22,6 +22,10 @@
     "videos": {
       "via": "series",
       "collection": "video"
+    },
+    "arts": {
+      "via": "series",
+      "collection": "art"
     }
   }
 }
