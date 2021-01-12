@@ -48,9 +48,7 @@ query LatestPhotos($limit: Int = 4) {
         country
       }
     }
-    allPhotos: photos {
-    	slug
-    }
+    photosCount
   }
 }
 </static-query>
@@ -86,7 +84,7 @@ export default {
       return this.nrOfDisplayedPhotos > 0
     },
     totalNrOfPhotos() {
-      return this.$static.cms.allPhotos.length
+      return this.$static.cms.photosCount
     },
     showViewAllLink() {
       return this.totalNrOfPhotos > this.nrOfDisplayedPhotos

@@ -50,9 +50,7 @@ query LatestVideos($limit: Int = 4) {
       }
       publicationDate
     }
-    allVideos: videos {
-    	slug
-    }
+    videosCount
   }
 }
 </static-query>
@@ -88,7 +86,7 @@ export default {
       return this.nrOfDisplayedVideos > 0
     },
     totalNrOfVideos() {
-      return this.$static.cms.allVideos.length
+      return this.$static.cms.videosCount
     },
     showViewAllLink() {
       return this.totalNrOfVideos > this.nrOfDisplayedVideos

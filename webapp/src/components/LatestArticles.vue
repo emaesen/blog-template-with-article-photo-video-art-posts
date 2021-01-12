@@ -38,9 +38,7 @@ query LatestArticles($limit: Int = 6) {
         url
       }
     }
-    allArticles: articles {
-    	slug
-    }
+    articlesCount
   }
 }
 </static-query>
@@ -76,7 +74,7 @@ export default {
       return this.nrOfDisplayedArticles > 0
     },
     totalNrOfArticles() {
-      return this.$static.cms.allArticles.length
+      return this.$static.cms.articlesCount
     },
     showViewAllLink() {
       return this.totalNrOfArticles > this.nrOfDisplayedArticles

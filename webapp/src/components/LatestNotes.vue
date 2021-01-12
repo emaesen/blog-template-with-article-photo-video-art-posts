@@ -33,9 +33,7 @@ query LatestNotes($limit: Int = 6) {
         title
       }
     }
-    allNotes: notes {
-    	slug
-    }
+    notesCount
   }
 }
 </static-query>
@@ -71,7 +69,7 @@ export default {
       return this.nrOfDisplayedNotes > 0
     },
     totalNrOfNotes() {
-      return this.$static.cms.allNotes.length
+      return this.$static.cms.notesCount
     },
     showViewAllLink() {
       return this.totalNrOfNotes > this.nrOfDisplayedNotes
