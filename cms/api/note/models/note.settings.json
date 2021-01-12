@@ -18,21 +18,29 @@
       "type": "uid",
       "default": "auto-generated---do-not-change"
     },
-    "article": {
-      "model": "article",
-      "via": "notes"
+    "articles": {
+      "collection": "article",
+      "via": "notes",
+      "dominant": true
     },
-    "photo": {
-      "model": "photo",
-      "via": "notes"
+    "photos": {
+      "collection": "photo",
+      "via": "notes",
+      "dominant": true
     },
-    "video": {
-      "model": "video",
-      "via": "notes"
+    "videos": {
+      "collection": "video",
+      "via": "notes",
+      "dominant": true
     },
     "thread": {
       "model": "thread",
       "via": "notes"
+    },
+    "arts": {
+      "collection": "art",
+      "via": "notes",
+      "dominant": true
     }
   }
 }
