@@ -3,6 +3,13 @@
 
     <h1>{{ page.title }}</h1>
 
+    <g-image
+      v-if="introImage"
+      class="img-postcat"
+      alt="videos posts"
+      :src="introImage"
+    />
+
     <RichText
       v-if="page.introduction"
       :data="page.introduction"
@@ -75,7 +82,11 @@ export default {
   computed: {
     page() {
       return this.$page.cms.postsPage
-    }
+    },
+    introImage() {
+      const img = this.page.seo.shareImage
+      return getCmsMedia(img && img.url)
+    },
   },
 }
 </script>
