@@ -122,6 +122,46 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
       }
       return '<img src="'+src+'" alt="'+alt+'" class="'+imgClassName+'"/>'
     })
+    /* simple table */
+    .replace(/\n\|.*\|\n/sg, function(all){
+      let table="<table><thead><tr>"
+      let rows = all.match(/\|.*\|\n/g)
+      console.log({rows})
+      let alignments = rows[1].match(/\|[^|\n]+/g)
+      alignments = alignments.map(x => {
+        switch (x.replace(/-+/g, "-")) {
+        case '|:-:':
+          return 'center'
+          break
+        case '|-:':
+          return 'right'
+          break
+        default:
+          return 'left'
+        }
+      })
+      console.log({alignments})
+      let headCells = rows[0].match(/\|[^|\n]+/g)
+      headCells = headCells.map((x,i) => {
+        x = x.replace(/\|/g, "").trim()
+        return '<th class="' + alignments[i] + '">' + x + '</th>'
+      })
+      console.log({headCells})
+      table += headCells.join('') + '</tr></thead><tbody>'
+      let bodyRows = rows.map((x,i) => {
+        if(i<2) return ''
+        let row = '<tr>'
+        let cells = x.match(/\|[^|\n]+/g).map((x,j) => {
+          return '<td class="' + alignments[j] + '">' + x.replace(/\|/g, "").trim() + '</td>'
+        })
+        console.log({i,x, cells})
+        return row + cells.join('') + '</tr>'
+      })
+      table += bodyRows.join('')
+      table +="</tbody></table>"
+      console.log({table})
+      return table;
+    })
     /* in-page hash link */
     .replace(/\[([^\]]+)\]\((#[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* internal link */
