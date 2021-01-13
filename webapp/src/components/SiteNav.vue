@@ -362,7 +362,7 @@ li li {
       box-shadow: none;
     }
     .nav.menu.bar-closed {
-      transform: translateY(-100px);
+      transform: translateY(-100vh);
       opacity: 0;
       height: 35px;
     }

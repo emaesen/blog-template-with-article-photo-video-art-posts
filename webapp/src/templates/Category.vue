@@ -14,8 +14,7 @@
       </div>
 
       <div class="h-feed">
-        <div class="cards-container">
-          <transition-group name="list" tag="div">
+        <transition-group name="list" tag="div" class="cards-container">
           <PostCard
             v-for="post in posts"
             :key="post.id"
@@ -23,8 +22,7 @@
             :postType="post.type"
             :postsType = "postsType"
           />
-          </transition-group>
-        </div>
+        </transition-group>
       </div>
     </div>
 
