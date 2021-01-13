@@ -113,8 +113,10 @@ li {
   margin: .5em 0;
 }
 button:not(.nodeco),
+.action.button,
 a.button {
   cursor: pointer;
+  display: inline-block;
   margin: 1em .5em 1em 1em;
   background-color: var(--color_text_highlight);
   border: 1px solid var(--color_border_accent-1);
@@ -124,6 +126,10 @@ a.button {
   position: relative;
   bottom: 5px;
   outline: 0;
+}
+.action.button {
+  box-shadow: none;
+  background-color: var(--color_bg_accent-1);
 }
 button:disabled {
   cursor: default;
@@ -355,7 +361,7 @@ i {
   margin-right: 7px;
   box-shadow: 0 0 7px var(--color_border_accent-1);
   position: relative;
-  top: -5em;
+  top: -2em;
 }
 
 .post-type,
