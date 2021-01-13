@@ -16,7 +16,7 @@ export default {
       const routeName = this.$route.name
       let postsType = routeName.replace("__p_","").replace("__","").split('_')[0];
       // note that postsType is plural: 
-      // expect "posts", "articles", "photos" or "videos"
+      // expect "posts", "articles", "photos", "arts" or "videos"
       return postsType
     },
     sortText() {
@@ -34,8 +34,11 @@ export default {
     notes() {
       return this.getMatchedPosts("note")
     },
+    arts() {
+      return this.getMatchedPosts("art")
+    },
     posts() {
-      return [].concat(this.articles, this.photos, this.videos, this.notes).sort((a,b) => this.sortByDate(a,b))
+      return [].concat(this.articles, this.photos, this.videos, this.notes, this.arts).sort((a,b) => this.sortByDate(a,b))
     },
   },
   methods: {
