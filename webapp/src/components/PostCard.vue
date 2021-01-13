@@ -93,10 +93,9 @@ export default {
     },
     imageSrc() {
       const post = this.post
-      if (post.coverImage || post.photo) {
-        const url = (post.coverImage && post.coverImage.url) ||
-        (post.photo && post.photo.url)
-        return getCmsMedia(url)
+      if (post.coverImage || post.photo || post.image) {
+        const img = post.coverImage || post.photo || post.image
+        return getCmsMedia(img && img.url)
       }
     },
     postSeries() {

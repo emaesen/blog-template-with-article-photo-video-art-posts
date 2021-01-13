@@ -25,6 +25,9 @@
     <!-- Section with latest videos -->
     <LatestVideos/>
 
+    <!-- Section with latest art -->
+    <LatestArts/>
+
     <!-- Section with latest notes -->
     <LatestNotes/>
 
@@ -57,6 +60,7 @@ import RichText from '~/components/RichText'
 import LatestArticles from '~/components/LatestArticles'
 import LatestPhotos from '~/components/LatestPhotos'
 import LatestVideos from '~/components/LatestVideos'
+import LatestArts from '~/components/LatestArts'
 import LatestNotes from '~/components/LatestNotes'
 
 import { getCmsMedia } from '~/utils/medias'
@@ -70,6 +74,7 @@ export default {
     LatestArticles,
     LatestPhotos,
     LatestVideos,
+    LatestArts,
     LatestNotes,
   },
   data() {

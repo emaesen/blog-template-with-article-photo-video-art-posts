@@ -93,6 +93,24 @@ query Collection {
         }
         publicationDate
       }
+      arts {
+        id
+        title
+        slug
+        categories {
+          id
+          title
+        }
+        series {
+          id
+          title
+        }
+        image {
+          id
+          url
+        }
+        date
+      }
     }
   }
 }
@@ -144,10 +162,12 @@ export default {
       // Note: if this website template is to be used for multi-language
       // versions, any currently hardcoded text must be moved to the CMS
       // as a tokenized string.
-      return "All " + this.postsType + " in series "
+      let postsType = this.postsType
+      if (postsType === "arts") postsType = "art works"
+      return "All " + postsType + " in series "
     },
     posts() {
-      return [].concat(this.photos, this.videos).sort((a,b) => this.sortByDate(a,b))
+      return [].concat(this.photos, this.videos, this.arts).sort((a,b) => this.sortByDate(a,b))
     },
     hasMultiplePosts() {
       return this.posts.length > 1
