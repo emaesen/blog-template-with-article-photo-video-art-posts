@@ -126,6 +126,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
         title
       }
       publicationDate
+      createdAt
     }
 
   }

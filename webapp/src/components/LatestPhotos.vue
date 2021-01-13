@@ -40,6 +40,7 @@ query LatestPhotos($limit: Int = 4) {
         id
         url
       }
+      createdAt
       date
       location {
         landmark

@@ -48,6 +48,7 @@ query LatestVideos($limit: Int = 4) {
         id
         title
       }
+      createdAt
       publicationDate
     }
     videosCount

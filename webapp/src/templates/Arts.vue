@@ -116,6 +116,7 @@ query ArtsPage ($sort: String!, $start: Int, $limit: Int) {
         id
         url
       }
+      createdAt
       date
     }
 

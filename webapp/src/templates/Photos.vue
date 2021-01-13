@@ -123,6 +123,7 @@ query PhotosPage ($sort: String!, $start: Int, $limit: Int) {
         state_province
         country
       }
+      createdAt
     }
 
   }

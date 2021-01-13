@@ -40,6 +40,7 @@ query LatestArts($limit: Int = 4) {
         id
         url
       }
+      createdAt
       date
     }
     artsCount

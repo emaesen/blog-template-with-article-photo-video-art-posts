@@ -103,7 +103,7 @@ export default {
       return series && series.title
     },
     dateText() {
-      let date = this.post.date || this.post.createdAt
+      let date = this.post.createdAt
       if (date) {
         let opts = {shortForm:true, showYear:true};
         let text = this.formattedDate(date, opts);
