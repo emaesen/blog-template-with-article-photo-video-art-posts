@@ -66,6 +66,7 @@ query Category {
           id
           url
         }
+        createdAt
         date
         location {
           landmark
@@ -97,7 +98,27 @@ query Category {
           id
           title
         }
+        createdAt
         publicationDate
+      }
+      arts {
+        id
+        title
+        slug
+        categories {
+          id
+          title
+        }
+        series {
+          id
+          title
+        }
+        image {
+          id
+          url
+        }
+        date
+        createdAt
       }
     }
   }
@@ -144,10 +165,12 @@ export default {
       // Note: if this website template is to be used for multi-language
       // versions, any currently hardcoded text must be moved to the CMS
       // as a tokenized string.
-      return "All " + this.postsType + " in category "
+      let postsType = this.postsType
+      if (postsType === "arts") postsType = "art works"
+      return "All " + postsType + " in category "
     },
     posts() {
-      return [].concat(this.articles, this.photos, this.videos).sort((a,b) => this.sortByDate(a,b))
+      return [].concat(this.articles, this.photos, this.arts, this.videos).sort((a,b) => this.sortByDate(a,b))
     },
     hasMultiplePosts() {
       return this.posts.length > 1

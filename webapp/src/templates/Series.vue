@@ -60,6 +60,7 @@ query Collection {
           id
           url
         }
+        createdAt
         date
         location {
           landmark
@@ -91,6 +92,7 @@ query Collection {
           id
           title
         }
+        createdAt
         publicationDate
       }
       arts {
@@ -110,6 +112,7 @@ query Collection {
           url
         }
         date
+        createdAt
       }
     }
   }

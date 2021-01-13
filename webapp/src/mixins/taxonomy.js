@@ -38,7 +38,7 @@ export default {
       return this.getMatchedPosts("art")
     },
     posts() {
-      return [].concat(this.articles, this.photos, this.videos, this.notes, this.arts).sort((a,b) => this.sortByDate(a,b))
+      return [].concat(this.articles, this.photos, this.arts, this.videos, this.notes).sort((a,b) => this.sortByDate(a,b))
     },
   },
   methods: {
@@ -60,8 +60,8 @@ export default {
         b=postA
         a=postB
       }
-      aDate = a.date || a.createdAt
-      bDate = b.date || b.createdAt
+      aDate = a.createdAt
+      bDate = b.createdAt
       return (new Date(bDate)).getTime() - (new Date(aDate)).getTime()
     },
     reverseSort() {
