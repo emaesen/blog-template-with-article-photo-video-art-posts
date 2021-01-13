@@ -67,6 +67,7 @@ query SiteNav {
     notesCount
     photosCount
     videosCount
+    artsCount
   }
 }
 </static-query>
@@ -121,8 +122,11 @@ export default {
     nrOfVideos() {
       return this.cms.videosCount
     },
+    nrOfArts() {
+      return this.cms.artsCount
+    },
     nrActivePostsTypes() {
-      return Math.sign(this.nrOfArticles) + Math.sign(this.nrOfNotes) + Math.sign(this.nrOfPhotos) + Math.sign(this.nrOfVideos)
+      return Math.sign(this.nrOfArticles) + Math.sign(this.nrOfNotes) + Math.sign(this.nrOfPhotos) + Math.sign(this.nrOfVideos) + Math.sign(this.nrOfArts)
     },
     activePosts () {
       let posts = []
@@ -132,6 +136,8 @@ export default {
         posts.push({name:"Photos",url:"/p/photos/"})
       if (this.nrOfVideos) 
         posts.push({name:"Videos",url:"/p/videos/"})
+      if (this.nrOfArts) 
+        posts.push({name:"Arts",url:"/p/arts/"})
       if (this.nrOfNotes) 
         posts.push({name:"Notes",url:"/p/notes/"})
       return posts
