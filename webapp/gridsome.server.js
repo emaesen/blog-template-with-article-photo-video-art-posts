@@ -227,6 +227,8 @@ function createPostsRoutes(opts, createPage) {
         component: `./src/templates/Thread.vue`
       })
     }
+  } else {
+    console.info("INFO: skip " + opts.type + " pages")
   }
 }
 
@@ -269,6 +271,10 @@ module.exports = function (api, options) {
         videos {
           slug
         }
+        artsCount
+        arts {
+          slug
+        }
         categoriesCount
         collectionsCount
       }
@@ -301,6 +307,13 @@ module.exports = function (api, options) {
       count: data.cms.videosCount,
       data: data.cms.videos,
       component: "Video"
+    }, createPage)
+
+    createPostsRoutes({
+      type: "arts",
+      count: data.cms.artsCount,
+      data: data.cms.arts,
+      component: "Art"
     }, createPage)
 
     if (data.cms.categoriesCount > 0) {
