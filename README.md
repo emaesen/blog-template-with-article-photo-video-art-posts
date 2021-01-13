@@ -25,7 +25,7 @@ This project has two components:
 
 *The CMS* supports individual pages plus collections of articles, photos, notes and video. Taxonomy is supported with categories, collections/series and threads.
 
-*The webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos', 'notes' and 'videos'. Each with pagination support and associated taxonomy pages based on 'category', 'series' or 'thread'. All cross-linked.
+*The webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos',  'videos', 'art' and 'notes'. Each with pagination support and associated taxonomy pages based on 'category', 'series' and/or 'thread'. All cross-linked.
 
 *Light and Dark color modes* are supported with automatic switch based on OS settings or through manual toggle.
 
@@ -42,6 +42,8 @@ Javscript framework for dynamic web apps: [Vue.js](https://vuejs.org/)
 Static site generator: [Gridsome](https://gridsome.org/)
 
 Headless content management system: [Strapi](https://strapi.io/)
+
+Query language: [GraphQL](https://graphql.org/)
 
 Database: [MongoDB](https://www.mongodb.com/)
 
