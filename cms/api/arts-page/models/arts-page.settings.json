@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "arts_pages",
+  "info": {
+    "name": "ArtsPage"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "introduction": {
+      "type": "text"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "meta.seo"
+    }
+  }
+}
