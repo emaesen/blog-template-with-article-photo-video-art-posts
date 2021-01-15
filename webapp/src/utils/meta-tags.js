@@ -1,10 +1,10 @@
 import { getCmsMedia } from './medias'
 import { getSeoMetaTags } from './seo'
 
-export function getMetaTags(opts, pagePath) {
+export function getMetaTags(opts, pageRoute) {
   if (opts) {
     const { title, description, shareImage, coverImage } = opts
-
+    const pagePath = pageRoute && pageRoute.path || ""
     const basePath = process.env.GRIDSOME_SITE_URL
     const siteName = process.env.GRIDSOME_SITE_NAME
     const pageUrl = basePath + pagePath
@@ -22,6 +22,9 @@ export function getMetaTags(opts, pagePath) {
     const metaTags = {
       title,
       meta: getSeoMetaTags(title, description, imageUrl, pageUrl, siteName),
+      link: [
+        { key: 'canonical', rel: 'canonical', href: pageUrl}
+      ]
     }
     console.log({metaTags})
     return metaTags
