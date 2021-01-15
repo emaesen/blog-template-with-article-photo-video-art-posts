@@ -3,13 +3,13 @@ import { getSeoMetaTags } from './seo'
 
 export function getMetaTags(opts, pageRoute) {
   if (opts) {
-    const { title, description, shareImage, coverImage } = opts
+    const { title, description, shareImage, coverImage, photo } = opts
     const pagePath = pageRoute && pageRoute.path || ""
     const basePath = process.env.GRIDSOME_SITE_URL
     const siteName = process.env.GRIDSOME_SITE_NAME
     const pageUrl = basePath + pagePath
 
-    const image = shareImage && shareImage.url ? shareImage : (coverImage && coverImage.url) ? coverImage : null
+    const image = shareImage && shareImage.url ? shareImage : (coverImage && coverImage.url) ? coverImage :  (photo && photo.url) ? photo : null
     
     let imageUrl = image && image.url ? getCmsMedia(image.url, false) : null
   
