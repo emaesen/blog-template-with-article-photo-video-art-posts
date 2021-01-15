@@ -61,8 +61,11 @@
       "type": "string"
     },
     "notes": {
-      "via": "videos",
-      "collection": "note"
+      "collection": "note",
+      "via": "videos"
+    },
+    "content": {
+      "type": "richtext"
     }
   }
 }

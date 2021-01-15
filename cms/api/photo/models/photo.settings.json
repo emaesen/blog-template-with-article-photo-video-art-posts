@@ -49,8 +49,11 @@
       "type": "date"
     },
     "notes": {
-      "via": "photos",
-      "collection": "note"
+      "collection": "note",
+      "via": "photos"
+    },
+    "content": {
+      "type": "richtext"
     }
   }
 }
