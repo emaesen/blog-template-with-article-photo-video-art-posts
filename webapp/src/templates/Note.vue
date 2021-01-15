@@ -66,7 +66,7 @@ export default {
     this.slug = this.$route.params.slug
   },
   metaInfo() {
-    return getMetaTags(this.note) 
+    return getMetaTags(this.note, this.$route) 
   },
   computed: {
     note() {

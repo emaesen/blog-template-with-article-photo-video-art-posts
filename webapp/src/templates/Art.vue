@@ -91,7 +91,7 @@ export default {
   mounted() {
   },
   metaInfo() {
-    return getMetaTags(this.art) 
+    return getMetaTags(this.art, this.$route) 
   },
   computed: {
     art() {

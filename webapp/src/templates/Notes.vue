@@ -55,7 +55,7 @@ export default {
     console.log(this.$context)
   },
   metaInfo() {
-    return getMetaTags(this.notesPage.seo) 
+    return getMetaTags(this.notesPage.seo, this.$route) 
   },
   computed: {
     notesPage() {

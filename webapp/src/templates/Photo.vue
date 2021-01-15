@@ -100,7 +100,7 @@ export default {
   mounted() {
   },
   metaInfo() {
-    return getMetaTags(this.photo) 
+    return getMetaTags(this.photo, this.$route) 
   },
   computed: {
     photo() {

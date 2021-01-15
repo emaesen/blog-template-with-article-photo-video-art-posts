@@ -51,7 +51,7 @@ export default {
     }
   },
   metaInfo() {
-    return getMetaTags(this.articlesPage.seo) 
+    return getMetaTags(this.articlesPage.seo, this.$route) 
   },
   computed: {
     articlesPage() {

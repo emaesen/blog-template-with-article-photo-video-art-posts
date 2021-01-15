@@ -69,7 +69,7 @@ export default {
     RichText,
   },
   metaInfo() {
-    return getMetaTags(this.article) 
+    return getMetaTags(this.article, this.$route) 
   },
   computed: {
     article() {

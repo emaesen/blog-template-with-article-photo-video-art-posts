@@ -54,7 +54,7 @@ export default {
     console.log(this.$context)
   },
   metaInfo() {
-    return getMetaTags(this.photosPage.seo) 
+    return getMetaTags(this.photosPage.seo, this.$route) 
   },
   computed: {
     photosPage() {

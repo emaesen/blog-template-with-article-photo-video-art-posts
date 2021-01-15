@@ -51,10 +51,9 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$context)
   },
   metaInfo() {
-    return getMetaTags(this.videosPage.seo) 
+    return getMetaTags(this.videosPage.seo, this.$route) 
   },
   computed: {
     videosPage() {
