@@ -42,8 +42,7 @@
       </div>
     </div>
 
-    <div class="description para spacious">
-      {{ photo.description }}
+    <div v-html="contentAsHtml" class="content para spacious">
     </div>
   </div>
 </template>
@@ -56,6 +55,7 @@ query Photo ($slug: String!) {
       title
       slug
       description
+      content
       categories {
         id
         title
@@ -85,6 +85,7 @@ import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
+import { parseAsHtml } from '~/utils/parser'
 import date from '@/mixins/date.js'
 import goBackOrUp from '@/mixins/go-back-or-up.js'
 
@@ -135,6 +136,16 @@ export default {
       let opts = {shortForm:true, showYear:true};
       let text = this.formattedDate(this.photo.createdAt, opts);
       return text;
+    },
+    contentAsHtml() {
+      const content = this.photo && this.photo.content ? this.photo.content : ""
+      return content ? 
+        parseAsHtml(content, {
+          paraClassName: "margin-top-small", 
+          imgClassName:"rtimg", 
+          extLinkClassName:"ext",
+          extLinkIconClassName:"icon-Outbound deemph"
+        }, getCmsMedia) : "";
     },
   },
   methods: {

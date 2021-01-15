@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div v-html="descriptionAsHtml" class="description para spacious">
+    <div v-html="contentAsHtml" class="content para spacious">
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ query Video ($slug: String!) {
       slug
       youtubeId
       description
+      content
       video {
         id
         url
@@ -96,7 +97,7 @@ export default {
   mounted() {
   },
   metaInfo() {
-    return getMetaTags(this.video) 
+    return getMetaTags(this.video, this.$route) 
   },
   computed: {
     video() {
@@ -122,10 +123,10 @@ export default {
       let text = this.formattedDate(this.video.createdAt, opts);
       return text;
     },
-    descriptionAsHtml() {
-      const description = this.video && this.video.description ? this.video.description : ""
-      return description ? 
-        parseAsHtml(description, {
+    contentAsHtml() {
+      const content = this.video && this.video.content ? this.video.content : ""
+      return content ? 
+        parseAsHtml(content, {
           paraClassName: "margin-top-small", 
           imgClassName:"rtimg", 
           extLinkClassName:"ext",
