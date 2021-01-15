@@ -89,5 +89,14 @@ export default function (Vue, { router, head, isClient }) {
       content: icon_metas[meta],
     })
   }
+  
+  /***********************************
+   * misc meta settings
+   ***********************************/
+
+  head.htmlAttrs = {
+    lang: "en", 
+    prefix:"og: http://ogp.me/ns#"
+  }
 
 }

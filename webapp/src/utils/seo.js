@@ -1,9 +1,9 @@
-export function getSeoMetaTags(title, description, image) {
-  return [
+export function getSeoMetaTags(title, description, image, url, siteName) {
+  let metas = [
     {
-      key: 'twitter:card',
-      name: 'twitter:card',
-      content: 'summary_large_image',
+      key: 'description',
+      name: 'description',
+      content: description,
     },
     {
       key: 'og:title',
@@ -25,7 +25,26 @@ export function getSeoMetaTags(title, description, image) {
       name: 'twitter:description',
       content: description,
     },
-    {
+  ]
+
+  if (url) {
+    metas.push({
+      key: 'og:url',
+      property: 'og:url',
+      content: url,
+    })
+  }
+
+  if (siteName) {
+    metas.push({
+      key: 'og:site_name',
+      property: 'og:site_name',
+      content: siteName,
+    })
+  }
+
+  if (image) {
+    metas.push({
       key: 'og:image',
       property: 'og:image',
       content: image,
@@ -35,5 +54,18 @@ export function getSeoMetaTags(title, description, image) {
       name: 'twitter:image',
       content: image,
     },
-  ]
+    {
+      key: 'twitter:card',
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    })
+  } else {
+    metas.push({
+      key: 'twitter:card',
+      name: 'twitter:card',
+      content: 'summary',
+    })
+  }
+
+  return metas
 }
