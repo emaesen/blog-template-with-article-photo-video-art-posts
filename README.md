@@ -1,8 +1,12 @@
 # Template for a personal blog/photo/article website
 
-A Gridsome Vue.js Strapi starter project for a personal blog/gallery website.
+A mobile-friendly, hackable, minimalistic yet full-featured blog-style single-page-application website template for Gridsome/Vue.js that uses Strapi CMS for content and GraphQL as data layer. You may use any database that's supported by Strapi (default SQLite)
 
-It features a Strapi-cms powered dynamic Vue.js website, pre-build with Gridsome.
+No cloud dependencies - the whole site and CMS can be installed and run locally on your PC/laptop.
+
+In development mode, the website uses hot-reload to automatically refresh sections of the page that have been changed.
+
+In production mode, each dynamic page is pre-generated to its own static HTML file for optimal access performance and for search engine optimization.
 
 This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio) as its original foundation, expanded upon that, and has a much more complete feature set available out-of-the-box.
 
