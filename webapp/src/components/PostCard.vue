@@ -130,7 +130,7 @@ export default {
 
 <style lang="less" scoped>
 .post-card {
-  flex: 0 0 49%;
+  flex: 0 0 32%;
   max-width: 50%;
   position: relative;
   width: 100%;
@@ -199,6 +199,10 @@ html[data-color-mode=dark] .post-card:hover {
   opacity: 0.9;
   margin-left: 1em;
 }
+.post-thread,
+.post-categories {
+  text-align: right;
+}
 .post-series {
   font-size: 0.9em;
   font-weight: 400;
@@ -213,18 +217,31 @@ html[data-color-mode=dark] .post-card:hover {
 .post-date {
   font-size: 0.8em;
   font-style: italic;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 1000px) {
   .post-card,
   .post-card.as-note {
-    flex: 0 0 97%;
+    flex: 0 0 24%;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .post-card,
+  .post-card.as-note {
+    flex: 0 0 49%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .post-card,
+  .post-card.as-note {
+    flex: 0 0 100%;
     max-width: 100%;
   }
   .post-card.as-note {
     width: 90%;
   }
 }
-
 </style>
