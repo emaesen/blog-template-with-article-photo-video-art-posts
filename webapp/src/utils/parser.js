@@ -74,6 +74,8 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     /* block quote */
     .replace(/^\> (.*)/gim, '<blockquote>$1</blockquote>')
     .replace(/<\/blockquote>\n<blockquote>/g,"<br>")
+    /* quote citation */
+    .replace(/\n    ~ (.+)/g, '<cite class="quote-cite">$1</cite>')
     /* strong emphasis aka bold */
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     /* emphasis aka italics */
