@@ -349,7 +349,7 @@ i {
 .cards-container {
   display: flex;
   flex-wrap: wrap;
-  place-content: space-between;
+  justify-content: space-evenly;
 }
 
 .img-postcat {
@@ -442,10 +442,6 @@ i {
 }
 
 @media screen and (max-width: 600px) {
-  .cards-container {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
   .margin-note {
     width: 30%;
   }
