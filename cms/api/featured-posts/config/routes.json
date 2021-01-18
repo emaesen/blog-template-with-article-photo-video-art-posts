@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/featured-posts",
+      "handler": "featured-posts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/featured-posts",
+      "handler": "featured-posts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/featured-posts",
+      "handler": "featured-posts.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "featured_posts",
+  "info": {
+    "name": "FeaturedPosts"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "arts": {
+      "collection": "art"
+    },
+    "articles": {
+      "collection": "article"
+    },
+    "notes": {
+      "collection": "note"
+    },
+    "photos": {
+      "collection": "photo"
+    },
+    "videos": {
+      "collection": "video"
+    }
+  }
+}
