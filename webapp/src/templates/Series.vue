@@ -121,6 +121,7 @@ query Collection {
 import PostCard from '~/components/PostCard'
 import NoPostsFound from '~/components/NoPostsFound'
 import taxonomy from '@/mixins/taxonomy.js'
+import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
   name: 'Series',
@@ -141,7 +142,8 @@ export default {
     this.seriesTitle = this.$route.params.series
   },
   metaInfo() {
-    return {}
+    this.series.description = this.series.description || this.headerText + this.series.title
+    return getMetaTags(this.series, this.$route) 
   },
   computed: {
     cms() {
@@ -165,7 +167,7 @@ export default {
       // as a tokenized string.
       let postsType = this.postsType
       if (postsType === "arts") postsType = "art works"
-      return "All " + postsType + " in series "
+      return this.toTitleCase(postsType) + " in series "
     },
     posts() {
       return [].concat(this.photos, this.videos, this.arts).sort((a,b) => this.sortByDate(a,b))

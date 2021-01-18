@@ -50,6 +50,7 @@ query Thread {
 import PostCard from '~/components/PostCard'
 import NoPostsFound from '~/components/NoPostsFound'
 import taxonomy from '@/mixins/taxonomy.js'
+import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
   name: 'Thread',
@@ -71,7 +72,8 @@ export default {
     this.threadTitle = this.$route.params.thread
   },
   metaInfo() {
-    return {}
+    this.thread.description = this.thread.description || this.headerText + this.thread.title
+    return getMetaTags(this.thread, this.$route) 
   },
   computed: {
     threads() {
@@ -90,7 +92,7 @@ export default {
       // Note: if this website template is to be used for multi-language
       // versions, any currently hardcoded text must be moved to the CMS
       // as a tokenized string.
-      return "All " + this.postsType + " in thread "
+      return this.toTitleCase(this.postsType) + " in thread "
     },
     posts() {
       return this.notes.sort((a,b) => this.sortByDate(a,b)).map(p=>{p.createdAt = null; return p})

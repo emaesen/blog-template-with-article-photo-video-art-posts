@@ -127,6 +127,7 @@ query Category {
 import PostCard from '~/components/PostCard'
 import NoPostsFound from '~/components/NoPostsFound'
 import taxonomy from '@/mixins/taxonomy.js'
+import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
   name: 'Category',
@@ -147,7 +148,8 @@ export default {
     this.categoryTitle = this.$route.params.category
   },
   metaInfo() {
-    return {}
+    this.category.description = this.category.description || this.headerText + this.category.title
+    return getMetaTags(this.category, this.$route) 
   },
   computed: {
     categories() {
@@ -165,7 +167,7 @@ export default {
       // as a tokenized string.
       let postsType = this.postsType
       if (postsType === "arts") postsType = "art works"
-      return "All " + postsType + " in category "
+      return this.toTitleCase(postsType) + " in category "
     },
     posts() {
       return [].concat(this.articles, this.photos, this.arts, this.videos).sort((a,b) => this.sortByDate(a,b))
