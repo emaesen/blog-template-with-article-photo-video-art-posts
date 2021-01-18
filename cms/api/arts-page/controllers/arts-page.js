@@ -12,7 +12,7 @@ const { sanitizeEntity } = require('strapi-utils');
 module.exports = {
 
   async find(ctx) {
-    console.log("find ArtsPage")
+    console.log("find Arts Page")
     const entity = await strapi.services['arts-page'].find();
     return sanitizeEntity(entity, { model: strapi.models['arts-page'] });
   },
