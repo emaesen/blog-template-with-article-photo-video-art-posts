@@ -131,7 +131,7 @@ export default {
 <style lang="less" scoped>
 .post-card {
   flex: 0 0 32%;
-  max-width: 50%;
+  max-width: 31vw;
   position: relative;
   width: 100%;
   margin-bottom: 2em;
@@ -224,6 +224,7 @@ html[data-color-mode=dark] .post-card:hover {
   .post-card,
   .post-card.as-note {
     flex: 0 0 24%;
+    max-width: 23vw;
   }
 }
 
@@ -231,6 +232,7 @@ html[data-color-mode=dark] .post-card:hover {
   .post-card,
   .post-card.as-note {
     flex: 0 0 49%;
+    max-width: 47vw;
   }
 }
 
@@ -238,7 +240,7 @@ html[data-color-mode=dark] .post-card:hover {
   .post-card,
   .post-card.as-note {
     flex: 0 0 100%;
-    max-width: 100%;
+    max-width: 100vw;
   }
   .post-card.as-note {
     width: 90%;
