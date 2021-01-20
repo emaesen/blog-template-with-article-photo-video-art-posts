@@ -32,6 +32,10 @@
     "arts": {
       "via": "categories",
       "collection": "art"
+    },
+    "notes": {
+      "via": "categories",
+      "collection": "note"
     }
   }
 }

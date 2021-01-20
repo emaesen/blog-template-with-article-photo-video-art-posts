@@ -49,8 +49,8 @@
       "type": "date"
     },
     "notes": {
-      "collection": "note",
-      "via": "photos"
+      "via": "photos",
+      "collection": "note"
     },
     "content": {
       "type": "richtext"
