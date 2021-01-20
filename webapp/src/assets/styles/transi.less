@@ -36,6 +36,20 @@
   transition: all 1.8s;
 }
 
+.flexlist-container {
+  position: relative;
+}
+.flexlist-item {
+  transition: all 2s;
+}
+.flexlist-enter,
+.flexlist-leave-to {
+  opacity: 0;
+  transform: scaleX(0.1);
+}
+.flexlist-leave-active {
+  position: absolute;
+}
 
 .slidable {
   transition: transform 2.7s ease-in-out;
