@@ -6,7 +6,7 @@
       </h2>
       <a 
         v-if="showViewAllLink"
-        class="append" href="/p/videos/"
+        class="cards-action nodeco" href="/p/videos/"
       >view all {{ totalNrOfVideos }} videos</a>
     </div>
     <div class="cards-container">

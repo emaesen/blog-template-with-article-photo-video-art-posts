@@ -347,12 +347,21 @@ i {
 }
 
 .cards-header-container {
+  margin-top: 6em;
   margin-bottom: 1.5em;
   box-shadow: 0 2px 7px -5px var(--color_border_accent-2);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
+.cards-header-container > h2 {
+  flex: 0 0 50%;
+}
+.cards-header-container > .cards-action,
 .cards-header {
   display: inline-block;
-  margin-bottom: 0;
+  margin: 0;
 }
 .cards-container {
   display: flex;
