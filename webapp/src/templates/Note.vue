@@ -63,14 +63,14 @@ export default {
      * thus we need to query the URL
      * and find the right Note by filtering the full Notes array
      */
-    this.slug = this.$route.params.slug
+    this.slug = this.$route.params.slug || ""
   },
   metaInfo() {
     return getMetaTags(this.note, this.$route) 
   },
   computed: {
     note() {
-      return this.$page.cms.notes.filter(note => note.slug === this.slug)[0]
+      return this.$page.cms.notes.filter(note => note.slug === this.slug)[0] || {}
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
