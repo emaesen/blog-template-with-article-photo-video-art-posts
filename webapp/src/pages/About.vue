@@ -23,7 +23,7 @@ export default {
     PrivacyPolicy,
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.about.seo) 
+    return getMetaTags(this.$page.cms.about.seo, this.$route) 
   },
 }
 </script>

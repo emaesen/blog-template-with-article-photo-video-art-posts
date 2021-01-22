@@ -82,7 +82,7 @@ export default {
     }
   },
   metaInfo() {
-    return getMetaTags(this.page.seo) 
+    return getMetaTags(this.page.seo, this.$route)
   },
   computed: {
     page() {
