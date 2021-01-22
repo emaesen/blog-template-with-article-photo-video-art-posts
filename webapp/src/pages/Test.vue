@@ -129,11 +129,14 @@ export default {
   },
   computed: {
     supportsDarkMode() {
-      if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
-        return "Dark Mode is supported"
-      } else {
-        return "Dark Mode is NOT supported"
-      } 
+      if (typeof window !== 'undefined') {
+        const mm = window.matchMedia('(prefers-color-scheme)')
+        if (mm && mm.media !== 'not all') {
+          return "Dark Mode is supported"
+        } else {
+          return "Dark Mode is NOT supported"
+        } 
+      }
     }
   }
 }

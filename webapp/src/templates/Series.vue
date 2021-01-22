@@ -139,11 +139,13 @@ export default {
      * thus we need to query the URL
      * and find the right Series by filtering the full Categories array
      */
-    this.seriesTitle = this.$route.params.series
+    this.seriesTitle = this.$route.params.series || ""
   },
   metaInfo() {
-    this.series.description = this.series.description || this.headerText + this.series.title
-    return getMetaTags(this.series, this.$route) 
+    if (this.series) {
+      this.series.description = this.series.description || this.headerText + this.series.title
+      return getMetaTags(this.series, this.$route) 
+    }
   },
   computed: {
     cms() {

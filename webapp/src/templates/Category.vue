@@ -145,11 +145,13 @@ export default {
      * thus we need to query the URL
      * and find the right Category by filtering the full Categories array
      */
-    this.categoryTitle = this.$route.params.category
+    this.categoryTitle = this.$route.params.category || ""
   },
   metaInfo() {
-    this.category.description = this.category.description || this.headerText + this.category.title
-    return getMetaTags(this.category, this.$route) 
+    if (this.category) {
+      this.category.description = this.category.description || this.headerText + this.category.title
+      return getMetaTags(this.category, this.$route) 
+    }
   },
   computed: {
     categories() {

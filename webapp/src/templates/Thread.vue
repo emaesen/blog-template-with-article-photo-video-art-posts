@@ -69,11 +69,13 @@ export default {
      * thus we need to query the URL
      * and find the right Thread by filtering the full threads array
      */
-    this.threadTitle = this.$route.params.thread
+    this.threadTitle = this.$route.params.thread || ""
   },
   metaInfo() {
-    this.thread.description = this.thread.description || this.headerText + this.thread.title
-    return getMetaTags(this.thread, this.$route) 
+    if (this.thread) {
+      this.thread.description = this.thread.description || this.headerText + this.thread.title
+      return getMetaTags(this.thread, this.$route) 
+    }
   },
   computed: {
     threads() {

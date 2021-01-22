@@ -1,6 +1,6 @@
 /* very basic persistence logic */
 
-const store = window && window.localStorage;
+const store = (typeof window !== 'undefined') && window.localStorage;
 const colorModeIndex_Key = "epvm:color-mode-index";
 
 
