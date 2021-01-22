@@ -14,9 +14,17 @@
           />
         </div>
 
-        <h2 class="cards-header p-name">
-          {{ headerText }}
-        </h2>
+        <transition
+          name="fade"
+          mode="out-in"
+        >
+          <h2
+            :key="selectionIndex"
+            class="cards-header p-name"
+          >
+            {{ headerText }}
+          </h2>
+        </transition>
       </div>
 
       <a 
@@ -28,7 +36,11 @@
 
     </div>
 
-    <transition-group name="flexlist" tag="div" class="cards-container flexlist-container">
+    <transition-group
+      name="flexlist"
+      tag="div"
+      class="cards-container flexlist-container"
+    >
       <PostCard
         v-for="photo in selectedPhotos"
         :key="photo.id"
