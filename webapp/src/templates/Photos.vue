@@ -5,7 +5,7 @@
     <g-image
       v-if="introImage"
       class="img-postcat"
-      alt="photos posts"
+      alt="photo posts"
       :src="introImage"
     />
 
