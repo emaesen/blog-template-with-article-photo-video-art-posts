@@ -64,6 +64,11 @@
 import PostCard from '~/components/PostCard'
 import RichText from '~/components/RichText'
 import IconSwitchLF from '~/components/IconSwitchLF'
+import {
+  persistSelectionIndex,
+  retrieveSelectionIndex,
+  clearSelectionIndex
+} from "~/utils/persistence.js";
 
 export default {
   name: 'SelectedPosts',
@@ -89,8 +94,13 @@ export default {
     }
   },
   created() {
-    // show featured posts by default unless they are not available
-    this.selectionIndex = (this.featuredPosts.length === 0)? 0 : 1
+    // show featured posts by default unless 
+    // - they are not available
+    // - they are the same as the latest posts
+    this.selectionIndex = (this.featuredPosts.length === 0 || !this.hasDistinctFeaturedPosts)? 0 : 1
+  },
+  mounted() {
+    this.init()
   },
   computed: {
     selectedType() {
@@ -108,7 +118,7 @@ export default {
     viewAllText() {
       return "view all " + this.totalNrOfPosts + " " + this.postsDisplayName
     },
-    viewSelectedText() {
+    viewAlternateSelectedText() {
       let si = this.selectionIndex + 1
       if (si >= this.selectionTypes.length) si = 0
       const nextInCycle = this.selectionTypes[si]
@@ -120,11 +130,14 @@ export default {
     hasPosts() {
       return this.totalNrOfPosts > 0
     },
+    hasDistinctFeaturedPosts() {
+      return this.featuredPosts.length > 0 && !this.shareSamePosts(this.featuredPosts, this.latestPosts)
+    },
     showSelectionToggle() {
       // only show the latest/featured selection toggle if there are 
       // featured posts, and the featured posts differ from the latest
       // posts
-      return this.featuredPosts.length > 0 && !this.shareSamePosts(this.featuredPosts, this.latestPosts)
+      return this.hasDistinctFeaturedPosts
     },
     showViewAllLink() {
       // only show the "view all posts" link if the are more posts than
@@ -133,10 +146,20 @@ export default {
     }
   },
   methods: {
+    init() {
+      if (this.hasPosts) {
+        this.setSelectionIndex(retrieveSelectionIndex(this.postType, this.selectionIndex))
+      }
+    },
+    setSelectionIndex(ind) {
+      this.selectionIndex = ind
+      if (this.selectedPosts.length === 0) this.cycleSelectionType()
+    },
     cycleSelectionType() {
       let si = this.selectionIndex + 1
       if (si >= this.selectionTypes.length) si = 0
       this.selectionIndex = si
+      persistSelectionIndex(this.postType, this.selectionIndex)
     },
     toTitleCase(str) {
       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
