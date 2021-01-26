@@ -16,20 +16,20 @@
       class="para intro"
     />
 
-    <!-- Section with latest articles -->
-    <LatestArticles/>
+    <!-- Section with latest/featured articles -->
+    <SelectedArticles/>
 
-    <!-- Section with latest photos -->
-    <LatestPhotos/>
+    <!-- Section with latest/featured photos -->
+    <SelectedPhotos/>
 
-    <!-- Section with latest videos -->
-    <LatestVideos/>
+    <!-- Section with latest/featured videos -->
+    <SelectedVideos/>
 
-    <!-- Section with latest art -->
-    <LatestArts/>
+    <!-- Section with latest/featured art -->
+    <SelectedArts/>
 
-    <!-- Section with latest notes -->
-    <LatestNotes/>
+    <!-- Section with latest/featured notes -->
+    <SelectedNotes/>
 
   </div>
 </template>
@@ -57,11 +57,11 @@ query PostsPage {
 
 <script>
 import RichText from '~/components/RichText'
-import LatestArticles from '~/components/LatestArticles'
-import LatestPhotos from '~/components/LatestPhotos'
-import LatestVideos from '~/components/LatestVideos'
-import LatestArts from '~/components/LatestArts'
-import LatestNotes from '~/components/LatestNotes'
+import SelectedArticles from '~/components/SelectedArticles'
+import SelectedPhotos from '~/components/SelectedPhotos'
+import SelectedVideos from '~/components/SelectedVideos'
+import SelectedArts from '~/components/SelectedArts'
+import SelectedNotes from '~/components/SelectedNotes'
 
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -71,11 +71,11 @@ export default {
   name: 'Posts',
   components: {
     RichText,
-    LatestArticles,
-    LatestPhotos,
-    LatestVideos,
-    LatestArts,
-    LatestNotes,
+    SelectedArticles,
+    SelectedPhotos,
+    SelectedVideos,
+    SelectedArts,
+    SelectedNotes,
   },
   data() {
     return {
