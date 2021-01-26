@@ -63,6 +63,7 @@ import date from '@/mixins/date.js'
 import { parseAsHtml } from '~/utils/parser'
 
 export default {
+  name: 'PostCard',
   props: {
     post: Object,
     postType: String,
