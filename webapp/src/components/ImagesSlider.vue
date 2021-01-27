@@ -9,6 +9,7 @@
 import Carousel from '~/components/Carousel'
 
 export default {
+  name: 'ImagesSlider',
   props: ["data"],
   components: {
     Carousel,

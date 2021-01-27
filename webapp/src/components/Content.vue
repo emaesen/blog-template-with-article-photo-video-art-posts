@@ -33,6 +33,7 @@ import LargeMedia from '~/components/LargeMedia'
 import ImagesSlider from '~/components/ImagesSlider'
 
 export default {
+  name: 'Content',
   props: ["content"],
   components: {
     RichText,

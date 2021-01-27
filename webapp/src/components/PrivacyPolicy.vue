@@ -9,6 +9,7 @@
 import RichText from '~/components/RichText'
 
 export default {
+  name: 'PrivacyPolicy',
   components: {
     RichText,
   },

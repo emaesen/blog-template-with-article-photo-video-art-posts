@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  name: 'Pagination',
   props: {
     basePath: String,
     currentPage: Number,

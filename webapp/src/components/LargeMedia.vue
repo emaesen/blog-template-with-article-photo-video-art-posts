@@ -19,6 +19,7 @@
 import { getCmsMedia } from '~/utils/medias'
 
 export default {
+  name: 'LargeMedia',
   props: ['data'],
   methods: {
     getCmsMedia,

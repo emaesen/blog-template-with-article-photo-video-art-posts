@@ -11,6 +11,7 @@ import { parseAsHtml } from '~/utils/parser'
 
 
 export default {
+  name: 'RichText',
   props: ["data"],
   components: {
   },

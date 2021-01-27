@@ -57,6 +57,7 @@ import mouseHandlers from '@/mixins/mouse-handlers'
 import { getCmsMedia } from '~/utils/medias'
 
 export default {
+  name: 'Carousel',
   props: ['slides'],
   mixins: [mouseHandlers],
   data: () => ({
