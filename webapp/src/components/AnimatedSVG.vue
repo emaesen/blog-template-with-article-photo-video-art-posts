@@ -9,7 +9,7 @@ import caniuse from '@/mixins/caniuse'
 import { EventBus } from '~/utils/event-bus'
 
 export default {
-  name: 'animated-svg',
+  name: 'AnimatedSVG',
   mixins: [caniuse],
   props: {
     svgId: {

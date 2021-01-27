@@ -17,7 +17,7 @@ import caniuse from '@/mixins/caniuse'
 import { EventBus } from '~/utils/event-bus'
 
 export default {
-  name: 'reveal',
+  name: 'Reveal',
   mixins: [caniuse],
   data() {
     return {
