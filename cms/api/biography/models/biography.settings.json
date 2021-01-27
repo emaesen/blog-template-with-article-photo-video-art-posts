@@ -21,6 +21,9 @@
       "type": "component",
       "repeatable": true,
       "component": "sections.biography-item"
+    },
+    "introduction": {
+      "type": "text"
     }
   }
 }
