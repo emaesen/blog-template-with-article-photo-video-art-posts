@@ -13,7 +13,6 @@
 <script>
 import Content from '~/components/Content'
 import PrivacyPolicy from '~/components/PrivacyPolicy'
-import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 
