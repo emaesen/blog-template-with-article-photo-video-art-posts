@@ -121,6 +121,7 @@ import { getMetaTags } from '~/utils/meta-tags'
 
 
 export default {
+  name: 'Test',
   components: {
     RichText,
   },

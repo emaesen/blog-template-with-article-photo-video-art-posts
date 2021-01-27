@@ -13,6 +13,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: '404',
+}
+</script>
+
 <style lang="less" scoped>
 .pnf {
   margin: 10vh 0 60vh 0;
