@@ -52,6 +52,10 @@
       </li>
 
       <li class="nav item" role="menuitem">
+        <g-link to="/biography/">Biography</g-link>
+      </li>
+
+      <li class="nav item" role="menuitem">
         <g-link to="/about/">About</g-link>
       </li>
 
