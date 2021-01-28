@@ -1,11 +1,22 @@
 <template>
   <div class="main-biography">
 
-    <h1>{{$page.cms.biography.title}}</h1>
+    <h1>{{bio.title}}</h1>
 
-    
+    <div
+      v-if="bio.introduction"
+      class="biography-introduction p-summary"
+    >
+       {{ bio.introduction }}
+    </div>
 
-    
+    <div class="biography-cards-container">
+      <BiographyCard
+        v-for="bioItem in bioItems"
+        :key="bioItem.id"
+        :bioItem="bioItem"
+      />
+    </div>
   </div>
 </template>
 
@@ -20,8 +31,16 @@ export default {
     BiographyCard,
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.biography.seo, this.$route) 
+    return getMetaTags(this.bio.seo, this.$route) 
   },
+  computed: {
+    bio() {
+      return this.$page.cms.biography
+    },
+    bioItems() {
+      return this.bio.biographyItem
+    }
+  }
 }
 </script>
 
@@ -30,23 +49,16 @@ query BiographyPage {
   cms {
     biography {
       title
+      introduction
       biographyItem {
         id
-        activity
-        organization {
-          name
-          role
-          website {
-            url
-            title
-          }
+        when
+        where
+        what
+        image {
+          id
+          url
         }
-        location
-        description
-        startYear
-        startMonth
-        endYear
-        endMonth
       }
       seo {
         title
