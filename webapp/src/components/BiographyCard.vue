@@ -1,16 +1,22 @@
 <template>
-  <div class="biography-card h-entry">
-    <h3
-      v-if="biography.title"
-      class="biography-title p-name"
-    >
-      {{ biography.title }}
-    </h3>
+  <div class="biography-card h-event">
     <div
-      v-if="biography.description"
-      class="biography-description p-summary"
+      v-if="bioItem.when"
+      class="biography-when dt-start"
     >
-      <RichText :data="biography.description"/>
+      {{ bioItem.when }}
+    </div>
+    <div
+      v-if="bioItem.where"
+      class="biography-where p-location"
+    >
+      {{ bioItem.where }}
+    </div>
+    <div
+      v-if="bioItem.what"
+      class="biography-what p-summary"
+    >
+      {{ bioItem.what }}
     </div>
   </div>
 </template>
@@ -23,9 +29,7 @@ import date from '@/mixins/date.js'
 export default {
   name: 'BiographyCard',
   props: {
-    biography: Object,
-    biographyType: String,
-    biographysType: String,
+    bioItem: Object,
   },
   mixins: [date],
   components: {
@@ -36,7 +40,7 @@ export default {
   },
   computed: {
     dateText() {
-      let date = this.biography.createdAt
+      let date = this.bioItem.createdAt
       if (date) {
         let opts = {shortForm:true, showYear:true};
         let text = this.formattedDate(date, opts);
@@ -61,7 +65,7 @@ export default {
   opacity: .9;
 }
 
-.biography-title {
+.biography-activity {
   margin: 0;
 }
 
