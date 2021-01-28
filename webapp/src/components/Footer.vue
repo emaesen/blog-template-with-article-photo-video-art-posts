@@ -118,7 +118,7 @@ export default {
     },
     madeby() {
       return this.$refs.madeby
-    }
+    },
   },
   methods: {
     isInStandaloneMode() {
