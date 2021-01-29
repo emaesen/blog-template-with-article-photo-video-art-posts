@@ -1,5 +1,5 @@
 <template>
-  <div class="biography-card h-event">
+  <li class="biography-item h-event">
     <div
       v-if="bioItem.when"
       class="biography-when dt-start"
@@ -18,7 +18,7 @@
     >
       {{ bioItem.what }}
     </div>
-  </div>
+  </li>
 </template>
 
 <script>
@@ -52,27 +52,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.biography-card {
-  position: relative;
-  width: 100%;
-  margin-bottom: 2em;
+.biography-item {
   line-height: normal;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: var(--color_bg);
-  transition: all .3s ease-in-out;
-  filter: brightness(0.98);
-  opacity: .9;
 }
 
-.biography-activity {
-  margin: 0;
+.biography-where {
+  font-size: 0.9em;
+  font-style: italic;
+  opacity: 0.9;
 }
 
-.biography-date {
+.biography-when {
   font-size: 0.8em;
   font-style: italic;
-  opacity: 0.5;
+  opacity: 0.8;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 1000px) {
