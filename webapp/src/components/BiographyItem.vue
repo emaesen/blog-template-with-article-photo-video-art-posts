@@ -18,6 +18,15 @@
     >
       {{ bioItem.what }}
     </div>
+    <div
+      v-if="image"
+      class="biography-image"
+    >
+      <g-image
+        :alt="image.alternativeText"
+        :src="getCmsMedia(image.url)"
+      />
+    </div>
   </li>
 </template>
 
@@ -39,14 +48,9 @@ export default {
     getCmsMedia,
   },
   computed: {
-    dateText() {
-      let date = this.bioItem.createdAt
-      if (date) {
-        let opts = {shortForm:true, showYear:true};
-        let text = this.formattedDate(date, opts);
-        return text;
-      }
-    },
+    image() {
+      return this.bioItem.image
+    }
   }
 }
 </script>
