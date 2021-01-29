@@ -79,6 +79,9 @@ query BiographyPage {
 </page-query>
 
 <style lang="less">
+.biography-introduction {
+  margin-bottom: 3em;
+}
 .timeline {
   position: relative;
 }
@@ -87,9 +90,10 @@ query BiographyPage {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50vw;
+  left: calc(20vw - 1px);
   width: 1px;
   background-color: var(--color_border_accent-1);
+  opacity: .3;
 }
 .timeline ul {
   margin: 0;
@@ -99,9 +103,9 @@ query BiographyPage {
 .timeline li {
 	position:relative;
 	margin: 1em 0;
-	width:45vw;
+	width:75vw;
   list-style-type:none;
-  padding: .5em;
+  padding: .5em 1em;
   &:before, &:after {
     position: absolute;
     display: inline-block;
@@ -110,30 +114,18 @@ query BiographyPage {
     border-radius: .5em;
     width: .5em;
     height: .5em;
+    opacity: .6;
   }
 }
-.timeline li:nth-child(odd) {
-  left: 5vw;
-  text-align: right;
-  &:after {
-    border: 1px solid var(--color_border_accent-1);
-    background-color: var(--color_bg);
-    right: -.25em;
-  }
-  .biography-when {
-    left: 47vw;
-    text-align: left;
-  }
-}
-.timeline li:nth-child(even) {
-  left:50vw;
+.timeline li {
+  left:20vw;
   &:before {
     border: 1px solid var(--color_border_accent-1);
     background-color: var(--color_bg);
     left: -.25em;
   }
   .biography-when {
-    right: 47vw;
+    right: calc(75vw + 1em);
     text-align: right;
   }
 }
@@ -141,5 +133,36 @@ query BiographyPage {
 .biography-when {
   position: absolute;
   top: .7em;
+}
+
+@media all and (min-width: 700px) {
+  .timeline-bar {
+    left: 50vw;
+  }
+  .timeline li {
+    left:50vw;
+    width:45vw;
+    .biography-when {
+      right: calc(45vw + 1em);
+      text-align: right;
+    }
+  }
+  .timeline li:nth-child(odd) {
+    left: 5vw;
+    text-align: right;
+    &:before {
+      display: none;
+    }
+    &:after {
+      border: 1px solid var(--color_border_accent-1);
+      background-color: var(--color_bg);
+      right: -.25em;
+    }
+    .biography-when {
+      left: calc(45vw + 1em);
+      text-align: left;
+    }
+  }
+
 }
 </style>
