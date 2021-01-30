@@ -73,6 +73,10 @@ export default {
   white-space: nowrap;
 }
 
+.biography-image {
+  margin-top: .5em;
+}
+
 @media screen and (min-width: 1000px) {
 
 }
