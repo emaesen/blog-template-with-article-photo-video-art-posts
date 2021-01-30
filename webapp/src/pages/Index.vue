@@ -15,6 +15,9 @@
         <div class="p-location location emph" :title="location">
           {{ location }}
         </div>
+        <div class="email" v-if="author.email">
+          <a :href="'mailto:' + author.email">{{ author.email }}</a>
+        </div>
       </div>
       <div class="p-role role">
         <span
@@ -29,9 +32,6 @@
 
     <Content :content="$page.cms.home.content" />
 
-    <div class="email" v-if="author.email">
-      <a :href="'mailto:' + author.email">{{ author.email }}</a>
-    </div>
 
   </div>
 </template>
@@ -194,7 +194,10 @@ export default {
   text-align: center;
 }
 .email {
+  margin-top: 1em;
+  font-size: 90%;
   text-align: center;
+  opacity: .7;
 }
 
 @media all and (max-width: 650px) {
