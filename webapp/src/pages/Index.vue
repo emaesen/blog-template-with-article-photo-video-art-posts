@@ -29,6 +29,10 @@
 
     <Content :content="$page.cms.home.content" />
 
+    <div class="email" v-if="author.email">
+      <a :href="'mailto:' + author.email">{{ author.email }}</a>
+    </div>
+
   </div>
 </template>
 
@@ -140,7 +144,7 @@ export default {
       return this.author.address
     },
     photoUrl() {
-      return getCmsMedia(this.author.photo.url)
+      return getCmsMedia(this.author.photo && this.author.photo.url)
     },
     organizations() {
       return this.global.organization
@@ -187,6 +191,9 @@ export default {
   font-size: 120%;
 }
 .category {
+  text-align: center;
+}
+.email {
   text-align: center;
 }
 
