@@ -29,7 +29,7 @@
         </div>
       </div>
     </g-link>
-    <div class="post-meta">
+    <aside class="post-meta">
       <div class="post-date dt-published">
         {{ dateText }}
       </div>
@@ -52,7 +52,7 @@
           ❈ {{ post.thread.title }}
         </g-link>
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
