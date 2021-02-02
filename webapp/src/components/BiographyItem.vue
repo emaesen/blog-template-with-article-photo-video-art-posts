@@ -77,15 +77,10 @@ export default {
   margin-top: .5em;
 }
 
-@media screen and (min-width: 1000px) {
-
-}
-
-@media screen and (max-width: 750px) {
-
-}
-
 @media screen and (max-width: 450px) {
-
+  .biography-when {
+    font-size: 0.7em;
+    line-height: 1.9em;
+  }
 }
 </style>
