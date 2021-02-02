@@ -42,20 +42,27 @@
 
     </div>
 
-    <transition-group
-      name="flexlist"
-      tag="div"
-      class="cards-container flexlist-container"
+    <div
+      :ref="postType+'-list-container'"
+      :id="postType+'-list-container'"
+      class="card-list-container"
     >
-      <PostCard
-        v-for="post in selectedPosts"
-        :key="post.id"
-        :post="post"
-        :postType="postType"
-        class="flexlist-item"
-      />
-    </transition-group>
-
+      <transition-group
+        name="flexlist"
+        tag="div"
+        :ref="postType+'-list'"
+        :id="postType+'-list'"
+        class="cards-container flexlist-container"
+      >
+        <PostCard
+          v-for="post in selectedPosts"
+          :key="post.id"
+          :post="post"
+          :postType="postType"
+          class="flexlist-item"
+        />
+      </transition-group>
+    </div>
   </section>
 </template>
 
@@ -156,6 +163,7 @@ export default {
       if (this.selectedPosts.length === 0) this.cycleSelectionType()
     },
     cycleSelectionType() {
+      this.animateListHeight()
       let si = this.selectionIndex + 1
       if (si >= this.selectionTypes.length) si = 0
       this.selectionIndex = si
@@ -188,11 +196,32 @@ export default {
     reverseSort() {
       this.showLatestOnTop = !this.showLatestOnTop
     },
+    animateListHeight() {
+      this.setListHeight()
+      this.$nextTick(this.setListHeight)
+      setTimeout(() => {
+        this.setListHeight()
+        setTimeout(() => {
+          this.setListHeight({off:true})
+        }, 2020)
+      }, 10)
+    },
+    setListHeight(ops) {
+      const elc = this.$refs[this.postType+'-list-container']
+      const el = this.$refs[this.postType+'-list'].$el
+      if (ops && ops.off) {
+        elc.style.height = null
+      } else {
+        elc.style.height = (el.clientHeight) + "px"
+      }
+    },
   },
 }
 </script>
 
 <style lang="less" scoped>
 @import "~/assets/styles/transi.less";
-
+.card-list-container {
+  transition: height .7s;
+}
 </style>
