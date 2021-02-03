@@ -1,25 +1,25 @@
 <template>
-  <div v-if="showNav">
-    <a 
-      :href="$url(firstPath)"
+  <div v-if="showNav" class="nav-group">
+    <g-link 
+      :to="firstPath"
       :class="['nav nodeco first', {inactive: noFirst}]"
       title="first"
-    >«</a>
-    <a
-      :href="$url(prevPath)"
+    >«</g-link>
+    <g-link
+      :to="prevPath"
       :class="['nav nodeco prev', {inactive: noFirst}]"
       title="previous"
-    >‹</a>
-    <a
-      :href="$url(nextPath)"
+    >‹</g-link>
+    <g-link
+      :to="nextPath"
       :class="['nav nodeco next', {inactive: noLast}]"
       title="next"
-    >›</a>
-    <a
-      :href="$url(lastPath)"
+    >›</g-link>
+    <g-link
+      :to="lastPath"
       :class="['nav nodeco last', {inactive: noLast}]"
       title="last"
-    >»</a>
+    >»</g-link>
   </div>
 </template>
 
@@ -42,18 +42,18 @@ export default {
       if (this.currentPage <= 1) {
         return this.firstPath
       } else {
-        return this.basePath + (this.currentPage - 1)
+        return this.basePath + (this.currentPage - 1) + "/"
       }
     },
     nextPath() {
       if (this.currentPage + 1 >= this.lastPage) {
         return this.lastPath
       } else {
-        return this.basePath + (this.currentPage + 1)
+        return this.basePath + (this.currentPage + 1) + "/"
       }
     },
     lastPath() {
-      return this.basePath + this.lastPage
+      return this.basePath + this.lastPage + "/"
     },
     noFirst() {
       return this.currentPage == 0
@@ -69,12 +69,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.nav-group {
+  display: flex;
+  justify-content: center;
+}
 a {
-  font-size: 2em;
-  line-height: 1em;
-  padding: .05em .6em;
+  font-size: 1.5em;
+  line-height: inherit;
+  padding: .05em .6em .1em;
   margin: 1em;
-  border: 2px solid #ccc;
+  background-color: var(--color_bg_accent-1);;
+  box-shadow: 1px 1px 7px -3px var(--color_border_accent-1);
+  border-radius: 7px;
 }
 a.inactive {
   cursor: default;
