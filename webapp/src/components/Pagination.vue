@@ -1,23 +1,23 @@
 <template>
-  <div v-if="showNav" class="nav-group">
+  <div v-if="showNav" class="pagination-group">
     <g-link 
       :to="firstPath"
-      :class="['nav nodeco first', {inactive: noFirst}]"
+      :class="['action button nodeco first', {inactive: noFirst}]"
       title="first"
     >«</g-link>
     <g-link
       :to="prevPath"
-      :class="['nav nodeco prev', {inactive: noFirst}]"
+      :class="['action button nodeco prev', {inactive: noFirst}]"
       title="previous"
     >‹</g-link>
     <g-link
       :to="nextPath"
-      :class="['nav nodeco next', {inactive: noLast}]"
+      :class="['action button nodeco next', {inactive: noLast}]"
       title="next"
     >›</g-link>
     <g-link
       :to="lastPath"
-      :class="['nav nodeco last', {inactive: noLast}]"
+      :class="['action button nodeco last', {inactive: noLast}]"
       title="last"
     >»</g-link>
   </div>
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.nav-group {
+.pagination-group {
   display: flex;
   justify-content: center;
 }
@@ -78,9 +78,9 @@ a {
   line-height: inherit;
   padding: .05em .6em .1em;
   margin: 1em;
-  background-color: var(--color_bg_accent-1);;
-  box-shadow: 1px 1px 7px -3px var(--color_border_accent-1);
-  border-radius: 7px;
+}
+a.active {
+  font-style: normal;
 }
 a.inactive {
   cursor: default;

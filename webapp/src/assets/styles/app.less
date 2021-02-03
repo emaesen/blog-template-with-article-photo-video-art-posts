@@ -136,8 +136,12 @@ a.button {
   outline: 0;
 }
 .action.button {
-  box-shadow: none;
-  background-color: var(--color_bg_accent-1);
+  border: none;
+  background-color: var(--color_bg_accent-1);;
+  box-shadow: 1px 1px 7px -3px var(--color_border_accent-1);
+  border-radius: 7px;
+  min-width: 2em;
+  text-align: center;
 }
 button:disabled {
   cursor: default;
@@ -477,6 +481,10 @@ i {
   * except if the link refers to the current page: `active--exact`
   * or has custom class `nodeco` (no decoration)
   */
+  .action.button {
+    transition: color .5s cubic-bezier(.43,.15,.63,.93), 
+                background-color 1s cubic-bezier(.43,.15,.63,.93);
+  }
   a:not(.active--exact):not(.nodeco) {
     transition: color .5s cubic-bezier(.43,.15,.63,.93), 
                 background-color 1s cubic-bezier(.43,.15,.63,.93);
@@ -487,6 +495,7 @@ i {
   a:not(.active--exact):not(.nodeco)::after {
     transition: background-color .4s cubic-bezier(.43,.15,.63,.93) .5s;
   }
+  .action.button:not(.active--exact):hover,
   a:not(.active--exact):not(.nodeco):hover {
     color: var(--color_text_action_hover);
     background-color: var(--color_text_highlight);
