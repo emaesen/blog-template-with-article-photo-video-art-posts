@@ -11,17 +11,9 @@
 
     <RichText :data="articlesPage.introduction" class="para intro group"/>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <PostCard
-          v-for="article in articles"
-          :key="article.id"
-          :post="article"
-          postType="article"
-        />
-      </div>
-    </div>
-    <Pagination 
+    <PaginatedPosts
+      postType="article"
+      :posts="articles"
       :basePath="basePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
@@ -31,8 +23,7 @@
 </template>
 
 <script>
-import Pagination from '~/components/Pagination'
-import PostCard from '~/components/PostCard'
+import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -42,8 +33,7 @@ export default {
   methods: {
   },
   components: {
-    Pagination,
-    PostCard,
+    PaginatedPosts,
     RichText,
   },
   data() {
@@ -74,7 +64,7 @@ export default {
     },
     totalPages() {
       return this.$context.totalPages
-    }
+    },
   }
 }
 </script>

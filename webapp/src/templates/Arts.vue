@@ -11,17 +11,9 @@
 
     <RichText :data="artsPage.introduction" class="para intro group"/>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <PostCard
-          v-for="art in arts"
-          :key="art.id"
-          :post="art"
-          postType="art"
-        />
-      </div>
-    </div>
-    <Pagination 
+    <PaginatedPosts
+      postType="art"
+      :posts="arts"
       :basePath="basePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
@@ -31,8 +23,7 @@
 </template>
 
 <script>
-import Pagination from '~/components/Pagination'
-import PostCard from '~/components/PostCard'
+import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -42,8 +33,7 @@ export default {
   methods: {
   },
   components: {
-    Pagination,
-    PostCard,
+    PaginatedPosts,
     RichText,
   },
   data() {
@@ -51,7 +41,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$context)
   },
   metaInfo() {
     return getMetaTags(this.artsPage.seo, this.$route) 
@@ -63,7 +52,6 @@ export default {
     arts() {
       // the maximum nr of arts to show is defined by `limit` in the 
       // graphql query
-      console.log({arts:this.$page.cms.arts})
       return this.$page.cms.arts
     },
     introImage() {

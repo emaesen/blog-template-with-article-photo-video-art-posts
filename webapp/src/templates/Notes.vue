@@ -11,18 +11,9 @@
 
     <RichText :data="notesPage.introduction" class="para intro group"/>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <PostCard
-          v-for="note in notes"
-          :key="note.id"
-          :post="note"
-          postType="note"
-          postsType="notes"
-        />
-      </div>
-    </div>
-    <Pagination 
+    <PaginatedPosts
+      postType="note"
+      :posts="notes"
       :basePath="basePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
@@ -32,8 +23,7 @@
 </template>
 
 <script>
-import Pagination from '~/components/Pagination'
-import PostCard from '~/components/PostCard'
+import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -43,8 +33,7 @@ export default {
   methods: {
   },
   components: {
-    Pagination,
-    PostCard,
+    PaginatedPosts,
     RichText,
   },
   data() {
@@ -52,7 +41,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$context)
   },
   metaInfo() {
     return getMetaTags(this.notesPage.seo, this.$route) 
@@ -64,7 +52,6 @@ export default {
     notes() {
       // the maximum nr of notes to show is defined by `limit` in the 
       // graphql query
-      console.log({notes:this.$page.cms.notes})
       return this.$page.cms.notes
     },
     introImage() {
