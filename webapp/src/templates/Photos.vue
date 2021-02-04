@@ -11,20 +11,33 @@
 
     <RichText :data="photosPage.introduction" class="para intro group"/>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <PostCard
-          v-for="photo in photos"
-          :key="photo.id"
-          :post="photo"
-          postType="photo"
-        />
+
+    <transition name="fade" mode="out-in" appear>
+      <div :key="'page' + currentPage">
+        <div id="top" class="page-counter">
+          {{ pageCounterText }}
+        </div>
+        <div :class="'h-feed page' + currentPage">
+          <div class="cards-container">
+            <PostCard
+              v-for="photo in photos"
+              :key="photo.id"
+              :post="photo"
+              postType="photo"
+            />
+          </div>
+        </div>
+        <div id="top" class="page-counter">
+          {{ pageCounterText }}
+        </div>
       </div>
-    </div>
+    </transition>
+
     <Pagination 
       :basePath="basePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
+      hash="#top"
     />
 
   </div>
@@ -78,6 +91,9 @@ export default {
     },
     totalPages() {
       return this.$context.totalPages
+    },
+    pageCounterText() {
+      return "Page " + (1 + this.currentPage) + " of " + this.totalPages
     }
   }
 }

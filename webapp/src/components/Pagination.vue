@@ -29,31 +29,32 @@ export default {
   props: {
     basePath: String,
     currentPage: Number,
-    totalPages: Number
+    totalPages: Number,
+    hash: String,
   },
   computed: {
     lastPage() {
       return this.totalPages - 1
     },
     firstPath() {
-      return this.basePath
+      return this.basePath + this.hash
     },
     prevPath() {
       if (this.currentPage <= 1) {
         return this.firstPath
       } else {
-        return this.basePath + (this.currentPage - 1) + "/"
+        return this.basePath + (this.currentPage - 1) + "/" + this.hash
       }
     },
     nextPath() {
       if (this.currentPage + 1 >= this.lastPage) {
         return this.lastPath
       } else {
-        return this.basePath + (this.currentPage + 1) + "/"
+        return this.basePath + (this.currentPage + 1) + "/" + this.hash
       }
     },
     lastPath() {
-      return this.basePath + this.lastPage + "/"
+      return this.basePath + this.lastPage + "/" + this.hash
     },
     noFirst() {
       return this.currentPage == 0
