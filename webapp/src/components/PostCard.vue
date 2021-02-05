@@ -13,11 +13,6 @@
             v-if="postType==='video'"
             :video="post"
           />
-          <g-link :to="seriesBasePath + postSeries" class="nodeco">
-            <span :class="{'post-series':postSeries}">
-              {{ postSeries }}
-            </span>
-          </g-link>
         </div>
         <h3 v-if="post.title" :class="['post-title p-name', {nodesc:!post.description}]">
           {{ post.title }}
@@ -30,27 +25,44 @@
       </div>
     </g-link>
     <aside class="post-meta">
-      <div class="post-date dt-published">
+      <div class="post-date dt-published meta-col">
         {{ dateText }}
       </div>
-      <div v-if="post.categories" class="post-categories">
-        <span
-          v-for="category in post.categories"
-          :key="category.id"
-          class="post-category p-category"
-        >
-          <g-link :to="categoryBasePath + category.title" class="nodeco">
-            #{{ category.title }}
+      <div class="meta-col">
+        <div v-if="postSeries" class="post-categories">
+          <g-link 
+            :to="seriesBasePath + postSeries"
+            class="nodeco"
+            :title="'click to view ' + postSeries + ' series'"
+          >
+            <span class="post-series">
+              ❈ {{ postSeries }}
+            </span>
           </g-link>
-        </span>
-      </div>
-      <div v-if="showPostType" class="post-type">
-        {{ post.type }}
-      </div>
-      <div v-if="post.thread" class="post-thread">
-        <g-link :to="threadBasePath + post.thread.title" class="nodeco">
-          ❈ {{ post.thread.title }}
-        </g-link>
+        </div>
+        <div v-if="post.categories" class="post-categories">
+          <span
+            v-for="category in post.categories"
+            :key="category.id"
+            class="post-category p-category"
+          >
+            <g-link
+              :to="categoryBasePath + category.title"
+              class="nodeco"
+              :title="'click to view ' + category.title + ' category'"
+            >
+              #{{ category.title }}
+            </g-link>
+          </span>
+        </div>
+        <div v-if="showPostType" class="post-type">
+          {{ post.type }}
+        </div>
+        <div v-if="post.thread" class="post-thread">
+          <g-link :to="threadBasePath + post.thread.title" class="nodeco">
+            ❈ {{ post.thread.title }}
+          </g-link>
+        </div>
       </div>
     </aside>
   </div>
@@ -199,25 +211,18 @@ html[data-color-mode=dark] .post-card:hover {
 }
 .post-type,
 .post-thread,
+.post-series,
 .post-category {
   font-size: 0.8em;
   opacity: 0.9;
   margin-left: 1em;
 }
 .post-thread,
+.post-series,
 .post-categories {
   text-align: right;
-}
-.post-series {
-  font-size: 0.9em;
-  font-weight: 400;
-  padding: .05em .3em;
-  color: #eee;
-  background-color: #0f5ca0b0;
-  border-radius: 3px;
-  position: absolute;
-  bottom: 10px;
-  right: 5px;
+  line-height: 1em;
+  margin-bottom: .3em;
 }
 .post-date {
   font-size: 0.8em;
@@ -225,6 +230,9 @@ html[data-color-mode=dark] .post-card:hover {
   opacity: 0.5;
 }
 
+.meta-col {
+  flex: 0 0 50%;
+}
 
 @media screen and (max-width: 450px) {
   .post-card.as-note {
