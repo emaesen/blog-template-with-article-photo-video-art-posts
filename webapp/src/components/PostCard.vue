@@ -1,5 +1,5 @@
 <template>
-  <div :class="['post-card h-entry', asClass]">
+  <div :class="['post-card h-entry', asClass, nrPostsInRowClass]">
     <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
       <div class="post-summary">
         <div class="post-media-container">
@@ -68,6 +68,7 @@ export default {
     post: Object,
     postType: String,
     postsType: String,
+    nrPostsInRow: Number,
   },
   mixins: [date],
   components: {
@@ -91,6 +92,9 @@ export default {
     },
     asClass() {
       return `as-${this.postType}`
+    },
+    nrPostsInRowClass() {
+      return `row-${this.nrPostsInRow}`
     },
     imageSrc() {
       const post = this.post
@@ -221,30 +225,38 @@ html[data-color-mode=dark] .post-card:hover {
   opacity: 0.5;
 }
 
-@media screen and (min-width: 1000px) {
-  .post-card,
-  .post-card.as-note {
-    flex: 0 0 24%;
-    max-width: 23vw;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .post-card,
-  .post-card.as-note {
-    flex: 0 0 49%;
-    max-width: 47vw;
-  }
-}
 
 @media screen and (max-width: 450px) {
-  .post-card,
-  .post-card.as-note {
-    flex: 0 0 100%;
-    max-width: 100vw;
-  }
   .post-card.as-note {
     width: 90%;
   }
 }
+
+.post-card.row-1 {
+  flex: 0 0 100%;
+  max-width: 100vw;
+}
+.post-card.as-note.row-1 {
+  max-width: 95vw;
+}
+
+.post-card.row-2 {
+  flex: 0 0 49%;
+  max-width: 47vw;
+}
+.post-card.row-3 {
+  flex: 0 0 32%;
+  max-width: 31vw;
+}
+.post-card.row-4 {
+  flex: 0 0 24%;
+  max-width: 23vw;
+  font-size: 90%;
+}
+.post-card.row-5 {
+  flex: 0 0 19%;
+  max-width: 18vw;
+  font-size: 80%;
+}
+
 </style>
