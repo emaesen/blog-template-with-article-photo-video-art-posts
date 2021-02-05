@@ -2,7 +2,7 @@
   <div class="app-container">
     <header class="header">
       <g-link to="/" class="nodeco above logo">
-        <g-image alt="logo" src="~/assets/images/logo.png" width="65"/>
+        <g-image alt="logo" src="~/assets/images/logo2.png" width="65"/>
       </g-link>
       <SiteNav/>
 
