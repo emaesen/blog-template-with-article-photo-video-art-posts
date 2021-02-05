@@ -1,14 +1,25 @@
 <template>
   <div>
     <div id="top" class="rowsize-slider reserve-space">
+      <div
+        @click="onClickRangeIcon"
+        class="row-selection-range"
+        title="choose how many items to show per row"
+      >
+        <IconRange5
+          ref="rowSelectionRange"
+          :rangeNr="1*nrPostsInRow"
+          :maxRangeNr="maxNrPostsInRow"
+        />
+      </div>
       <input id="rowsizeslider" type="range"
         min="1"
         :max="maxNrPostsInRow"
         step="1"
         v-model="nrPostsInRow"
       />
-      <label for="rowsizeslider"><span class="mono">{{ nrPostsInRow }}</span> / row</label>
     </div>
+
 
     <transition name="fade" mode="out-in" appear>
       <div :key="'page' + currentPage">
@@ -44,6 +55,7 @@
 <script>
 import Pagination from '~/components/Pagination'
 import PostCard from '~/components/PostCard'
+import IconRange5 from '~/components/IconRange5'
 
 import windowSize from '@/mixins/window_size.js'
 
@@ -66,9 +78,11 @@ export default {
   components: {
     Pagination,
     PostCard,
+    IconRange5,
   },
   mounted() {
     this.setRowData()
+    this.getSize()
   },
   computed: {
     showPageCounter() {
@@ -94,6 +108,12 @@ export default {
         this.nrPostsInRow = 4
         this.maxNrPostsInRow = 5
       }
+    },
+    getSize() {
+      console.log(this.$refs.rowSelectionRange)
+    },
+    onClickRangeIcon(ev) {
+      console.log("click", {offsetX: ev.offsetX})
     }
   },
   watch: {
@@ -117,8 +137,20 @@ export default {
   font-size: 85%;
   opacity: .7;
   margin-bottom: 1em;
+  position: relative;
+  input,
+  .row-selection-range {
+    position: absolute;
+    right: 0;
+    bottom:0;
+    width: 7.5em;
+    margin: 0;
+    line-height: 0;
+    vertical-align: middle;
+  }
   input {
-    width: calc(10vw + 2em);
+    opacity: 0;
+    bottom: 6px;
   }
 }
 .page-counter {
