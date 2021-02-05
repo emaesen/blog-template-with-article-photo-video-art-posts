@@ -2,7 +2,7 @@
   <div class="app-container">
     <header class="header">
       <g-link to="/" class="nodeco above logo">
-        <g-image alt="logo" src="~/assets/images/logo2.png" width="65"/>
+        <g-image alt="logo" :src="logoUrl" width="65"/>
       </g-link>
       <SiteNav/>
 
@@ -30,8 +30,14 @@
 
 <static-query>
 query {
-  metadata {
-    siteName
+  cms {
+    global {
+      siteName
+      siteLogo {
+        id
+        url
+      }
+    }
   }
 }
 </static-query>
@@ -43,6 +49,8 @@ import AnimatedOpeningScreen from '~/components/AnimatedOpeningScreen'
 import IconLightDark from '~/components/IconLightDark'
 
 import caniuse from '@/mixins/caniuse'
+
+import { getCmsMedia } from '~/utils/medias'
 
 import { EventBus } from '~/utils/event-bus'
 import {
@@ -86,6 +94,11 @@ export default {
   computed: {
     colorMode() {
       return this.colorModes[this.colorModeIndex]
+    },
+    logoUrl() {
+      console.log("static", this.$static)
+      const logo = this.$static.cms.global.siteLogo
+      return getCmsMedia(logo && logo.url)
     },
   },
   methods: {
@@ -143,6 +156,7 @@ export default {
   position: fixed;
   top:0;
   margin-left:-10px;
+  max-width: 65px;
 }
 .os {
   z-index: 99999999;
