@@ -11,28 +11,19 @@
 
     <RichText :data="videosPage.introduction" class="para intro group"/>
 
-    <div class="h-feed">
-      <div class="cards-container">
-        <PostCard
-          v-for="video in videos"
-          :key="video.id"
-          :post="video"
-          postType="video"
-        />
-      </div>
-    </div>
-    <Pagination 
+    <PaginatedPosts
+      postType="video"
+      :posts="videos"
       :basePath="basePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
     />
-
+    
   </div>
 </template>
 
 <script>
-import Pagination from '~/components/Pagination'
-import PostCard from '~/components/PostCard'
+import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -42,8 +33,7 @@ export default {
   methods: {
   },
   components: {
-    Pagination,
-    PostCard,
+    PaginatedPosts,
     RichText,
   },
   data() {
