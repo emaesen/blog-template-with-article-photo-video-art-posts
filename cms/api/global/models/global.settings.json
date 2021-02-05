@@ -51,6 +51,15 @@
     },
     "copyrightOwner": {
       "type": "string"
+    },
+    "siteLogo": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
     }
   }
 }
