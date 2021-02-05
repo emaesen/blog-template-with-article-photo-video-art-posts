@@ -170,7 +170,7 @@ export default {
 .color-mode-toggle {
   display: inline-block;
 }
-
+/*
 @media all and (min-width: 650px) {
   .logo {
     border-bottom-right-radius: 15px;
@@ -179,4 +179,5 @@ export default {
     opacity: 0.9;
   }
 }
+*/
 </style>

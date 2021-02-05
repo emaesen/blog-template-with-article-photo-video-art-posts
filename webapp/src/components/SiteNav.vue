@@ -247,7 +247,7 @@ nav {
 }
 .menu {
     border-bottom-left-radius: 15px;
-    box-shadow: -2px 2px 7px -3px var(--color_border_accent-1);
+    //box-shadow: -2px 2px 7px -3px var(--color_border_accent-1);
     background-color: var(--color_bg);
     > li {
       border-radius: 15px;
@@ -263,8 +263,8 @@ nav {
   }
 }
 .submenu {
-  border: 1px solid #ccccccaa;
-  border-top: none;
+  border-radius: 2px;
+  box-shadow: 1px 1px 5px -2px var(--color_border_accent-1);
   a {
     border: none;
   }
@@ -393,8 +393,8 @@ li li {
     .nav.item {
       float: none;
       margin-bottom: 5px;
-      box-shadow: 0 1px 2px 0 var(--color_border_accent-2);
-      border-radius: 0;
+      box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
+      border-radius: 2px;
       a {
         margin: 0;
         padding: 10px;
@@ -408,12 +408,13 @@ li li {
     }
     .nav.item.hassubmenu.flip {
       min-height: 15em;
-      max-height: 25em;
+      max-height: 30em;
     }
     .nav.submenu {
       border: none;
+      box-shadow: none;
       .nav.item {
-        box-shadow: 0 1px 3px 0 var(--color_border_accent-2);
+        box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
       }
     }
     .nav.submenu {
