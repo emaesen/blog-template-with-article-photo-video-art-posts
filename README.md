@@ -25,9 +25,9 @@ This project is intended for people with an intermediate to advanced knowledge o
 This project has two components:
 
 1. A headless CMS to manage content
-2. A mobile-friendly single-page-application web site, with static file generation capability for SEO purposes
+2. A mobile-friendly single-page-application web site, with static file generation for SEO purposes
 
-*The CMS* supports individual pages plus collections of articles, photos, notes and video. Taxonomy is supported with categories, collections/series and threads.
+*The CMS* supports individual pages plus collections of articles, photos, art, notes and video. Taxonomy is supported with categories, collections/series and threads.
 
 *The webapp* uses principles of the [IndieWeb](https://indieweb.org/) to tag relevant content for discovery. It has a 'home', 'biography' and 'about' page, and several dynamic variations of 'posts' pages: 'articles', 'photos',  'videos', 'art' and 'notes'. Each with pagination support and associated taxonomy pages based on 'category', 'series' and/or 'thread'. All cross-linked.
 
@@ -36,6 +36,8 @@ This project has two components:
 *The color scheme* can be replaced easily by redefining a core set of colors.
 
 *Fonts* can be replaced easily by redefining a core set of font families.
+
+*Animated SVG icons* are custom designed.
 
 The IndieWeb proposes syndication methods (so you can own your data, publish to your personal website first and from there syndicate to large social media sites). Those are *not* implemented in this project.
 
@@ -51,12 +53,20 @@ Query language: [GraphQL](https://graphql.org/)
 
 Database: [MongoDB](https://www.mongodb.com/)
 
-`Vue.js` and `Gridsome` are installed in this project's `webapp` directory. (run `npm install` in that directory)
-
-`Strapi` is installed in this project's `cms` directory. (run `npm install` in that directory)
-
-If used, `MongoDB` should be installed separately, globally on the host system.
+If used, `MongoDB` should be installed separately, globally on the host system. *On windows 10 I run into daily issues where the MongoDB service stops unexpectedly - so I suggest using a different database.*
 You may also choose any other database supported by Strapi; by default it will use [SQLite](https://sqlite.org/).
+
+## Installation
+
+`Vue.js` and `Gridsome` are installed in this project's `webapp` directory.
+
+(run `npm install` in the `webapp` directory)
+
+`Strapi` is installed in this project's `cms` directory.
+
+(run `npm install` in the `cms` directory)
+
+(You'll also need to setup the Strapi database connections - see Strapi documentation)
 
 ## Images
 
