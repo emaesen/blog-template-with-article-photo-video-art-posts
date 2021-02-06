@@ -159,6 +159,9 @@ export default {
   transition: all .3s ease-in-out;
   filter: brightness(0.98);
   opacity: .9;
+  a.active--exact {
+    font-weight: normal;
+  }
 }
 .post-card.as-note {
   border: none;

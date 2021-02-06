@@ -5,6 +5,10 @@
     <div
       v-if="series"
     >
+      <div class="description p-summary" v-if="description">
+        {{ description }}
+      </div>
+
       <div
         v-if="hasMultiplePosts"
         class="sort action button"
@@ -163,6 +167,9 @@ export default {
     taxonomy() {
       return this.series;
     },
+    description() {
+      return this.series.description
+    },
     headerText() {
       // Note: if this website template is to be used for multi-language
       // versions, any currently hardcoded text must be moved to the CMS
@@ -188,6 +195,10 @@ export default {
 
 .series {
   font-style: italic;
+}
+.description {
+  font-style: italic;
+  margin-bottom: 2em;
 }
 .sort {
   margin-bottom: 1em;
