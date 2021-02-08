@@ -8,6 +8,7 @@ const NRMILLISECINDAY = NRMILLISECINHOUR * 24;
 
 
 export default {
+  name: 'mixins/date',
   data () {
     return {
       // properties to add to the importer of this mixin

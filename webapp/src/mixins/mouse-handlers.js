@@ -5,6 +5,7 @@
  */
 
 const mixin = {
+  name: 'mixins/mouse-handlers',
   data() {
     return {
       mouseDown: false,

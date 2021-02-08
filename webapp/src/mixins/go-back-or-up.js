@@ -11,7 +11,7 @@
  */
 
 export default {
-
+  name: 'mixins/go-back-or-up',
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.prevRoute = from.matched.length > 0 && from.path

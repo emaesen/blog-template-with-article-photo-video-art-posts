@@ -3,6 +3,7 @@
  */
 
 export default {
+  name: 'mixins/taxonomy',
   data() {
     return {
       showLatestOnTop: true
