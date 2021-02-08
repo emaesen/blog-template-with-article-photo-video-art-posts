@@ -26,6 +26,7 @@ const debounce = (func,wait,immediate) => {
 }
 
 export default {
+  name: 'mixins/window-size',
   data () {
     return {
       // properties to add to the importer of this mixin

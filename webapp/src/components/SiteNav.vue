@@ -82,7 +82,7 @@ query SiteNav {
 import IconMenu from '~/components/IconMenu'
 import IconArrowUpDown from '~/components/IconArrowUpDown'
 
-import windowSize from '@/mixins/window_size.js'
+import windowSize from '@/mixins/window-size.js'
 
 export default {
   name: 'SiteNav',

@@ -56,7 +56,7 @@ import Pagination from '~/components/Pagination'
 import PostCard from '~/components/PostCard'
 import IconRange5 from '~/components/IconRange5'
 
-import windowSize from '@/mixins/window_size.js'
+import windowSize from '@/mixins/window-size.js'
 
 export default {
   name: 'PaginatedPosts',
