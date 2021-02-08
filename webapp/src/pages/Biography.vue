@@ -5,7 +5,7 @@
 
     <div
       v-if="bio.introduction"
-      class="biography-introduction p-summary"
+      class="biography-introduction p-summary intro"
     >
        {{ bio.introduction }}
     </div>
