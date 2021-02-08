@@ -2,7 +2,6 @@
   <div>
     <div id="top" class="rowsize-slider reserve-space">
       <div
-        @click="onClickRangeIcon"
         class="row-selection-range"
         title="choose how many items to show per row"
       >
@@ -82,7 +81,6 @@ export default {
   },
   mounted() {
     this.setRowData()
-    this.getSize()
   },
   computed: {
     showPageCounter() {
@@ -109,12 +107,6 @@ export default {
         this.maxNrPostsInRow = 5
       }
     },
-    getSize() {
-      console.log(this.$refs.rowSelectionRange)
-    },
-    onClickRangeIcon(ev) {
-      console.log("click", {offsetX: ev.offsetX})
-    }
   },
   watch: {
     windowWidth() {
