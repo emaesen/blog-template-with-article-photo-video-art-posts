@@ -52,7 +52,6 @@ export default {
     videos() {
       // the maximum nr of videos to show is defined by `limit` in the 
       // graphql query
-      console.log({videos:this.$page.cms.videos})
       return this.$page.cms.videos
     },
     introImage() {

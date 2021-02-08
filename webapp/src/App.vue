@@ -96,7 +96,6 @@ export default {
       return this.colorModes[this.colorModeIndex]
     },
     logoUrl() {
-      console.log("static", this.$static)
       const logo = this.$static.cms.global.siteLogo
       return getCmsMedia(logo && logo.url)
     },

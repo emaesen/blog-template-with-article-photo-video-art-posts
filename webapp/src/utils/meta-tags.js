@@ -16,7 +16,7 @@ export function getMetaTags(opts, pageRoute) {
     if (imageUrl) {
       imageUrl = basePath + imageUrl
     } else {
-      console.log (`no SEO image found for "${title}" page`)
+      //console.log (`no SEO image found for "${title}" page`)
     }
 
     const metaTags = {
@@ -26,10 +26,10 @@ export function getMetaTags(opts, pageRoute) {
         { key: 'canonical', rel: 'canonical', href: pageUrl}
       ]
     }
-    console.log({metaTags})
+    //console.log({metaTags})
     return metaTags
   } else {
-    console.warn("No meta tags defined")
+    //console.warn("No meta tags defined")
     return null
   }
 }
