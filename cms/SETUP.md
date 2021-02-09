@@ -16,7 +16,7 @@ For instance if you want to use SQLite, you need to install three corresponding 
 
 Run `npm dev start` to start the CMS server.
 
-Open the admin console at http://localhost:1337/admin
+Open the admin console at <http://localhost:1337/admin>
 Enter your user information and choose a password.
 
 You should now be able to see all pre-defined collections and pages.
