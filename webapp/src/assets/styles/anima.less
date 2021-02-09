@@ -44,12 +44,81 @@
 @keyframes slide-in-from-below { 
   0% { 
     opacity: 0; 
-    transform: translateY(75px); 
+    transform: translateY(36px); 
   }
   100% { 
     opacity: 1; 
     transform: translateY(0); 
   } 
+}
+
+
+.anima__slide-in-from-right {
+  animation-name: slide-in-from-right;
+	animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);
+  animation-fill-mode: both;
+}
+@keyframes slide-in-from-right { 
+  0% { 
+    opacity: 0; 
+    transform: translateX(36px); 
+  } 
+  100% { 
+    opacity: 1; 
+    transform: translateX(0); 
+  } 
+}
+.anima__slide-out-to-right {
+  .anima__slide-in-from-right();
+	animation-direction: reverse;
+}
+
+.anima__slide-in-from-left {
+  animation-name: slide-in-from-left;
+	animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);
+  animation-fill-mode: both;
+}
+@keyframes slide-in-from-left { 
+  0% { 
+    opacity: 0; 
+    transform: translateX(-36px); 
+  } 
+  100% { 
+    opacity: 1; 
+    transform: translateX(0); 
+  } 
+}
+.anima__slide-out-to-left {
+  .anima__slide-in-from-left();
+	animation-direction: reverse;
+}
+
+.anima__reveal-through-flip__container {
+  perspective: 500px;
+  perspective-origin: 50% 50%;
+}
+.anima__reveal-through-flip {
+  animation-name: reveal-through-flip;
+  animation-duration: .7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);animation-fill-mode: both;
+  animation-delay: .2s;
+}
+@keyframes reveal-through-flip {
+  0% {
+    opacity: 0;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: top;
+    transform: rotateX(0deg);
+  }
 }
 
 .anima__scalex-out_scalex-in {
@@ -213,6 +282,10 @@
   .anima__flicker,
   .anima__zoom,
   .anima__slide-in-from-below,
+  .anima__slide-in-from-right,
+  .anima__slide-out-to-right,
+  .anima__slide-in-from-left,
+  .anima__slide-out-to-left,
   .anima__scalex-out_scalex-in,
   .anima__scalex-in,
   .anima__scalex-out,
