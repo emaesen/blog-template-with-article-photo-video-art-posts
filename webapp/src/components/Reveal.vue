@@ -80,7 +80,7 @@ export default {
   transition: transform 2s cubic-bezier(.55,.01,.86,1); 
   width: 300vw;
   height: 300vh;
-  background-color: var(--color_border_accent-2);
+  background-color: var(--color_reveal);
   opacity: 0.2;
 }
 .blade-1 {
