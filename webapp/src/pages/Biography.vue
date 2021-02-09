@@ -14,9 +14,11 @@
       <div class="timeline-bar"></div>
       <ul>
         <BiographyItem
-          v-for="bioItem in bioItems"
+          v-for="(bioItem, index) in bioItems"
           :key="bioItem.id"
           :bioItem="bioItem"
+          v-animate-on-intersection
+          :class="[{'anima__slide-in-from-left': index%2===0, 'anima__slide-in-from-right': index%2!==0}]"
         />
       </ul>
 
@@ -29,9 +31,11 @@
 import BiographyItem from '~/components/BiographyItem'
 import { getMetaTags } from '~/utils/meta-tags'
 
+import animateOnIntersection from '@/mixins/animate-on-intersection.js';
 
 export default {
   name: 'Biography',
+  mixins: [animateOnIntersection],
   components: {
     BiographyItem,
   },

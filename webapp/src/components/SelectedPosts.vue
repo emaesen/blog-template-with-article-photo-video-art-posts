@@ -1,5 +1,5 @@
 <template>
-  <section v-if="hasPosts" class="h-feed">
+  <section v-if="hasPosts" class="h-feed anima__reveal-through-flip__container">
 
     <div class="cards-header-container">
 
@@ -45,7 +45,8 @@
     <div
       :ref="postType+'-list-container'"
       :id="postType+'-list-container'"
-      class="card-list-container"
+      class="card-list-container anima__reveal-through-flip"
+      v-animate-on-intersection
     >
       <transition-group
         name="flexlist"
@@ -75,7 +76,9 @@ import {
   persistSelectionIndex,
   retrieveSelectionIndex,
   clearSelectionIndex
-} from "~/utils/persistence.js";
+} from "~/utils/persistence.js"
+
+import animateOnIntersection from '~/mixins/animate-on-intersection.js'
 
 export default {
   name: 'SelectedPosts',
@@ -88,7 +91,7 @@ export default {
     postDisplayName: String,
     postsDisplayName: String,
   },
-  mixins: [],
+  mixins: [animateOnIntersection],
   components: {
     PostCard,
     RichText,
