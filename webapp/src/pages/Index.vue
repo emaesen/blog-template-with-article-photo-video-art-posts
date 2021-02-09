@@ -1,7 +1,7 @@
 <template>
   <div class="main-index">
 
-    <h1>{{ $page.cms.home.title }}</h1>
+    <h1>{{ homePage.title }}</h1>
 
     <div id="author" class="author personal h-card vcard">
       <a class="u-url u-uid" rel="author" href="#author"></a>
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <Content :content="$page.cms.home.content" />
+    <Content :content="homePage.content" />
 
 
   </div>
@@ -131,17 +131,20 @@ export default {
     }
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.home.seo) 
+    return getMetaTags(this.homePage.seo) 
   },
   computed: {
+    homePage() {
+      return this.$page.cms.home || {}
+    },
     global() {
-      return this.$page.cms.global
+      return this.$page.cms.global || {}
     },
     author() {
-      return this.global.author
+      return this.global.author || {}
     },
     address() {
-      return this.author.address
+      return this.author.address || {}
     },
     photoUrl() {
       return getCmsMedia(this.author.photo && this.author.photo.url)
@@ -150,7 +153,11 @@ export default {
       return this.global.organization
     },
     location() {
-      return this.address.city + ", " + this.address.state_province + ", " + this.address.country
+      let loc = []
+      if (this.address.city) loc.push(this.address.city)
+      if (this.address.state_province) loc.push(this.address.state_province)
+      if (this.address.country) loc.push(this.address.country)
+      return loc.join(", ")
     }
   },
 }

@@ -81,15 +81,21 @@ export default {
     this.tagsContainer.removeEventListener('transitionend', this.removeTagsContainer);
   },
   computed: {
+    cms() {
+      return this.$static.cms
+    },
+    global() {
+      return this.cms.global
+    },
     rootElClassList() {
       return this.$root.$el.classList
     },
     signatureSVG() {
-      const svg = this.$static.cms.scalarVectorGraphics[0]
+      const svg = this.cms.scalarVectorGraphics[0]
       return svg && svg.code
     },
     authorTags() {
-      return this.$static.cms.global.author.tag
+      return this.global && this.global.author && this.global.author.tag
     },
     tagsContainer() {
       return this.$refs.tagsContainer;

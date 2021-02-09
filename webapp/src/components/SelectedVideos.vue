@@ -94,16 +94,19 @@ export default {
     }
   },
   computed: {
+    cms() {
+      return this.$static.cms
+    },
     latestPosts() {
       // the maximum nr of videos to show is defined by `limit` in the 
       // graphql query
-      return this.$static.cms.latestVideos
+      return this.cms.latestVideos || []
     },
     featuredPosts() {
-      return this.$static.cms.featuredPost.videos
+      return this.cms.featuredPost && this.cms.featuredPost.videos || []
     },
     totalNrOfPosts() {
-      return this.$static.cms.videosCount
+      return this.cms.videosCount
     },
   }
 }

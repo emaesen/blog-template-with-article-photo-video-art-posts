@@ -1,9 +1,9 @@
 <template>
   <div class="main-about">
 
-    <h1>{{$page.cms.about.title}}</h1>
+    <h1>{{aboutPage.title}}</h1>
 
-    <Content :content="$page.cms.about.content" class="" />
+    <Content :content="aboutPage.content" class="" />
 
     <PrivacyPolicy/>
     
@@ -23,8 +23,13 @@ export default {
     PrivacyPolicy,
   },
   metaInfo() {
-    return getMetaTags(this.$page.cms.about.seo, this.$route) 
+    return getMetaTags(this.aboutPage.seo, this.$route) 
   },
+  computed: {
+    aboutPage() {
+      return this.$page.cms.about || {}
+    }
+  }
 }
 </script>
 

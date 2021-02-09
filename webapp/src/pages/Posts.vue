@@ -82,14 +82,14 @@ export default {
     }
   },
   metaInfo() {
-    return getMetaTags(this.page.seo, this.$route)
+    return getMetaTags(this.page && this.page.seo, this.$route)
   },
   computed: {
     page() {
-      return this.$page.cms.postsPage
+      return this.$page.cms.postsPage || {}
     },
     introImage() {
-      const img = this.page.seo.shareImage
+      const img = this.page.seo && this.page.seo.shareImage
       return getCmsMedia(img && img.url)
     },
   },

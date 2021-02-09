@@ -75,16 +75,19 @@ export default {
     }
   },
   computed: {
+    cms() {
+      return this.$static.cms
+    },
     latestPosts() {
       // the maximum nr of photos to show is defined by `limit` in the 
       // graphql query
-      return this.$static.cms.latestPhotos
+      return this.cms.latestPhotos || []
     },
     featuredPosts() {
-      return this.$static.cms.featuredPost.photos
+      return this.cms.featuredPost && this.cms.featuredPost.photos || []
     },
     totalNrOfPosts() {
-      return this.$static.cms.photosCount
+      return this.cms.photosCount
     },
   },
   methods: {

@@ -29,7 +29,7 @@
 
     <div class="legal expand bgcolor-opaque">
       <span class="copyright">
-        © {{ copyrightYear }} {{ $static.cms.global.copyrightOwner }}. {{ $static.cms.global.rightsText }}
+        © {{ copyrightYear }} {{ global.copyrightOwner }}. {{ global.rightsText }}
       </span>
       <span
         class="version"
@@ -108,12 +108,15 @@ export default {
     }
   },
   computed: {
+    global() {
+      return this.$static.cms.global || {}
+    },
     websiteLists() {
-      return this.$static.cms.global.otherWebsites
+      return this.global.otherWebsites
     },
     copyrightYear() {
       const currentYear = new Date().getFullYear();
-      const startYear = this.$static.cms.global.createdAt.substring(0,4)
+      const startYear = this.global.createdAt && this.global.createdAt.substring(0,4) || currentYear
       return startYear < currentYear ? startYear + " - " + currentYear : currentYear
     },
     madeby() {

@@ -58,16 +58,19 @@ export default {
     }
   },
   computed: {
+    cms() {
+      return this.$static.cms
+    },
     latestPosts() {
       // the maximum nr of notes to show is defined by `limit` in the 
       // graphql query
-      return this.$static.cms.latestNotes
+      return this.cms.latestNotes || []
     },
     featuredPosts() {
-      return this.$static.cms.featuredPost.notes
+      return this.cms.featuredPost && this.cms.featuredPost.notes || []
     },
     totalNrOfPosts() {
-      return this.$static.cms.notesCount
+      return this.cms.notesCount
     },
 
   }

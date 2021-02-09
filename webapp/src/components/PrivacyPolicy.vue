@@ -1,6 +1,6 @@
 <template>
   <RichText
-    :data="$static.cms.global.privacyPolicy"
+    :data="global.privacyPolicy"
     class="privacy_policy"
   />
 </template>
@@ -13,6 +13,11 @@ export default {
   components: {
     RichText,
   },
+  computed: {
+    global() {
+      return this.$static.cms.global || {}
+    }
+  }
 }
 </script>
 

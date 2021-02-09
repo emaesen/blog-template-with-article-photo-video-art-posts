@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <header class="header">
-      <g-link to="/" class="nodeco above logo">
+      <g-link to="/" class="nodeco above logo" v-if="logoUrl">
         <g-image alt="logo" :src="logoUrl" width="65"/>
       </g-link>
       <SiteNav/>
@@ -92,11 +92,14 @@ export default {
     }
   },
   computed: {
+    global() {
+      return this.$static.cms.global
+    },
     colorMode() {
       return this.colorModes[this.colorModeIndex]
     },
     logoUrl() {
-      const logo = this.$static.cms.global.siteLogo
+      const logo = this.global && this.global.siteLogo
       return getCmsMedia(logo && logo.url)
     },
   },

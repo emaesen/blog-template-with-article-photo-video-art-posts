@@ -70,16 +70,19 @@ export default {
     }
   },
   computed: {
+    cms() {
+      return this.$static.cms
+    },
     latestPosts() {
       // the maximum nr of articles to show is defined by `limit` in the 
       // graphql query
-      return this.$static.cms.latestArticles
+      return this.cms.latestArticles || []
     },
     featuredPosts() {
-      return this.$static.cms.featuredPost.articles
+      return this.cms.featuredPost && this.cms.featuredPost.articles || []
     },
     totalNrOfPosts() {
-      return this.$static.cms.articlesCount
+      return this.cms.articlesCount
     },
   }
 }

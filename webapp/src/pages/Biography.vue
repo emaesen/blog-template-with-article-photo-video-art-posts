@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     bio() {
-      return this.$page.cms.biography
+      return this.$page.cms.biography || {}
     },
     bioItems() {
       return this.bio.biographyItem
