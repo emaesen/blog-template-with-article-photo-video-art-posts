@@ -59,6 +59,7 @@
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);
   animation-fill-mode: both;
+  animation-delay: .1s;
 }
 @keyframes slide-in-from-right { 
   0% { 
@@ -81,6 +82,7 @@
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);
   animation-fill-mode: both;
+  animation-delay: .1s;
 }
 @keyframes slide-in-from-left { 
   0% { 
@@ -101,14 +103,14 @@
   perspective: 500px;
   perspective-origin: 50% 50%;
 }
-.anima__reveal-through-flip {
-  animation-name: reveal-through-flip;
+.anima__reveal-through-flip-down {
+  animation-name: reveal-through-flip-down;
   animation-duration: .7s;
   animation-iteration-count: 1;
   animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);animation-fill-mode: both;
   animation-delay: .2s;
 }
-@keyframes reveal-through-flip {
+@keyframes reveal-through-flip-down {
   0% {
     opacity: 0;
     transform-origin: top;
@@ -118,6 +120,25 @@
     opacity: 1;
     transform-origin: top;
     transform: rotateX(0deg);
+  }
+}
+.anima__reveal-through-flip-up {
+  animation-name: reveal-through-flip-up;
+  animation-duration: .7s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.39, 0.4, 0.54, 1.05);animation-fill-mode: both;
+  animation-delay: .2s;
+}
+@keyframes reveal-through-flip-up {
+  0% {
+    opacity: 0;
+    transform-origin: bottom;
+    transform: rotateX(90deg) translate3d(0,5em,0);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: bottom;
+    transform: rotateX(0deg) translate3d(0,0,0);
   }
 }
 
@@ -286,6 +307,8 @@
   .anima__slide-out-to-right,
   .anima__slide-in-from-left,
   .anima__slide-out-to-left,
+  .anima__reveal-through-flip-down,
+  .anima__reveal-through-flip-up,
   .anima__scalex-out_scalex-in,
   .anima__scalex-in,
   .anima__scalex-out,
