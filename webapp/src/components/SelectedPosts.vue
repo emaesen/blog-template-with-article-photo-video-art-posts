@@ -45,7 +45,7 @@
     <div
       :ref="postType+'-list-container'"
       :id="postType+'-list-container'"
-      class="card-list-container anima__reveal-through-flip"
+      class="card-list-container anima__reveal-through-flip-down"
       v-animate-on-intersection
     >
       <transition-group
