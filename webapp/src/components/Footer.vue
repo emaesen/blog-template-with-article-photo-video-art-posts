@@ -1,29 +1,37 @@
 <template>
   <footer>
     <!-- Other website links -->
-    <div class="social">
+    <div
+      v-if="websiteLists"
+      class="anima__reveal-through-flip__container"
+    >
       <div
-        v-for="list in websiteLists"
-        :key="list.title"
-        class="social-group"
+        class="footer-lists social anima__reveal-through-flip-up"
+        v-animate-on-intersection
       >
-        <h2 class="mini">{{ list.title }}</h2>
-        <ul class="social">
-          <li
-            v-for="website in list.website" 
-            :key="website.title"
-          >
-            <a
-              :href="website.url"
-              target="_blank"
-              rel="me noopener noreferrer nofollow"
-              class="nowrap u-url"
-            >{{ website.title }}</a>
-            <span class="description">
-              {{ website.description }}
-            </span>
-          </li>
-        </ul>
+        <div
+          v-for="list in websiteLists"
+          :key="list.title"
+          class="social-group"
+        >
+          <h2 class="mini">{{ list.title }}</h2>
+          <ul class="social">
+            <li
+              v-for="website in list.website" 
+              :key="website.title"
+            >
+              <a
+                :href="website.url"
+                target="_blank"
+                rel="me noopener noreferrer nofollow"
+                class="nowrap u-url"
+              >{{ website.title }}</a>
+              <span class="description">
+                {{ website.description }}
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -90,8 +98,11 @@ query Footer {
 </static-query>
 
 <script>
+import animateOnIntersection from '~/mixins/animate-on-intersection.js'
+
 export default {
   name: "Footer",
+  mixins: [animateOnIntersection],
   data() {
     return {
       version: "",
@@ -142,11 +153,14 @@ footer {
   margin-top: 9em;
   overflow: hidden;
   font-size: .95em;
+}
+.footer-lists {
   border-radius: 15px;
   background-color: rgba(var(--base-color_bg_accent-1),.2);
   box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
+  margin: 0 4px;
 }
-footer h2 {
+.footer-lists h2 {
   margin-top: 1.5em;
 }
 div.social {
