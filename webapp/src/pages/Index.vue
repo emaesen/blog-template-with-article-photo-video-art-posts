@@ -3,31 +3,67 @@
 
     <h1>{{ homePage.title }}</h1>
 
-    <div id="author" class="author personal h-card vcard">
-      <a class="u-url u-uid" rel="author" href="#author"></a>
-      <div class="photo u-photo" v-if="photoUrl">
-        <g-image :src="photoUrl" width="100"/>
+    <div class=" h-card vcard">
+
+      <div id="author" class="author personal">
+        <a class="u-url u-uid" rel="author" href="#author"></a>
+        <div class="photo u-photo" v-if="photoUrl">
+          <g-image :src="photoUrl" width="100"/>
+        </div>
+        <div>
+          <div class="name p-name fn cursive">
+            {{ author.name }}
+          </div>
+          <div class="p-location location emph" :title="location">
+            {{ location }}
+          </div>
+          <div class="email" v-if="author.email">
+            <a
+              rel="me noopener noreferrer nofollow"
+              :href="'mailto:' + author.email"
+              class="u-email"
+            >{{ author.email }}</a>
+          </div>
+        </div>
+        <div class="p-role role">
+          <span
+            v-for="tag in author.tag"
+            :key="tag.name"
+            class="tag p-category category cursive"
+          >
+            {{ tag.name }}
+          </span>
+        </div>
       </div>
-      <div>
-        <div class="name p-name fn cursive">
-          {{ author.name }}
-        </div>
-        <div class="p-location location emph" :title="location">
-          {{ location }}
-        </div>
-        <div class="email" v-if="author.email">
-          <a :href="'mailto:' + author.email">{{ author.email }}</a>
-        </div>
-      </div>
-      <div class="p-role role">
-        <span
-          v-for="tag in author.tag"
-          :key="tag.name"
-          class="tag p-category category cursive"
+
+      <div class="organizations" v-if="organizations">
+        <dl
+          v-for="org in organizations"
+          :key="org.id"
+          class="organization p-org"
         >
-          {{ tag.name }}
-        </span>
+          <dt>
+          <span class="p-role">
+            {{ org.role }}
+          </span>
+          <span v-if="!org.website" class="p-name">
+            {{ org.name }}
+          </span>
+          <span v-if="org.website">
+            <a
+              :href="org.website.url"
+              target="_blank"
+              rel="me noopener noreferrer nofollow"
+              class="nowrap u-url"
+            >{{ org.name }}</a>
+          </span>
+          </dt>
+          <dd v-if="org.website" class="description p-summary">
+            {{ org.website.description }}
+          </dd>
+        </dl>
       </div>
+
     </div>
 
     <Content :content="homePage.content" />
@@ -57,10 +93,15 @@ query IndexPage {
         }
       }
       organization {
+        id
         name
+        role
+        associatedSince
+        associatedUntil
         website {
           url
           title
+          description
         }
       }
     }
@@ -205,6 +246,19 @@ export default {
   font-size: 90%;
   text-align: center;
   opacity: .7;
+}
+
+.organization {
+  font-style: italic;
+  text-align: center;
+  dt,dd {
+    margin: 0;
+    margin-inline: 0 0;
+  }
+  .description {
+    font-size: 90%;
+    opacity: .7;
+  }
 }
 
 @media all and (max-width: 650px) {
