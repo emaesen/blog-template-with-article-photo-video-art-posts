@@ -2,7 +2,7 @@
   <div class="app-container">
     <header class="header">
       <g-link to="/" class="nodeco above logo" v-if="logoUrl">
-        <g-image alt="logo" :src="logoUrl" width="65"/>
+        <g-image class="u-logo" alt="logo" :src="logoUrl" width="65"/>
       </g-link>
       <SiteNav/>
 
