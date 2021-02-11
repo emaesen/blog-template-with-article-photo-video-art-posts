@@ -158,13 +158,11 @@ footer {
   border-radius: 15px;
   background-color: rgba(var(--base-color_bg_accent-1),.2);
   box-shadow: 0 -2px 7px -3px var(--color_border_accent-2);
-  margin: 0 4px;
+  margin: 7px 4px;
+  padding: .2em 0 2em;
 }
 .footer-lists h2 {
-  margin-top: 1.5em;
-}
-div.social {
-  padding-bottom: 3em;
+  margin: .9em 0 -.2em;
 }
 .social-group {
   padding: 0 1em;
