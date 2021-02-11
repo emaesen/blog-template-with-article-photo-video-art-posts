@@ -7,7 +7,7 @@
             v-if="imageSrc && postType!=='video'"
             :alt="post.title"
             :src="imageSrc"
-            class="post-image img-fluid"
+            class="post-image img-fluid u-photo"
           />
           <Video
             v-if="postType==='video'"
@@ -33,9 +33,10 @@
           <g-link 
             :to="seriesBasePath + postSeries"
             class="nodeco"
+            rel="tag"
             :title="'click to view ' + postSeries + ' series'"
           >
-            <span class="post-series">
+            <span class="post-series p-category">
               ❈ {{ postSeries }}
             </span>
           </g-link>
@@ -44,11 +45,12 @@
           <span
             v-for="category in post.categories"
             :key="category.id"
-            class="post-category p-category"
+            class="post-category"
           >
             <g-link
               :to="categoryBasePath + category.title"
-              class="nodeco"
+              class="nodeco p-category"
+              rel="tag"
               :title="'click to view ' + category.title + ' category'"
             >
               #{{ category.title }}
@@ -59,7 +61,12 @@
           {{ post.type }}
         </div>
         <div v-if="post.thread" class="post-thread">
-          <g-link :to="threadBasePath + post.thread.title" class="nodeco">
+          <g-link
+            :to="threadBasePath + post.thread.title"
+            class="nodeco p-category"
+            rel="tag"
+            :title="'click to view ' + post.thread.title + ' thread'"
+          >
             ❈ {{ post.thread.title }}
           </g-link>
         </div>
