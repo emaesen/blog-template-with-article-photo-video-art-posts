@@ -85,14 +85,17 @@ async function downloadCmsMediaFiles(files) {
 function createPostsRoutes(opts, createPage) {
   if (opts.count > 0) {
 
+    const component = `./src/templates/${opts.component}s.vue`
+    const basePath = `/p/${opts.type}/`
+
     // create route for each indivual post page
     // except if skipIndividualPages==true
     if (!opts.skipIndividualPages) {
       console.info("INFO: create individual " + opts.type + " pages")
       opts.data.forEach((post) => {
         createPage({
-          path: `/p/${opts.type}/${post.slug}`,
-          component: `./src/templates/${opts.component}.vue`,
+          path: `${basePath}${post.slug}`,
+          component: component,
           context: {
             slug: post.slug
           }
@@ -100,50 +103,71 @@ function createPostsRoutes(opts, createPage) {
       })
     } else {
       createPage({
-        path: `/p/${opts.type}/:slug`,
-        component: `./src/templates/${opts.component}.vue`
+        path: `${basePath}:slug`,
+        component: component
       })
     }
 
     console.info("INFO: create " + opts.type + " entry page + pagination variants")
     // create routes for the posts-type entry page, with pagination
+
+    //create main page
     const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
+    const context = {
+      page: 1,
+      limit: 1 * CMS_POSTS_PAGELIMIT,
+      start: 0,
+      sort: "createdAt:desc",
+      totalPages: nrOfPaginationPages,
+      basePath: basePath,
+      subPath: ""
+    }
+    const subPathAsc = "asc/"
+
     createPage({
-      path: `/p/${opts.type}/`,
-      component: `./src/templates/${opts.component}s.vue`,
-      context: {
-        page: 0,
-        limit: 1 * CMS_POSTS_PAGELIMIT,
-        start: 0,
-        sort: "createdAt:desc",
-        totalPages: nrOfPaginationPages
-      }
+      path: `${basePath}`,
+      component: component,
+      context: context
     })
+
+    //create reverse sort variant of main page
+    createPage({
+      path: `${basePath}${subPathAsc}`,
+      component: component,
+      context: {...context, ...{
+        sort: "createdAt:asc",
+        subPath: subPathAsc
+      }}
+    })
+
     //create pagination pages
     for (let page = 0; page < nrOfPaginationPages; page++) {
+      const pageDisplayNr = page + 1
+      const contextSort = {...context, ...{
+        page: pageDisplayNr,
+        start: 1 * page * CMS_POSTS_PAGELIMIT
+      }}
+
       // for default sort...
+      const contextDesc = {...contextSort, ...{
+        sort: "createdAt:desc",
+        subPath: ""
+      }}
       createPage({
-        path: `/p/${opts.type}/${page}`,
-        component: `./src/templates/${opts.component}s.vue`,
-        context: {
-          page: page,
-          limit: 1 * CMS_POSTS_PAGELIMIT,
-          start: 1 * page * CMS_POSTS_PAGELIMIT,
-          sort: "createdAt:desc",
-          totalPages: nrOfPaginationPages
-        }
+        path: `${basePath}${pageDisplayNr}`,
+        component: component,
+        context: contextDesc
       })
+
       // ...and for reversed sort
+      const contextAsc = {...contextSort, ...{
+        sort: "createdAt:asc",
+        subPath: subPathAsc
+      }}
       createPage({
-        path: `/p/${opts.type}/${page}/asc`,
-        component: `./src/templates/${opts.component}s.vue`,
-        context: {
-          page: page,
-          limit: 1 * CMS_POSTS_PAGELIMIT,
-          start: 1 * page * CMS_POSTS_PAGELIMIT,
-          sort: "createdAt:asc",
-          totalPages: nrOfPaginationPages
-        }
+        path: `${basePath}${subPathAsc}${pageDisplayNr}`,
+        component: component,
+        context: contextAsc
       })
     }
 
@@ -151,14 +175,14 @@ function createPostsRoutes(opts, createPage) {
       console.info("INFO: create " + opts.type + "-level category page")
       // create dynamic category page
       createPage({
-        path: `/p/${opts.type}/c/:category`,
+        path: `${basePath}c/:category`,
         component: `./src/templates/Category.vue`
       })
 
       console.info("INFO: create " + opts.type + "-level series page")
       // create dynamic series (collection) page
       createPage({
-        path: `/p/${opts.type}/s/:series`,
+        path: `${basePath}s/:series`,
         component: `./src/templates/Series.vue`
       })
     }
@@ -167,7 +191,7 @@ function createPostsRoutes(opts, createPage) {
       console.info("INFO: create " + opts.type + "-level thread page")
       // create dynamic thread page (for Notes only)
       createPage({
-        path: `/p/${opts.type}/t/:thread`,
+        path: `${basePath}t/:thread`,
         component: `./src/templates/Thread.vue`
       })
     }
