@@ -15,6 +15,7 @@
       postType="video"
       :posts="videos"
       :basePath="basePath"
+      :subPath="subPath"
       :currentPage="currentPage"
       :totalPages="totalPages"
     />
@@ -59,7 +60,10 @@ export default {
       return getCmsMedia(img && img.url)
     },
     basePath() {
-      return this.$route.path.replace(/\/\d+.*/,"/");
+      return this.$context.basePath;
+    },
+    subPath() {
+      return this.$context.subPath;
     },
     currentPage() {
       return this.$context.page
