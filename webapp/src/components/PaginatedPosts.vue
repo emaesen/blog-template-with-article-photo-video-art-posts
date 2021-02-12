@@ -1,27 +1,38 @@
 <template>
   <div>
-    <div id="top" class="rowsize-slider reserve-space">
+    <div id="top" class="reserve-space">
       <div
-        class="row-selection-range"
-        title="choose how many items to show per row"
+        v-if="showUpDownToggle"
+        @click="onClickUpDownToggle"
+        class="up-down-selector"
       >
-        <IconRange5
-          ref="rowSelectionRange"
-          :rangeNr="1*nrPostsInRow"
-          :maxRangeNr="maxNrPostsInRow"
+        <IconSwitchUpDown
+          :selected="upDownSelection"
         />
       </div>
-      <input id="rowsizeslider" type="range"
-        min="1"
-        :max="maxNrPostsInRow"
-        step="1"
-        v-model="nrPostsInRow"
-      />
+      <div class="rowsize-slider">
+        <div
+          class="row-selection-range"
+          title="choose how many items to show per row"
+        >
+          <IconRange5
+            ref="rowSelectionRange"
+            :rangeNr="1*nrPostsInRow"
+            :maxRangeNr="maxNrPostsInRow"
+          />
+        </div>
+        <input id="rowsizeslider" type="range"
+          min="1"
+          :max="maxNrPostsInRow"
+          step="1"
+          v-model="nrPostsInRow"
+        />
+      </div>
     </div>
 
 
     <transition name="fade" mode="out-in" appear>
-      <div :key="'page' + currentPage">
+      <div :key="'page' + currentPage + '-' + sortSelectionIndex">
         <div class="page-counter" v-if="showPageCounter">
           {{ pageCounterText }}
         </div>
@@ -43,7 +54,7 @@
     </transition>
 
     <Pagination 
-      :basePath="basePath"
+      :basePath="sortBasePath"
       :currentPage="currentPage"
       :totalPages="totalPages"
       hash="#top"
@@ -55,6 +66,7 @@
 import Pagination from '~/components/Pagination'
 import PostCard from '~/components/PostCard'
 import IconRange5 from '~/components/IconRange5'
+import IconSwitchUpDown from '~/components/IconSwitchUpDown'
 
 import windowSize from '@/mixins/window-size.js'
 
@@ -65,6 +77,7 @@ export default {
     posts: Array,
     postType: String,
     basePath: String,
+    subPath: String,
     currentPage: Number,
     totalPages: Number,
   },
@@ -72,23 +85,35 @@ export default {
     return {
       nrPostsInRow: 3,
       maxNrPostsInRow: 5,
+      showUpDownToggle: this.totalPages > 1,
+      sortSelections: ["down", "up"],
+      sortSelectionSubPaths: ["", "asc/"],
+      sortSelectionIndex: 0,
     }
   },
   components: {
     Pagination,
     PostCard,
     IconRange5,
+    IconSwitchUpDown,
   },
   mounted() {
     this.setRowData()
+    if(this.subPath==="asc/") this.sortSelectionIndex = 1
   },
   computed: {
     showPageCounter() {
       return this.totalPages > 1
     },
     pageCounterText() {
-      return "Page " + (1 + this.currentPage) + " of " + this.totalPages
+      return "Page " + this.currentPage + " of " + this.totalPages
     },
+    upDownSelection() {
+      return this.sortSelections[this.sortSelectionIndex]
+    },
+    sortBasePath() {
+      return this.basePath + this.sortSelectionSubPaths[this.sortSelectionIndex]
+    }
   },
   methods: {
     setRowData() {
@@ -107,6 +132,15 @@ export default {
         this.maxNrPostsInRow = 5
       }
     },
+    onClickUpDownToggle() {
+      let si = this.sortSelectionIndex + 1
+      if (si >= this.sortSelections.length) si = 0
+      this.sortSelectionIndex = si
+
+      let newSortPath = this.sortBasePath
+      if (this.currentPage > 1) newSortPath += this.currentPage + "/"
+      this.$router.push(newSortPath + "#top")
+    }
   },
   watch: {
     windowWidth() {

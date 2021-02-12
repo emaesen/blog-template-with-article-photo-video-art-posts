@@ -34,13 +34,13 @@ export default {
   },
   computed: {
     lastPage() {
-      return this.totalPages - 1
+      return this.totalPages
     },
     firstPath() {
       return this.basePath + this.hash
     },
     prevPath() {
-      if (this.currentPage <= 1) {
+      if (this.currentPage <= 2) {
         return this.firstPath
       } else {
         return this.basePath + (this.currentPage - 1) + "/" + this.hash
@@ -57,7 +57,7 @@ export default {
       return this.basePath + this.lastPage + "/" + this.hash
     },
     noFirst() {
-      return this.currentPage == 0
+      return this.currentPage == 1
     },
     noLast() {
       return this.currentPage == this.lastPage
