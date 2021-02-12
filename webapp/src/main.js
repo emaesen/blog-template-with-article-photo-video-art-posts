@@ -19,8 +19,9 @@ export default function (Vue, { router, head, isClient }) {
    *****************/
   router.options.scrollBehavior = function(to, from, savedPosition) {
     return new Promise((resolve) => {
+      const is404 = to.name==="*"
       setTimeout(() => {
-        if (to.hash) {
+        if (to.hash && !is404) {
           resolve( {
             selector: to.hash,
             behavior: 'smooth'
