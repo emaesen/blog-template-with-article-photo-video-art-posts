@@ -1,5 +1,5 @@
 <template>
-  <div :class="['post-card h-entry', asClass, nrPostsInRowClass]">
+  <div :class="['post-card h-entry', asClass, nrPostsInRowClass, spacingClass]">
     <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
       <div class="post-summary">
         <div class="post-media-container">
@@ -37,7 +37,7 @@
             :title="'click to view ' + postSeries + ' series'"
           >
             <span class="post-series p-category">
-              ❈ {{ postSeries }}
+              ❈{{ postSeries }}
             </span>
           </g-link>
         </div>
@@ -78,8 +78,10 @@
 <script>
 import Video from '~/components/Video'
 import { getCmsMedia } from '~/utils/medias'
-import date from '@/mixins/date.js'
 import { parseAsHtml } from '~/utils/parser'
+
+import date from '@/mixins/date.js'
+import windowSize from '@/mixins/window-size.js'
 
 export default {
   name: 'PostCard',
@@ -89,12 +91,27 @@ export default {
     postsType: String,
     nrPostsInRow: Number,
   },
-  mixins: [date],
+  data() {
+    return {
+      spacingClass: "",
+      spacingThreshold: 250,
+    }
+  },
+  mixins: [date, windowSize],
   components: {
       Video,
   },
+  mounted() {
+    this.setSpacingClass()
+  },
   methods: {
     getCmsMedia,
+    setSpacingClass() {
+      const ww = this.windowWidth
+      const cardWidth = ww / this.nrPostsInRow
+      this.spacingClass = cardWidth > this.spacingThreshold ? 
+                            "flex-meta" : ""
+    }
   },
   computed: {
     postBasePath() {
@@ -148,7 +165,16 @@ export default {
           extLinkIconClassName:"icon-Outbound deemph"
         }, getCmsMedia) : "";
     },
-  }
+  },
+  watch: {
+    windowWidth() {
+      // windowWidth is set/updated by the windowSize mixin on window resize
+      this.setSpacingClass()
+    },
+    nrPostsInRow() {
+      this.setSpacingClass()
+    }
+  },
 }
 </script>
 
@@ -215,9 +241,6 @@ html[data-color-mode=dark] .post-card:hover {
 
 .post-meta {
   margin-top: .3em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .post-type,
 .post-thread,
@@ -232,7 +255,7 @@ html[data-color-mode=dark] .post-card:hover {
 .post-categories {
   text-align: right;
   line-height: 1em;
-  margin-bottom: .3em;
+  margin-top: .3em;
 }
 .post-date {
   font-size: 0.8em;
@@ -240,8 +263,16 @@ html[data-color-mode=dark] .post-card:hover {
   opacity: 0.5;
 }
 
-.meta-col {
-  flex: 0 0 50%;
+.post-card.flex-meta {
+  .post-meta {
+    margin-top: .3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .meta-col {
+    flex: 0 0 50%;
+  }
 }
 
 @media screen and (max-width: 450px) {
