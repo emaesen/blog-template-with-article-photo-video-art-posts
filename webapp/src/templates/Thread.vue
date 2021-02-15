@@ -10,13 +10,14 @@
 
       <div class="h-feed">
         <transition-group name="list" tag="div" class="cards-container">
-        <PostCard
-          v-for="post in posts"
-          :key="post.id"
-          :post="post"
-          :postType="post.type"
-          :postsType = "postsType"
-        />
+          <PostCard
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            :postType="post.type"
+            :postsType = "postsType"
+            :nrPostsInRow="1"
+          />
         </transition-group>
       </div>
     </div>
