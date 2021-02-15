@@ -9,25 +9,10 @@
         {{ description }}
       </div>
 
-      <div
-        v-if="hasMultiplePosts"
-        class="sort action button"
-        @click="reverseSort"
-      >
-        {{ sortText }}
-      </div>
-
-      <div class="h-feed">
-        <transition-group name="list" tag="div" class="cards-container">
-          <PostCard
-            v-for="post in posts"
-            :key="post.id"
-            :post="post"
-            :postType="post.type"
-            :postsType = "postsType"
-          />
-        </transition-group>
-      </div>
+      <TaxonomyPosts
+        :posts="posts"
+        :postsType = "postsType"
+      />
     </div>
 
     <div v-else>
@@ -122,7 +107,7 @@ query Collection {
 </page-query>
 
 <script>
-import PostCard from '~/components/PostCard'
+import TaxonomyPosts from '~/components/TaxonomyPosts'
 import NoPostsFound from '~/components/NoPostsFound'
 import taxonomy from '@/mixins/taxonomy.js'
 import { getMetaTags } from '~/utils/meta-tags'
@@ -135,7 +120,7 @@ export default {
     }
   },
   components: {
-    PostCard,
+    TaxonomyPosts,
     NoPostsFound,
   },
   created() {
