@@ -76,10 +76,22 @@ export default {
   props: {
     posts: Array,
     postType: String,
-    basePath: String,
-    subPath: String,
-    currentPage: Number,
-    totalPages: Number,
+    basePath: {
+      type: String,
+      default: ""
+    },
+    subPath: {
+      type: String,
+      default: ""
+    },
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    totalPages: {
+      type: Number,
+      default: 1
+    },
   },
   data() {
     return {
@@ -131,6 +143,7 @@ export default {
         this.nrPostsInRow = 4
         this.maxNrPostsInRow = 5
       }
+      if (this.postType==="article") this.nrPostsInRow = 1
     },
     onClickUpDownToggle() {
       let si = this.sortSelectionIndex + 1
