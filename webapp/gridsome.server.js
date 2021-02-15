@@ -85,7 +85,8 @@ async function downloadCmsMediaFiles(files) {
 function createPostsRoutes(opts, createPage) {
   if (opts.count > 0) {
 
-    const component = `./src/templates/${opts.component}s.vue`
+    const componentBase = `./src/templates/${opts.component}`
+    let component = componentBase + '.vue'
     const basePath = `/p/${opts.type}/`
 
     // create route for each indivual post page
@@ -110,6 +111,7 @@ function createPostsRoutes(opts, createPage) {
 
     console.info("INFO: create " + opts.type + " entry page + pagination variants")
     // create routes for the posts-type entry page, with pagination
+    component = componentBase + 's.vue'
 
     //create main page
     const nrOfPaginationPages = Math.ceil(opts.count / CMS_POSTS_PAGELIMIT)
