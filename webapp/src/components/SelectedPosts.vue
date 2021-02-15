@@ -61,6 +61,7 @@
           :post="post"
           :postType="postType"
           class="flexlist-item"
+          :nrPostsInRow="1*nrPostsInRow"
         />
       </transition-group>
     </div>
@@ -78,6 +79,7 @@ import {
   clearSelectionIndex
 } from "~/utils/persistence.js"
 
+import windowSize from '@/mixins/window-size.js'
 import animateOnIntersection from '~/mixins/animate-on-intersection.js'
 
 export default {
@@ -91,7 +93,7 @@ export default {
     postDisplayName: String,
     postsDisplayName: String,
   },
-  mixins: [animateOnIntersection],
+  mixins: [windowSize, animateOnIntersection],
   components: {
     PostCard,
     RichText,
@@ -99,6 +101,8 @@ export default {
   },
   data() {
     return {
+      nrPostsInRow: 3,
+      maxNrPostsInRow: 5,
       selectionTypes: ["latest", "featured"],
       selectionIndex: 1
     }
@@ -160,6 +164,23 @@ export default {
       if (this.hasPosts) {
         this.setSelectionIndex(retrieveSelectionIndex(this.postType, this.selectionIndex))
       }
+      this.setRowData()
+    },
+    setRowData() {
+      const ww = this.windowWidth
+      if (ww < 450) {
+        this.nrPostsInRow = 1
+        this.maxNrPostsInRow = 3
+      } else if (ww < 750) {
+        this.nrPostsInRow = 2
+        this.maxNrPostsInRow = 4
+      } else if (ww < 1000) {
+        this.nrPostsInRow = 3
+        this.maxNrPostsInRow = 5
+      } else if (ww > 1000) {
+        this.nrPostsInRow = 4
+        this.maxNrPostsInRow = 5
+      }
     },
     setSelectionIndex(ind) {
       this.selectionIndex = ind
@@ -217,6 +238,12 @@ export default {
       } else {
         elc.style.height = (el.clientHeight) + "px"
       }
+    },
+  },
+  watch: {
+    windowWidth() {
+      // windowWidth is set/updated by the windowSize mixin on window resize
+      this.setRowData()
     },
   },
 }
