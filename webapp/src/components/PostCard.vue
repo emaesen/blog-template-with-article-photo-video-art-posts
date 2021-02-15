@@ -30,16 +30,16 @@
       </div>
       <div class="meta-col">
         <div v-if="postSeries" class="post-categories">
-          <g-link 
-            :to="seriesBasePath + postSeries"
-            class="nodeco"
-            rel="tag"
-            :title="'click to view ' + postSeries + ' series'"
-          >
-            <span class="post-series p-category">
+          <span class="post-series">
+            <g-link 
+              :to="seriesBasePath + postSeries"
+              class="nodeco p-category"
+              rel="tag"
+              :title="'click to view ' + postSeries + ' series'"
+            >
               ❈{{ postSeries }}
-            </span>
-          </g-link>
+            </g-link>
+          </span>
         </div>
         <div v-if="post.categories" class="post-categories">
           <span
@@ -89,7 +89,10 @@ export default {
     post: Object,
     postType: String,
     postsType: String,
-    nrPostsInRow: Number,
+    nrPostsInRow: {
+      type:Number,
+      default:1
+    }
   },
   data() {
     return {
