@@ -53,7 +53,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     .replace(/`{%/g, "`&#123;&#37;")
     .replace(/%}`/g, "&#37;&#125;`")
     /* inline code fragment */
-    .replace(/ `([^`]+)`([ .!?,'])/g, " <code>$1</code>$2")
+    .replace(/ `([^`]+)`([ .!?,;'])/g, " <code>$1</code>$2")
     /* char-encode any remaining single back-ticks */
     .replace(/ `/g, " &#96;")
     .replace(/`([ .!?,'])/g, "&#96;$1")
