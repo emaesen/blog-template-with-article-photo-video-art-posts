@@ -1,77 +1,79 @@
 <template>
   <div :class="['post-card h-entry', asClass, nrPostsInRowClass, spacingClass]">
-    <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
-      <div class="post-summary">
-        <div class="post-media-container">
-          <g-image
-            v-if="imageSrc && postType!=='video'"
-            :alt="post.title"
-            :src="imageSrc"
-            class="post-image img-fluid u-photo"
-          />
-          <Video
-            v-if="postType==='video'"
-            :video="post"
-          />
+    <div class="inner-container">
+      <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
+        <div class="post-summary">
+          <div class="post-media-container">
+            <g-image
+              v-if="imageSrc && postType!=='video'"
+              :alt="post.title"
+              :src="imageSrc"
+              class="post-image img-fluid u-photo"
+            />
+            <Video
+              v-if="postType==='video'"
+              :video="post"
+            />
+          </div>
+          <h3 v-if="post.title" :class="['post-title p-name', {nodesc:!post.description}]">
+            {{ post.title }}
+          </h3>
+          <div v-if="post.description" class="post-description p-summary">
+            {{ post.byline || post.description }}
+          </div>
+          <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary cursive">
+          </div>
         </div>
-        <h3 v-if="post.title" :class="['post-title p-name', {nodesc:!post.description}]">
-          {{ post.title }}
-        </h3>
-        <div v-if="post.description" class="post-description p-summary">
-          {{ post.byline || post.description }}
+      </g-link>
+      <aside class="post-meta">
+        <div class="post-date dt-published meta-col">
+          {{ dateText }}
         </div>
-        <div v-if="post.text"  v-html="textAsHtml" class="post-text p-summary cursive">
-        </div>
-      </div>
-    </g-link>
-    <aside class="post-meta">
-      <div class="post-date dt-published meta-col">
-        {{ dateText }}
-      </div>
-      <div class="meta-col">
-        <div v-if="postSeries" class="post-categories">
-          <span class="post-series">
-            <g-link 
-              :to="seriesBasePath + postSeries"
-              class="nodeco p-category"
-              rel="tag"
-              :title="'click to view ' + postSeries + ' series'"
+        <div class="meta-col">
+          <div v-if="postSeries" class="post-categories">
+            <span class="post-series">
+              <g-link 
+                :to="seriesBasePath + postSeries"
+                class="nodeco p-category"
+                rel="tag"
+                :title="'click to view ' + postSeries + ' series'"
+              >
+                ❈{{ postSeries }}
+              </g-link>
+            </span>
+          </div>
+          <div v-if="post.categories" class="post-categories">
+            <span
+              v-for="category in post.categories"
+              :key="category.id"
+              class="post-category"
             >
-              ❈{{ postSeries }}
-            </g-link>
-          </span>
-        </div>
-        <div v-if="post.categories" class="post-categories">
-          <span
-            v-for="category in post.categories"
-            :key="category.id"
-            class="post-category"
-          >
+              <g-link
+                :to="categoryBasePath + category.title"
+                class="nodeco p-category"
+                rel="tag"
+                :title="'click to view ' + category.title + ' category'"
+              >
+                #{{ category.title }}
+              </g-link>
+            </span>
+          </div>
+          <div v-if="showPostType" class="post-type">
+            {{ post.type }}
+          </div>
+          <div v-if="post.thread" class="post-thread">
             <g-link
-              :to="categoryBasePath + category.title"
+              :to="threadBasePath + post.thread.title"
               class="nodeco p-category"
               rel="tag"
-              :title="'click to view ' + category.title + ' category'"
+              :title="'click to view ' + post.thread.title + ' thread'"
             >
-              #{{ category.title }}
+              ❈ {{ post.thread.title }}
             </g-link>
-          </span>
+          </div>
         </div>
-        <div v-if="showPostType" class="post-type">
-          {{ post.type }}
-        </div>
-        <div v-if="post.thread" class="post-thread">
-          <g-link
-            :to="threadBasePath + post.thread.title"
-            class="nodeco p-category"
-            rel="tag"
-            :title="'click to view ' + post.thread.title + ' thread'"
-          >
-            ❈ {{ post.thread.title }}
-          </g-link>
-        </div>
-      </div>
-    </aside>
+      </aside>
+    </div>
   </div>
 </template>
 
@@ -198,21 +200,28 @@ export default {
   a.active--exact {
     font-weight: normal;
   }
+  .inner-container {
+    margin: 0 auto 3em;
+  }
 }
+.post-meta {
+  position: absolute;
+  bottom: 1px;
+  right: 9px;
+  left: 9px;
+}
+
 .post-card.as-note {
   border: none;
   max-width: 600px;
   width: 70%;
-  min-height: 5em;
-  margin: 1em auto;
-  padding: 1em 1em 2em 1em;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px  var(--color_border_accent-1);
-  .post-meta {
-    position: absolute;
-    bottom: 0;
-    right: 1em;
-    left: 1em;
+  .inner-container {
+    margin: 0 5px;
+    min-height: 5em;
+    margin: 1em auto 2em;
+    padding: 1em 1em 2em 1em;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px  var(--color_border_accent-1);
   }
 }
 .post-card:hover {
@@ -258,14 +267,22 @@ html[data-color-mode=dark] .post-card:hover {
 .post-categories {
   text-align: right;
   line-height: 1em;
-  margin-top: .3em;
+  margin-bottom: .3em;
 }
+.post-thread:last-child,
+.post-series:last-child,
+.post-categories:last-child {
+  margin-bottom: 0;
+}
+
 .post-date {
   font-size: 0.8em;
   font-style: italic;
   opacity: 0.5;
 }
-
+.meta-col {
+  margin:0;
+}
 .post-card.flex-meta {
   .post-meta {
     margin-top: .3em;
@@ -293,21 +310,21 @@ html[data-color-mode=dark] .post-card:hover {
 }
 
 .post-card.row-2 {
-  flex: 0 0 49%;
-  max-width: 47vw;
+  flex: 0 0 50%;
+  max-width: 50vw;
 }
 .post-card.row-3 {
-  flex: 0 0 32%;
-  max-width: 31vw;
+  flex: 0 0 33.3%;
+  max-width: 33.3vw;
 }
 .post-card.row-4 {
-  flex: 0 0 24%;
-  max-width: 23vw;
+  flex: 0 0 25%;
+  max-width: 25vw;
   font-size: 90%;
 }
 .post-card.row-5 {
-  flex: 0 0 19%;
-  max-width: 18vw;
+  flex: 0 0 20%;
+  max-width: 20vw;
   font-size: 80%;
 }
 

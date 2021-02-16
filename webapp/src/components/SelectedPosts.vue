@@ -34,7 +34,7 @@
       >
         <a 
           v-if="showViewAllLink"
-          class="cards-action nodeco" :href="postsBasePath"
+          class="cards-action action button nodeco" :href="postsBasePath"
         >
           {{ viewAllText }}
         </a>
@@ -253,5 +253,16 @@ export default {
 @import "~/assets/styles/transi.less";
 .card-list-container {
   transition: height .7s;
+}
+
+@media screen and (min-width: 400px) {
+  .cards-action {
+    margin-bottom: .2em;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cards-action {
+    width: min-content;
+  }
 }
 </style>
