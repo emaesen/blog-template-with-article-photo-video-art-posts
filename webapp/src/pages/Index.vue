@@ -8,7 +8,7 @@
       <div id="author" class="author personal">
         <a class="u-url u-uid" rel="author" href="#author"></a>
         <div class="photo u-photo" v-if="photoUrl">
-          <g-image :src="photoUrl" width="100"/>
+          <g-image :src="photoUrl" width="100" :alt="photoAlt"/>
         </div>
         <div>
           <div class="name p-name fn cursive">
@@ -81,6 +81,7 @@ query IndexPage {
         name
         photo {
           url
+          alternativeText
         }
         tag {
           name
@@ -189,6 +190,9 @@ export default {
     },
     photoUrl() {
       return getCmsMedia(this.author.photo && this.author.photo.url)
+    },
+    photoAlt() {
+      return this.author.photo && this.author.photo.alternativeText
     },
     organizations() {
       return this.global.organization
