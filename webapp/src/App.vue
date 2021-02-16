@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div :class="['app-container', motionClass]">
     <header class="header">
       <g-link to="/" class="nodeco above logo" v-if="logoUrl">
         <g-image class="u-logo" alt="logo" :src="logoUrl" width="65"/>
@@ -101,6 +101,9 @@ export default {
     logoUrl() {
       const logo = this.global && this.global.siteLogo
       return getCmsMedia(logo && logo.url)
+    },
+    motionClass() {
+      return this.caniuse.motion ? "motion-yes" : "motion-no" 
     },
   },
   methods: {

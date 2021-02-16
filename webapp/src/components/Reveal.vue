@@ -31,8 +31,10 @@ export default {
     }
   },
   destroyed() {
-    EventBus.$off('start-reveal', this.reveal)
-    this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
+    if(this.caniuse.motion) {
+      EventBus.$off('start-reveal', this.reveal)
+      this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
+    }
   },
   computed: {
     bladesWrapper() {
