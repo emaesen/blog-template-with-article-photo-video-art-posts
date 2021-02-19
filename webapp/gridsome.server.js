@@ -25,6 +25,8 @@ const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', CMS_MEDIA_PATH)
 const CMS_POSTS_PAGELIMIT = process.env.GRIDSOME_CMS_POSTS_PAGELIMIT
 
+console.log("\nprocess.env.NODE_ENV = " + process.env.NODE_ENV)
+console.log("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
 
 async function getListOfCmsMediaFiles(addCollection) {
   let tally = {count:0, mediaFiles:[]}
