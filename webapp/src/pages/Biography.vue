@@ -142,18 +142,18 @@ query BiographyPage {
 
 @media all and (min-width: 700px) {
   .timeline-bar {
-    left: 50vw;
+    left: 50%;
   }
   .timeline li {
-    left:50vw;
-    width:45vw;
+    left:50%;
+    width:45%;
     .biography-when {
-      right: calc(45vw + 1em);
+      right: calc(45vw + .1em);
       text-align: right;
     }
   }
   .timeline li:nth-child(odd) {
-    left: 5vw;
+    left: 5%;
     text-align: right;
     &:before {
       display: none;
@@ -164,10 +164,23 @@ query BiographyPage {
       right: -.25em;
     }
     .biography-when {
-      left: calc(45vw + 1em);
+      left: calc(45vw + .1em);
       text-align: left;
     }
   }
+}
 
+
+@media all and (min-width: 1140px) {
+  .timeline li {
+    .biography-when {
+          right: calc((1100px * .45) + 2 * var(--layout-padding) + .1em);
+    }
+  }
+  .timeline li:nth-child(odd) {
+    .biography-when {
+          left: calc((1100px * .45) + 2 * var(--layout-padding) + .1em);
+    }
+  }
 }
 </style>
