@@ -27,6 +27,14 @@ module.exports = {
     }
   ],
   chainWebpack: config => {
-    config.resolve.alias.set(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}`, `@${process.env.GRIDSOME_CMS_MEDIA_PATH}`)
+    // reference: base webpack config:
+    // https://github.com/gridsome/gridsome/blob/master/gridsome/lib/webpack/createBaseConfig.js
+
+    config.resolve
+      .alias
+      .set(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}`, 
+           `@${process.env.GRIDSOME_CMS_MEDIA_PATH}`)
+      .end()
+
   },
 }
