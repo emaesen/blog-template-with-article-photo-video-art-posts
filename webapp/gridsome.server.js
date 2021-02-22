@@ -19,17 +19,19 @@ const axios = require('axios').default
 const path = require('path')
 const fse = require('fs-extra')
 
+const INCLUDE_DERIVED_MEDIA_ASSETS = true
+
 const CMS_URL = process.env.CMS_URL
 const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
 const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
-const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), 'src', CMS_MEDIA_PATH)
+const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), CMS_MEDIA_PATH)
 const CMS_POSTS_PAGELIMIT = process.env.GRIDSOME_CMS_POSTS_PAGELIMIT
 
 console.log("\nprocess.env.NODE_ENV = " + process.env.NODE_ENV)
 console.log("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
 
 async function getListOfCmsMediaFiles(addCollection) {
-  let tally = {count:0, mediaFiles:[]}
+  let mediaAssets = []
   let mediaResponse
   try {
     mediaResponse = await axios.get(CMS_MEDIA_URL)
@@ -38,17 +40,22 @@ async function getListOfCmsMediaFiles(addCollection) {
   }
 
   if (mediaResponse && mediaResponse.status === 200) {
-    const mediaAssets = mediaResponse.data.map(asset => {
-      return asset.url
+    mediaAssets = mediaResponse.data.flatMap(asset => {
+      let urls = [asset.url]
+      if (asset.formats && INCLUDE_DERIVED_MEDIA_ASSETS) {
+        // also include alternative formats of the asset
+        for(let [_altKey,alt] of Object.entries(asset.formats)) {
+          urls.push(alt.url)
+        }
+      }
+      return urls
     })
     console.info(`INFO: Received metadata for ${mediaAssets.length} CMS media assets from  ${CMS_MEDIA_URL}`)
-    tally.count = mediaAssets.length
-    tally.mediaFiles = mediaAssets
   } else {
     console.error("ERROR: Unable to process CMS media assets metadata")
   }
-  console.log(`Files to retrieve from ${CMS_URL}:`, tally.mediaFiles)
-  return tally.mediaFiles
+  console.log(`Files available from ${CMS_URL}:`, mediaAssets)
+  return mediaAssets
 }
 
 async function downloadCmsMediaFile(file) {

@@ -6,8 +6,8 @@
     "name": "Edward Maesen"
   },
   "scripts": {
-    "mkmediadir": "mkdir -p src\\assets\\cmsmedia\\uploads",
-    "cpmedia": "cp -u -v -r ..\\cms\\public\\uploads\\. src\\assets\\cmsmedia\\uploads",
+    "mkmediadir": "mkdir static\\cmsmedia",
+    "cpmedia": "cp -u -v -r ..\\cms\\public\\uploads\\. static\\cmsmedia",
     "build": "gridsome build",
     "dev": "gridsome develop -p 9011",
     "explore": "gridsome explore",

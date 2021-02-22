@@ -37,12 +37,5 @@ module.exports = {
     // reference: base webpack config:
     // https://github.com/gridsome/gridsome/blob/master/gridsome/lib/webpack/createBaseConfig.js
 
-    // add alias for the cms media images
-    config.resolve
-      .alias
-      .set(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}`, 
-           `@${process.env.GRIDSOME_CMS_MEDIA_PATH}`)
-      .end()
-
   },
 }
