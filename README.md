@@ -60,17 +60,31 @@ You may also choose any other database supported by Strapi; by default it will u
 
 `Vue.js` and `Gridsome` are installed in this project's `webapp` directory.
 
-(run `npm install` in the `webapp` directory)
+(Run `npm install` in the `webapp` directory)
+(Run `npm run mkmediadir` in the `webapp` directory)
+(Check that folder `webapp\static\cmsmedia` exists. If not, create it manually)
 
 `Strapi` is installed in this project's `cms` directory.
 
-(run `npm install` in the `cms` directory)
+(Run `npm install` in the `cms` directory)
 
 (You'll also need to setup the Strapi database connections - see Strapi documentation)
 
-## Images
+## Usage
 
-For a clean look, images that are uploaded to Strapi-cms should be of consistent height/width ratio. The recommended image size for the photos section is 1165px x 720px (phi-ratio).
+To start the strapi CMS:
+Execute `npm run dev` in the `cms` directory.
+Enter content at <http://localhost:1337/admin/>
+Explore graphql at <http://localhost:1337/graphql>
+
+To run the webapp server in development mode:
+Execute `npm run dev` in the `webapp` directory.
+View hot-reload development version of webapp at <http://localhost:9011/>
+
+To build static files for production deployment:
+Execute `npm run prod` in the `webapp` directory.
+View production version of webapp at <http://localhost:9012/>
+Copy/deploy the `webapp\dist` folder to your website host of choice.
 
 ## Tools used
 
@@ -91,8 +105,6 @@ Color palette designer [Paletton](http://paletton.com/)
 Visual designer for [cubic bezier](https://cubic-bezier.com/) animations
 
 CSS/SVG/JS animation designs prototyped in [CodePen](https://codepen.io/emaesen)
-
-Library for free [svg icons](https://iconmonstr.com/)
 
 ## Versions
 
