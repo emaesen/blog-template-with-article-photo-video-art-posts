@@ -26,10 +26,18 @@ module.exports = {
       }
     }
   ],
+
+  images: {
+    // don't compress if images are already optimized before strapi upload
+    compress: false,
+    defaultBlur: 1000,
+  },
+
   chainWebpack: config => {
     // reference: base webpack config:
     // https://github.com/gridsome/gridsome/blob/master/gridsome/lib/webpack/createBaseConfig.js
 
+    // add alias for the cms media images
     config.resolve
       .alias
       .set(`@${process.env.GRIDSOME_CMS_MEDIA_ALIAS}`, 
