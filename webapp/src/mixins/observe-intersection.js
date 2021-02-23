@@ -47,7 +47,6 @@ export default {
   },
   beforeDestroy() {
     if ('IntersectionObserver' in window) {
-      console.log("disconnect IntersectionObserver")
       this.intsecObserver.disconnect();
     }
   },
