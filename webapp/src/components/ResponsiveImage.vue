@@ -1,15 +1,13 @@
 <template>
-  <div class="resp-img">
-    <img v-lazyload-on-intersection
-      :src="placeholderSrc"
-      :data-src="imgSrc"
-      :alt="alt"
-      :class="imageClass"
-      :data-srcset="srcset"
-      :data-sizes="sizes"
-      @error="onError"
-    >
-  </div>
+  <img
+    v-lazyload-on-intersection
+    :src="placeholderSrc"
+    :data-src="imgSrc"
+    :alt="alt"
+    :data-srcset="srcset"
+    :data-sizes="sizes"
+    @error="onError"
+  >
 </template>
 
 <script>
@@ -18,6 +16,7 @@ import { getCmsMedia } from '~/utils/medias'
 
 /*
  * Expected json structure for data object:
+ (with additional formats -like xlarge- possible as well)
   {
     "url": "/uploads/xxxxx.jpg",
     "width": 1165,
@@ -25,18 +24,22 @@ import { getCmsMedia } from '~/utils/medias'
     "formats": {
       "thumbnail": {
         "width": 245,
+        "height": 156,
         "url": "/uploads/thumbnail_xxxxx.jpg"
       },
       "large": {
         "width": 1000,
+        "height": 1000,
         "url": "/uploads/large_xxxxx.jpg"
       },
       "medium": {
         "width": 750,
+        "height": 750,
         "url": "/uploads/medium_xxxxx.jpg"
       },
       "small": {
         "width": 500,
+        "height": 500,
         "url": "/uploads/small_xxxxx.jpg"
       }
     }
@@ -52,28 +55,14 @@ export default {
     viewSizes: {
       type: String
     },
-    imageClass: {
-      type: String,
-      default: ''
-    },
   },
   data: () => {
     return {
       hasError: false,
-      imgSizes: [
-        1165,
-        1000,
-        750,
-        500,
-        245,
-        156
-      ],
-      defaultWidth: 1165,
       placeholderImgSrc: process.env.GRIDSOME_PLACEHOLDER_IMG_SRC
     }
   },
   mounted() {
-    this.placeholderImgSrc = process.env.GRIDSOME_PLACEHOLDER_IMG_SRC
     this.validateData()
   },
   computed: {
@@ -91,9 +80,12 @@ export default {
     },
     srcset() {
       let srcset = this.src + " " + this.data.width + "w"
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      // TODO!!! ADD alternative image formats !!!!!!!!!!!!!
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // add alternative image formats
+      const imgs = this.imgVariants()
+      if (imgs) {
+        srcset += ", " + imgs
+      }
+      console.log("srcset", srcset)
       return srcset
     },
     sizes() {
@@ -116,6 +108,16 @@ export default {
         if (!data.alternativeText) console.log('No image alternativeText provided for ' + data.url)
         if (!data.formats && data.width > 245) console.log('No alternative image formats provided for ' + data.url)
       }
+    },
+    imgVariants() {
+      const formats = this.data && this.data.formats
+      let imgs = []
+      if (formats) {
+        for(let [_key,props] of Object.entries(formats)) {
+          imgs.push(`${getCmsMedia(props.url)} ${props.width}w`)
+        }
+      }
+      return imgs.join(', ')
     },
     onError(err) {
       this.hasError = true
