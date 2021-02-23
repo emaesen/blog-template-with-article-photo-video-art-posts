@@ -22,9 +22,8 @@
       v-if="image"
       class="biography-image"
     >
-      <g-image
-        :alt="image.alternativeText"
-        :src="getCmsMedia(image.url)"
+      <ResponsiveImage
+        :data="image"
       />
     </div>
   </li>
@@ -32,7 +31,7 @@
 
 <script>
 import RichText from '~/components/RichText'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
 import date from '@/mixins/date.js'
 
 export default {
@@ -43,9 +42,7 @@ export default {
   mixins: [date],
   components: {
       RichText,
-  },
-  methods: {
-    getCmsMedia,
+      ResponsiveImage,
   },
   computed: {
     image() {
