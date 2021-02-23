@@ -35,16 +35,21 @@ export default {
   },
   computed: {
   },
-  beforeMount() {    
-    this.intsecObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(this.handleIntersection)
-      }, 
-      this.intsecObserverOptions
-    );
+  beforeMount() {
+    if ('IntersectionObserver' in window) {
+      this.intsecObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(this.handleIntersection)
+        }, 
+        this.intsecObserverOptions
+      );
+    }
   },
   beforeDestroy() {
-    this.intsecObserver.disconnect();
+    if ('IntersectionObserver' in window) {
+      console.log("disconnect IntersectionObserver")
+      this.intsecObserver.disconnect();
+    }
   },
   methods: {
     handleIntersection({intersectionRatio, isIntersecting, target}, observer) {
