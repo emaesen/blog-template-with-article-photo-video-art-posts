@@ -3,11 +3,11 @@
 
     <h1>{{ page.title }}</h1>
 
-    <g-image
+    <ResponsiveImage
       v-if="introImage"
       class="img-postcat"
-      alt="all posts"
-      :src="introImage"
+      :data="introImage"
+      viewSizes="(min-width: 600px) 120px, (max-width: 600px) 20vw"
     />
 
     <RichText
@@ -48,6 +48,10 @@ query PostsPage {
         shareImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
     }
@@ -56,6 +60,7 @@ query PostsPage {
 </page-query>
 
 <script>
+import ResponsiveImage from '~/components/ResponsiveImage'
 import RichText from '~/components/RichText'
 import SelectedArticles from '~/components/SelectedArticles'
 import SelectedPhotos from '~/components/SelectedPhotos'
@@ -63,13 +68,13 @@ import SelectedVideos from '~/components/SelectedVideos'
 import SelectedArts from '~/components/SelectedArts'
 import SelectedNotes from '~/components/SelectedNotes'
 
-import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 
 export default {
   name: 'Posts',
   components: {
+    ResponsiveImage,
     RichText,
     SelectedArticles,
     SelectedPhotos,
@@ -89,8 +94,7 @@ export default {
       return this.$page.cms.postsPage || {}
     },
     introImage() {
-      const img = this.page.seo && this.page.seo.shareImage
-      return getCmsMedia(img && img.url)
+      return this.page.seo && this.page.seo.shareImage
     },
   },
 }
