@@ -67,7 +67,10 @@ query BiographyPage {
         image {
           id
           url
+          width
+          height
           alternativeText
+          formats
         }
       }
       seo {
