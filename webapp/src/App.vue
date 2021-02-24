@@ -1,8 +1,14 @@
 <template>
   <div :class="['app-container', motionClass]">
     <header class="header">
-      <g-link to="/" class="nodeco above logo" v-if="logoUrl">
-        <g-image class="u-logo" alt="logo" :src="logoUrl" width="65"/>
+      <g-link to="/" class="nodeco above logo" v-if="logoImg">
+        <ResponsiveImage
+          class="u-logo"
+          alt="logo"
+          :data="logoImg"
+          sizes="65px !"
+          width="65"
+        />
       </g-link>
       <SiteNav/>
 
@@ -36,6 +42,10 @@ query {
       siteLogo {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
     }
   }
@@ -47,10 +57,9 @@ import SiteNav from '~/components/SiteNav'
 import Footer from '~/components/Footer'
 import AnimatedOpeningScreen from '~/components/AnimatedOpeningScreen'
 import IconLightDark from '~/components/IconLightDark'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 import caniuse from '@/mixins/caniuse'
-
-import { getCmsMedia } from '~/utils/medias'
 
 import { EventBus } from '~/utils/event-bus'
 import {
@@ -67,6 +76,7 @@ export default {
     Footer,
     AnimatedOpeningScreen,
     IconLightDark,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -98,9 +108,9 @@ export default {
     colorMode() {
       return this.colorModes[this.colorModeIndex]
     },
-    logoUrl() {
+    logoImg() {
       const logo = this.global && this.global.siteLogo
-      return getCmsMedia(logo && logo.url)
+      return logo
     },
     motionClass() {
       return this.caniuse.motion ? "motion-yes" : "motion-no" 
