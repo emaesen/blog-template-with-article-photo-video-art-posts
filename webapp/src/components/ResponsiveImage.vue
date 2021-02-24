@@ -3,9 +3,9 @@
     v-lazyload-on-intersection
     :src="placeholderSrc"
     :data-src="imgSrc"
-    :alt="alt"
+    :alt="altText"
     :data-srcset="srcset"
-    :data-sizes="sizes"
+    :data-sizes="mediaSizes"
     @error="onError"
   >
 </template>
@@ -52,7 +52,10 @@ export default {
       type: Object,
       required: true
     },
-    viewSizes: {
+    alt: {
+      type: String
+    },
+    sizes: {
       type: String
     },
   },
@@ -75,8 +78,8 @@ export default {
     imgSrc() {
       return this.src
     },
-    alt() {
-      return this.data.alternativeText
+    altText() {
+      return this.alt || this.data.alternativeText
     },
     srcset() {
       let srcset = this.src + " " + this.data.width + "w"
@@ -88,10 +91,10 @@ export default {
       console.log("srcset", srcset)
       return srcset
     },
-    sizes() {
+    mediaSizes() {
       const imgWidth = `${this.data.width}px`
       let sizes=[]
-      if (this.viewSizes) sizes.push(this.viewSizes)
+      if (this.sizes) sizes.push(this.sizes)
       sizes.push(`(max-width: ${imgWidth}) 100vw`)
       sizes.push(imgWidth)
       return sizes.join(', ')
@@ -101,11 +104,11 @@ export default {
     validateData() {
       const data = this.data
       if (!data) {
-        console.err('No base image data provided')
+        console.error('No base image data provided')
       } else {
-        if (!data.url) console.err('No image url provided', {data})
-        if (!data.width) console.err('No image width provided', {data})
-        if (!data.alternativeText) console.log('No image alternativeText provided for ' + data.url)
+        if (!data.url) console.error('No image url provided', {data})
+        if (!data.width) console.error('No image width provided', {data})
+        if (!this.alt && !data.alternativeText) console.log('No image alternativeText provided for ' + data.url)
         if (!data.formats && data.width > 245) console.log('No alternative image formats provided for ' + data.url)
       }
     },
