@@ -2,11 +2,12 @@
   <div class="main-notes">
     <h1>{{notesPage.title}}</h1>
 
-    <g-image
+    <ResponsiveImage
       v-if="introImage"
       class="img-postcat"
       alt="note posts"
-      :src="introImage"
+      :data="introImage"
+      sizes="(min-width: 600px) 120px, 20vw !"
     />
 
     <RichText :data="notesPage.introduction" class="para intro group"/>
@@ -26,7 +27,8 @@
 <script>
 import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
@@ -36,6 +38,7 @@ export default {
   components: {
     PaginatedPosts,
     RichText,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -48,7 +51,7 @@ export default {
   },
   computed: {
     notesPage() {
-      return this.$page.cms.notesPage
+      return this.$page.cms.notesPage || {}
     },
     notes() {
       // the maximum nr of notes to show is defined by `limit` in the 
@@ -56,8 +59,8 @@ export default {
       return this.$page.cms.notes
     },
     introImage() {
-      const img = this.notesPage.seo.shareImage
-      return getCmsMedia(img && img.url)
+      const img = this.notesPage.seo && this.notesPage.seo.shareImage
+      return img
     },
     basePath() {
       return this.$context.basePath;
@@ -87,6 +90,10 @@ query NotesPage ($sort: String!, $start: Int, $limit: Int) {
         shareImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
     }

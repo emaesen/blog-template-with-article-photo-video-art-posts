@@ -2,11 +2,12 @@
   <div class="main-photos">
     <h1>{{photosPage.title}}</h1>
 
-    <g-image
+    <ResponsiveImage
       v-if="introImage"
       class="img-postcat"
       alt="photo posts"
-      :src="introImage"
+      :data="introImage"
+      sizes="(min-width: 600px) 120px, 20vw !"
     />
 
     <RichText :data="photosPage.introduction" class="para intro group"/>
@@ -26,7 +27,8 @@
 <script>
 import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
@@ -36,6 +38,7 @@ export default {
   components: {
     PaginatedPosts,
     RichText,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -48,7 +51,7 @@ export default {
   },
   computed: {
     photosPage() {
-      return this.$page.cms.photosPage
+      return this.$page.cms.photosPage || {}
     },
     photos() {
       // the maximum nr of photos to show is defined by `limit` in the 
@@ -56,8 +59,8 @@ export default {
       return this.$page.cms.photos
     },
     introImage() {
-      const img = this.photosPage.seo.shareImage
-      return getCmsMedia(img && img.url)
+      const img = this.photosPage.seo && this.photosPage.seo.shareImage
+      return img
     },
     basePath() {
       return this.$context.basePath;
@@ -87,6 +90,10 @@ query PhotosPage ($sort: String!, $start: Int, $limit: Int) {
         shareImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
     }
@@ -107,6 +114,10 @@ query PhotosPage ($sort: String!, $start: Int, $limit: Int) {
       photo {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
       date
       location {

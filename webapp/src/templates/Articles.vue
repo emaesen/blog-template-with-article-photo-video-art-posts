@@ -2,11 +2,12 @@
   <div class="main-articles">
     <h1>{{articlesPage.title}}</h1>
 
-    <g-image
+    <ResponsiveImage
       v-if="introImage"
       class="img-postcat"
       alt="article posts"
-      :src="introImage"
+      :data="introImage"
+      sizes="(min-width: 600px) 120px, 20vw !"
     />
 
     <RichText :data="articlesPage.introduction" class="para intro group"/>
@@ -26,7 +27,8 @@
 <script>
 import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
@@ -36,6 +38,7 @@ export default {
   components: {
     PaginatedPosts,
     RichText,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -46,7 +49,7 @@ export default {
   },
   computed: {
     articlesPage() {
-      return this.$page.cms.articlesPage
+      return this.$page.cms.articlesPage || {}
     },
     articles() {
       // the maximum nr of articles to show is defined by `limit` in the 
@@ -54,8 +57,8 @@ export default {
       return this.$page.cms.articles
     },
     introImage() {
-      const img = this.articlesPage.seo.shareImage
-      return getCmsMedia(img && img.url)
+      const img = this.articlesPage.seo && this.articlesPage.seo.shareImage
+      return img
     },
     basePath() {
       return this.$context.basePath;
@@ -85,13 +88,16 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
         shareImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
     }
 
     # List articles
     articles (sort: $sort, limit:$limit, start:$start) {
-
       id
       title
       createdAt
@@ -104,11 +110,14 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
       coverImage {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
       date
       createdAt
       publicationDate
-
     }
 
   }
