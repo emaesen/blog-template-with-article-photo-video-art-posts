@@ -7,6 +7,7 @@
     :data-srcset="srcset"
     :data-sizes="mediaSizes"
     @error="onError"
+    :width="imgWidth"
   >
 </template>
 
@@ -90,10 +91,16 @@ export default {
       }
       return srcset
     },
+    imgWidth() {
+      return this.data.width
+    },
+    imgHeight() {
+      return this.data.height
+    },
     mediaSizes() {
-      const imgWidth = `${this.data.width}px`
+      const imgWidth = `${this.imgWidth}px`
       let sizes=[]
-      let customSizes = this.sizes.trim()
+      let customSizes = this.sizes && this.sizes.trim()
       let useDefault = true
       if (customSizes) {
         // adding "!" to end of custom sizes property will
@@ -132,7 +139,7 @@ export default {
     },
     onError(err) {
       this.hasError = true
-      console.log('could not load image ', {data:this.data, error:err})
+      console.error('could not load image ', {data:this.data, error:err})
     },
   }
 }
