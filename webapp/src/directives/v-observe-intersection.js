@@ -12,11 +12,13 @@ const NO = "no";
 const intsecObsCacheKey = 'intsecObserverCache';
 const intsecObsKey = 'intsecObserver';
 const dataIntsecObservable = 'intsecObservable';
+const dataIntsecObserved = 'intsecObserved';
 
 let enableIntsecObs = true;
 
 function markObservable(el) {
   el.dataset[dataIntsecObservable] = YES;
+  el.dataset[dataIntsecObserved] = 0;
 }
 function markUnobservable(el) {
   el.dataset[dataIntsecObservable] = NO;

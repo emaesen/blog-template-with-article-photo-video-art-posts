@@ -11,10 +11,10 @@ import vObserveIntersection from "@/directives/v-observe-intersection.js";
 
 const YES = "yes";
 const NO = "no";
-const DONE = "done";
 
 const dataIntsecObservable = 'intsecObservable';
 const dataIntsecInview = 'intsecInview';
+const dataIntsecObserved = 'intsecObserved';
 
 export default {
   name: 'mixins/observe-intersection',
@@ -26,7 +26,7 @@ export default {
       intsecObserver: undefined,
       intsecObserverOptions: {
         rootMargin: '-20px',
-        threshold: [0,0.01],
+        threshold: [0],
       },
       intsecObserverBehavior: {
         observeOnlyOnce: true,
@@ -53,17 +53,19 @@ export default {
   methods: {
     handleIntersection({intersectionRatio, isIntersecting, target}, observer) {
       if (intersectionRatio > 0) {
+        target.dataset[dataIntsecObserved] ++
         if (target.dataset[dataIntsecObservable] === YES) {
           this.intsecHandler(target);
           target.dataset[dataIntsecInview] = YES
         }
         if (this.intsecObserverBehavior.observeOnlyOnce) {
-          target.dataset[dataIntsecObservable] = DONE;
+          target.dataset[dataIntsecObservable] = NO;
           this.intsecObserver.unobserve(target)
           delete target.dataset[dataIntsecInview]
         }
       } else {
-        if (target.dataset[dataIntsecObservable] === YES) {
+        if (target.dataset[dataIntsecObservable] === YES 
+            && target.dataset[dataIntsecObserved] == 0) {
           this.intsecHandler(target, {init:true});
         }
         target.dataset[dataIntsecInview] = NO
