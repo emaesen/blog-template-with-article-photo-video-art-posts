@@ -4,11 +4,12 @@
       <g-link :to="postBasePath + post.slug" class="nodeco u-url u-uid">
         <div class="post-summary">
           <div class="post-media-container">
-            <g-image
-              v-if="imageSrc && postType!=='video'"
+            <ResponsiveImage
+              v-if="imageData && postType!=='video'"
               :alt="post.title"
-              :src="imageSrc"
+              :data="imageData"
               class="post-image img-fluid u-photo"
+              :sizes="'(max-width:1100px) ' + Math.floor(100/nrPostsInRow) + 'vw' + ', (min-width:1100px) ' + Math.floor(1100/nrPostsInRow) + 'px'"
             />
             <Video
               v-if="postType==='video'"
@@ -78,6 +79,7 @@
 </template>
 
 <script>
+import ResponsiveImage from '~/components/ResponsiveImage'
 import Video from '~/components/Video'
 import { getCmsMedia } from '~/utils/medias'
 import { parseAsHtml } from '~/utils/parser'
@@ -104,7 +106,8 @@ export default {
   },
   mixins: [date, windowSize],
   components: {
-      Video,
+    ResponsiveImage,
+    Video,
   },
   mounted() {
     this.setSpacingClass()
@@ -137,11 +140,11 @@ export default {
     nrPostsInRowClass() {
       return `row-${this.nrPostsInRow}`
     },
-    imageSrc() {
+    imageData() {
       const post = this.post
       if (post.coverImage || post.photo || post.image) {
         const img = post.coverImage || post.photo || post.image
-        return getCmsMedia(img && img.url)
+        return img
       }
     },
     postSeries() {
