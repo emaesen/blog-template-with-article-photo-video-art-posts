@@ -55,11 +55,13 @@ export default {
       if (intersectionRatio > 0) {
         if (target.dataset[dataIntsecObservable] === YES) {
           this.intsecHandler(target);
+          target.dataset[dataIntsecInview] = YES
         }
         if (this.intsecObserverBehavior.observeOnlyOnce) {
           target.dataset[dataIntsecObservable] = DONE;
+          this.intsecObserver.unobserve(target)
+          delete target.dataset[dataIntsecInview]
         }
-        target.dataset[dataIntsecInview] = YES
       } else {
         if (target.dataset[dataIntsecObservable] === YES) {
           this.intsecHandler(target, {init:true});
