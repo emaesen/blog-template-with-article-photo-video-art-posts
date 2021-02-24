@@ -93,9 +93,18 @@ export default {
     mediaSizes() {
       const imgWidth = `${this.data.width}px`
       let sizes=[]
-      if (this.sizes) sizes.push(this.sizes)
-      sizes.push(`(max-width: ${imgWidth}) 100vw`)
-      sizes.push(imgWidth)
+      let customSizes = this.sizes.trim()
+      let useDefault = true
+      if (customSizes) {
+        // adding "!" to end of custom sizes property will
+        // disable output of the default sizes
+        useDefault = !customSizes.endsWith('!')
+        sizes.push(customSizes.replace(/ *!/, ""))
+      }
+      if (useDefault) {
+        sizes.push(`(max-width: ${imgWidth}) 100vw`)
+        sizes.push(imgWidth)
+      }
       return sizes.join(', ')
     },
   },
