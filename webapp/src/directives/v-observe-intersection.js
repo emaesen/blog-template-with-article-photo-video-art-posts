@@ -49,13 +49,14 @@ function unobserve(el, observer) {
 }
 
 export default {
+  // doc: https://vuejs.org/v2/guide/custom-directive.html
   inserted(el, binding, vnode) {
     if (enableIntsecObs) {
       let observer = vnode.context[intsecObsKey];
       if (observer instanceof IntersectionObserver) {
         observe(el, observer);
       } else {
-        console.error("Provide Intersection Observer through `" + intsecObsKey + "` property")
+        console.error("Provide `" + binding.name + "` Intersection Observer through `" + intsecObsKey + "` property")
       }
     }
   },
