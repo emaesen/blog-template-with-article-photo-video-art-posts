@@ -7,8 +7,12 @@
 
       <div id="author" class="author personal">
         <a class="u-url u-uid" rel="author" href="#author"></a>
-        <div class="photo u-photo" v-if="photoUrl">
-          <g-image :src="photoUrl" width="100" :alt="photoAlt"/>
+        <div class="photo u-photo" v-if="photo">
+          <ResponsiveImage
+            :data="photo"
+            sizes="(max-width: 450px) 40vw, 180px !"
+            width="180"
+          />
         </div>
         <div>
           <div class="name p-name fn cursive">
@@ -81,7 +85,10 @@ query IndexPage {
         name
         photo {
           url
+          width
+          height
           alternativeText
+          formats
         }
         tag {
           name
@@ -115,6 +122,10 @@ query IndexPage {
         shareImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
       title
@@ -129,6 +140,10 @@ query IndexPage {
           media {
             id
             url
+            width
+            height
+            alternativeText
+            formats
             mime
           }
           description
@@ -146,6 +161,10 @@ query IndexPage {
               image {
                 name
                 url
+                width
+                height
+                alternativeText
+                formats
               }
             }
           }
@@ -158,8 +177,8 @@ query IndexPage {
 
 <script>
 import Content from '~/components/Content'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
-import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 
 
@@ -167,6 +186,7 @@ export default {
   name: 'Index',
   components: {
     Content,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -188,11 +208,8 @@ export default {
     address() {
       return this.author.address || {}
     },
-    photoUrl() {
-      return getCmsMedia(this.author.photo && this.author.photo.url)
-    },
-    photoAlt() {
-      return this.author.photo && this.author.photo.alternativeText
+    photo() {
+      return this.author.photo
     },
     organizations() {
       return this.global.organization

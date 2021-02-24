@@ -1,13 +1,13 @@
 <template>
   <div class="large-media">
-    <g-image
+    <ResponsiveImage
       :alt="data.description"
-      :src="getCmsMedia(data.media.url)"
-      v-if="data.media.mime.startsWith('image')"
+      :data="media"
+      v-if="media.mime.startsWith('image')"
     />
 
-    <video controls v-if="data.media.mime.startsWith('video')">
-      <source :src="data.media.url" :type="data.media.mime" />
+    <video controls v-if="media.mime.startsWith('video')">
+      <source :src="media.url" :type="media.mime" />
     </video>
 
     <div class="caption">{{ data.description }}</div>
@@ -16,14 +16,19 @@
 </template>
 
 <script>
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 export default {
   name: 'LargeMedia',
   props: ['data'],
-  methods: {
-    getCmsMedia,
-  }
+  components: {
+    ResponsiveImage,
+  },
+  computed: {
+    media() {
+      return this.data.media
+    },
+  },
 }
 </script>
 
