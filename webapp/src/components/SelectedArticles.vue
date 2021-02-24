@@ -27,6 +27,10 @@ query LatestArticles($limit: Int = 6) {
       coverImage {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
     }
     articlesCount
@@ -44,6 +48,10 @@ query LatestArticles($limit: Int = 6) {
         coverImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
       }
     }

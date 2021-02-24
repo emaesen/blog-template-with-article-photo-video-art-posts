@@ -28,6 +28,10 @@ query LatestVideos($limit: Int = 4) {
       coverImage {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
       date
       categories {
@@ -57,6 +61,10 @@ query LatestVideos($limit: Int = 4) {
         coverImage {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
         date
         categories {

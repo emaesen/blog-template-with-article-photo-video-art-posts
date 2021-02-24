@@ -29,6 +29,10 @@ query LatestArts($limit: Int = 4) {
       image {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
       createdAt
       date
@@ -50,6 +54,10 @@ query LatestArts($limit: Int = 4) {
         image {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
         createdAt
         date

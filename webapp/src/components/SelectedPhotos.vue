@@ -29,6 +29,10 @@ query LatestPhotos($limit: Int = 4) {
       photo {
         id
         url
+        width
+        height
+        alternativeText
+        formats
       }
       createdAt
     }
@@ -49,6 +53,10 @@ query LatestPhotos($limit: Int = 4) {
         photo {
           id
           url
+          width
+          height
+          alternativeText
+          formats
         }
         createdAt
       }
