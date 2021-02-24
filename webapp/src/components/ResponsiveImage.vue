@@ -88,7 +88,6 @@ export default {
       if (imgs) {
         srcset += ", " + imgs
       }
-      console.log("srcset", srcset)
       return srcset
     },
     mediaSizes() {
@@ -124,7 +123,7 @@ export default {
     },
     onError(err) {
       this.hasError = true
-      console.log('could not load image ', {err})
+      console.log('could not load image ', {data:this.data, error:err})
     },
   }
 }
