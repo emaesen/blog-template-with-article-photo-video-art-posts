@@ -7,7 +7,7 @@
       v-if="introImage"
       class="img-postcat"
       :data="introImage"
-      viewSizes="(min-width: 600px) 120px, (max-width: 600px) 20vw"
+      sizes="(min-width: 600px) 120px, (max-width: 600px) 20vw"
     />
 
     <RichText
