@@ -87,6 +87,7 @@ query IndexPage {
           url
           width
           height
+          size
           alternativeText
           formats
         }
@@ -124,6 +125,7 @@ query IndexPage {
           url
           width
           height
+          size
           alternativeText
           formats
         }
@@ -142,6 +144,7 @@ query IndexPage {
             url
             width
             height
+            size
             alternativeText
             formats
             mime
@@ -163,6 +166,7 @@ query IndexPage {
                 url
                 width
                 height
+                size
                 alternativeText
                 formats
               }

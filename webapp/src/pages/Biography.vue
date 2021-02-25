@@ -69,6 +69,7 @@ query BiographyPage {
           url
           width
           height
+          size
           alternativeText
           formats
         }
@@ -79,6 +80,11 @@ query BiographyPage {
         shareImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
       }
     }

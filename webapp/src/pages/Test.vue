@@ -155,6 +155,11 @@ query TestPage {
         shareImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
       }
     }

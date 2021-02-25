@@ -50,6 +50,7 @@ query PostsPage {
           url
           width
           height
+          size
           alternativeText
           formats
         }

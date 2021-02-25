@@ -49,6 +49,11 @@ query AboutPage {
           media {
             id
             url
+            width
+            height
+            size
+            alternativeText
+            formats
             mime
           }
           description
@@ -66,6 +71,11 @@ query AboutPage {
               image {
                 name
                 url
+                width
+                height
+                size
+                alternativeText
+                formats
               }
             }
           }
@@ -77,6 +87,11 @@ query AboutPage {
         shareImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
       }
     }

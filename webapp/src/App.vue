@@ -44,6 +44,7 @@ query {
         url
         width
         height
+        size
         alternativeText
         formats
       }
