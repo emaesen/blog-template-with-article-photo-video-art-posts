@@ -11,13 +11,19 @@ module.exports = {
     },
   },
   upload: {
+    quality: 40,
+    progressive: true,
     breakpoints: {
-      xxlarge: 2560,
-      xlarge: 1920,
-      large: 1000,
-      medium: 750,
-      small: 500,
-      thumbnail: 64
+      w3300: 3300,
+      w2520: 2520,
+      w2200: 2200,
+      w1680: 1680,
+      w1100: 1100,
+      w840: 840,
+      w550: 550,
+      w370: 370,
+      w275: 275,
+      w220: 220
     }
   }
 };
