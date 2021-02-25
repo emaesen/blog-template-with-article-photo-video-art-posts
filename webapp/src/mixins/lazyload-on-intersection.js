@@ -19,6 +19,11 @@ export default {
   mixins: [observeIntersection],
   data() {
     return {
+      intsecObserverBehavior: {
+        // keep observing because viewed image size may be changed
+        // interactively by the website viewer 
+        observeOnlyOnce: false,
+      },
     };
   },
   computed: {
@@ -32,6 +37,7 @@ export default {
       }
     },
     initImage(el) {
+      console.log("lazyload intsecHandler init:\n", {alt: el.alt})
       el.classList.add('v-image--preload')
     },
     loadImage(el) {
@@ -40,21 +46,36 @@ export default {
       const srcset = el.getAttribute('data-srcset')
 
       if (!src || el.src.endsWith(src)) {
-        return // src is already switched
+        // src is already switched, but sizes may have changed reactively.
+        // (for the pages where the number of images per row can be changed
+        //  interactively by the visitor)
+        if (sizes && !el.sizes.endsWith(sizes)) {
+          console.log("lazyload intsecHandler resize:\n", {alt: el.alt})
+          el.sizes = sizes
+          el.removeAttribute('data-sizes')
+        }
+        // Currently, srcset is not subject to change. If that were to
+        // change, then uncomment the following:
+        // if (srcset && !el.srcset.endsWith(srcset)) {
+        //   el.srcset = srcset
+        //   el.removeAttribute('data-srcset')
+        // }
+      } else {
+        console.log("lazyload intsecHandler load:\n", {alt: el.alt})
+        el.onload = () => {
+          el.classList.remove('v-image--preload')
+          el.classList.add('v-image--loaded')
+        }
+  
+        el.srcset = srcset
+        el.sizes = sizes
+        el.src = src
+  
+        el.removeAttribute('data-src')
+        el.removeAttribute('data-sizes')
+        el.removeAttribute('data-srcset')
       }
 
-      el.onload = () => {
-        el.classList.remove('v-image--preload')
-        el.classList.add('v-image--loaded')
-      }
-
-      el.srcset = srcset
-      el.sizes = sizes
-      el.src = src
-
-      el.removeAttribute('data-src')
-      el.removeAttribute('data-sizes')
-      el.removeAttribute('data-srcset')
     }
   }
 }
