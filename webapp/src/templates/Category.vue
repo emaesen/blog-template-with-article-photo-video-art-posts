@@ -39,6 +39,11 @@ query Category {
         coverImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         createdAt
       }
@@ -58,6 +63,11 @@ query Category {
         photo {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         createdAt
         date
@@ -81,6 +91,11 @@ query Category {
         coverImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         date
         categories {
@@ -109,6 +124,11 @@ query Category {
         image {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         date
         createdAt

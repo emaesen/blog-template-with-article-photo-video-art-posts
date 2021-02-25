@@ -92,6 +92,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
           url
           width
           height
+          size
           alternativeText
           formats
         }
@@ -116,6 +117,7 @@ query VideosPage ($sort: String!, $start: Int, $limit: Int) {
         url
         width
         height
+        size
         alternativeText
         formats
       }

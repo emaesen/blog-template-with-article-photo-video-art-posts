@@ -46,6 +46,11 @@ query Collection {
         photo {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         createdAt
         date
@@ -69,6 +74,11 @@ query Collection {
         coverImage {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         date
         categories {
@@ -97,6 +107,11 @@ query Collection {
         image {
           id
           url
+          width
+          height
+          size
+          alternativeText
+          formats
         }
         date
         createdAt

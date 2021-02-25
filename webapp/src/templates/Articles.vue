@@ -90,6 +90,7 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
           url
           width
           height
+          size
           alternativeText
           formats
         }
@@ -112,6 +113,7 @@ query ArticlesPage ($sort: String!, $start: Int, $limit: Int) {
         url
         width
         height
+        size
         alternativeText
         formats
       }

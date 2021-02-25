@@ -92,6 +92,7 @@ query NotesPage ($sort: String!, $start: Int, $limit: Int) {
           url
           width
           height
+          size
           alternativeText
           formats
         }

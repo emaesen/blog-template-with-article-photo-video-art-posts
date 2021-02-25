@@ -59,6 +59,11 @@ query Video ($slug: String!) {
       coverImage {
         id
         url
+        width
+        height
+        size
+        alternativeText
+        formats
       }
       date
       categories {
@@ -101,7 +106,7 @@ export default {
   },
   computed: {
     video() {
-      return this.$page.cms.videos[0]
+      return this.$page.cms.videos[0] || {}
     },
     categoryBasePath() {
       return '/p/videos/c/'
@@ -110,7 +115,7 @@ export default {
       return '/p/videos/s/'
     },
     seriesTitle() {
-      const series = this.video && this.video.series
+      const series = this.video.series
       return series && series.title
     },
     dateCreatedText() {
@@ -124,7 +129,7 @@ export default {
       return text;
     },
     contentAsHtml() {
-      const content = this.video && this.video.content ? this.video.content : ""
+      const content = this.video.content ? this.video.content : ""
       return content ? 
         parseAsHtml(content, {
           paraClassName: "margin-top-small", 
@@ -135,7 +140,6 @@ export default {
     },
   },
   methods: {
-    getCmsMedia,
   },
 }
 </script>
