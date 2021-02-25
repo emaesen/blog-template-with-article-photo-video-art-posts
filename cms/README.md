@@ -11,6 +11,10 @@ A MongoDB service is assumed to be installed and running on the host system. Acc
 
 Note: MongoDB is not required to be used, you may use Strapi's embedded default data store as well.
 
+## Customization
+
+This implementation has a custom image upload service that allows a quality setting to be configured.
+
 ## My impressions of Strapi
 
 - It's a decent CMS, but has numerous issues
