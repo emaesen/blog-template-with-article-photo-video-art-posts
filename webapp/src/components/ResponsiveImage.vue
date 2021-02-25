@@ -97,6 +97,9 @@ export default {
     imgHeight() {
       return this.data.height
     },
+    imgSize() {
+      return this.data.size
+    },
     mediaSizes() {
       const imgWidth = `${this.imgWidth}px`
       let sizes=[]
@@ -122,7 +125,8 @@ export default {
         console.error('No base image data provided')
       } else {
         if (!data.url) console.error('No image url provided', {data})
-        if (!data.width) console.error('No image width provided', {data})
+        if (!data.width) console.error('No image width provided for ' + data.url)
+        if (!data.size) console.error('No image size provided for ' + data.url)
         if (!this.alt && !data.alternativeText) console.log('No image alternativeText provided for ' + data.url)
         if (!data.formats && data.width > 245) console.log('No alternative image formats provided for ' + data.url)
       }
@@ -132,7 +136,13 @@ export default {
       let imgs = []
       if (formats) {
         for(let [_key,props] of Object.entries(formats)) {
-          imgs.push(`${getCmsMedia(props.url)} ${props.width}w`)
+          // exclude variants for which the size is larger than the
+          // original's size
+          if (props.size < this.imgSize) {
+            imgs.push(`${getCmsMedia(props.url)} ${props.width}w`)
+          } else {
+            console.log(`Image variant excluded (too large):\n${props.url}\n(${props.size} > ${this.imgSize})`)
+          }
         }
       }
       return imgs.join(', ')
