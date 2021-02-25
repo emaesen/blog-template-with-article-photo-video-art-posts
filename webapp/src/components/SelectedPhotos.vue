@@ -31,6 +31,7 @@ query LatestPhotos($limit: Int = 4) {
         url
         width
         height
+        size
         alternativeText
         formats
       }
@@ -55,6 +56,7 @@ query LatestPhotos($limit: Int = 4) {
           url
           width
           height
+          size
           alternativeText
           formats
         }

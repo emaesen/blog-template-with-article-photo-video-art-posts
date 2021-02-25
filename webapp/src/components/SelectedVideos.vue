@@ -30,6 +30,7 @@ query LatestVideos($limit: Int = 4) {
         url
         width
         height
+        size
         alternativeText
         formats
       }
@@ -63,6 +64,7 @@ query LatestVideos($limit: Int = 4) {
           url
           width
           height
+          size
           alternativeText
           formats
         }

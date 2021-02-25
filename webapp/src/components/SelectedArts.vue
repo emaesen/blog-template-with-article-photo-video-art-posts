@@ -31,6 +31,7 @@ query LatestArts($limit: Int = 4) {
         url
         width
         height
+        size
         alternativeText
         formats
       }
@@ -56,6 +57,7 @@ query LatestArts($limit: Int = 4) {
           url
           width
           height
+          size
           alternativeText
           formats
         }

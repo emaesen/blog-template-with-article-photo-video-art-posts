@@ -29,6 +29,7 @@ query LatestArticles($limit: Int = 6) {
         url
         width
         height
+        size
         alternativeText
         formats
       }
@@ -50,6 +51,7 @@ query LatestArticles($limit: Int = 6) {
           url
           width
           height
+          size
           alternativeText
           formats
         }
