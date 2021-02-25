@@ -12,9 +12,9 @@
     </div>
 
 
-    <g-image
+    <ResponsiveImage
       :alt="photo.title"
-      :src="imgUrl"
+      :data="image"
     />
     <div class="meta deemph">
       <div class="date dt-taken">
@@ -67,6 +67,11 @@ query Photo ($slug: String!) {
       photo {
         id
         url
+        width
+        height
+        size
+        alternativeText
+        formats
       }
       date
       location {
@@ -83,6 +88,8 @@ query Photo ($slug: String!) {
 <script>
 import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getCmsMedia } from '~/utils/medias'
 import { getMetaTags } from '~/utils/meta-tags'
 import { parseAsHtml } from '~/utils/parser'
@@ -96,6 +103,7 @@ export default {
   components: {
     IconGoBackOrUp,
     Content,
+    ResponsiveImage,
   },
   mounted() {
   },
@@ -104,11 +112,10 @@ export default {
   },
   computed: {
     photo() {
-      return this.$page.cms.photos[0]
+      return this.$page.cms.photos[0] || {}
     },
-    imgUrl() {
-      const url=this.photo.photo.url
-      return getCmsMedia(url)
+    image() {
+      return this.photo.photo
     },
     categoryBasePath() {
       return '/p/photos/c/'
@@ -117,7 +124,7 @@ export default {
       return '/p/photos/s/'
     },
     seriesTitle() {
-      const series = this.photo && this.photo.series
+      const series = this.photo.series
       return series && series.title
     },
     location() {
@@ -138,7 +145,7 @@ export default {
       return text;
     },
     contentAsHtml() {
-      const content = this.photo && this.photo.content ? this.photo.content : ""
+      const content = this.photo.content ? this.photo.content : ""
       return content ? 
         parseAsHtml(content, {
           paraClassName: "margin-top-small", 
@@ -149,7 +156,6 @@ export default {
     },
   },
   methods: {
-    getCmsMedia,
   },
 }
 </script>

@@ -12,9 +12,9 @@
     </div>
 
 
-    <g-image
+    <ResponsiveImage
       :alt="art.title"
-      :src="imgUrl"
+      :data="image"
     />
     <div class="meta deemph">
       <div class="date dt-taken">
@@ -64,6 +64,11 @@ query Art ($slug: String!) {
       image {
         id
         url
+        width
+        height
+        size
+        alternativeText
+        formats
       }
       date
       createdAt
@@ -75,7 +80,8 @@ query Art ($slug: String!) {
 <script>
 import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import Content from '~/components/Content'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getMetaTags } from '~/utils/meta-tags'
 import date from '@/mixins/date.js'
 import goBackOrUp from '@/mixins/go-back-or-up.js'
@@ -87,6 +93,7 @@ export default {
   components: {
     IconGoBackOrUp,
     Content,
+    ResponsiveImage,
   },
   mounted() {
   },
@@ -95,11 +102,10 @@ export default {
   },
   computed: {
     art() {
-      return this.$page.cms.arts[0]
+      return this.$page.cms.arts[0] || {}
     },
-    imgUrl() {
-      const url=this.art.image.url
-      return getCmsMedia(url)
+    image() {
+      return this.art.image
     },
     categoryBasePath() {
       return '/p/arts/c/'
@@ -123,7 +129,6 @@ export default {
     },
   },
   methods: {
-    getCmsMedia,
   },
 }
 </script>

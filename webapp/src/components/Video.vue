@@ -7,13 +7,13 @@
           class="video" 
           controls playsinline
           preload="metadata"
-          :poster="imgUrl"
         >
           <!--source src="xxx.webm" type="video/webm;codecs=vp9" -->
           <source :src="videoUrl" :type="mimeType">
-          <g-image
+          <ResponsiveImage
             :alt="video.title"
-            :src="imgUrl"
+            :data="coverImage"
+            sizes="(min-width: 693px) 693px, 100vw !"
           />
         </video>
     </div>
@@ -22,6 +22,8 @@
 
 <script>
 import VideoYouTube from '~/components/VideoYouTube'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getCmsMedia } from '~/utils/medias'
 
 export default {
@@ -29,6 +31,7 @@ export default {
   props: ['video'],
   components: {
     VideoYouTube,
+    ResponsiveImage,
   },
   data() {
     return {
@@ -38,13 +41,16 @@ export default {
     }
   },
   computed: {
+    coverImage() {
+      return this.video.coverImage
+    },
     imgUrl() {
-      const url = this.video.coverImage && this.video.coverImage.url
-      return getCmsMedia(url, false)
+      const url = this.coverImage && this.coverImage.url
+      return getCmsMedia(url)
     },
     videoUrl() {
       const url = this.video.video && this.video.video.url
-      return getCmsMedia(url, false)
+      return getCmsMedia(url)
     },
     mimeType() {
       return this.video.video && this.video.video.mime

@@ -13,10 +13,10 @@
         </div>
       </div>
 
-      <g-image
-        v-if="imgUrl"
+      <ResponsiveImage
+        v-if="image"
         :alt="article.title"
-        :src="imgUrl"
+        :data="image"
       />
       <div class="description para cursive">
         {{ article.description }}
@@ -43,6 +43,11 @@ query Article ($slug: String!) {
       coverImage {
         id
         url
+        width
+        height
+        size
+        alternativeText
+        formats
       }
       content
       date
@@ -56,7 +61,8 @@ query Article ($slug: String!) {
 <script>
 import IconGoBackOrUp from '~/components/IconGoBackOrUp'
 import RichText from '~/components/RichText'
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
+
 import { getMetaTags } from '~/utils/meta-tags'
 import date from '@/mixins/date.js'
 import goBackOrUp from '@/mixins/go-back-or-up.js'
@@ -67,17 +73,17 @@ export default {
   components: {
     IconGoBackOrUp,
     RichText,
+    ResponsiveImage,
   },
   metaInfo() {
     return getMetaTags(this.article, this.$route) 
   },
   computed: {
     article() {
-      return this.$page.cms.articles[0]
+      return this.$page.cms.articles[0] || {}
     },
-    imgUrl() {
-      const imgName=this.article.coverImage && this.article.coverImage.url
-      return getCmsMedia(imgName)
+    image() {
+      return this.article.coverImage
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};
@@ -86,7 +92,6 @@ export default {
     },
   },
   methods: {
-    getCmsMedia,
   },
 }
 </script>

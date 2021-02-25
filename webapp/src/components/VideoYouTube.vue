@@ -20,10 +20,11 @@
       @click="playVideo=true" 
       class="video_preview"
     >
-      <g-image
+      <ResponsiveImage
         alt="Click to view YouTube video"
         title="Click to view YouTube video"
-        :src="imgUrl"
+        :data="coverImage"
+        sizes="(min-width: 693px) 693px, 100vw !"
       />
       <button class="play_button nodeco" aria-label="Play">
         <svg height="100%" version="1.1" viewBox="0 0 68 48" width="100%">
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import { getCmsMedia } from '~/utils/medias'
+import ResponsiveImage from '~/components/ResponsiveImage'
 
 const videoEmbedPath = "https://www.youtube-nocookie.com/embed/";
 // https://developers.google.com/youtube/player_parameters
@@ -55,6 +56,9 @@ export default {
       playVideo: false,
     }
   },
+  components: {
+    ResponsiveImage,
+  },
   computed: {
     youtubeId() {
       return this.video.youtubeId
@@ -62,17 +66,13 @@ export default {
     videoSrc() {
       return videoEmbedPath + this.youtubeId + videoEmbedQS
     },
-    imgUrl() {
-      const url = this.video.coverImage && this.video.coverImage.url
-      if (url) {
-        return getCmsMedia(url)
-      } else {
-        return 'https://img.youtube.com/vi/' + this.youtubeId + '/hqdefault.jpg'
-      }
+    coverImage() {
+      return this.video.coverImage 
+      // note: youtube cover images can be retrieved as
+      // 'https://img.youtube.com/vi/' + this.youtubeId + '/hqdefault.jpg'
     },
   },
   methods: {
-    getCmsMedia,
   }
 }
 </script>
