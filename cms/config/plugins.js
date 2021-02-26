@@ -11,8 +11,9 @@ module.exports = {
     },
   },
   upload: {
-    quality: 40,
+    quality: 50,
     progressive: true,
+    maxPngColors: 18,
     breakpoints: {
       w3300: 3300,
       w2520: 2520,
