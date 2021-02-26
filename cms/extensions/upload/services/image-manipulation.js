@@ -13,7 +13,7 @@ const getMetadatas = buffer =>
 
 const getDimensions = buffer =>
   getMetadatas(buffer)
-    .then(({ width = null, height = null }) => ({ width, height }))
+    .then(({ width = null, height = null, size = null }) => ({ width, height, size }))
     .catch(() => ({})); // ignore errors
 
 /* ----- start EM customized ----- */
@@ -27,20 +27,22 @@ const THUMBNAIL_RESIZE_OPTIONS = {
 
 /* ----- start EM customized ----- */
 /* extra config settings */
-const QUALITY = strapi.config.get('plugins.upload.quality', 80)
+const QUALITY = strapi.config.get('plugins.upload.quality', 60)
 const PROGRESSIVE = strapi.config.get('plugins.upload.progressive', true)
+const MAXPNGCOLORS = strapi.config.get('maxPngColors', 18)
 /* ----- end EM customized ----- */
 
 console.log ("Image upload QUALITY:" + QUALITY)
 console.log ("Image upload PROGRESSIVE:" + PROGRESSIVE)
+console.log ("Image upload MAXPNGCOLORS:" + MAXPNGCOLORS)
 
 /* ----- start EM customized ----- */
-/* add quality, progressive and different image formats */
-const resizeTo = (buffer, options, quality, progressive) =>
+/* add quality, progressive, colors and different image formats */
+const resizeTo = (buffer, options, quality, progressive, colors) =>
   sharp(buffer)
     .resize(options)
     .jpeg({ quality, progressive, force: false })
-    .png({ compressionLevel: Math.floor((quality / 100) * 9), progressive, force: false })
+    .png({ compressionLevel: Math.floor((quality / 100) * 9), quality, progressive, colors, force: false })
     .webp({ quality, force: false })
     .tiff({ quality, force: false })
     .toBuffer()
@@ -53,29 +55,38 @@ const generateThumbnail = async file => {
     return null;
   }
 
-  const { width, height } = await getDimensions(file.buffer);
+  /* ----- EM customized ----- */
+  /* add size */
+  const { width, height, size } = await getDimensions(file.buffer);
+  const origSize = size
 
   if (width > THUMBNAIL_RESIZE_OPTIONS.width || height > THUMBNAIL_RESIZE_OPTIONS.height) {
     /* ----- EM customized ----- */
-    /* add QUALITY, PROGRESSIVE */
-    const newBuff = await resizeTo(file.buffer, THUMBNAIL_RESIZE_OPTIONS, QUALITY, PROGRESSIVE);
+    /* add QUALITY, PROGRESSIVE, MAXPNGCOLORS */
+    const newBuff = await resizeTo(file.buffer, THUMBNAIL_RESIZE_OPTIONS, QUALITY, PROGRESSIVE, MAXPNGCOLORS);
 
     if (newBuff) {
       const { width, height, size } = await getMetadatas(newBuff);
-
       /* ----- EM customized ----- */
-      /* change values for name and hash: append key */
-      return {
-        name: `${file.name}_thumb`,
-        hash: `${file.hash}_thumb`,
-        ext: file.ext,
-        mime: file.mime,
-        width,
-        height,
-        size: bytesToKbytes(size),
-        buffer: newBuff,
-        path: file.path ? file.path : null,
-      };
+      /* only generate file if size is smaller than the original */
+      if (size < origSize) {
+        console.log(`Generating ${file.hash}_thumb${file.ext}` )
+        /* ----- EM customized ----- */
+        /* change values for name and hash: append key */
+        return {
+          name: file.name.replace(/(\.[^.]+)$/, "_thumb$1"),
+          hash: `${file.hash}_thumb`,
+          ext: file.ext,
+          mime: file.mime,
+          width,
+          height,
+          size: bytesToKbytes(size),
+          buffer: newBuff,
+          path: file.path ? file.path : null,
+        };
+      } else {
+        console.log(`Not generating ${file.hash}_thumb${file.ext} (too large)` )
+      }
     }
   }
 
@@ -155,35 +166,44 @@ const generateResponsiveFormats = async file => {
   );
 };
 
-const generateBreakpoint = async (key, { file, breakpoint }) => {
+const generateBreakpoint = async (key, { file, breakpoint, originalDimensions}) => {
   /* ----- EM customized ----- */
-  /* add QUALITY, PROGRESSIVE */
+  /* remove height constraint, add QUALITY, PROGRESSIVE, MAXPNGCOLORS */
   const newBuff = await resizeTo(file.buffer, {
     width: breakpoint,
-    height: breakpoint,
     fit: 'inside',
-  }, QUALITY, PROGRESSIVE);
+  }, QUALITY, PROGRESSIVE, MAXPNGCOLORS);
 
   if (newBuff) {
-    const { width, height, size } = await getMetadatas(newBuff);
-
     /* ----- EM customized ----- */
-    /* change values for name and hash: append key */
-    return {
-      key,
-      file: {
-        name: `${file.name}_${key}`,
-        hash: `${file.hash}_${key}`,
-        ext: file.ext,
-        mime: file.mime,
-        width,
-        height,
-        size: bytesToKbytes(size),
-        buffer: newBuff,
-        path: file.path ? file.path : null,
-      },
-    };
+    /* only generate file if size is smaller than the original */
+    const { width, height, size } = await getMetadatas(newBuff);
+    const origSize = originalDimensions.size
+    if (size < origSize) {
+      console.log(`Generating ${file.hash}_${key}${file.ext}` )
+      /* ----- EM customized ----- */
+      /* change values for name and hash: append key */
+      return {
+        key,
+        file: {
+          name: file.name.replace(/(\.[^.]+)$/, "_" + key + "$1"),
+          hash: `${file.hash}_${key}`,
+          ext: file.ext,
+          mime: file.mime,
+          width,
+          height,
+          size: bytesToKbytes(size),
+          buffer: newBuff,
+          path: file.path ? file.path : null,
+        },
+      };
+    } else {
+      console.log(`Not generating ${file.hash}_${key}${file.ext} (too large)` )
+    }
+
   }
+  
+  return null;
 };
 
 const breakpointSmallerThan = (breakpoint, { width, height }) => {
@@ -193,7 +213,7 @@ const breakpointSmallerThan = (breakpoint, { width, height }) => {
 const formatsToProccess = ['jpeg', 'png', 'webp', 'tiff'];
 const canBeProccessed = async buffer => {
   const { format } = await getMetadatas(buffer);
-  return format && formatsToProccess.includes(format);
+  return format && formatsToProccess.includes(format.toLowerCase());
 };
 
 module.exports = {
