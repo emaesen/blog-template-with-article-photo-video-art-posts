@@ -60,15 +60,18 @@ You may also choose any other database supported by Strapi; by default it will u
 
 `Vue.js` and `Gridsome` are installed in this project's `webapp` directory.
 
-(Run `npm install` in the `webapp` directory)
-(Run `npm run mkmediadir` in the `webapp` directory)
-(Check that folder `webapp\static\cmsmedia` exists. If not, create it manually)
+`cd [project-root-folder]/webapp`
+`npm install`
+`npm run mkmediadir`
+(Check that folder `webapp/static/cmsmedia` has been created. If not, create it manually)
 
 `Strapi` is installed in this project's `cms` directory.
 
-(Run `npm install` in the `cms` directory)
+`cd [project-root-folder]/cms`
+`npm install`
+`npm build`
 
-(You'll also need to setup the Strapi database connections - see Strapi documentation)
+You'll also need to setup the Strapi database connections - see Strapi documentation. A sample databace connection in case of SQLite DB is provided in `[project-root-folder]/cms/config/sample.database.js`
 
 ## Usage
 
