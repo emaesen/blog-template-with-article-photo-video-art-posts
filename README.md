@@ -58,36 +58,68 @@ You may also choose any other database supported by Strapi; by default it will u
 
 ## Installation
 
-`Vue.js` and `Gridsome` are installed in this project's `webapp` directory.
-
-`cd [project-root-folder]/webapp`
-`npm install`
-`npm run mkmediadir`
-(Check that folder `webapp/static/cmsmedia` has been created. If not, create it manually)
+### Install CMS
 
 `Strapi` is installed in this project's `cms` directory.
 
-`cd [project-root-folder]/cms`
-`npm install`
-`npm build`
+```bash
+> cd [project-root-folder]/cms
+> npm install
+> npm build
+```
 
 You'll also need to setup the Strapi database connections - see Strapi documentation. A sample databace connection in case of SQLite DB is provided in `[project-root-folder]/cms/config/sample.database.js`
 
+### Install WebApp
+
+`Vue.js` and `Gridsome` are installed in this project's `webapp` directory.
+
+```bash
+> cd [project-root-folder]/webapp
+> npm install
+> npm run mkmediadir
+```
+
+(Check that folder `webapp/static/cmsmedia` has been created. If not, create it manually)
+
 ## Usage
 
+### Add content to CMS
+
 To start the strapi CMS:
-Execute `npm run dev` in the `cms` directory.
+
+```bash
+> cd [project-root-folder]/cms
+> npm run dev
+```
+
 Enter content at <http://localhost:1337/admin/>
+
 Explore graphql at <http://localhost:1337/graphql>
 
+### Develop/view WebApp
+
 To run the webapp server in development mode:
-Execute `npm run dev` in the `webapp` directory.
+
+```bash
+> cd [project-root-folder]/webapp
+> npm run dev
+```
+
 View hot-reload development version of webapp at <http://localhost:9011/>
 
+### Generate deployable WebApp files
+
 To build static files for production deployment:
-Execute `npm run prod` in the `webapp` directory.
+
+```bash
+> cd [project-root-folder]/webapp
+> npm run prod
+```
+
 View production version of webapp at <http://localhost:9012/>
-Copy/deploy the `webapp\dist` folder to your website host of choice.
+
+Upload/deploy the `webapp\dist` folder to your website host of choice.
 
 ## Tools used
 
@@ -132,8 +164,8 @@ query {
 V0.1.0 is a feature-conplete version that has some sub-optimal performance due to the current Gridsome/Webpack design:
 
 * The `app.js` file is bloated with data-uri definitions for every single Grdisome/Webpack-managed image anywhere in the webapp (about 10kB per image).
-    It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website.
+  * It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website.
 * The default sizes for responsive images are limited and can not be configured.
-    To give browsers more image size choices, more responsive image sizes are desired.
+  * To give browsers more image size choices, more responsive image sizes are desired.
 * Responsive images are generated on each build step, negatively impacting the build time, yet the output is always the same.
-    Responsive image generation should happen in a pre-build step.
+  * Responsive image generation should happen in a pre-build step.
