@@ -60,6 +60,8 @@ const generateThumbnail = async file => {
   const { width, height, size } = await getDimensions(file.buffer);
   const origSize = size
 
+  console.log(`Analyzing new upload ${file.hash}${file.ext} (${bytesToKbytes(size)}kB)`)
+
   if (width > THUMBNAIL_RESIZE_OPTIONS.width || height > THUMBNAIL_RESIZE_OPTIONS.height) {
     /* ----- EM customized ----- */
     /* add QUALITY, PROGRESSIVE, MAXPNGCOLORS */
@@ -70,7 +72,7 @@ const generateThumbnail = async file => {
       /* ----- EM customized ----- */
       /* only generate file if size is smaller than the original */
       if (size < origSize) {
-        console.log(`Generating ${file.hash}_thumb${file.ext}` )
+        console.log(`Generating ${file.hash}_thumb${file.ext} (${bytesToKbytes(size)}kB)`)
         /* ----- EM customized ----- */
         /* change values for name and hash: append key */
         return {
@@ -85,7 +87,7 @@ const generateThumbnail = async file => {
           path: file.path ? file.path : null,
         };
       } else {
-        console.log(`Not generating ${file.hash}_thumb${file.ext} (too large)` )
+        console.log(`Not generating ${file.hash}_thumb${file.ext} (${bytesToKbytes(size)}kB) - is larger than the original` )
       }
     }
   }
@@ -180,7 +182,7 @@ const generateBreakpoint = async (key, { file, breakpoint, originalDimensions}) 
     const { width, height, size } = await getMetadatas(newBuff);
     const origSize = originalDimensions.size
     if (size < origSize) {
-      console.log(`Generating ${file.hash}_${key}${file.ext}` )
+      console.log(`Generating ${file.hash}_${key}${file.ext} (${bytesToKbytes(size)}kB)`)
       /* ----- EM customized ----- */
       /* change values for name and hash: append key */
       return {
@@ -198,7 +200,7 @@ const generateBreakpoint = async (key, { file, breakpoint, originalDimensions}) 
         },
       };
     } else {
-      console.log(`Not generating ${file.hash}_${key}${file.ext} (too large)` )
+      console.log(`Not generating ${file.hash}_${key}${file.ext} (${bytesToKbytes(size)}kB) - is larger than the original`)
     }
 
   }
