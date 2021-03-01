@@ -11,6 +11,8 @@
 import observeIntersection from '@/mixins/observe-intersection.js';
 import vObserveIntersection from "@/directives/v-observe-intersection.js";
 
+import { logMessage } from '@/utils/logger.js'
+
 export default {
   name: 'mixins/animate-on-intersection',
   directives: {
@@ -27,11 +29,13 @@ export default {
   methods: {
     intsecHandler(target, opts) {
       if (opts && opts.init) {
+        logMessage("animate intsecHandler init: ", target)
         if (!target.className.includes("anima__")) {
           target.classList.add(this.defaultAnimationClass);
         }
         target.classList.add("anima__-paused");
       } else {
+        logMessage("animate intsecHandler ANIMATE: ", target)
         target.addEventListener("animationend", this.onAnimationEnd, false);
         target.classList.remove("anima__-paused");
       }

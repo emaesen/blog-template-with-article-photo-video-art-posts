@@ -11,6 +11,8 @@
 import observeIntersection from '@/mixins/observe-intersection.js';
 import vObserveIntersection from "@/directives/v-observe-intersection.js";
 
+import { logMessage } from '@/utils/logger.js'
+
 export default {
   name: 'mixins/lazyload-on-intersection',
   directives: {
@@ -37,7 +39,7 @@ export default {
       }
     },
     initImage(el) {
-      console.log("lazyload intsecHandler init:\n", {alt: el.alt})
+      logMessage("lazyload intsecHandler init: " + el.alt)
       el.classList.add('v-image--preload')
     },
     loadImage(el) {
@@ -50,7 +52,7 @@ export default {
         // (for the pages where the number of images per row can be changed
         //  interactively by the visitor)
         if (sizes && !el.sizes.endsWith(sizes)) {
-          console.log("lazyload intsecHandler resize:\n", {alt: el.alt})
+          logMessage("lazyload intsecHandler resize: " + el.alt)
           el.sizes = sizes
           el.removeAttribute('data-sizes')
         }
@@ -61,7 +63,7 @@ export default {
         //   el.removeAttribute('data-srcset')
         // }
       } else {
-        console.log("lazyload intsecHandler load:\n", {alt: el.alt})
+        logMessage("lazyload intsecHandler LOAD: " + el.alt)
         el.onload = () => {
           el.classList.remove('v-image--preload')
           el.classList.add('v-image--loaded')
