@@ -26,7 +26,7 @@ export default {
       intsecObserver: undefined,
       intsecObserverOptions: {
         rootMargin: '-20px',
-        threshold: [0],
+        threshold: [0,0.01],
       },
       intsecObserverBehavior: {
         observeOnlyOnce: true,
