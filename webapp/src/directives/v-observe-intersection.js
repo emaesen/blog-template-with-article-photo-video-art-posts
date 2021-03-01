@@ -6,6 +6,8 @@
  * property `intsecObserver`.
  */
 
+import {logError} from '@/utils/logger.js'
+
 const YES = "yes";
 const NO = "no";
 
@@ -58,7 +60,7 @@ export default {
       if (observer instanceof IntersectionObserver) {
         observe(el, observer);
       } else {
-        console.error("Provide `" + binding.name + "` Intersection Observer through `" + intsecObsKey + "` property")
+        logError("Provide `" + binding.name + "` Intersection Observer through `" + intsecObsKey + "` property")
       }
     }
   },
