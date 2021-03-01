@@ -13,7 +13,8 @@
 
 <script>
 import lazyloadOnIntersection from '@/mixins/lazyload-on-intersection.js';
-import { getCmsMedia } from '~/utils/medias'
+import { getCmsMedia } from '@/utils/medias'
+import { logMessage, logError } from '@/utils/logger.js'
 
 /*
  * Expected json structure for data object:
@@ -122,13 +123,13 @@ export default {
     validateData() {
       const data = this.data
       if (!data) {
-        console.error('No base image data provided')
+        logError('ResponsiveImage - No base image data provided')
       } else {
-        if (!data.url) console.error('No image url provided', {data})
-        if (!data.width) console.error('No image width provided for ' + data.url)
-        if (!data.size) console.error('No image size provided for ' + data.url)
-        if (!this.alt && !data.alternativeText) console.log('No image alternativeText provided for ' + data.url)
-        if (!data.formats && data.width > 245) console.log('No alternative image formats provided for ' + data.url)
+        if (!data.url) logError('ResponsiveImage - No image url provided', {data})
+        if (!data.width) logError('ResponsiveImage - No image width provided for ' + data.url)
+        if (!data.size) logError('ResponsiveImage - No image size provided for ' + data.url)
+        if (!this.alt && !data.alternativeText) logMessage('ResponsiveImage - No image alternativeText provided for ' + data.url)
+        if (!data.formats && data.width > 245) logMessage('ResponsiveImage - No alternative image formats provided for ' + data.url)
       }
     },
     imgVariants() {
@@ -141,7 +142,7 @@ export default {
           if (props.size < this.imgSize) {
             imgs.push(`${getCmsMedia(props.url)} ${props.width}w`)
           } else {
-            console.log(`Image variant excluded (too large):\n${props.url}\n(${props.size} > ${this.imgSize})`)
+            logMessage(`ResponsiveImage - Image variant excluded (too large):\n${props.url}\n(${props.size} > ${this.imgSize})`)
           }
         }
       }
@@ -149,7 +150,7 @@ export default {
     },
     onError(err) {
       this.hasError = true
-      console.error('could not load image ', {data:this.data, error:err})
+      logError('ResponsiveImage - could not load image ', {data:this.data, error:err})
     },
   }
 }

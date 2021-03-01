@@ -1,6 +1,8 @@
 import { getCmsMedia } from './medias'
 import { getSeoMetaTags } from './seo'
 
+import { logMessage, logWarning } from '@/utils/logger.js'
+
 export function getMetaTags(opts, pageRoute) {
   if (opts) {
     const { title, description, shareImage, coverImage, photo } = opts
@@ -16,7 +18,7 @@ export function getMetaTags(opts, pageRoute) {
     if (imageUrl) {
       imageUrl = basePath + imageUrl
     } else {
-      //console.log (`no SEO image found for "${title}" page`)
+      logMessage(`no SEO image found for "${title}" page`)
     }
 
     const metaTags = {
@@ -26,10 +28,10 @@ export function getMetaTags(opts, pageRoute) {
         { key: 'canonical', rel: 'canonical', href: pageUrl}
       ]
     }
-    //console.log({metaTags})
+    logMessage(`meta tags for "${title}" page: `, metaTags)
     return metaTags
   } else {
-    //console.warn("No meta tags defined")
+    logWarning("No meta tags defined ", {opts,pageRoute})
     return null
   }
 }
