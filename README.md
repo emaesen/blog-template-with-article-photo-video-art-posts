@@ -126,3 +126,14 @@ query {
   }
 }
 ```
+
+### V0.8.0
+
+V0.1.0 is a feature-conplete version that has some sub-optimal performance due to the current Gridsome/Webpack design:
+
+* The `app.js` file is bloated with data-uri definitions for every single Grdisome/Webpack-managed image anywhere in the webapp (about 10kB per image).
+    It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website.
+* The default sizes for responsive images are limited and can not be configured.
+    To give browsers more image size choices, more responsive image sizes are desired.
+* Responsive images are generated on each build step, negatively impacting the build time, yet the output is always the same.
+    Responsive image generation should happen in a pre-build step.
