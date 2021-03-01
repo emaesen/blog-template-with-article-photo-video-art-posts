@@ -26,9 +26,9 @@ Note: confusingly, Gridsome will copy everything (including subfolder structures
 HOWEVER:
 
 1. Gridsome uses an (in my view) anti-pattern in that all (dynamically accesed - i.e. the file name is not hard-coded in the webapp source files) image files in the `src\assets` folder get a base64 URI encoded blurred version, and those data strings are embedded in the `app.js` file.
-  It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website. A photo gallery for instance will add about 10kB per photo to the `app.js` size.
+    - It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website. A photo gallery for instance will add about 10kB per photo to the `app.js` size.
 2. The Gridsome build processes all `<g-image>` images on each build attempt to not only create the blurred version but also to generate derived smaller responsive image files.
-  This would be much more efficient to do in a one-time pre-build step.
+    - This would be much more efficient to do in a one-time pre-build step.
 
 THEREFOR:
 
@@ -54,21 +54,27 @@ Gridsome (0.7.22) has two plugins that can be used to load data from Strapi CMS:
 ### @gridsome/source-graphql
 
 pro:
-  >> a generic plugin that pulls in Strapi's graphql schema as-is. What's present within Gridsome is the same (aside from a namespace) as what's present in Strapi; including the powerfull Dynamic Zone conditional structures.
-  >> any graphql queries that were written in Strapi's graphql explorer can be copied to UI components (with a minor change to take the namespace into account). This includes conditional logic to handle Strapi's Dynamic Zones.
+
+- a generic plugin that pulls in Strapi's graphql schema as-is. What's present within Gridsome is the same (aside from a namespace) as what's present in Strapi; including the powerfull Dynamic Zone conditional structures.
+- any graphql queries that were written/tested in Strapi's graphql explorer can be copied to UI components (with a minor change to take the namespace into account). This includes conditional logic to handle Strapi's Dynamic Zones.
 
 con:
-  >> Gridsome's pagination support doesn't work, since that expects a specific graphql schema structure using `nodes` and `egdes`.
+
+- Gridsome's pagination support doesn't work, since that expects a specific graphql schema structure using `nodes` and `egdes`.
 
 ### @gridsome/source-strapi
 
 pro:
-  >> a specific plugin that gets Strapi data but puts it in a new schema structure, using `nodes` and `egdes`.
-  >> Gridsome's build-in pagination support works.
+
+- Gridsome's build-in pagination support works.
 
 con:
-  >> the plugin does not support Strapi's Dynamic Zones. Instead it collapses the possible choices into one, and the others are absent. A UI component can only query one possible choice.
+
+- the plugin places Strapi data in a new schema structure, using `nodes` and `egdes`.
+- the plugin does not support Strapi's Dynamic Zones. Instead it collapses the possible choices into one, and the others are absent. A UI component can only query one possible choice.
 
 ### Choice
 
-The choice between the two plugins currently is the choice between adding a custom pagination implmentation to the UI, or adding a solution to Strapi to integrate the possible choices of Dynamic Zones into a fixed schema structure. Since this concept project is aimed at small to medium scale personal websites, with a manageable amount of data, I have opted for the custom pagination and use `source-graphql`.
+The choice between the two plugins currently is the choice between adding a custom pagination implmentation to the UI, or adding a solution to Strapi to integrate the possible choices of Dynamic Zones into a fixed schema structure.
+
+Since this template project is aimed at small to medium scale personal websites, with a manageable amount of data, I have opted to build a custom pagination and use `source-graphql`.

@@ -15,9 +15,9 @@ Note: MongoDB is not required to be used, you may use Strapi's embedded default 
 
 This implementation has a custom image upload service that allows a quality setting to be configured.
 
-## My impressions of Strapi
+## My impressions of Strapi (V3.1.4)
 
-- It's a decent CMS, but has numerous issues
+- It's a decent CMS, but has numerous issues - mainly at the *admin* stage when new content properties are defined. In the *content editing* stage no major issues have been encountered.
   - The UI interface looks nice
     - but I wish there was a way to customize it.
   - I can do most of what I want
@@ -31,13 +31,13 @@ This implementation has a custom image upload service that allows a quality sett
 - Its architecture is brittle:
   - It has frequent non-descriptive "an error occured" messages.
     - Reloading the page seems to resolve whatever the issue is.
-    - Once however the hole system got messed up.
-        Server could not restart anymore.
-        Un-installing and re-installing was the only solution to fix the issue.
-        (Initially the re-install process selected a newer version which led to even more errors - only re-installing to the exact same version as before solved the problem)
+    - Once however the whole system got messed up.
+      - Server could not restart anymore.
+      - Un-installing and re-installing was the only solution to fix the issue.
+        - (Initially the re-install process selected a newer version which led to even more errors - only re-installing to the exact same version as before solved the problem)
   - changing a property name doesn't always propagate to the graphql schema
   - adding a new property to an existing component sometimes is non-editable and grayed out ("No permission to see this field") when trying to use in a content type.
     - reloading the page or restarting the server may or may not fix this.
   - if you create a Single Type with the same name (but singular) as a Collection Type (plural name), the application shows again a non-descriptive "an error occured" message.
-    - it's not possible to restart the server.
+    - in that case it's not possible to restart the server.
     - the conflicting configuration files need to be manually removed before the server can be restarted.
