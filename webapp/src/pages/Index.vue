@@ -47,13 +47,13 @@
           class="organization p-org"
         >
           <dt>
-          <span class="p-role">
+          <span class="p-role org_role">
             {{ org.role }}
           </span>
-          <span v-if="!org.website" class="p-name">
+          <span v-if="!org.website" class="p-name org_name">
             {{ org.name }}
           </span>
-          <span v-if="org.website">
+          <span v-if="org.website" class="org_name">
             <a
               :href="org.website.url"
               target="_blank"
@@ -273,6 +273,9 @@ export default {
   opacity: .7;
 }
 
+.org_role {
+  margin-right: .2em;
+}
 .organization {
   font-style: italic;
   text-align: center;
