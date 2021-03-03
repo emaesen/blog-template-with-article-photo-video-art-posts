@@ -67,7 +67,18 @@ export default {
       placeholderImgSrc: process.env.GRIDSOME_PLACEHOLDER_IMG_SRC
     }
   },
+  created() {
+    // this is for the server-side rendered case:
+    // do not use a placeholder image but use the actual image
+    // so that search engines and other no-javascript readers see the
+    // proper image link
+    this.placeholderImgSrc = this.imgSrc
+  },
   mounted() {
+    // this lifecycle hook is not called during server-side rendering,
+    // but will properly initially use the placeholder image in the 
+    // dynamic client-side rendered case.
+    this.placeholderImgSrc = process.env.GRIDSOME_PLACEHOLDER_IMG_SRC
     this.validateData()
   },
   computed: {
