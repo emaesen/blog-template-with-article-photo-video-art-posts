@@ -1,11 +1,19 @@
 // This is the main.js file. Import global CSS and scripts here.
 // The Client API can be used here. Learn more: gridsome.org/docs/client-api
 
+/* use `require`s if you want to install fonts through fontsource
+ * - this makes it easy to switch/test fonts during development
+ * - but is inefficient in page-load behavior
+ * Alternative: Store files in static folder and define `preload`
+ * settings below
+ */
+/*
 require('fontsource-lora')
 require('fontsource-goldman')
 require('fontsource-eagle-lake')
 require('fontsource-marck-script')
 require('fontsource-share-tech-mono')
+*/
 
 import DefaultLayout from '~/layouts/Default.vue'
 
@@ -14,9 +22,9 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('Layout', DefaultLayout)
 
 
-  /*****************
+  /***********************************
    * router settings
-   *****************/
+   ***********************************/
   router.options.scrollBehavior = function(to, from, savedPosition) {
     return new Promise((resolve) => {
       const is404 = to.name==="*"
@@ -35,10 +43,25 @@ export default function (Vue, { router, head, isClient }) {
     })
   }
 
+  
   /***********************************
-   * meta icon settings
+   * vue-meta preload settings
    ***********************************/
+  const fonts = ['lora-latin-400-normal.woff2', 'marck-script-latin-400-normal.woff2', 'goldman-latin-400-normal.woff2', 'lora-latin-400-italic.woff2', 'eagle-lake-latin-400-normal.woff2', 'lora-latin-700-normal.woff2', 'share-tech-mono-latin-400-normal.woff2']
+  fonts.forEach(font => {
+    head.link.push({
+      rel: 'preload',
+      as: 'font',
+      type: 'font/woff2',
+      crossorigin: 'anonymous',
+      href: '/fonts/' + font
+    })
+  })
 
+
+  /***********************************
+   * vue-meta icon settings
+   ***********************************/
   const ICON_PATH = '/images/icons/';
 
   head.link.push({
@@ -92,9 +115,8 @@ export default function (Vue, { router, head, isClient }) {
   }
   
   /***********************************
-   * misc meta settings
+   * misc vue-meta settings
    ***********************************/
-
   head.htmlAttrs = {
     lang: "en", 
     prefix:"og: http://ogp.me/ns#"
