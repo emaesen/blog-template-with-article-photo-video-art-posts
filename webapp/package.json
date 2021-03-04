@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@gridsome/source-graphql": "^0.1.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "fs-extra": "^9.0.1",
     "gridsome": "^0.7.22",
     "less": "^3.12.2",
