@@ -1,5 +1,5 @@
 <template>
-  <div class="app-opening">
+  <div :class="['app-opening', {'noscript-hide':!isMounted}]">
 
     <Reveal
       ref="revealContainer"
@@ -70,9 +70,11 @@ export default {
       heightviewportClassName: "heightviewport",
       osAnimaClassName: "os_anima",
       animateSignature: true,
+      isMounted: false,
     }
   },
   mounted() {
+    this.isMounted = true
     EventBus.$on('start-animated-opening-screen', this.init)
     this.tagsContainer.addEventListener('transitionend', this.removeTagsContainer);
   },

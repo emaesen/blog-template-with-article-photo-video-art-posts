@@ -18,7 +18,7 @@
           :key="bioItem.id"
           :bioItem="bioItem"
           v-animate-on-intersection
-          :class="[{'anima__slide-in-from-left': index%2===0, 'anima__slide-in-from-right': index%2!==0, v_animate_setup_before_mount:!isMounted}]"
+          :class="[{'anima__slide-in-from-left': index%2===0, 'anima__slide-in-from-right': index%2!==0, v_animate_setup_before_mount:isBeforeMount}]"
         />
       </ul>
 
@@ -41,15 +41,18 @@ export default {
   },
   data() {
     return {
-      isMounted: false
+      isBeforeMount: false
     }
   },
   metaInfo() {
     return getMetaTags(this.bio.seo, this.$route) 
   },
-  mounted: function () {
+  beforeMount() {
+    this.isBeforeMount = true
+  },
+  mounted() {
     this.$nextTick(function () {
-      this.isMounted = true
+      this.isBeforeMount = false
       // this removes the `v_animate_setup_before_mount` class which was only
       // used/necessary to prevent biography items to get triggered for
       // animation before the inner child images have been rendered.
