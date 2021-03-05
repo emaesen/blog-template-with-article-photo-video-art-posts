@@ -52,7 +52,7 @@
       >
         <div>
           <a
-            href="https://github.com/emaesen/concept-vue-gridsome-strapi-app"
+            href="https://github.com/emaesen/blog-template-with-article-photo-video-art-posts"
             target="_blank"
             rel="noopener noreferrer nofollow"
             class="nodeco"
