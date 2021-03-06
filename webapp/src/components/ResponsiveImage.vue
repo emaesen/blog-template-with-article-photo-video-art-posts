@@ -178,6 +178,7 @@ export default {
       const imgSrc = evt.path[0].src || ""
       // remove temporary height value
       this.imgHeightAttValue = null
+      this.imgClass = "during-load"
       if (!!!imgSrc.endsWith(this.placeholderImgSrc)) {
         this.imgClass = "anima__zoom"
       }
@@ -188,6 +189,9 @@ export default {
 
 <style lang="less" scoped>
 .js-yes .before-load {
-  opacity: 0
+  opacity: 0;
+}
+.js-yes .during-load {
+  opacity: 0.5;
 }
 </style>
