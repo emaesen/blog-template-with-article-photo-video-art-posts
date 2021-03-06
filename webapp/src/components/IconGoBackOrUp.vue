@@ -1,6 +1,6 @@
 <template>
   <span
-    class="action go-back-or-up"
+    class="action go-back-or-up nojs-hide"
     :title="title"
   >
     <svg

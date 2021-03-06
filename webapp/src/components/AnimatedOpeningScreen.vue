@@ -3,7 +3,7 @@
 
     <Reveal
       ref="revealContainer"
-      class="os_reveal"
+      class="os_reveal nojs-hide"
       @reveal-done="onRevealDone"
     >
     </Reveal>
@@ -19,7 +19,7 @@
     >
     </AnimatedSVG>
 
-    <div class="os_tags os_opaque" ref="tagsContainer">
+    <div class="os_tags os_opaque nojs-hide" ref="tagsContainer">
       <div
         v-for="tag in authorTags"
         :key="tag.name"
@@ -159,7 +159,7 @@ export default {
   transition: transform 2.5s ease-in-out;
   z-index: 9;
 }
-.signature.os_anima {
+.js-yes .signature.os_anima {
   transform: scale(2.7) translate(3vw,4vh);
 }
 
@@ -194,7 +194,7 @@ export default {
 }
 
 @media all and (max-width: 650px) {
-  .signature {
+  .js-yes .signature {
     position: fixed;
   }
 }

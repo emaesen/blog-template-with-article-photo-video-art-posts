@@ -30,7 +30,7 @@
       >
         <span
           @click.stop.prevent="onNavClick('posts', $event)"
-          class="actionicon"
+          class="actionicon nojs-hide"
         >
           <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
         </span>
@@ -341,96 +341,107 @@ li li {
 }
 
 @media all and (max-width: 650px) {
-  nav {
-    left: 0;
-    width: 100%;
-    padding-left: 10px;
-    margin-left: 0;
-    border-radius: 0;
-    opacity: 0.9;
-    display: block;
-    box-shadow: 0 2px 7px -3px var(--color_border_accent-1);
-
-    background-color: var(--color_bg);
-
-    &.bar-open {
-      z-index: 8;
-      opacity: 0.96;
-    }
-    .nav.menu {
-      transition: all 1s ease-in-out;
-      padding: 0;
-      padding-top: 50px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: none;
-    }
-    .nav.menu.bar-closed {
-      transform: translateY(-100vh);
-      opacity: 0;
-      height: 35px;
-    }
-    .nav.menu.bar-open {
-      height: 1000px;
-      transform: translateY(20px);
-      opacity: 1;
-    }
-    .nav.menu {
-      width: 80%;
-      border: none;
-    }
-    ul {
-      transform: translate(0,0);
-    }
-    ul.expanded {
-      z-index:0;
-    }
-    ul.collapsed {
-      transform: translate(-50px,-30px);
-      z-index:0;
-    }
-
-    .nav.item {
-      float: none;
-      margin-bottom: 5px;
-      box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
-      border-radius: 2px;
-      a {
-        margin: 0;
-        padding: 10px;
-        font-size: 110%;
+  .js-no {
+    nav {
+      position: absolute;
+      top: 60px;
+      .menu-icon {
+        display: none;
       }
     }
-    .nav.item.hassubmenu {
-      max-height: 5em;
-      min-height: 3em;
-      transition: max-height 0.3s linear, min-height 0.9s linear;
-    }
-    .nav.item.hassubmenu.flip {
-      min-height: 15em;
-      max-height: 30em;
-    }
-    .nav.submenu {
-      border: none;
-      box-shadow: none;
+  }
+
+  .js-yes {
+    nav {
+      left: 0;
+      width: 100%;
+      padding-left: 10px;
+      margin-left: 0;
+      border-radius: 0;
+      opacity: 0.9;
+      display: block;
+      box-shadow: 0 2px 7px -3px var(--color_border_accent-1);
+
+      background-color: var(--color_bg);
+
+      &.bar-open {
+        z-index: 8;
+        opacity: 0.96;
+      }
+      .nav.menu {
+        transition: all 1s ease-in-out;
+        padding: 0;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+      }
+      .nav.menu.bar-closed {
+        transform: translateY(-100vh);
+        opacity: 0;
+        height: 35px;
+      }
+      .nav.menu.bar-open {
+        height: 1000px;
+        transform: translateY(20px);
+        opacity: 1;
+      }
+      .nav.menu {
+        width: 80%;
+        border: none;
+      }
+      ul {
+        transform: translate(0,0);
+      }
+      ul.expanded {
+        z-index:0;
+      }
+      ul.collapsed {
+        transform: translate(-50px,-30px);
+        z-index:0;
+      }
+
       .nav.item {
+        float: none;
+        margin-bottom: 5px;
         box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
+        border-radius: 2px;
+        a {
+          margin: 0;
+          padding: 10px;
+          font-size: 110%;
+        }
+      }
+      .nav.item.hassubmenu {
+        max-height: 5em;
+        min-height: 3em;
+        transition: max-height 0.3s linear, min-height 0.9s linear;
+      }
+      .nav.item.hassubmenu.flip {
+        min-height: 15em;
+        max-height: 30em;
+      }
+      .nav.submenu {
+        border: none;
+        box-shadow: none;
+        .nav.item {
+          box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
+        }
+      }
+      .nav.submenu {
+        position: relative;
+        margin-left: 1em;
+      }
+      .menu-icon {
+        visibility: visible;
+      }
+      .nav a::after {
+        background-color: initial !important;
+      }
+      .nav a:hover, .nav a:hover * {
+        background-color: initial !important;
       }
     }
-    .nav.submenu {
-      position: relative;
-      margin-left: 1em;
-    }
-    .menu-icon {
-      visibility: visible;
-    }
-    .nav a::after {
-      background-color: initial !important;
-    }
-    .nav a:hover, .nav a:hover * {
-      background-color: initial !important;
-    }
-
   }
 };
 </style>

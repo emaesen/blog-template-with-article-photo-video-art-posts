@@ -7,7 +7,7 @@
         <div
           v-if="showSelectionToggle"
           @click="cycleSelectionType"
-          class="selection-type-toggle"
+          class="selection-type-toggle nojs-hide"
           title="toggle latest or featured"
         >
           <IconSwitchLF

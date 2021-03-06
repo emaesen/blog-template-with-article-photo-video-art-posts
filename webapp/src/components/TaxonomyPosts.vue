@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="top" class="reserve-space">
+    <div id="top" class="reserve-space nojs-hide">
       <div
         v-if="showUpDownToggle"
         @click="onClickUpDownToggle"

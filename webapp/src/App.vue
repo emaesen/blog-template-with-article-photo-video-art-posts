@@ -1,5 +1,5 @@
 <template>
-  <div :class="['app-container', motionClass]">
+  <div :class="['app-container', motionClass, scriptClass]">
     <header class="header">
       <g-link to="/" class="nodeco above logo" v-if="logoImg">
         <ResponsiveImage
@@ -12,7 +12,7 @@
       </g-link>
       <SiteNav/>
 
-      <div class="color-mode-toggle-container">
+      <div class="color-mode-toggle-container nojs-hide">
         <div
           @click="toggleColorMode"
           class="color-mode-toggle"
@@ -86,7 +86,11 @@ export default {
       colorModeIndexDefault: 0,
       colorModeIndex: 0,
       isAppInit: false,
+      scriptClass: 'js-no',
     }
+  },
+  beforeMount() {
+    this.scriptClass = 'js-yes'
   },
   mounted() {
     if (this.disableMotion) {

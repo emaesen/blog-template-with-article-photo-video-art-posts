@@ -1,5 +1,5 @@
 <template>
-  <div ref="animatedSvg" class="svg-container hidden">
+  <div ref="animatedSvg" class="svg-container temp-hidden">
     <slot></slot>
   </div>
 </template>
@@ -81,7 +81,7 @@ export default {
       const paths = el.getElementsByTagName("path");
       const pathsArray = Array.from(paths);
       this.nrOfPaths = pathsArray.length;
-      this.$refs.animatedSvg.classList.remove("hidden")
+      this.$refs.animatedSvg.classList.remove("temp-hidden")
       pathsArray.forEach((path, i) => {
         this.drawPath(i, path);
       })
@@ -138,5 +138,10 @@ export default {
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-width:.5;
+  stroke: var(--color_icon_stroke);
+  fill: var(--color_icon_fill);
+}
+.js-yes .temp-hidden {
+  visibility: hidden;
 }
 </style>
