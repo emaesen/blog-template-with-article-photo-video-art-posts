@@ -8,13 +8,16 @@
     :data-sizes="mediaSizes"
     @error="onError"
     :width="imgWidth"
+    :height="imgHeightAttValue"
+    @load="onLoad"
+    :class="imgClass"
   >
 </template>
 
 <script>
 import lazyloadOnIntersection from '@/mixins/lazyload-on-intersection.js';
 import { getCmsMedia } from '@/utils/medias'
-import { logMessage, logError } from '@/utils/logger.js'
+import { logMessage, logWarning, logError } from '@/utils/logger.js'
 
 /*
  * Expected json structure for data object:
@@ -64,7 +67,9 @@ export default {
   data: () => {
     return {
       hasError: false,
-      placeholderImgSrc: process.env.GRIDSOME_PLACEHOLDER_IMG_SRC
+      placeholderImgSrc: process.env.GRIDSOME_PLACEHOLDER_IMG_SRC,
+      imgHeightAttValue: null,
+      imgClass: "before-load",
     }
   },
   created() {
@@ -73,6 +78,12 @@ export default {
     // so that search engines and other no-javascript readers see the
     // proper image link
     this.placeholderImgSrc = this.imgSrc
+  },
+  beforeMount() {
+    // temporarily set the image height to reserve space within the DOM.
+    // This ensures proper detection by intersection observer because the 
+    // placeholder image before load is not the same size as the loaded image.
+    this.imgHeightAttValue = this.imgHeight
   },
   mounted() {
     // this lifecycle hook is not called during server-side rendering,
@@ -139,8 +150,8 @@ export default {
         if (!data.url) logError('ResponsiveImage - No image url provided', {data})
         if (!data.width) logError('ResponsiveImage - No image width provided for ' + data.url)
         if (!data.size) logError('ResponsiveImage - No image size provided for ' + data.url)
-        if (!this.alt && !data.alternativeText) logMessage('ResponsiveImage - No image alternativeText provided for ' + data.url)
-        if (!data.formats && data.width > 245) logMessage('ResponsiveImage - No alternative image formats provided for ' + data.url)
+        if (!this.alt && !data.alternativeText) logWarning('ResponsiveImage - No image alternativeText provided for ' + data.url)
+        if (!data.formats && data.width > 245) logWarning('ResponsiveImage - No alternative image formats provided for ' + data.url)
       }
     },
     imgVariants() {
@@ -163,10 +174,20 @@ export default {
       this.hasError = true
       logError('ResponsiveImage - could not load image ', {data:this.data, error:err})
     },
+    onLoad(evt) {
+      const imgSrc = evt.path[0].src || ""
+      // remove temporary height value
+      this.imgHeightAttValue = null
+      if (!!!imgSrc.endsWith(this.placeholderImgSrc)) {
+        this.imgClass = "anima__zoom"
+      }
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-
+.js-yes .before-load {
+  opacity: 0
+}
 </style>
