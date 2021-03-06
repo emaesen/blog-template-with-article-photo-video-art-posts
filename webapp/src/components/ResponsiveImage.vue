@@ -175,7 +175,7 @@ export default {
       logError('ResponsiveImage - could not load image ', {data:this.data, error:err})
     },
     onLoad(evt) {
-      const imgSrc = evt.path[0].src || ""
+      const imgSrc = evt.target.src || ""
       // remove temporary height value
       this.imgHeightAttValue = null
       this.imgClass = "during-load"
