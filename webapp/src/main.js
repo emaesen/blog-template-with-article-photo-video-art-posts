@@ -15,12 +15,7 @@ require('fontsource-marck-script')
 require('fontsource-share-tech-mono')
 */
 
-import DefaultLayout from '~/layouts/Default.vue'
-
 export default function (Vue, { router, head, isClient }) {
-  // Set default layout as a global component
-  Vue.component('Layout', DefaultLayout)
-
 
   /***********************************
    * router settings
@@ -43,9 +38,9 @@ export default function (Vue, { router, head, isClient }) {
     })
   }
 
-  
+
   /***********************************
-   * vue-meta preload settings
+   * vue-meta font preload settings
    ***********************************/
   const fonts = ['lora-latin-400-normal.woff2', 'marck-script-latin-400-normal.woff2', 'goldman-latin-400-normal.woff2', 'lora-latin-400-italic.woff2', 'eagle-lake-latin-400-normal.woff2', 'lora-latin-700-normal.woff2', 'share-tech-mono-latin-400-normal.woff2']
   fonts.forEach(font => {
