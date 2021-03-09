@@ -211,6 +211,23 @@ function createPostsRoutes(opts, createPage) {
   }
 }
 
+async function readWriteAsync(file) {
+  fse.readFile(file, 'utf-8', function(err, data){
+    if (err) throw err
+    // add script tag for global start timestamp
+    const injectedCode1 = '<script>var ___GlobalStartTimeStamp = Date.now()</script>'
+    // add script to flip "js-no" class to "js-yes"
+    const injectedCode2 = '<script>var appClassList=document.getElementById("app").classList; appClassList.remove("js-no"); appClassList.add("js-yes");</script>'
+    const newData = data.replace(/(<\/head>)/i, injectedCode1 + "\n$1")
+                        .replace(/(<\/body>)/i, injectedCode2 + "\n$1")
+
+    fse.writeFile(file, newData, 'utf-8', function (err) {
+      if (err) throw err
+      console.log('INFO: afterBuild embedded script tags in dist/index.html')
+    });
+  });
+}
+
 module.exports = function (api, options) {
 
   api.loadSource(async ({ addCollection }) => {
@@ -222,6 +239,11 @@ module.exports = function (api, options) {
   // api.onCreateNode(options => {
   //   console.log("LOG: onCreateNode",{options})
   // })
+
+  api.afterBuild(async ({context, config, queue, redirects}) => {
+    const indexFile = path.join(config.outputDir,"index.html")
+    await readWriteAsync(indexFile)
+  })
 
   api.createPages(async ({ createPage, graphql }) => {
     // Pages API docs: https://gridsome.org/docs/pages-api/
