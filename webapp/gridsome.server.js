@@ -242,6 +242,15 @@ async function copyErrorFile(config) {
   
 }
 
+function logRedirects(redirects) {
+  logMsg('!>>> following redirect rules are required on website host:')
+  for (const rule of redirects) {
+    // rule.from   - The dynamic path
+    // rule.to     - The HTML file path
+    // rule.status - 200 if rewrite rule
+    logMsg("!>>> redirect from " + rule.from + " - to " + rule.to)
+  }
+}
 
 module.exports = function (api, options) {
 
@@ -258,6 +267,7 @@ module.exports = function (api, options) {
   api.afterBuild(async ({context, config, queue, redirects}) => {
     await modifyBuildIndexFile(config)
     await copyErrorFile(config)
+    logRedirects(redirects)
   })
 
   api.createPages(async ({ createPage, graphql }) => {
