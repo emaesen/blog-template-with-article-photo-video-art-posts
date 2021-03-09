@@ -219,7 +219,7 @@ async function readWriteAsync(file) {
     // add script to flip "js-no" class to "js-yes"
     const injectedCode2 = '<script>var appClassList=document.getElementById("app").classList; appClassList.remove("js-no"); appClassList.add("js-yes");</script>'
     const newData = data.replace(/(<\/head>)/i, injectedCode1 + "\n$1")
-                        .replace(/(<\/body>)/i, injectedCode2 + "\n$1")
+                        .replace(/(<\/header>)/i, injectedCode2 + "\n$1")
 
     fse.writeFile(file, newData, 'utf-8', function (err) {
       if (err) throw err
