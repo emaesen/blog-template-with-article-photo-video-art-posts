@@ -5,16 +5,16 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Vue-Gridsome-Strapi-concept',
-  siteDescription: 'A blog-style webapp using Vue.js, Gridsome and Strapi',
+  siteName: '',
+  siteDescription: '',
   siteUrl: '',
   titleTemplate: '%s',
   metadata: {
-    version: 'V0.2.0',
+    version: 'V0.9.0',
   },
   icon: {
-    favicon: './src/assets/images/icons/favicon.png',
-    touchicon: './src/assets/images/icons/touch-icon.png'
+    favicon: './src/static/images/icons/favicon-512x512.png',
+    touchicon: './src/static/images/icons/apple-touch-icon.png'
   },
   plugins: [
     {
