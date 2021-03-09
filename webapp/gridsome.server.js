@@ -27,8 +27,12 @@ const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), CMS_MEDIA_PATH)
 const CMS_POSTS_PAGELIMIT = process.env.GRIDSOME_CMS_POSTS_PAGELIMIT
 
-console.log("\nprocess.env.NODE_ENV = " + process.env.NODE_ENV)
-console.log("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
+function logMsg(msg, obj) {
+  console.log("\x1b[36m%s\x1b[0m", "INFO: " + msg, obj || "")
+}
+
+logMsg("process.env.NODE_ENV = " + process.env.NODE_ENV)
+logMsg("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
 
 async function getListOfCmsMediaFiles(addCollection) {
   let mediaAssets = []
@@ -50,11 +54,11 @@ async function getListOfCmsMediaFiles(addCollection) {
       }
       return urls
     })
-    console.info(`INFO: Received metadata for ${mediaAssets.length} CMS media assets from  ${CMS_MEDIA_URL}`)
+    logMsg(`Received metadata for ${mediaAssets.length} CMS media assets from  ${CMS_MEDIA_URL}`)
   } else {
     console.error("ERROR: Unable to process CMS media assets metadata")
   }
-  console.log(`Files available from ${CMS_URL}:`, mediaAssets)
+  logMsg(`Files available from ${CMS_URL}:`, mediaAssets)
   return mediaAssets
 }
 
@@ -71,7 +75,7 @@ async function downloadCmsMediaFile(file) {
         responseType: 'stream'
       })
       await response.data.pipe(fse.createWriteStream(targetFile))
-      console.info("INFO: created " + targetFile)
+      logMsg("created " + targetFile)
     } catch (error) {
       console.error(`ERROR: error retrieving ${file}`)
       console.error(error)
@@ -101,7 +105,7 @@ function createPostsRoutes(opts, createPage) {
     // create route for each indivual post page
     // except if skipIndividualPages==true
     if (!opts.skipIndividualPages) {
-      console.info("INFO: create individual " + opts.type + " pages")
+      logMsg("create individual " + opts.type + " pages")
       opts.data.forEach((post) => {
         createPage({
           path: `${basePath}${post.slug}`,
@@ -118,7 +122,7 @@ function createPostsRoutes(opts, createPage) {
       })
     }
 
-    console.info("INFO: create " + opts.type + " entry page + pagination variants")
+    logMsg("create " + opts.type + " entry page + pagination variants")
     // create routes for the posts-type entry page, with pagination
     component = componentBase + 's.vue'
 
@@ -183,14 +187,14 @@ function createPostsRoutes(opts, createPage) {
     }
 
     if (opts.type!=="notes") {
-      console.info("INFO: create " + opts.type + "-level category page")
+      logMsg("create " + opts.type + "-level category page")
       // create dynamic category page
       createPage({
         path: `${basePath}c/:category`,
         component: `./src/templates/Category.vue`
       })
 
-      console.info("INFO: create " + opts.type + "-level series page")
+      logMsg("create " + opts.type + "-level series page")
       // create dynamic series (collection) page
       createPage({
         path: `${basePath}s/:series`,
@@ -199,7 +203,7 @@ function createPostsRoutes(opts, createPage) {
     }
 
     if (opts.type==="notes") {
-      console.info("INFO: create " + opts.type + "-level thread page")
+      logMsg("create " + opts.type + "-level thread page")
       // create dynamic thread page (for Notes only)
       createPage({
         path: `${basePath}t/:thread`,
@@ -207,12 +211,13 @@ function createPostsRoutes(opts, createPage) {
       })
     }
   } else {
-    console.info("INFO: skip " + opts.type + " pages")
+    logMsg("skip " + opts.type + " pages")
   }
 }
 
-async function readWriteAsync(file) {
-  fse.readFile(file, 'utf-8', function(err, data){
+async function modifyBuildIndexFile(config) {
+  const indexFile = path.join(config.outputDir,"index.html")
+  return fse.readFile(indexFile, 'utf-8', function(err, data){
     if (err) throw err
     // add script tag for global start timestamp
     const injectedCode1 = '<script>var ___GlobalStartTimeStamp = Date.now()</script>'
@@ -221,12 +226,22 @@ async function readWriteAsync(file) {
     const newData = data.replace(/(<\/head>)/i, injectedCode1 + "\n$1")
                         .replace(/(<\/header>)/i, injectedCode2 + "\n$1")
 
-    fse.writeFile(file, newData, 'utf-8', function (err) {
+    return fse.writeFile(indexFile, newData, 'utf-8', function (err) {
       if (err) throw err
-      console.log('INFO: afterBuild embedded script tags in dist/index.html')
+      logMsg('afterBuild embedded script tags in ' + indexFile.replace(/.*(webapp.*)/, "$1"))
     });
   });
 }
+
+async function copyErrorFile(config) {
+  const four0FourFile = path.join(config.outputDir,"404.html")
+  const errorFile = path.join(config.outputDir,"error.html")
+  return fse.copyFile(four0FourFile, errorFile)
+          .then(() =>
+            logMsg('afterBuild copied 404.html to error.html'))
+  
+}
+
 
 module.exports = function (api, options) {
 
@@ -241,8 +256,8 @@ module.exports = function (api, options) {
   // })
 
   api.afterBuild(async ({context, config, queue, redirects}) => {
-    const indexFile = path.join(config.outputDir,"index.html")
-    await readWriteAsync(indexFile)
+    await modifyBuildIndexFile(config)
+    await copyErrorFile(config)
   })
 
   api.createPages(async ({ createPage, graphql }) => {
@@ -319,7 +334,7 @@ module.exports = function (api, options) {
 
     if (data.cms.categoriesCount > 0) {
       // create aggregate level category page
-      console.info("INFO: create posts-level category page")
+      logMsg("create posts-level category page")
       createPage({
         path: `/posts/c/:category`,
         component: `./src/templates/Category.vue`
@@ -328,7 +343,7 @@ module.exports = function (api, options) {
 
     if (data.cms.collectionsCount > 0) {
       // create aggregate level series (collection) page
-      console.info("INFO: create posts-level series page")
+      logMsg("create posts-level series page")
       createPage({
         path: `/posts/s/:series`,
         component: `./src/templates/Series.vue`
