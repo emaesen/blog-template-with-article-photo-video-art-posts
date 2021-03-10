@@ -77,10 +77,7 @@ You'll also need to setup the Strapi database connections - see Strapi documenta
 ```bash
 > cd [project-root-folder]/webapp
 > npm install
-> npm run mkmediadir
 ```
-
-(Check that folder `webapp/static/cmsmedia` has been created. If not, create it manually)
 
 ## Usage
 
