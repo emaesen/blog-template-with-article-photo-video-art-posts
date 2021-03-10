@@ -159,7 +159,7 @@ export default {
       // a "series" is defined as a "collection" in CMS because CMS 
       // can not handle names that are the same in singular and 
       // plural form ("series", "series").
-      return this.cms.collections
+      return this.cms && this.cms.collections || []
     },
     series() {
       return this.allSeries.filter(series => series.title.toLowerCase() === this.seriesTitle.toLowerCase())[0]

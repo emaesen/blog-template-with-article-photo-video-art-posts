@@ -69,8 +69,11 @@ export default {
     return getMetaTags(this.note, this.$route) 
   },
   computed: {
+    notes() {
+      return this.$page.cms && this.$page.cms.notes || []
+    },
     note() {
-      return this.$page.cms.notes.filter(note => note.slug === this.slug)[0] || {}
+      return this.notes.filter(note => note.slug === this.slug)[0] || {}
     },
     dateText() {
       let opts = {shortForm:true, showYear:true};

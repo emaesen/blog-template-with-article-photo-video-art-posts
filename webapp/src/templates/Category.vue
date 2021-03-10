@@ -170,7 +170,7 @@ export default {
   },
   computed: {
     categories() {
-      return this.cms.categories
+      return this.cms && this.cms.categories || []
     },
     category() {
       return this.categories.filter(category => category.title === this.categoryTitle)[0]

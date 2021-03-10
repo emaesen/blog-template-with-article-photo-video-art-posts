@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     threads() {
-      return this.cms.threads
+      return  this.cms && this.cms.threads || []
     },
     thread() {
       return this.threads.filter(thread => thread.title.toLowerCase() === this.threadTitle.toLowerCase())[0]
