@@ -63,6 +63,9 @@ async function getListOfCmsMediaFiles(addCollection) {
 }
 
 async function downloadCmsMediaFile(file) {
+  // make sure CMS media folder exists, if not, create it
+  await fse.ensureDir(CMS_MEDIA_TARGET_PATH)
+
   // remove any subfolder in cms filename
   const targetFile = path.join(CMS_MEDIA_TARGET_PATH, file.replace(/\/.*\//,""))
   const targetFileExists = await fse.pathExists(targetFile)
@@ -217,29 +220,27 @@ function createPostsRoutes(opts, createPage) {
 
 async function modifyBuildIndexFile(config) {
   const indexFile = path.join(config.outputDir,"index.html")
-  return fse.readFile(indexFile, 'utf-8', function(err, data){
-    if (err) throw err
-    // add script tag for global start timestamp
-    const injectedCode1 = '<script>var ___GlobalStartTimeStamp = Date.now()</script>'
-    // add script to flip "js-no" class to "js-yes"
-    const injectedCode2 = '<script>var appClassList=document.getElementById("app").classList; appClassList.remove("js-no"); appClassList.add("js-yes");</script>'
-    const newData = data.replace(/(<\/head>)/i, injectedCode1 + "\n$1")
-                        .replace(/(<\/header>)/i, injectedCode2 + "\n$1")
+  const data = await fse.readFile(indexFile, 'utf-8')
 
-    return fse.writeFile(indexFile, newData, 'utf-8', function (err) {
-      if (err) throw err
-      logMsg('afterBuild embedded script tags in ' + indexFile.replace(/.*(webapp.*)/, "$1"))
-    });
-  });
+  // add script tag for global start timestamp
+  const injectedCode1 = '<script>var ___GlobalStartTimeStamp = Date.now()</script>'
+  // add script to flip "js-no" class to "js-yes"
+  const injectedCode2 = '<script>var appClassList=document.getElementById("app").classList; appClassList.remove("js-no"); appClassList.add("js-yes");</script>'
+  const newData = data.replace(/(<\/head>)/i, injectedCode1 + "\n$1")
+                      .replace(/(<\/header>)/i, injectedCode2 + "\n$1")
+
+  await fse.writeFile(indexFile, newData, 'utf-8')
+
+  logMsg('afterBuild embedded script tags in ' + indexFile.replace(/.*(webapp.*)/, "$1"))
 }
 
 async function copyErrorFile(config) {
   const four0FourFile = path.join(config.outputDir,"404.html")
   const errorFile = path.join(config.outputDir,"error.html")
-  return fse.copyFile(four0FourFile, errorFile)
-          .then(() =>
-            logMsg('afterBuild copied 404.html to error.html'))
-  
+
+  await fse.copyFile(four0FourFile, errorFile)
+
+  logMsg('afterBuild copied 404.html to error.html')
 }
 
 function logRedirects(redirects) {
