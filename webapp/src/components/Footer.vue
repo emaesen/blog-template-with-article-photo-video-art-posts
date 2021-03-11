@@ -109,7 +109,7 @@ export default {
     }
   },
   beforeMount() {
-    const version = this.$static.metadata.version;
+    const version = this.metaData.version;
     if (this.isInStandaloneMode()) {
       // Site is running stand-alone as installed web App
       this.version = version + "-A";
@@ -119,6 +119,9 @@ export default {
     }
   },
   computed: {
+    metaData() {
+      return this.$static.metadata
+    },
     global() {
       return this.$static.cms.global || {}
     },
