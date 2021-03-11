@@ -2,7 +2,7 @@ const path = require('path')
 const fse = require('fs-extra')
 
 const { logMsg } = require('./log')
-const { getCodeVersion, getSetBuildVersion } = require('./versioning')
+const { getCodeVersion, getSetBuildInfo } = require('./versioning')
 
 
 async function modifyBuildIndexFile(config) {
@@ -48,11 +48,14 @@ module.exports.beforeBuild = async function(store) {
   // append build version to code version
   // and update store metadata.version
   const codeVersion = await getCodeVersion()
-  const buildVersion = await getSetBuildVersion()
-  const displayVersion = codeVersion + "-" + buildVersion
+  const buildInfo = await getSetBuildInfo()
+  const displayVersion = codeVersion + "-" + buildInfo.version
+  const buildAt = buildInfo.buildAt
   // overwrite the version property of the store metadata
   store.addMetadata('version', displayVersion )
-  logMsg('appended build version to code version: ' + displayVersion )
+  store.addMetadata('buildAt', buildAt )
+  logMsg('modified metadata "version" to append code version = ' + displayVersion )
+  logMsg('added metadata "buildAt" = ' + buildAt )
 }
 
 module.exports.afterBuild = async function(config, redirects) {

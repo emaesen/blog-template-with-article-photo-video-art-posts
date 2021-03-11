@@ -36,6 +36,10 @@
 
 <static-query>
 query {
+  metadata {
+    version
+    buildAt
+  }
   cms {
     global {
       siteName
@@ -102,11 +106,18 @@ export default {
     return {
       htmlAttrs: {
         lang: 'en',
-        "data-color-mode": this.colorMode,
-      }
+        "data-color-mode": this.colorMode
+      },
+      meta: [
+        { name: 'spa-build-version', content: this.metaData.version },
+        { name: 'spa-build-date', content: this.metaData.buildAt }
+      ]
     }
   },
   computed: {
+    metaData() {
+      return this.$static.metadata
+    },
     global() {
       return this.$static.cms.global
     },
