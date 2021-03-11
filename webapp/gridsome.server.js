@@ -26,15 +26,47 @@ const CMS_MEDIA_URL = process.env.CMS_MEDIA_URL
 const CMS_MEDIA_PATH = process.env.GRIDSOME_CMS_MEDIA_PATH
 const CMS_MEDIA_TARGET_PATH = path.join(process.cwd(), CMS_MEDIA_PATH)
 const CMS_POSTS_PAGELIMIT = process.env.GRIDSOME_CMS_POSTS_PAGELIMIT
+const CMS_BUILD_VERSION_FILE = process.env.CMS_BUILD_VERSION_FILE
+const CMS_BUILD_VERSION_FILE_PATH = path.join(process.cwd(), CMS_BUILD_VERSION_FILE)
 
 function logMsg(msg, obj) {
   console.log("\x1b[36m%s\x1b[0m", "INFO: " + msg, obj || "")
 }
 
-logMsg("process.env.NODE_ENV = " + process.env.NODE_ENV)
-logMsg("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
+async function init(store) {
+  logMsg("process.env.NODE_ENV = " + process.env.NODE_ENV)
+  logMsg("process.env.GRIDSOME_MODE = " + process.env.GRIDSOME_MODE + "\n")
 
-async function getListOfCmsMediaFiles(addCollection) {
+  // append build version to code version
+  // and update store metadata.version
+  const codeVersion = await getCodeVersion()
+  await fse.ensureFile(CMS_BUILD_VERSION_FILE)
+  let buildVersion = await fse.readFile(CMS_BUILD_VERSION_FILE_PATH, 'utf-8')
+  if (buildVersion.trim()==="") {
+    buildVersion = 0
+    await fse.outputFile(CMS_BUILD_VERSION_FILE_PATH, buildVersion, 'utf-8')
+    logMsg('created build version file ' + CMS_BUILD_VERSION_FILE)
+  }
+  if (process.env.NODE_ENV === "production") {
+    const newVersion = buildVersion + 1
+    await fse.outputFile(CMS_BUILD_VERSION_FILE_PATH, newVersion, 'utf-8')
+    logMsg('bumped build version to: ' + newVersion)
+  }
+  const displayVersion = codeVersion + "-" + buildVersion
+  // overwrite the version property of the store metadata
+  store.addMetadata('version', displayVersion )
+  logMsg('appended build version to code version: ' + displayVersion )
+}
+
+
+async function getCodeVersion() {
+  const config = path.join(".","gridsome.config.js")
+  const data = await fse.readFile(config, 'utf-8')
+  const version = /version: *['"](V[^'"]+)['"]/.exec(data)[1]
+  return version
+}
+
+async function getListOfCmsMediaFiles() {
   let mediaAssets = []
   let mediaResponse
   try {
@@ -255,9 +287,11 @@ function logRedirects(redirects) {
 
 module.exports = function (api, options) {
 
-  api.loadSource(async ({ addCollection }) => {
+  api.loadSource(async store => {
+    await init(store)
+
     // Data Store API docs: https://gridsome.org/docs/data-store-api/
-    const mediaFiles = await getListOfCmsMediaFiles(addCollection)
+    const mediaFiles = await getListOfCmsMediaFiles()
     await downloadCmsMediaFiles(mediaFiles)
   })
 
