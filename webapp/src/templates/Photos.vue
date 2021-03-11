@@ -29,12 +29,13 @@ import PaginatedPosts from '~/components/PaginatedPosts'
 import RichText from '~/components/RichText'
 import ResponsiveImage from '~/components/ResponsiveImage'
 
+import redirections from '@/mixins/redirections.js'
+
 import { getMetaTags } from '~/utils/meta-tags'
 
 export default {
   name: 'Photos',
-  methods: {
-  },
+  mixins: [redirections],
   components: {
     PaginatedPosts,
     RichText,

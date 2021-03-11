@@ -69,11 +69,14 @@ import SelectedVideos from '~/components/SelectedVideos'
 import SelectedArts from '~/components/SelectedArts'
 import SelectedNotes from '~/components/SelectedNotes'
 
+import redirections from '@/mixins/redirections.js'
+
 import { getMetaTags } from '~/utils/meta-tags'
 
 
 export default {
   name: 'Posts',
+  mixins: [redirections],
   components: {
     ResponsiveImage,
     RichText,
