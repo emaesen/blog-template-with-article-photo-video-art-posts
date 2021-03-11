@@ -40,6 +40,15 @@ async function init(store) {
   // append build version to code version
   // and update store metadata.version
   const codeVersion = await getCodeVersion()
+  const buildVersion = await getSetBuildVersion()
+  const displayVersion = codeVersion + "-" + buildVersion
+  // overwrite the version property of the store metadata
+  store.addMetadata('version', displayVersion )
+  logMsg('appended build version to code version: ' + displayVersion )
+}
+
+
+async function getSetBuildVersion() {
   await fse.ensureFile(CMS_BUILD_VERSION_FILE)
   let buildVersion = await fse.readFile(CMS_BUILD_VERSION_FILE_PATH, 'utf-8')
   if (buildVersion.trim()==="") {
@@ -52,12 +61,8 @@ async function init(store) {
     await fse.outputFile(CMS_BUILD_VERSION_FILE_PATH, newVersion, 'utf-8')
     logMsg('bumped build version to: ' + newVersion)
   }
-  const displayVersion = codeVersion + "-" + buildVersion
-  // overwrite the version property of the store metadata
-  store.addMetadata('version', displayVersion )
-  logMsg('appended build version to code version: ' + displayVersion )
+  return buildVersion
 }
-
 
 async function getCodeVersion() {
   const config = path.join(".","gridsome.config.js")
