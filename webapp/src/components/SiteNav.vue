@@ -403,6 +403,7 @@ li li {
 
       .nav.item {
         float: none;
+        display: grid;
         margin-bottom: 5px;
         box-shadow: 1px 1px 5px -2px var(--color_border_accent-2);
         border-radius: 2px;
