@@ -28,13 +28,13 @@
         :class="['nav item hassubmenu', {flip:isNavpostsExpanded}]"
         role="menuitem"
       >
-        <span
-          @click.stop.prevent="onNavClick('posts', $event)"
-          class="actionicon nojs-hide"
-        >
-          <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
-        </span>
         <g-link to="/posts/" :class="{active:hasSubPageOpen}">
+          <span
+            @click.stop.prevent="onNavClick('posts', $event)"
+            class="actionicon nojs-hide"
+          >
+            <IconArrowUpDown :isArrowUp="isNavpostsExpanded"/>
+          </span>
           Posts
         </g-link>
         <ul :class="['nav submenu', {expanded:isNavpostsExpanded,collapsed:!isNavpostsExpanded}]" role="menu">
@@ -397,7 +397,7 @@ li li {
         z-index:0;
       }
       ul.collapsed {
-        transform: translate(-50px,-30px);
+        transform: translate(-270px,-30px);
         z-index:0;
       }
 
