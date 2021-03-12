@@ -1,11 +1,13 @@
 <template>
   <div class="main-article">
-    <article>
+    <article class="h-entry">
       <h1>
       <span  @click="goBackOrUp">
         <IconGoBackOrUp :title="goBackOrUpText"/>
       </span>
+      <span class="p-name">
         {{ article.title }}
+      </span>
       </h1>
       <div class="meta deemph para">
         <div class="date dt-published">
@@ -13,16 +15,18 @@
         </div>
       </div>
 
-      <ResponsiveImage
-        v-if="image"
-        :alt="article.title"
-        :data="image"
-      />
-      <div class="description para cursive">
-        {{ article.description }}
-      </div>
+      <div class="e-content">
+        <ResponsiveImage
+          v-if="image"
+          :alt="article.title"
+          :data="image"
+        />
+        <div class="description para cursive">
+          {{ article.description }}
+        </div>
 
-      <RichText :data="article.content" class="" />
+        <RichText :data="article.content" />
+      </div>
 
     </article>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div :class="['app-container', motionClass, scriptClass]">
     <header class="header">
-      <g-link to="/" class="nodeco above logo" v-if="logoImg">
+      <g-link to="/" class="nodeco above logo" rel="author" v-if="logoImg">
         <ResponsiveImage
           class="u-logo"
           alt="logo"

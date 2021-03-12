@@ -3,10 +3,10 @@
 
     <h1>{{ homePage.title }}</h1>
 
-    <div class=" h-card vcard">
+    <div class="h-card vcard">
 
       <div id="author" class="author personal">
-        <a class="u-url u-uid" rel="author" href="#author"></a>
+        <a class="u-url u-uid" rel="me" href=""></a>
         <div class="photo u-photo" v-if="photo">
           <ResponsiveImage
             :data="photo"
@@ -18,18 +18,18 @@
           <div class="name p-name fn cursive">
             {{ author.name }}
           </div>
-          <div class="p-location location emph" :title="location">
+          <div class="p-locality location emph" :title="location">
             {{ location }}
           </div>
           <div class="email" v-if="author.email">
             <a
-              rel="me noopener noreferrer nofollow"
+              rel="noopener noreferrer nofollow"
               :href="'mailto:' + author.email"
               class="u-email"
             >{{ author.email }}</a>
           </div>
         </div>
-        <div class="p-role role">
+        <div class="role">
           <span
             v-for="tag in author.tag"
             :key="tag.name"
@@ -44,25 +44,25 @@
         <dl
           v-for="org in organizations"
           :key="org.id"
-          class="organization p-org"
+          class="organization"
         >
           <dt>
-          <span class="p-role org_role">
-            {{ org.role }}
-          </span>
-          <span v-if="!org.website" class="p-name org_name">
-            {{ org.name }}
-          </span>
-          <span v-if="org.website" class="org_name">
-            <a
-              :href="org.website.url"
-              target="_blank"
-              rel="me noopener noreferrer nofollow"
-              class="nowrap u-url"
-            >{{ org.name }}</a>
-          </span>
+            <span class="org_role">
+              {{ org.role }}
+            </span>
+            <span v-if="!org.website" class="p-org org_name">
+              {{ org.name }}
+            </span>
+            <span v-if="org.website" class="org_name">
+              <a
+                :href="org.website.url"
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                class="p-org nowrap u-url"
+              >{{ org.name }}</a>
+            </span>
           </dt>
-          <dd v-if="org.website" class="description p-summary">
+          <dd v-if="org.website" class="description">
             {{ org.website.description }}
           </dd>
         </dl>

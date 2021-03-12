@@ -5,38 +5,42 @@
       <span  @click="goBackOrUp">
         <IconGoBackOrUp :title="goBackOrUpText"/>
       </span>
-      {{ video.title }}
+      <span class="p-name">
+        {{ video.title }}
+      </span>
     </h1>
     <div class="date dt-published">
       {{ datePublishedText }}
     </div>
-    
-    <VideoEl :video="video" class="video-outer-container"/>
 
-    <div class="meta deemph">
-      <div class="date dt-taken">
-        {{ dateCreatedText }}
-      </div>
-      <div class="categories">
-        <span
-          v-for="category in video.categories"
-          :key="category.id"
-          class="category p-category post-category"
-        >
-          <g-link :to="categoryBasePath + category.title" class="nodeco">
-            #{{ category.title }}
-          </g-link>
-        </span>
-      </div>
-      <div v-if="seriesTitle" class="series">
-        Series: 
-        <g-link :to="seriesBasePath + seriesTitle" class="nodeco post-series">
-             ❈ {{ seriesTitle }}
-          </g-link>
-      </div>
-    </div>
+    <div class="e-content">
+      <VideoEl :video="video" class="video-outer-container"/>
 
-    <div v-html="contentAsHtml" class="content para spacious">
+      <div class="meta deemph">
+        <div class="date dt-taken">
+          {{ dateCreatedText }}
+        </div>
+        <div class="categories">
+          <span
+            v-for="category in video.categories"
+            :key="category.id"
+            class="category p-category post-category"
+          >
+            <g-link :to="categoryBasePath + category.title" class="nodeco">
+              #{{ category.title }}
+            </g-link>
+          </span>
+        </div>
+        <div v-if="seriesTitle" class="series">
+          Series: 
+          <g-link :to="seriesBasePath + seriesTitle" class="nodeco post-series p-category">
+              ❈ {{ seriesTitle }}
+            </g-link>
+        </div>
+      </div>
+
+      <div v-html="contentAsHtml" class="content para spacious">
+      </div>
     </div>
   </div>
 </template>

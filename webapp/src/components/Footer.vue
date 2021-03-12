@@ -23,7 +23,7 @@
               <a
                 :href="website.url"
                 target="_blank"
-                rel="me noopener noreferrer nofollow"
+                :rel="(website.isMyProfileOrPersonalSite?'me ':'') + 'noopener noreferrer nofollow'"
                 class="nowrap u-url"
               >{{ website.title }}</a>
               <span class="description">
@@ -90,6 +90,7 @@ query Footer {
           title
           url
           description
+          isMyProfileOrPersonalSite
         }
       }
     }

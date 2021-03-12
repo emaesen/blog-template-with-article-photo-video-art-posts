@@ -1,6 +1,5 @@
 <template>
-  <div>
-    
+  <div class="h-entry">
 
     <span  @click="goBackOrUp">
       <IconGoBackOrUp :title="goBackOrUpText"/>
@@ -9,13 +8,13 @@
       {{ dateText }}
     </div>
 
-    <div  class="main-note h-entry as-note">
-      <div v-html="textAsHtml" class="text para">
+    <div  class="main-note as-note">
+      <div v-html="textAsHtml" class="text para e-content">
       </div>
 
       <div class="meta deemph">
         <div v-if="threadText" class="thread post-thread">
-          <g-link :to="threadBasePath + note.thread.title" class="nodeco">
+          <g-link :to="threadBasePath + note.thread.title" class="nodeco p-category">
             ❈ {{ threadText }}
           </g-link>
         </div>

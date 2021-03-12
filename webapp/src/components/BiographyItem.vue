@@ -8,7 +8,7 @@
     </div>
     <div
       v-if="bioItem.where"
-      class="biography-where p-location"
+      class="biography-where p-locality"
     >
       {{ bioItem.where }}
     </div>

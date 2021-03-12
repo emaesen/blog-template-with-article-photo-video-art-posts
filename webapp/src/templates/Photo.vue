@@ -5,44 +5,47 @@
       <span  @click="goBackOrUp">
         <IconGoBackOrUp :title="goBackOrUpText"/>
       </span>
-      {{ photo.title }}
+      <span class="p-name">
+        {{ photo.title }}
+      </span>
     </h1>
     <div class="date dt-published">
       {{ datePublishedText }}
     </div>
 
+    <div class="e-content">
+      <ResponsiveImage
+        :alt="photo.title"
+        :data="image"
+      />
+      <div class="meta deemph">
+        <div class="date dt-taken">
+          {{ dateCreatedText }}
+        </div>
+        <div class="location">
+          {{ location }}
+        </div>
+        <div class="categories">
+          <span
+            v-for="category in photo.categories"
+            :key="category.id"
+            class="category p-category post-category"
+          >
+            <g-link :to="categoryBasePath + category.title" class="nodeco">
+              #{{ category.title }}
+            </g-link>
+          </span>
+        </div>
+        <div v-if="seriesTitle" class="series">
+          Series: 
+          <g-link :to="seriesBasePath + seriesTitle" class="nodeco post-series p-category">
+              ❈ {{ seriesTitle }}
+            </g-link>
+        </div>
+      </div>
 
-    <ResponsiveImage
-      :alt="photo.title"
-      :data="image"
-    />
-    <div class="meta deemph">
-      <div class="date dt-taken">
-        {{ dateCreatedText }}
+      <div v-html="contentAsHtml" class="content para spacious">
       </div>
-      <div class="location">
-        {{ location }}
-      </div>
-      <div class="categories">
-        <span
-          v-for="category in photo.categories"
-          :key="category.id"
-          class="category p-category post-category"
-        >
-          <g-link :to="categoryBasePath + category.title" class="nodeco">
-            #{{ category.title }}
-          </g-link>
-        </span>
-      </div>
-      <div v-if="seriesTitle" class="series">
-        Series: 
-        <g-link :to="seriesBasePath + seriesTitle" class="nodeco post-series">
-             ❈ {{ seriesTitle }}
-          </g-link>
-      </div>
-    </div>
-
-    <div v-html="contentAsHtml" class="content para spacious">
     </div>
   </div>
 </template>
