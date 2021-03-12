@@ -56,7 +56,7 @@ export default {
   opacity: 1;
 }
 .arrow {
-  stroke: var(--color_text_action_active);
+  stroke: var(--color_icon);
   fill: transparent;
   stroke-linecap: round;
   stroke-linejoin: round;

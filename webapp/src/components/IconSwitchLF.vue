@@ -68,12 +68,12 @@ export default {
   opacity: 1;
 }
 svg {
-  stroke: rgb(var(--base-color-primary-4));
+  stroke: var(--color_icon);
   fill: none;
   
 }
 .circle-inner {
-  fill: rgb(var(--base-color-primary-4));
+  fill: var(--color_icon);
   fill-opacity: .2;
   stroke-width: 3;
   transform-origin: 50% 50%;
