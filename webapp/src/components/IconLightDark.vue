@@ -87,19 +87,6 @@ svg.dark .yin-inner-circle {
   transition: transform 1s cubic-bezier(.61,.09,.45,1.11);
 }
 
-svg.light:hover .yin-inner-circle {
-  transform: scale(2) translateY(25px);
-}
-svg.light:hover .yang-inner-circle {
-  transform: scale(0.5) translateY(25px);
-}
-svg.dark:hover .yang-inner-circle {
-  transform: rotate(-180deg) scale(2) translateY(-25px);
-}
-svg.dark:hover .yin-inner-circle {
-  transform: rotate(-180deg) scale(0.5) translateY(-25px);
-}
-
 svg.dark .yang-half {
   transform: rotate(180deg);
 }
