@@ -40,7 +40,7 @@ export function clearColorModeIndex() {
 
 
 function compoundKey(key, subkey) {
-  return key + "-" + subkey
+  return key + "--" + subkey
 }
 
 export function persistSelectionIndex(subkey, value) {
