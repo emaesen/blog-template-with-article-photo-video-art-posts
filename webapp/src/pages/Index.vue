@@ -6,7 +6,7 @@
     <div class="h-card vcard">
 
       <div id="author" class="author personal">
-        <a class="u-url u-uid" rel="me" href=""></a>
+        <a class="u-url u-uid" rel="me" href="#author"></a>
         <div class="photo u-photo" v-if="photo">
           <ResponsiveImage
             :data="photo"
