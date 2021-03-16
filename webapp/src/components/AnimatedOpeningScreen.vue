@@ -75,10 +75,12 @@ export default {
   },
   mounted() {
     EventBus.$on('start-animated-opening-screen', this.init)
+    EventBus.$on('omit-animated-opening-screen', this.initNoAnima)
     this.tagsContainer.addEventListener('transitionend', this.removeTagsContainer);
   },
   destroyed() {
     EventBus.$off('start-animated-opening-screen', this.init)
+    EventBus.$off('omit-animated-opening-screen', this.init)
     this.tagsContainer.removeEventListener('transitionend', this.removeTagsContainer);
   },
   computed: {
@@ -106,10 +108,14 @@ export default {
     }
   },
   methods: {
-    init() {
-      // don't show opening animation if no-or-reduced motion is 
+    initNoAnima() {
+      this.init({omitReveal:true})
+    },
+    init(opts) {
+      const omitReveal = opts && opts.omitReveal
+      // don't show opening reveal animation if no-or-reduced motion is 
       // requested or if the route leads to a 404 page.
-      if(this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
+      if(!omitReveal && this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
         this.rootElClassList.add(this.heightviewportClassName)
         this.animateTags()
         this.signatureContainer.classList.add(this.osAnimaClassName)

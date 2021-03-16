@@ -66,11 +66,13 @@ import ResponsiveImage from '~/components/ResponsiveImage'
 
 import caniuse from '@/mixins/caniuse'
 
+import { logMessage } from '@/utils/logger.js'
 import { EventBus } from '~/utils/event-bus'
 import {
   persistColorModeIndex,
   retrieveColorModeIndex,
-  clearColorModeIndex
+  persistOpeningAnimationShown,
+  retrieveOpeningAnimationShown
 } from "~/utils/persistence.js";
 
 export default {
@@ -91,6 +93,7 @@ export default {
       colorModeIndex: 0,
       isAppInit: false,
       scriptClass: 'js-no',
+      openingAnimationShown: false
     }
   },
   beforeMount() {
@@ -136,8 +139,18 @@ export default {
     init() {
       this.$nextTick(() => {
         this.initColorMode()
-        EventBus.$emit('start-animated-opening-screen')
+        this.initOpeningAnimation()
       })
+    },
+    initOpeningAnimation() {
+      this.openingAnimationShown = retrieveOpeningAnimationShown(this.openingAnimationShown)
+      logMessage("openingAnimationShown = " + this.openingAnimationShown)
+      if (!this.openingAnimationShown) {
+        EventBus.$emit('start-animated-opening-screen')
+        persistOpeningAnimationShown(true)
+      } else {
+        EventBus.$emit('omit-animated-opening-screen')
+      }
     },
     initColorMode() {
       this.isAppInit = true
@@ -163,6 +176,7 @@ export default {
     setColorModeToOSDefault() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         this.colorModeIndex = 1
+        logMessage("operation system prefers dark color scheme")
       } else {
         this.colorModeIndex = 0
       }
