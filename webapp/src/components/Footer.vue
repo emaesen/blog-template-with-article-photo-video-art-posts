@@ -6,16 +6,16 @@
       class="anima__reveal-through-flip__container"
     >
       <div
-        class="footer-lists social anima__reveal-through-flip-up"
+        class="footer-lists other-sites anima__reveal-through-flip-up"
         v-animate-on-intersection
       >
         <div
           v-for="list in websiteLists"
           :key="list.title"
-          class="social-group"
+          class="other-sites-group"
         >
           <h2 class="mini">{{ list.title }}</h2>
-          <ul class="social">
+          <ul class="other-sites">
             <li
               v-for="website in list.website" 
               :key="website.title"
@@ -168,10 +168,10 @@ footer {
 .footer-lists h2 {
   margin: .9em 0 -.2em;
 }
-.social-group {
+.other-sites-group {
   padding: 0 1em;
 }
-ul.social {
+ul.other-sites {
   margin-bottom: 0;
   list-style-type: none;
   margin-block-start:0;
@@ -180,7 +180,7 @@ ul.social {
   margin-inline-end:0;
   padding-inline-start: 0;
 }
-ul.social > li {
+ul.other-sites > li {
   display: flex;
   align-items: baseline;
   position: relative;
@@ -269,7 +269,7 @@ ul.social > li {
   .description {
     transition: all .3s cubic-bezier(.43,.15,.63,.93);
   }
-  ul.social > li > a:hover + .description {
+  ul.other-sites > li > a:hover + .description {
     opacity: 1;
     color: var(--color_text_action_hover);
   }
