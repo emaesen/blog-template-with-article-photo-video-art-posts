@@ -158,11 +158,7 @@ export default {
     },
     toggleColorMode() {
       this.setColorModeIndex(this.colorModeIndex + 1)
-      if (this.colorModeIndex !== this.colorModeIndexDefault) {
-        persistColorModeIndex(this.colorModeIndex)
-      } else {
-        clearColorModeIndex()
-      }
+      persistColorModeIndex(this.colorModeIndex)
     },
     setColorModeToOSDefault() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
