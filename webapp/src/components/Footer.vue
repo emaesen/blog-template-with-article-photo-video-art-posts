@@ -200,10 +200,11 @@ ul.other-sites > li {
   bottom: 0;
   text-align: center;
   font-size: .75em;
-  padding-top: 5px;
-  box-shadow: 0 -3px 7px -3px var(--color_border_accent-1);
+  padding-top: 9px;
+  box-shadow: 0 3px 27px -9px var(--color_border_accent-1);
   z-index: 999;
-  opacity: .9;
+  opacity: 1;
+  background-color: var(--color_bg_accent-1);
 }
 
 .version {

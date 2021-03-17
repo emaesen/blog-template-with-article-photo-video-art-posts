@@ -198,13 +198,15 @@ a {
   text-decoration: none;
 }
 a.active {
-  font-style: italic;
   color: var(--color_text_action_active);
 }
 a.active--exact {
   cursor: default;
-  font-weight: 800;
   text-decoration: none;
+}
+a.active--exact:not(.nodeco) {
+  letter-spacing: 1px;
+  font-size: 110%;
 }
 a:not(.active--exact):not(.inactive):hover, a:hover * {
   color: var(--color_text_action_hover);
@@ -219,7 +221,7 @@ a:not(.active--exact):not(.nodeco)::after {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   width: 100%;
   background-color: var(--color_text_action_underline);
 }
