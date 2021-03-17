@@ -13,36 +13,42 @@
 </template>
 
 <script>
-import caniuse from '@/mixins/caniuse'
-import { EventBus } from '~/utils/event-bus'
+import { logMessage } from '@/utils/logger.js'
+
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: 'Reveal',
-  mixins: [caniuse],
+  mixins: [],
   data() {
     return {
       nrOfAnimatedBlades: 0,
     }
   },
   mounted() {
-    if(this.caniuse.motion) {
-      this.bladesWrapper.addEventListener('transitionend', this.revealEndCallback);
-      EventBus.$on('start-reveal', this.reveal)
-    }
+    this.bladesWrapper.addEventListener('transitionend', this.revealEndCallback)
+    if (this.doReveal) this.onDoReveal()
   },
   destroyed() {
-    if(this.caniuse.motion) {
-      EventBus.$off('start-reveal', this.reveal)
+    if(this.bladesWrapper) {
       this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
     }
   },
   computed: {
+    ...mapGetters(["mAllow", "mOpeningScreen"]),
     bladesWrapper() {
       return this.$refs.bladesWrapper
-    }
+    },
+    doReveal() {
+      return this.mOpeningScreen.doReveal
+    },
   },
   methods: {
-    reveal() {
+    ...mapMutations([
+      "SET_OPENINGSCREEN_ISREVEALDONE"
+    ]),
+    onDoReveal() {
+      logMessage("openingscreen reveal animation initiated")
       this.bladesWrapper.classList.add('reveal')
     },
     revealEndCallback(ev) {
@@ -53,9 +59,14 @@ export default {
       // 9 blades + wrapper
       if ( this.nrOfAnimatedBlades === 10 ) {
         this.bladesWrapper.removeEventListener('transitionend', this.revealEndCallback)
-        this.$emit('reveal-done')
-        EventBus.$emit('reveal-done')
+        logMessage("openingscreen reveal animation finished")
+        this.SET_OPENINGSCREEN_ISREVEALDONE(true)
       }
+    }
+  },
+  watch: {
+    doReveal(val) {
+      if (val) this.onDoReveal()
     }
   }
 }

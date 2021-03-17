@@ -67,13 +67,8 @@ import ResponsiveImage from '~/components/ResponsiveImage'
 import caniuse from '@/mixins/caniuse'
 
 import { logMessage } from '@/utils/logger.js'
-import { EventBus } from '~/utils/event-bus'
-import {
-  persistColorModeIndex,
-  retrieveColorModeIndex,
-  persistOpeningAnimationShown,
-  retrieveOpeningAnimationShown
-} from "~/utils/persistence.js";
+
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: 'App',
@@ -88,10 +83,6 @@ export default {
   data() {
     return {
       disableMotion: false,
-      colorModes: ['light','dark'],
-      colorModeIndexDefault: 0,
-      colorModeIndex: 0,
-      isAppInit: false,
       scriptClass: 'js-no',
       openingAnimationShown: false
     }
@@ -100,9 +91,6 @@ export default {
     this.scriptClass = 'js-yes'
   },
   mounted() {
-    if (this.disableMotion) {
-      this.caniuse.motion = false
-    }
     this.init()
   },
   metaInfo () {
@@ -118,75 +106,90 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["mAllow", "mColorScheme", "mOpeningScreen"]),
     metaData() {
       return this.$static.metadata
     },
     global() {
       return this.$static.cms.global
     },
+    colorModeIndex() {
+      return this.mColorScheme.selectedIndex
+    },
     colorMode() {
-      return this.colorModes[this.colorModeIndex]
+      return this.mColorScheme.modes[this.colorModeIndex]
     },
     logoImg() {
       const logo = this.global && this.global.siteLogo
       return logo
     },
     motionClass() {
-      return this.caniuse.motion ? "motion-yes" : "motion-no" 
+      return this.mAllow.motion ? "motion-yes" : "motion-no" 
+    },
+    isAnimateDone() {
+      return this.mOpeningScreen.isAnimateDone
     },
   },
   methods: {
+    ...mapMutations([
+      "SET_APP_ISINITDONE",
+      "SET_ALLOW_MOTION",
+      "SET_COLORSCHEME_INDEX",
+      "SET_OPENINGSCREEN_ALLOWANIMATE",
+      "SET_OPENINGSCREEN_DOANIMATE",
+      "SET_SIGNATURESVG_DOANIMATE",
+    ]),
     init() {
-      this.$nextTick(() => {
+      this.SET_ALLOW_MOTION(this.caniuse.motion && !this.disableMotion)
+//      this.$nextTick(() => {
         this.initColorMode()
         this.initOpeningAnimation()
-      })
+        this.$nextTick(() => {
+          this.SET_APP_ISINITDONE(true)
+        })
+//      })
     },
     initOpeningAnimation() {
-      this.openingAnimationShown = retrieveOpeningAnimationShown(this.openingAnimationShown)
-      logMessage("openingAnimationShown = " + this.openingAnimationShown)
-      if (!this.openingAnimationShown) {
-        EventBus.$emit('start-animated-opening-screen')
-        persistOpeningAnimationShown(true)
-      } else {
-        EventBus.$emit('omit-animated-opening-screen')
-      }
+      this.SET_OPENINGSCREEN_DOANIMATE(true)
     },
     initColorMode() {
-      this.isAppInit = true
-      if (window.matchMedia) {
+      if (window.matchMedia && !this.mColorScheme.hasUserPreference) {
+        // get the OS colormode preference unless user had toggled the mode
         this.setColorModeToOSDefault()
         window.matchMedia("(prefers-color-scheme: dark)").onchange = this.setColorModeToOSDefault
       }
-      // override OS colormode preference if colormode was set in app
-      this.setColorModeIndex(retrieveColorModeIndex(this.colorModeIndex))
-      this.$nextTick(() => {
-        this.isAppInit = false
-      })
+      // force metaInfo to update on hydration
+      const colorModeIndex = this.colorModeIndex
+      if (colorModeIndex !== this.mColorScheme.defaultIndex) {
+        this.setColorModeIndex(colorModeIndex + 1)
+        this.setColorModeIndex(colorModeIndex)
+      }
     },
     setColorModeIndex(val) {
-      const maxIndex = this.colorModes.length - 1
-      val = val || Math.abs(val) || this.colorModeIndexDefault
-      this.colorModeIndex = (val > maxIndex ? 0 : val)
+      const maxIndex = this.mColorScheme.modes.length - 1
+      val = val || Math.abs(val) || this.mColorScheme.defaultIndex
+      const selectedIndex = (val > maxIndex ? 0 : val)
+      this.SET_COLORSCHEME_INDEX(selectedIndex)
     },
     toggleColorMode() {
       this.setColorModeIndex(this.colorModeIndex + 1)
-      persistColorModeIndex(this.colorModeIndex)
     },
     setColorModeToOSDefault() {
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        this.colorModeIndex = 1
+        this.setColorModeIndex(this.mColorScheme.modes.indexOf('dark'))
         logMessage("operation system prefers dark color scheme")
       } else {
-        this.colorModeIndex = 0
+        this.setColorModeIndex(this.mColorScheme.modes.indexOf('light'))
+        logMessage("operation system prefers light color scheme")
       }
     }
   },
   watch: {
-    colorModeIndex() {
-      EventBus.$emit('color-scheme-changed', {isAppInit:this.isAppInit})
+    isAnimateDone() {
+      logMessage("opening animation has finished - disable subsequent reveals")
+      this.SET_OPENINGSCREEN_ALLOWANIMATE(false)
     }
-  }
+  },
 }
 </script>
 

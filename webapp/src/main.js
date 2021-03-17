@@ -15,7 +15,11 @@ require('fontsource-marck-script')
 require('fontsource-share-tech-mono')
 */
 
-export default function (Vue, { router, head, isClient }) {
+import vuexStore from "~/store.js"
+
+export default function (Vue, { router, head, isClient, appOptions }) {
+
+  appOptions.store = vuexStore
 
   /***********************************
    * router settings

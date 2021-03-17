@@ -4,7 +4,7 @@ const localStore = (typeof window !== 'undefined') && window.localStorage
 const sessionStore = (typeof window !== 'undefined') && window.sessionStorage
 const colorModeIndex_Key = "epvm:color-mode-index"
 const selectionIndex_Key = "epvm:selection-index"
-const openingAnimationShown_Key = "epvm:opening-animation-shown"
+const allowOpeningAnimation_Key = "epvm:allow-opening-animation"
 
 /* generic functions */
 
@@ -71,6 +71,10 @@ export function clearColorModeIndex() {
   clearLocalData(colorModeIndex_Key)
 }
 
+export function hasColorModeIndex() {
+  return retrieveColorModeIndex() !== null
+}
+
 
 /* get/set selection index for featured/latest posts display */
 
@@ -96,21 +100,21 @@ export function clearSelectionIndex(subkey) {
 }
 
 
-/* get/set openingAnimationShown indicator */
+/* get/set allowOpeningAnimation indicator */
 
-export function persistOpeningAnimationShown(value) {
-  persistSessionData(openingAnimationShown_Key, value)
+export function persistAllowOpeningAnimation(value) {
+  persistSessionData(allowOpeningAnimation_Key, value)
 }
 
-export function retrieveOpeningAnimationShown(curVal) {
+export function retrieveAllowOpeningAnimation(curVal) {
   if (curVal === undefined) {
-    return retrieveSessionData(openingAnimationShown_Key)
+    return retrieveSessionData(allowOpeningAnimation_Key)
   } else {
-    const persistedOpeningAnimationShown = retrieveOpeningAnimationShown()
-    return ensureBoolean(persistedOpeningAnimationShown, curVal)
+    const persistedAllowOpeningAnimation = retrieveAllowOpeningAnimation()
+    return ensureBoolean(persistedAllowOpeningAnimation, curVal)
   }
 }
 
-export function clearOpeningAnimationShown() {
-  clearSessionData(openingAnimationShown_Key)
+export function clearAllowOpeningAnimation() {
+  clearSessionData(allowOpeningAnimation_Key)
 }

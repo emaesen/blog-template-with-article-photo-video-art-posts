@@ -4,7 +4,6 @@
     <Reveal
       ref="revealContainer"
       class="os_reveal nojs-hide"
-      @reveal-done="onRevealDone"
     >
     </Reveal>
 
@@ -15,7 +14,6 @@
       svgId="signature"
       :animate="animateSignature"
       class="signature"
-      @animatedsvg-done="onAnimatedSVGDone"
     >
     </AnimatedSVG>
 
@@ -53,13 +51,13 @@ query {
 import AnimatedSVG from '~/components/AnimatedSVG'
 import Reveal from '~/components/Reveal'
 
-import caniuse from '@/mixins/caniuse'
+import { logMessage } from '@/utils/logger.js'
 
-import { EventBus } from '~/utils/event-bus'
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: 'AnimatedOpeningScreen',
-  mixins: [caniuse],
+  mixins: [],
   components: {
     AnimatedSVG,
     Reveal,
@@ -74,16 +72,14 @@ export default {
     }
   },
   mounted() {
-    EventBus.$on('start-animated-opening-screen', this.init)
-    EventBus.$on('omit-animated-opening-screen', this.initNoAnima)
-    this.tagsContainer.addEventListener('transitionend', this.removeTagsContainer);
+    this.tagsContainer.addEventListener('transitionend', this.removeTagsContainer)
+    if (this.doAnimate) this.onDoAnimate()
   },
   destroyed() {
-    EventBus.$off('start-animated-opening-screen', this.init)
-    EventBus.$off('omit-animated-opening-screen', this.init)
-    this.tagsContainer.removeEventListener('transitionend', this.removeTagsContainer);
+    this.tagsContainer.removeEventListener('transitionend', this.removeTagsContainer)
   },
   computed: {
+    ...mapGetters(["mAllow", "mOpeningScreen", "mSignatureSVG"]),
     cms() {
       return this.$static.cms
     },
@@ -101,33 +97,50 @@ export default {
       return this.global && this.global.author && this.global.author.tag
     },
     signatureContainer() {
-      return this.$refs.signatureContainer.$el;
+      return this.$refs.signatureContainer.$el
     },
     tagsContainer() {
-      return this.$refs.tagsContainer;
-    }
+      return this.$refs.tagsContainer
+    },
+    doAnimate() {
+      return this.mOpeningScreen.doAnimate
+    },
+    isSVGAnimateDone() {
+      return this.mSignatureSVG.isAnimateDone
+    },
+    isRevealDone() {
+      return this.mOpeningScreen.isRevealDone
+    },
   },
   methods: {
-    initNoAnima() {
-      this.init({omitReveal:true})
-    },
-    init(opts) {
-      const omitReveal = opts && opts.omitReveal
+    ...mapMutations([
+      "SET_SIGNATURESVG_DOANIMATE",
+      "SET_OPENINGSCREEN_DOREVEAL",
+      "SET_OPENINGSCREEN_ISANIMATEDONE"
+    ]),
+    onDoAnimate() {
       // don't show opening reveal animation if no-or-reduced motion is 
       // requested or if the route leads to a 404 page.
-      if(!omitReveal && this.caniuse.motion && this.$route.name !== "*" && this.signatureSVG) {
+      if( this.mOpeningScreen.allowAnimate && 
+          this.mAllow.motion && 
+          this.$route.name !== "*" && 
+          this.signatureSVG
+      ) {
+        logMessage("animate opening screen")
         this.rootElClassList.add(this.heightviewportClassName)
         this.animateTags()
         this.signatureContainer.classList.add(this.osAnimaClassName)
         // Trigger layout to set startpoint styles
         this.signatureContainer.getBoundingClientRect()
         this.signatureContainer.classList.add(this.osAnimaTransClassName)
-        EventBus.$emit('start-animatedsvg')
+        this.SET_SIGNATURESVG_DOANIMATE(true)
       } else {
-        this.animateSignature = false
+        if (!this.mAllow.motion) {
+          this.animateSignature = false
+        }
         if(this.signatureSVG) {
           this.placeSignature()
-          EventBus.$emit('start-animatedsvg')
+          this.SET_SIGNATURESVG_DOANIMATE(true)
         }
         this.removeRevealContainer()
         this.removeTagsContainer()
@@ -143,13 +156,17 @@ export default {
         setTimeout(this.removeTagsContainer, 15 * 1000)
       })
     },
-    onAnimatedSVGDone() {
-      EventBus.$emit('start-reveal')
+    onIsSVGAnimateDone() {
+      if( this.mOpeningScreen.allowAnimate && 
+          this.mAllow.motion) {
+        this.SET_OPENINGSCREEN_DOREVEAL(true)
+       }
     },
-    onRevealDone() {
+    onIsRevealDone() {
       this.rootElClassList.remove(this.heightviewportClassName)
       this.removeRevealContainer()
       this.placeSignature()
+      this.SET_OPENINGSCREEN_ISANIMATEDONE(true)
     },
     removeRevealContainer() {
       this.$refs.revealContainer.$el.remove()
@@ -160,6 +177,17 @@ export default {
     placeSignature() {
       this.signatureContainer.classList.remove(this.osAnimaClassName)
     }
+  },
+  watch: {
+    doAnimate(val) {
+      if (val) this.onDoAnimate()
+    },
+    isSVGAnimateDone(val) {
+      if (val) this.onIsSVGAnimateDone()
+    },
+    isRevealDone(val) {
+      if (val) this.onIsRevealDone()
+    },
   },
 }
 </script>

@@ -5,12 +5,13 @@
 </template>
 
 <script>
-import caniuse from '@/mixins/caniuse'
-import { EventBus } from '~/utils/event-bus'
+import { logMessage } from '@/utils/logger.js'
+
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: 'AnimatedSVG',
-  mixins: [caniuse],
+  mixins: [],
   props: {
     svgId: {
       type: String
@@ -21,91 +22,83 @@ export default {
   },
   data() {
     return {
-      colorStroke: "#ccc",
-      colorFill: "#ccc",
       nrOfPaths: 0,
       nrOfAnimatedPaths: 0,
       drawTimeSeconds: 0.4,
     }
   },
   mounted() {
-    this.initStyles()
-
-    EventBus.$on('color-scheme-changed', this.onColorSchemeChanged)
-
-    if(this.animate && this.caniuse.motion) {
-      this.svgEl.addEventListener('transitionend', this.animationEndCallback);
-      EventBus.$on('start-animatedsvg', this.onStartAnimatedsvg)
-    } else {
-      this.initStyles()
-      this.setStyles(this.svgSelector)
-    }
-
+    this.svgEl.addEventListener('transitionend', this.animationEndCallback)
+    if (this.doAnimate) this.onDoAnimate()
   },
   destroyed() {
     this.svgEl.removeEventListener('transitionend', this.animationEndCallback)
-    EventBus.$off('color-scheme-changed', this.onColorSchemeChanged)
-    EventBus.$off('start-animatedsvg', this.onStartAnimatedsvg)
   },
   computed: {
+    ...mapGetters(["mApp", "mAllow", "mSignatureSVG", "mColorScheme"]),
     svgSelector() {
       return "#"+this.svgId
     },
     svgEl() {
       return document.querySelector(this.svgSelector)
     },
+    doAnimate() {
+      return this.mSignatureSVG.doAnimate
+    },
+    isAnimateDone() {
+      return this.mSignatureSVG.isAnimateDone
+    },
+    selectedColorMode() {
+      return this.mColorScheme.selectedIndex
+    },
   },
   methods: {
-    onColorSchemeChanged(opts) {
-      const isAppInit = opts && opts.isAppInit
-      if(!isAppInit) {
-        this.drawTimeSeconds = 0.1
-        window.setTimeout(() => {
-          this.initStyles()
-          if(this.animate && this.caniuse.motion) {
-            this.drawSVG(this.svgSelector)
-          } else {
-            this.setStyles(this.svgSelector)
-          }
-        },500)
+    ...mapMutations([
+      "SET_SIGNATURESVG_ISANIMATEDONE"
+    ]),
+    onColorSchemeChanged() {
+      this.drawTimeSeconds = 0.2
+      this.drawSVG(this.svgSelector, {reset:true})
+    },
+    onDoAnimate() {
+      logMessage("animate signature SVG")
+      this.drawSVG(this.svgSelector)
+    },
+    drawSVG(selector, opts) {
+      const el = document.querySelector(selector)
+      const paths = el.getElementsByTagName("path")
+      const pathsArray = Array.from(paths)
+      this.nrOfPaths = pathsArray.length
+      if(opts && opts.reset) {
+        pathsArray.forEach((path, i) => {
+          path.style = null
+        })
       }
-    },
-    onStartAnimatedsvg() {
-      window.setTimeout(() => {
-        this.initStyles()
-        this.drawSVG(this.svgSelector)
-      },0)
-    },
-    drawSVG(selector) {
-      const el = document.querySelector(selector);
-      const paths = el.getElementsByTagName("path");
-      const pathsArray = Array.from(paths);
-      this.nrOfPaths = pathsArray.length;
       this.$refs.animatedSvg.classList.remove("temp-hidden")
       pathsArray.forEach((path, i) => {
-        this.drawPath(i, path);
+        if(this.animate) {
+          this.drawPath(i, path)
+        }
       })
     },
     drawPath(i, el) {
       const strokeDrawTiming = this.drawTimeSeconds + 's'
       const fillDrawTiming = (1.5 * this.drawTimeSeconds) + 's'
       const delay = (0.75 * this.drawTimeSeconds * i) + 's'
-      const length = el.getTotalLength();
-      //console.log({i, el, length})
+      const length = el.getTotalLength()
       // Clear any previous transition
-      el.style.transition = 'none';
+      el.style.transition = 'none'
       // Set startpoint
-      el.style.strokeDasharray = length + ' ' + length;
-      el.style.strokeDashoffset = length;
-      el.style.fill = 'transparent';
-      el.style.stroke = this.colorStroke
+      el.style.strokeDasharray = length + ' ' + length
+      el.style.strokeDashoffset = length
+      el.style.fill = 'transparent'
       // Trigger layout to set startpoint styles
-      el.getBoundingClientRect();
+      el.getBoundingClientRect()
       // Define transition
-      el.style.transition = 'stroke-dashoffset ' + strokeDrawTiming + ' ease-in-out ' + delay + ', fill ' + fillDrawTiming + ' ease-in-out ' + delay;
+      el.style.transition = 'stroke-dashoffset ' + strokeDrawTiming + ' ease-in-out ' + delay + ', fill ' + fillDrawTiming + ' ease-in-out ' + delay
       // Set endpoint to trigger start of animation
-      el.style.strokeDashoffset = '0';
-      el.style.fill = this.colorFill;
+      el.style.strokeDashoffset = '0'
+      el.style.fill = null
     },
     animationEndCallback(ev) {
       // because there are multiple paths that are being animated,
@@ -115,21 +108,18 @@ export default {
       this.nrOfAnimatedPaths ++
       if (this.nrOfAnimatedPaths === 2 * this.nrOfPaths) {
         this.svgEl.removeEventListener('transitionend', ()=>{})
-        this.$emit('animatedsvg-done')
-        EventBus.$emit('animatedsvg-done')
+        this.SET_SIGNATURESVG_ISANIMATEDONE(true)
       }
     },
-    initStyles() {
-      const styles = getComputedStyle(document.body)
-      this.colorStroke = styles.getPropertyValue('--color_icon_stroke')
-      this.colorFill = styles.getPropertyValue('--color_icon_fill')
+  },
+  watch: {
+    doAnimate(val) {
+      if (val) this.onDoAnimate()
     },
-    setStyles(selector) {
-      const el = document.querySelector(selector)
-      el.style.stroke = this.colorStroke
-      el.style.fill = this.colorFill
+    selectedColorMode(val) {
+      this.onColorSchemeChanged()
     }
-  }
+  },
 }
 </script>
 
