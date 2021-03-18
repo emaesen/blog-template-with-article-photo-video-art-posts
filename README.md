@@ -10,6 +10,8 @@ In development mode, the website uses hot-reload to automatically refresh sectio
 
 In production mode, pages are pre-generated to their own static HTML file for optimal access performance and for search engine optimization.
 
+Simply upload/deploy the `webapp\dist` folder to your website host of choice. The website is static and does not require custom back-end code to run on the server so you can take advantage of the most basic service plan of your website host.
+
 This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio) as its original foundation, expanded upon that, and has a much more complete feature set available out-of-the-box.
 
 ## Project status
