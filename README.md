@@ -1,26 +1,89 @@
 # Template for a personal blog/photo/article website
 
-A mobile-friendly, hackable, minimalistic yet full-featured blog-style single-page-application website template for Gridsome/Vue.js that uses Strapi CMS for content and GraphQL as data layer. You may use any database that's supported by Strapi (default SQLite)
+## Project summary
+
+A mobile-friendly, hackable, minimalistic yet full-featured blog-style single-page-application (SPA) website template for `Gridsome` and `Vue.js` that uses `Vuex` for state management, `Strapi CMS` for content and `GraphQL` as data layer. To store the content, you may use any database that's supported by Strapi (default `SQLite`)
 
 No cloud dependencies - the whole site and CMS can be installed and run locally on your PC/laptop.
 
 In development mode, the website uses hot-reload to automatically refresh sections of the page that have been changed.
 
-In production mode, each dynamic page is pre-generated to its own static HTML file for optimal access performance and for search engine optimization.
+In production mode, pages are pre-generated to their own static HTML file for optimal access performance and for search engine optimization.
 
 This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/strapi-starter-gridsome-portfolio) as its original foundation, expanded upon that, and has a much more complete feature set available out-of-the-box.
 
 ## Project status
 
-This project is in the final stages of development.
+This project is released.
 
-It is complete enough to try out.
+My personal website [epvm.name](https://epvm.name) is generated entirely and solely with this project. It provides an overview of available functionality. Note that the opening animation will only appear if an SVG file with `id="signature"` has been provided (through the CMS).
 
 ## Intended audience
 
-This project is intended for people with an intermediate to advanced knowledge of JavaScript and website development. Either to use as a basis to create a personal website for themselves, or to use as a design template to create websites for others.
+This project is intended for people with an intermediate to advanced knowledge of JavaScript and website development. It can be used either as a basis to create a personal website for themselves, or to use as a quick-start template to create websites for others.
 
-## Features
+As an author, you can manage your blog locally, with full control over the code and your content, and deploy a generated set of static files to your web host of choice.
+
+## Website template features
+
+- Modern, mobile-friendly Single Page Application
+- Different post types
+  - Article
+  - Photo
+  - Art
+  - Video
+  - Note
+- Pages
+  - Home
+  - Biography
+  - About
+  - Posts (Articles/Photos/Art/Videos/Notes)
+    - with pagination
+- Posts & Pages allow for
+  - Image Gallery
+  - Rich Text content with customized Markdown formatting
+    - Headers (H1 to H6)
+    - Links
+    - Images
+    - Lists (ordered/unordered/description)
+    - Tables (basic)
+    - bold/italic/underlined/strike-through
+    - Quotes
+    - Code blocks and code snippets
+    - Custom paragraph CSS classes
+      - cursive
+      - emphasize
+      - note
+      - boxed
+      - mono
+    - Custom "liquid tags"
+      - emphasize
+      - labeled note
+      - side note
+      - CSS class
+- Taxonomy: category, series and thread
+- SEO support
+  - Open graph & twitter card meta tagging
+  - Static web pages pre-generation
+- IndieWeb tagging
+- Minimal custom CSS
+  - Light/Dark color mode
+  - Easy to swap color scheme
+    - 1 primary and 2 secondary colors, each with 5 gradations
+  - Easy to swap font selections
+    - 5 fonts: for body, header, emphasize, cursive and mono
+- Minimal custom JS
+  - No external libraries aside from the Gridsome/VueJs framework
+  - Simple custom date formatting
+  - Custom markdown parser with liquid tag support
+  - Custom logging module in development mode
+- Progressive lazy-loading images (220, 275, 370, 550, 840, 1100, 1680, 2200, 2520 and 3300 pixels) with default plain placeholder image
+- Custom SVG icons
+  - most animated
+- HTML/JS/CSS minification
+- user preferences are stored in Local and Session Storage
+
+## Code organization
 
 This project has two components:
 
@@ -43,13 +106,17 @@ The IndieWeb proposes syndication methods (so you can own your data, publish to 
 
 ## Technology used
 
-Javscript framework for dynamic web apps: [Vue.js](https://vuejs.org/)
+Javascript runtime environment: [Node.js](https://nodejs.org/en/)
+
+Javascript framework for dynamic web apps: [Vue.js](https://vuejs.org/)
+
+Web app state management: [Vuex](https://vuex.vuejs.org/)
 
 Static site generator: [Gridsome](https://gridsome.org/)
 
 Headless content management system: [Strapi](https://strapi.io/)
 
-Query language: [GraphQL](https://graphql.org/)
+Data query language: [GraphQL](https://graphql.org/)
 
 Database: [MongoDB](https://www.mongodb.com/)
 
@@ -57,6 +124,8 @@ If used, `MongoDB` should be installed separately, globally on the host system. 
 You may also choose any other database supported by Strapi; by default it will use [SQLite](https://sqlite.org/).
 
 ## Installation
+
+Install [Node.js](https://nodejs.org/en/)
 
 ### Install CMS
 
@@ -118,6 +187,31 @@ View production version of webapp at <http://localhost:9012/>
 
 Upload/deploy the `webapp\dist` folder to your website host of choice.
 
+### Configure website host redirect rules
+
+The build script will indicate for which paths rewrite/redirect rules need to be setup on your server. For instance, the output may indicate:
+
+`from /p/photos/c/:category - to /p/photos/c/_category.html`
+
+Depending on your server's configuration options you have two options:
+
+1) define *rewrite* rules to serve file `/p/photos/c/_category.html` whenever a path starting with `/p/photos/c/` is requested
+2) define *redirect* rules to redirect to `p/photos/?category=` whenever a path starting with `p/photos/c/` is requested`
+
+On AWS, this specific redirect rule would look like:
+
+```json
+  {
+    "Condition": {
+      "KeyPrefixEquals": "p/photos/c/"
+    },
+    "Redirect": {
+      "HostName": "[your-host-name-here]",
+      "ReplaceKeyPrefixWith": "p/photos/?category="
+    }
+  },
+```
+
 ## Tools used
 
 (This is not an endorsement for the resources listed below. It's simply the set of tools that I happened to use for this project)
@@ -158,11 +252,22 @@ query {
 
 ### V0.8.0
 
-V0.8.0 is a feature-conplete version that has some sub-optimal performance due to the current Gridsome/Webpack design:
+V0.8.0 is a feature-complete version that has some sub-optimal performance due to the current Gridsome/Webpack design:
 
-* The `app.js` file is bloated with data-uri definitions for every single Grdisome/Webpack-managed image anywhere in the webapp (about 10kB per image).
-  * It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website.
-* The default sizes for responsive images are limited and can not be configured.
-  * To give browsers more image size choices, more responsive image sizes are desired.
-* Responsive images are generated on each build step, negatively impacting the build time, yet the output is always the same.
-  * Responsive image generation should happen in a pre-build step.
+- The `app.js` file is bloated with data-uri definitions for every single Grdisome/Webpack-managed image anywhere in the webapp (about 10kB per image).
+  - It is essential to keep this `app.js` file as small as possible since its size will to a large extent determine initial load time of the website.
+- The default sizes for responsive images are limited and can not be configured.
+  - To give browsers more image size choices, more responsive image sizes are desired.
+- Responsive images are generated on each build step, negatively impacting the build time, yet the output is always the same.
+  - Responsive image generation should happen in a pre-build step.
+
+### V1.1.0
+
+V1.1.0 is a public release with performance enhancements over the current Gridsome/Webpack design:
+
+- Added custom configurable responsive image generator in Strapi CMS, with option to adjust the quality, number and size of responsive image variants per uploaded image.
+- The Gridsome build is customized to copy these images to the webapp in the static folder, if and only if they do not exist already.
+- This bypasses Gridsome's native responsive image generation on each build step, improving build performance.
+- No data-uri's are created for each image, instead a single plain placeholder image is used.
+
+In addition, it uses `Vuex` for state management instead of the message bus implementation in the previous release.
