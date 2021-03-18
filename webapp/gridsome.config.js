@@ -10,11 +10,11 @@ module.exports = {
   siteUrl: '',
   titleTemplate: '%s',
   metadata: {
-    version: 'V0.9.0',
+    version: 'V1.1.0',
   },
   icon: {
-    favicon: './src/static/images/icons/favicon-512x512.png',
-    touchicon: './src/static/images/icons/apple-touch-icon.png'
+    favicon: './static/images/icons/favicon-512x512.png',
+    touchicon: './static/images/icons/apple-touch-icon.png'
   },
   plugins: [
     {
