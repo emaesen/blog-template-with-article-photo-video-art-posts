@@ -200,9 +200,13 @@ a {
 a.active {
   color: var(--color_text_action_active);
 }
+a.stealth,
 a.active--exact {
   cursor: default;
   text-decoration: none;
+}
+a.stealth {
+  color: inherit;
 }
 a.active--exact:not(.nodeco) {
   letter-spacing: 1px;

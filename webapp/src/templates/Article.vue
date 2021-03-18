@@ -13,6 +13,17 @@
         <div class="date dt-published">
           {{ dateText }}
         </div>
+        <div class="categories">
+          <span
+            v-for="category in article.categories"
+            :key="category.id"
+            class="category p-category post-category"
+          >
+            <g-link :to="categoryBasePath + category.title" class="nodeco">
+              #{{ category.title }}
+            </g-link>
+          </span>
+        </div>
       </div>
 
       <div class="e-content">
@@ -94,6 +105,9 @@ export default {
       let text = this.formattedDate(this.article.createdAt, opts);
       return text;
     },
+    categoryBasePath() {
+      return '/p/articles/c/'
+    },
   },
   methods: {
   },
@@ -101,16 +115,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dt-published {
+.meta {
   position: relative;
   top: -3em;
   font-style: italic;
   font-size: 0.9em;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 .description {
   text-align: right;
   margin-top: -2em;
   margin-bottom: 2em;
+}
+.category {
+  font-size: 0.85em;
 }
 </style>

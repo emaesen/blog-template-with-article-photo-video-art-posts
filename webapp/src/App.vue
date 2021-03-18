@@ -1,7 +1,10 @@
 <template>
   <div :class="['app-container', motionClass, scriptClass]">
     <header class="header">
-      <g-link to="/" class="nodeco above logo" rel="author" v-if="logoImg">
+
+      <a rel="author" :class="['p-author h-card nodeco', authorClass]" href="/#author">{{ author }}</a>
+
+      <g-link to="/" class="nodeco above logo" v-if="logoImg">
         <ResponsiveImage
           class="u-logo"
           alt="logo"
@@ -10,6 +13,7 @@
           width="65"
         />
       </g-link>
+
       <SiteNav/>
 
       <div class="color-mode-toggle-container nojs-hide">
@@ -22,11 +26,17 @@
         </div>
       </div>
     </header>
+
     <main>
       <transition name="fade" mode="out-in" appear>
         <router-view/>
       </transition>
     </main>
+
+    <div class="indie-current-page-url">
+      reference: <a class="u-url nodeco stealth" :href="currentPageUrl">{{ currentPageUrl }}</a>
+    </div>
+
     <Footer/>
 
     <AnimatedOpeningScreen class="os"/>
@@ -51,6 +61,9 @@ query {
         size
         alternativeText
         formats
+      }
+      author {
+        name
       }
     }
   }
@@ -111,7 +124,10 @@ export default {
       return this.$static.metadata
     },
     global() {
-      return this.$static.cms.global
+      return this.$static.cms.global || {}
+    },
+    author() {
+      return this.global.author && this.global.author.name
     },
     colorModeIndex() {
       return this.mColorScheme.selectedIndex
@@ -120,15 +136,23 @@ export default {
       return this.mColorScheme.modes[this.colorModeIndex]
     },
     logoImg() {
-      const logo = this.global && this.global.siteLogo
+      const logo = this.global.siteLogo
       return logo
     },
     motionClass() {
       return this.mAllow.motion ? "motion-yes" : "motion-no" 
     },
+    authorClass() {
+      return this.logoImg ? "indie-author-with-logo" : "indie-author-without-logo"
+    },
     isAnimateDone() {
       return this.mOpeningScreen.isAnimateDone
     },
+    currentPageUrl() {
+      const pagePath = this.$route && this.$route.path || ""
+      const basePath = process.env.GRIDSOME_SITE_URL
+      return basePath + pagePath
+    }
   },
   methods: {
     ...mapMutations([
@@ -213,6 +237,18 @@ export default {
 }
 .color-mode-toggle {
   display: inline-block;
+}
+.indie-current-page-url {
+  font-size: 50%;
+  opacity: 0.1;
+}
+.indie-author-with-logo {
+  visibility: hidden;
+}
+.indie-author-without-logo {
+  font-family: var(--font_family_cursive), cursive;
+  font-size: 130%;
+  line-height: normal;
 }
 /*
 @media all and (min-width: 650px) {
