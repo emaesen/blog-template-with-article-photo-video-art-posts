@@ -31,12 +31,12 @@ async function copyErrorFile(config) {
 }
 
 async function logRedirects(redirects) {
-  logMsg('!>>> following redirect rules are required on website host:')
+  logMsg('!>>> following rewrite rules are required on website host:')
   for (const rule of redirects) {
     // rule.from   - The dynamic path
     // rule.to     - The HTML file path
     // rule.status - 200 if rewrite rule
-    logMsg("!>>> redirect from " + rule.from + " - to " + rule.to)
+    logMsg("!>>> from " + rule.from + " - to " + rule.to)
   }
 }
 
