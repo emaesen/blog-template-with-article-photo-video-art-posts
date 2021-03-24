@@ -109,3 +109,4 @@ dist
 **_ref_*
 *wip.*
 **/dist*
+**/package-lock.json
