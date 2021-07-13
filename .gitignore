@@ -110,3 +110,4 @@ dist
 *wip.*
 **/dist*
 **/package-lock.json
+*.code-workspace
