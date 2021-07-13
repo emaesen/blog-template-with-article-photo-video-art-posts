@@ -18,7 +18,7 @@ This project used [strapi-starter-gridsome-portfolio](https://github.com/strapi/
 
 This project is released.
 
-My personal website [epvm.name](https://epvm.name) is generated entirely and solely with this project. It provides an overview of available functionality. Note that the opening animation will only appear if an SVG file with `id="signature"` has been provided (through the CMS).
+My personal website [epvm.name](https://epvm.name) is generated entirely and solely with this project. It provides an overview of available functionality. Note that the opening animation will only appear if an SVG file with `id="signature"` has been provided (through the CMS). SEE SCREENSHOTS BELOW.
 
 ## Intended audience
 
@@ -279,3 +279,47 @@ In addition, it uses `Vuex` for state management instead of the message bus impl
 ### V1.2.0
 
 - Minor improvements to indieweb tagging.
+
+## Screenshots
+
+Below are screenshot from the implementation of my own website [epvm.name](https://epvm.name).
+
+### Screenshot - CMS home-page content
+
+![screenshot](screenshot-cms-home-content.png)
+
+### Screenshot - CMS home-page seo
+
+![screenshot](screenshot-cms-home-seo.png)
+
+### Screenshot - CMS global
+
+![screenshot](screenshot-cms-global.png)
+
+### Screenshot - CMS media library
+
+![screenshot](screenshot-cms-media-library.png)
+
+### Screenshot - CMS photos collection
+
+![screenshot](screenshot-cms-photos.png)
+
+### Screenshot - CMS photo page
+
+![screenshot](screenshot-cms-photo.png)
+
+### Screenshot - CMS biography page
+
+![screenshot](screenshot-cms-biography.png)
+
+### Screenshot - Website home page
+
+![screenshot](screenshot-epvm.png)
+
+### Screenshot - Website posts page
+
+![screenshot](screenshot-epvm-posts.png)
+
+### Screenshot - Website photos page
+
+![screenshot](screenshot-epvm-photos.png)
