@@ -127,7 +127,9 @@ You may also choose any other database supported by Strapi; by default it will u
 
 ## Installation
 
-Install [Node.js](https://nodejs.org/en/)
+### Install [Node.js](https://nodejs.org/en/)
+
+### Clone this project
 
 ### Install CMS
 
@@ -273,3 +275,7 @@ V1.1.0 is a public release with performance enhancements over the current Gridso
 - No data-uri's are created for each image, instead a single plain placeholder image is used.
 
 In addition, it uses `Vuex` for state management instead of the message bus implementation in the previous release.
+
+### V1.2.0
+
+- Minor improvements to indieweb tagging.
