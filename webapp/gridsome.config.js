@@ -10,7 +10,7 @@ module.exports = {
   siteUrl: '',
   titleTemplate: '%s',
   metadata: {
-    version: 'V1.1.0',
+    version: 'V1.2.0',
   },
   icon: {
     favicon: './static/images/icons/favicon-512x512.png',
