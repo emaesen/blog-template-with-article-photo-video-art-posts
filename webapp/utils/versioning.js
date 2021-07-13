@@ -17,7 +17,8 @@ function formatJson(data) {
 
 module.exports.getSetBuildInfo = async function() {
   await fse.ensureFile(CMS_BUILD_VERSION_FULL_PATH)
-  const now =(new Date()).toLocaleString()
+  const options = { dateStyle: "medium", timeStyle: "short" }
+  const now =(new Date()).toLocaleString('en-US', options)
   let data = await fse.readFile(CMS_BUILD_VERSION_FULL_PATH, 'utf-8')
   
   if (data==="") {
