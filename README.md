@@ -197,7 +197,7 @@ The build script will indicate for which paths rewrite/redirect rules need to be
 
 `from /p/photos/c/:category - to /p/photos/c/_category.html`
 
-Depending on your server's configuration options you have two options:
+Depending on your server's configuration options you have two choices:
 
 1) define *rewrite* rules to serve file `/p/photos/c/_category.html` whenever a path starting with `/p/photos/c/` is requested
 2) define *redirect* rules to redirect to `p/photos/?category=` whenever a path starting with `p/photos/c/` is requested`
