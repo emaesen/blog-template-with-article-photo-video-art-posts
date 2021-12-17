@@ -106,6 +106,9 @@ export default {
   mixins: [animateOnIntersection],
   data() {
     return {
+      intsecObserverOptions: {
+        rootMargin: '126px',
+      },
       version: "",
     }
   },
@@ -153,8 +156,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.anima__reveal-through-flip-up {
+  animation-duration: 1.8s;
+}
 footer {
-  margin-top: 9em;
+  margin-top: 3em;
   overflow: hidden;
   font-size: .95em;
 }
