@@ -248,9 +248,6 @@ export default {
   flex-direction: row;
   align-items: center;
   margin-bottom: 2em;
-  > * {
-    margin-right: 2em;
-  }
 }
 .name {
   line-height: 1em;
