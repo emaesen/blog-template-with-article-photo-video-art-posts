@@ -23,7 +23,7 @@
               <a
                 :href="website.url"
                 target="_blank"
-                :rel="(website.isMyProfileOrPersonalSite?'me ':'') + 'noopener noreferrer nofollow'"
+                :rel="(website.isMyProfileOrPersonalSite?'me ':'') + 'noopener'"
                 class="nowrap u-url"
               >{{ website.title }}</a>
               <span class="description">
@@ -54,12 +54,12 @@
           <a
             href="https://github.com/emaesen/blog-template-with-article-photo-video-art-posts"
             target="_blank"
-            rel="noopener noreferrer nofollow"
+            rel="noopener"
             class="nodeco"
           >Website template</a><br>by <a
             href="https://epvm.name"
             target="_blank"
-            rel="noopener noreferrer nofollow"
+            rel="noopener"
             class="nodeco"
           >Edward Maesen</a>
         </div>

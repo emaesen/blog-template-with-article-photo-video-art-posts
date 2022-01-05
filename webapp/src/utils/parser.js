@@ -167,7 +167,7 @@ export function parseAsHtml(txt, classNames, getMediaUrl) {
     /* internal link */
     .replace(/\[([^\]]+)\]\((\/[^\)]*)\)/g, '<a href="$2">$1</a>' )
     /* external link */
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer nofollow" class="' + extLinkClassName + '">$1</a>' + (extLinkIconClassName?'<i class="' + extLinkIconClassName + '"></i>':'') ))
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="' + extLinkClassName + '">$1</a>' + (extLinkIconClassName?'<i class="' + extLinkIconClassName + '"></i>':'') ))
     /* liquid tags */
     /* emph liquid tag */
     .replace(/{% emph '([^']+)' %}/g, "<span class='emph'>$1</span>")
