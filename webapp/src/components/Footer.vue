@@ -23,7 +23,7 @@
               <a
                 :href="website.url"
                 target="_blank"
-                :rel="(website.isMyProfileOrPersonalSite?'me ':'') + 'noopener'"
+                :rel="(website.isMyProfileOrPersonalSite?'me ':'') + 'noopener nofollow noreferrer'"
                 class="nowrap u-url"
               >{{ website.title }}</a>
               <span class="description">
