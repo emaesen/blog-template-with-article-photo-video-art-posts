@@ -23,7 +23,7 @@
           </div>
           <div class="email" v-if="author.email">
             <a
-              rel="noopener"
+              rel="noopener nofollow noreferrer"
               :href="'mailto:' + author.email"
               class="u-email"
             >{{ author.email }}</a>
@@ -57,7 +57,7 @@
               <a
                 :href="org.website.url"
                 target="_blank"
-                rel="noopener"
+                rel="noopener nofollow noreferrer"
                 class="p-org nowrap u-url"
               >{{ org.name }}</a>
             </span>

@@ -54,12 +54,12 @@
           <a
             href="https://github.com/emaesen/blog-template-with-article-photo-video-art-posts"
             target="_blank"
-            rel="noopener"
+            rel="noopener nofollow noreferrer"
             class="nodeco"
           >Website template</a><br>by <a
             href="https://epvm.name"
             target="_blank"
-            rel="noopener"
+            rel="noopener nofollow noreferrer"
             class="nodeco"
           >Edward Maesen</a>
         </div>
